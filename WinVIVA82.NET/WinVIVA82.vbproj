@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D5155A5D-B1A8-403C-AF64-65A271F133DF}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>WinVIVA</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>WinVIVA.frmMainMenu</StartupObject>
+    <AssemblyMajorVersion>4</AssemblyMajorVersion>
+    <AssemblyMinorVersion>6</AssemblyMinorVersion>
+    <AssemblyRevisionNumber>1</AssemblyRevisionNumber>
+    <GenerateRevisionNumber>False</GenerateRevisionNumber>
+    <AssemblyCompanyName>DTCEL</AssemblyCompanyName>
+    <StartWithIE>False</StartWithIE>
+    <ApplicationIcon>WinVIVA.ico</ApplicationIcon>
+    <RootNamespace>WinVIVA</RootNamespace>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>0E71B1CAA5489F47149F91C3F6863C2B8964407A</ManifestCertificateThumbprint>
+    <ManifestKeyFile>WinVIVA11152012_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <SignAssembly>false</SignAssembly>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationVersion>6.5.2.%2a</ApplicationVersion>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>WinVIVA.xml</DocumentationFile>
+    <DebugSymbols>True</DebugSymbols>
+    <DefineDebug>True</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>WinVIVA.xml</DocumentationFile>
+    <DebugSymbols>False</DebugSymbols>
+    <DefineDebug>False</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>Win32=True</DefineConstants>
+    <DocumentationFile>WinVIVA.xml</DocumentationFile>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>Win32=True</DefineConstants>
+    <DocumentationFile>WinVIVA.xml</DocumentationFile>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>
+    </DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility">
+      <Name>Microsoft.VisualBasic.Compatibility</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.Office.Interop" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Microsoft.VisualBasic.Compatibility" />
+    <Import Include="Microsoft.VisualBasic.CompilerServices" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.vb" />
+    <Compile Include="AuxLine.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AuxLines.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BOP.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BottomPackage.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ClipboardMetafileHelper.vb" />
+    <Compile Include="CurrentPair.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CurrentProfile.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FatigueCurve.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="frmAbout.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAuxLines.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmAuxLines.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAuxLines.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmComputation.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmComputation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmComputation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCurrent.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmCurrent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCurrent.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDBConfig.Designer.vb">
+      <DependentUpon>frmDBConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDBConfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDosData.Designer.vb">
+      <DependentUpon>frmDosData.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDosData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGlobalParms.Designer.vb">
+      <DependentUpon>frmGlobalParms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmGlobalParms.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMainMenu.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmMainMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMainMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOtherRiserProperties.Designer.vb">
+      <DependentUpon>frmOtherRiserProperties.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOtherRiserProperties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProjDesc.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmProjDesc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmProjDesc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRiser.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmRiser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRiser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSegments.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmSegments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSegments.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStaticSolution.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmStaticSolution.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStaticSolution.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSupSpring.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmSupSpring.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSupSpring.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTabulateResults.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmTabulateResults.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTabulateResults.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LatSupport.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LatSupports.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LMRP.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modFileUtilities.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modGridUtilities.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modPlot.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modPrintGraphics.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modRegConstants.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modRegistry.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modUtility.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="PreFile.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Project.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Riser.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Segment.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Segments.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StaticSolution.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StaticSolutionPoint.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Water.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WinVIVA.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="frmAbout.resX">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAuxLines.resX">
+      <DependentUpon>frmAuxLines.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmComputation.resX">
+      <DependentUpon>frmComputation.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCurrent.resX">
+      <DependentUpon>frmCurrent.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDBConfig.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmDBConfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDosData.resX">
+      <DependentUpon>frmDosData.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGlobalParms.resX">
+      <DependentUpon>frmGlobalParms.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMainMenu.resX">
+      <DependentUpon>frmMainMenu.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOtherRiserProperties.resx">
+      <DependentUpon>frmOtherRiserProperties.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProjDesc.resX">
+      <DependentUpon>frmProjDesc.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRiser.resX">
+      <DependentUpon>frmRiser.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSegments.resX">
+      <DependentUpon>frmSegments.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStaticSolution.resX">
+      <DependentUpon>frmStaticSolution.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSupSpring.resX">
+      <DependentUpon>frmSupSpring.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTabulateResults.resX">
+      <DependentUpon>frmTabulateResults.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </Content>
+    <Content Include="WinVIVA.ico" />
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram10.cd" />
+    <None Include="ClassDiagram11.cd" />
+    <None Include="ClassDiagram12.cd" />
+    <None Include="ClassDiagram13.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
+    <None Include="ClassDiagram4.cd" />
+    <None Include="ClassDiagram7.cd" />
+    <None Include="ClassDiagram8.cd" />
+    <None Include="ClassDiagram9.cd" />
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="WinVIVA_TemporaryKey.pfx" />
+    <BaseApplicationManifest Include="My Project\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="MSDATASRC">
+      <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

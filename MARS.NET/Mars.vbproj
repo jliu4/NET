@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <MyType>WindowsForms</MyType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68AB0094-55BB-4164-85FD-2F893C6063AF}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>MARS</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>MARS.frmMain</StartupObject>
+    <AssemblyMajorVersion>2</AssemblyMajorVersion>
+    <AssemblyMinorVersion>2</AssemblyMinorVersion>
+    <AssemblyRevisionNumber>0</AssemblyRevisionNumber>
+    <GenerateRevisionNumber>False</GenerateRevisionNumber>
+    <AssemblyCompanyName>DTCEL</AssemblyCompanyName>
+    <StartWithIE>False</StartWithIE>
+    <ApplicationIcon>Mars.ico</ApplicationIcon>
+    <RootNamespace>MARS</RootNamespace>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>MARS.xml</DocumentationFile>
+    <DebugSymbols>True</DebugSymbols>
+    <DefineDebug>True</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>MARS.xml</DocumentationFile>
+    <DebugSymbols>False</DebugSymbols>
+    <DefineDebug>False</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.Compatibility">
+      <Name>Microsoft.VisualBasic.Compatibility</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.XML">
+      <Name>System.XML</Name>
+    </Reference>
+    <COMReference Include="AxMSComctlLib">
+      <Guid>{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <WrapperTool>aximp</WrapperTool>
+    </COMReference>
+    <COMReference Include="AxMSFlexGridLib">
+      <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>aximp</WrapperTool>
+    </COMReference>
+    <COMReference Include="AxSysInfoLib">
+      <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>aximp</WrapperTool>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <COMReference Include="Microsoft.Vbe.Interop">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <COMReference Include="MSComctlLib">
+      <Guid>{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+    <COMReference Include="MSFlexGridLib">
+      <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+    <COMReference Include="office">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <COMReference Include="SysInfoLib">
+      <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Microsoft.VisualBasic.Compatibility" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\commonCode\AssemblyInfo.vb">
+      <Link>AssemblyInfo.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Constants.vb">
+      <Link>Constants.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Current.vb">
+      <Link>Current.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\CurrentData.vb">
+      <Link>CurrentData.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\CurrentPair.vb">
+      <Link>CurrentPair.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\DrftFCbyFreq.vb">
+      <Link>DrftFCbyFreq.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\DrftForceCoef.vb">
+      <Link>DrftForceCoef.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\EnvForceCoef.vb">
+      <Link>EnvForceCoef.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\EnvLoad.vb">
+      <Link>EnvLoad.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Force.vb">
+      <Link>Force.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ForceCoef.vb">
+      <Link>ForceCoef.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmAbout.Designer.vb">
+      <Link>frmAbout.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmAbout.vb">
+      <Link>frmAbout.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmCurrent.Designer.vb">
+      <Link>frmCurrent.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmCurrent.vb">
+      <Link>frmCurrent.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmEnviron.Designer.vb">
+      <Link>frmEnviron.Designer.vb</Link>
+      <DependentUpon>frmEnviron.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\commonCode\frmEnviron.vb">
+      <Link>frmEnviron.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmOptions.Designer.vb">
+      <Link>frmOptions.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmOptions.vb">
+      <Link>frmOptions.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmProgress.Designer.vb">
+      <Link>frmProgress.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmProgress.vb">
+      <Link>frmProgress.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmTransient.designer.vb">
+      <Link>frmTransient.designer.vb</Link>
+      <DependentUpon>frmTransient.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\commonCode\frmTransient.vb">
+      <Link>frmTransient.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\Metocean.vb">
+      <Link>Metocean.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modGridUtilities.vb">
+      <Link>modGridUtilities.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modPlot.vb">
+      <Link>modPlot.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modRegConstants.vb">
+      <Link>modRegConstants.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modRegistry.vb">
+      <Link>modRegistry.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modUtilityFunctions.vb">
+      <Link>modUtilityFunctions.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Motion.vb">
+      <Link>Motion.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\RAObyFreq.vb">
+      <Link>RAObyFreq.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\RAOs.vb">
+      <Link>RAOs.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Riser.vb">
+      <Link>Riser.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipDamp.vb">
+      <Link>ShipDamp.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipGlobal.vb">
+      <Link>ShipGlobal.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipLocal.vb">
+      <Link>ShipLocal.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipMass.vb">
+      <Link>ShipMass.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipYawRate.vb">
+      <Link>ShipYawRate.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\UpgradeSupport.vb">
+      <Link>UpgradeSupport.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wave.vb">
+      <Link>Wave.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wind.vb">
+      <Link>Wind.vb</Link>
+    </Compile>
+    <Compile Include="Anchor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Anchor3d.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AnchorLines.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BoatDrawer.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Box3d.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Braces.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Columns.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CurrentPairs.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CurrentProfile.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Deck3d.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DrillRig.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExcelReporter.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FairLead.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="frmAnalyses.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmAnalyses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAnalyses.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAnalysesB.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmAnalysesB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAnalysesB.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCatenary.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmCatenary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCatenary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMoorLines.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmMoorLines.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMoorLines.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMove.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmMove.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMove.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPlot.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmPlot.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPlot.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProjDesc.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmProjDesc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmProjDesc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWells.Designer.vb">
+      <DependentUpon>frmWells.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmWells.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarsIni.vb" />
+    <Compile Include="MoorLine.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MoorSystem.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Octagon3d.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Outboard3d.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PipeLines.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pontoon3d.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Project.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pyramid.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seabed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Segment.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="threeDGrapher.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="threeDLine.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="threeDObject.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="threeDObjects.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="threeDRect.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Vessel.vb" />
+    <Compile Include="WaterSurface.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Well.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wells.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="xyzAxis.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="..\commonCode\frmEnviron.resx">
+      <Link>frmEnviron.resx</Link>
+      <DependentUpon>frmEnviron.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\commonCode\frmTransient.resx">
+      <Link>frmTransient.resx</Link>
+      <DependentUpon>frmTransient.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAnalyses.resX">
+      <DependentUpon>frmAnalyses.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAnalysesB.resX">
+      <DependentUpon>frmAnalysesB.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCatenary.resX">
+      <DependentUpon>frmCatenary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resX">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMoorLines.resX">
+      <DependentUpon>frmMoorLines.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMove.resX">
+      <DependentUpon>frmMove.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPlot.resX">
+      <DependentUpon>frmPlot.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProjDesc.resX">
+      <DependentUpon>frmProjDesc.vb</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Mars.ico" />
+    <EmbeddedResource Include="frmWells.resX">
+      <DependentUpon>frmWells.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="_UpgradeReport.htm">
+      <SubType>Preview</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

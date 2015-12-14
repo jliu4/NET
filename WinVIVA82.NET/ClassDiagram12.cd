@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Segoe UI" Size="9" />
+  <Class Name="WinVIVA.AuxLine" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>AuxLine.vb</FileName>
+      <HashCode>AAAAAAAAAAAAkEIAAAAAAAIABAAAEAAAAAAAAAAgAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.AuxLines" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>AuxLines.vb</FileName>
+      <HashCode>EAIAAAAAQAAAABAAQAAACAQEAAEEAAAAIABAAQAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WinVIVA.BOP" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>BOP.vb</FileName>
+      <HashCode>AAAAAAgARAAAAAAAAAAACEAACAAAAAAIAABAAAAIAwA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.BottomPackage" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>BottomPackage.vb</FileName>
+      <HashCode>AAAAAAAAAAIgAgAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.ClipboardMetafileHelper" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ClipboardMetafileHelper.vb</FileName>
+      <HashCode>AIAAAAAAAAAAAAAAAAIgAAAAAAIAAAQAAEAIAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.CurrentPair" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CurrentPair.vb</FileName>
+      <HashCode>AAAAAABAAC0AAAAAAAAAAAAAAhAAEAAgAAAAAACAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.CurrentProfile" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CurrentProfile.vb</FileName>
+      <HashCode>EAKAAAAAAAAAABAAAAAAAAUEAAEAAAAAAAIAAAAAACQ=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WinVIVA.FatigueCurve" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>FatigueCurve.vb</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAQAAAAAIAAAAAAAIQEAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmAbout" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmAbout.vb</FileName>
+      <HashCode>IwGIoNBAACAAgCAgAADAgQACIBDAAAgggQAAAgqBAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmAuxLines" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmAuxLines.vb</FileName>
+      <HashCode>AI0AACAAAKggwUEIBgSAgcASAAIBAFBAAAACCBEkCAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmComputation" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmComputation.vb</FileName>
+      <HashCode>AAEAAAACASAAABcAAACgAMACAAAACAAEAAAIKAEwAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmCurrent" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmCurrent.vb</FileName>
+      <HashCode>AKEEBQAAhK5AxEUIRgiBAMQyIIIABlEyAByASFu1Dlg=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmDBConfig" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDBConfig.vb</FileName>
+      <HashCode>AQIAAACAAiQACAEAEACCAEACAAAAIBAAAACIIAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmDosData" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDosData.vb</FileName>
+      <HashCode>AAEAAAgAACCAAAEAAACBAEASEAEFABAAAAgAAACigAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmFatigue" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmFatigue.vb</FileName>
+      <HashCode>AAEAAQIAICAAAAUAAMjBQcACMEoAAEIAAAgCAAQAAAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmNaturalFrequencyMode" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmNatualFrequecyMode.vb</FileName>
+      <NewMemberFileName>frmGlobalParms.vb</NewMemberFileName>
+      <HashCode>AEABAQAgAAAARACACIAAAMACAAAAAAACAAAAIAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmMainMenu" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmMainMenu.vb</FileName>
+      <HashCode>o3mggAJmJuEKEBQkCoChcwATEQLBA0SyoO1AwAgIAU0=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmProjDesc" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmProjDesc.vb</FileName>
+      <HashCode>AAEABCAAACAAEAEAAACAAMECAAAAAEAAAAAAIEAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmRiser" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmRiser.vb</FileName>
+      <HashCode>QI0IgniTCSgBIYkMEAqLCsQKHoblIEmAQAQgDwQAqII=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmSegments" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSegments.vb</FileName>
+      <HashCode>AosAkQAgMao4gUFIBgSRYMECgAIBMVAoAAWAABEgCBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmStaticSolution" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmStaticSolution.vb</FileName>
+      <HashCode>AIFWgAAAAKp8wUkYhgCLQMATBAKBkFAAANwAABMlKRA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmSupSpring" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupSpring.vb</FileName>
+      <HashCode>IAEAAAAAEKkAgUEYBoSJAMACAAIBAFAAAADAABEgCAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.frmTabulateResults" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmTabulateResults.vb</FileName>
+      <HashCode>UiAEAIAAAGAAgUFAABCBAEACAAAAAAAAABBQAAACAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.LatSupport" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>LatSupport.vb</FileName>
+      <HashCode>IAAAAAAAAAQAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.LatSupports" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>LatSupports.vb</FileName>
+      <HashCode>AAIAAAAAAAAAABAAAAAAAAQEAAEAAAAAAAAAAABAACA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WinVIVA.LMRP" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>LMRP.vb</FileName>
+      <HashCode>AAAAAAgARAAAAAAAAAAACEAACAAAAAAIAABAAAAIAwA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.PreFile" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>PreFile.vb</FileName>
+      <HashCode>AAAAAgAAAAAAAAAAwAAAAAAEAAAAAAAAAAAAAAAQAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.Project" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Project.vb</FileName>
+      <HashCode>AIGAYAABAIoAIsJgAAIKIBQkAAggICIAEBAMQAJAFAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.Riser" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Riser.vb</FileName>
+      <HashCode>g0kWTAAAQpAAMACAEgAUgAZEBiAAAgBAghIRTSFQNAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.Segment" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Segment.vb</FileName>
+      <HashCode>1AEJIAgAQAKQAEAAIgAgCAAAyAEAGgQMAABAQAAIgAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.Segments" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Segments.vb</FileName>
+      <HashCode>AAIAAAAAAAAAABAAAAIAAAQEAAEAAAAAAAEAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WinVIVA.StaticSolution" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>StaticSolution.vb</FileName>
+      <HashCode>AAIgAAAAAAAAABAAAAAAAAQEAAEAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WinVIVA.StaticSolutionPoint" Collapsed="true">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>StaticSolutionPoint.vb</FileName>
+      <HashCode>AAAAAAAQACACEAAAAAAAAAAABAgAgiBgAAAAAAAgDAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.Water" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Water.vb</FileName>
+      <HashCode>IAAAgAAAEAAAAgAAAAEAAAABAAAAAAhAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinVIVA.My.MySettings" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAABAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Module Name="WinVIVA.modFileUtilities" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>modFileUtilities.vb</FileName>
+      <HashCode>SMwagOAWoAIATGJoAJaxYwAAAQAA/EcDAgBoIgIgIgQ=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.modGridUtilities" Collapsed="true">
+    <Position X="2.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>modGridUtilities.vb</FileName>
+      <HashCode>AAAAAAASgAAAAAAACQAAAAAAAAAAAAAAEAAAAAAQAAA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.modPlot" Collapsed="true">
+    <Position X="4" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>modPlot.vb</FileName>
+      <HashCode>AAAAAQAAAAAAIAAAAAIAAAAQABIAAIAAAEAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.modPrintGraphics" Collapsed="true">
+    <Position X="5.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>modPrintGraphics.vb</FileName>
+      <HashCode>AAAAAAACAAAAACAAAAMAAAAQAAAAAAAAQAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.modRegConstants" Collapsed="true">
+    <Position X="7.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>modRegConstants.vb</FileName>
+      <HashCode>iWIw5wQqxiJJhjECrQwAvwEdgdgbpIkYaQIRSRQFoAU=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.modRegistry" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>modRegistry.vb</FileName>
+      <HashCode>ACAAEQpFAo8LMDACAUaAgAQCIMEgCyAAQGBnIgEMCQg=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.modUtility" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>modUtility.vb</FileName>
+      <HashCode>IIEAAAAAAAAAAAABAACgAAQABAAAAAAIAEAAAAACASg=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.VIVAMain" Collapsed="true">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>WinVIVA.vb</FileName>
+      <HashCode>hAIgMChGRJWIoUEAiAQHJRAAzhSoAiCBaJVCAQAuFHE=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.My.Resources.Resources" Collapsed="true">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+  <Module Name="WinVIVA.My.MySettingsProperty" Collapsed="true">
+    <Position X="2.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Module>
+</ClassDiagram>
