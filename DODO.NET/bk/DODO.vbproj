@@ -129,156 +129,147 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.vb" />
-    <Compile Include="Constants.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\AssemblyInfo.vb">
+      <Link>AssemblyInfo.vb</Link>
     </Compile>
-    <Compile Include="Current.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Current.vb">
+      <Link>Current.vb</Link>
     </Compile>
-    <Compile Include="CurrentData.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\CurrentData.vb">
+      <Link>CurrentData.vb</Link>
     </Compile>
-    <Compile Include="CurrentPair.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\CurrentPair.vb">
+      <Link>CurrentPair.vb</Link>
     </Compile>
-    <Compile Include="DrftFCbyFreq.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\DrftFCbyFreq.vb">
+      <Link>DrftFCbyFreq.vb</Link>
     </Compile>
-    <Compile Include="DrftForceCoef.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\DrftForceCoef.vb">
+      <Link>DrftForceCoef.vb</Link>
     </Compile>
-    <Compile Include="EnvForceCoef.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\EnvForceCoef.vb">
+      <Link>EnvForceCoef.vb</Link>
     </Compile>
-    <Compile Include="EnvLoad.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\EnvLoad.vb">
+      <Link>EnvLoad.vb</Link>
     </Compile>
-    <Compile Include="Force.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Force.vb">
+      <Link>Force.vb</Link>
     </Compile>
-    <Compile Include="ForceCoef.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\ForceCoef.vb">
+      <Link>ForceCoef.vb</Link>
     </Compile>
-    <Compile Include="frmAbout.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmAbout.vb</DependentUpon>
+    <Compile Include="..\commonCode\frmAbout.Designer.vb">
+      <Link>frmAbout.Designer.vb</Link>
     </Compile>
-    <Compile Include="frmAbout.vb">
+    <Compile Include="..\commonCode\frmAbout.vb">
+      <Link>frmAbout.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCurrent.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmCurrent.vb</DependentUpon>
+    <Compile Include="..\commonCode\frmCurrent.Designer.vb">
+      <Link>frmCurrent.Designer.vb</Link>
     </Compile>
-    <Compile Include="frmCurrent.vb">
+    <Compile Include="..\commonCode\frmCurrent.vb">
+      <Link>frmCurrent.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEnviron.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmEnviron.vb</DependentUpon>
+    <Compile Include="..\commonCode\frmEnviron.Designer.vb">
+      <Link>frmEnviron.Designer.vb</Link>
     </Compile>
-    <Compile Include="frmEnviron.vb">
+    <Compile Include="..\commonCode\frmEnviron.vb">
+      <Link>frmEnviron.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmOptions.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmOptions.vb</DependentUpon>
+    <Compile Include="..\commonCode\frmOptions.Designer.vb">
+      <Link>frmOptions.Designer.vb</Link>
     </Compile>
-    <Compile Include="frmOptions.vb">
+    <Compile Include="..\commonCode\frmOptions.vb">
+      <Link>frmOptions.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmProgress.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmProgress.vb</DependentUpon>
+    <Compile Include="..\commonCode\frmProgress.Designer.vb">
+      <Link>frmProgress.Designer.vb</Link>
     </Compile>
-    <Compile Include="frmProgress.vb">
+    <Compile Include="..\commonCode\frmProgress.vb">
+      <Link>frmProgress.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTransient.Designer.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\frmTransient.designer.vb">
+      <Link>frmTransient.designer.vb</Link>
       <DependentUpon>frmTransient.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmTransient.vb">
+    <Compile Include="..\commonCode\frmTransient.vb">
+      <Link>frmTransient.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MarsIni.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\MarsIni.vb">
+      <Link>MarsIni.vb</Link>
     </Compile>
-    <Compile Include="Metocean.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Metocean.vb">
+      <Link>Metocean.vb</Link>
     </Compile>
-    <Compile Include="modGridUtilities.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\modGridUtilities.vb">
+      <Link>modGridUtilities.vb</Link>
     </Compile>
-    <Compile Include="modPlot.vb" />
-    <Compile Include="modRegConstants.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\modPlot.vb">
+      <Link>modPlot.vb</Link>
     </Compile>
-    <Compile Include="modRegistry.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\modRegConstants.vb">
+      <Link>modRegConstants.vb</Link>
     </Compile>
-    <Compile Include="modUtilityFunctions.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\modRegistry.vb">
+      <Link>modRegistry.vb</Link>
     </Compile>
-    <Compile Include="Motion.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\modUtilityFunctions.vb">
+      <Link>modUtilityFunctions.vb</Link>
     </Compile>
-    <Compile Include="Project.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Motion.vb">
+      <Link>Motion.vb</Link>
     </Compile>
-    <Compile Include="RAObyFreq.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Project.vb">
+      <Link>Project.vb</Link>
     </Compile>
-    <Compile Include="RAOs.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\RAObyFreq.vb">
+      <Link>RAObyFreq.vb</Link>
     </Compile>
-    <Compile Include="Riser.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\RAOs.vb">
+      <Link>RAOs.vb</Link>
     </Compile>
-    <Compile Include="ShipDamp.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\ShipDamp.vb">
+      <Link>ShipDamp.vb</Link>
     </Compile>
-    <Compile Include="ShipGlobal.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\ShipGlobal.vb">
+      <Link>ShipGlobal.vb</Link>
     </Compile>
-    <Compile Include="ShipLocal.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\ShipLocal.vb">
+      <Link>ShipLocal.vb</Link>
     </Compile>
-    <Compile Include="ShipMass.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\ShipMass.vb">
+      <Link>ShipMass.vb</Link>
     </Compile>
-    <Compile Include="ShipYawRate.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\ShipYawRate.vb">
+      <Link>ShipYawRate.vb</Link>
     </Compile>
-    <Compile Include="UpgradeSupport.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\UpgradeSupport.vb">
+      <Link>UpgradeSupport.vb</Link>
     </Compile>
-    <Compile Include="Vessel.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Wave.vb">
+      <Link>Wave.vb</Link>
     </Compile>
-    <Compile Include="Wave.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Well.vb">
+      <Link>Well.vb</Link>
     </Compile>
-    <Compile Include="Wind.vb">
-      <SubType>Code</SubType>
+    <Compile Include="..\commonCode\Wells.vb">
+      <Link>Wells.vb</Link>
     </Compile>
-    <EmbeddedResource Include="frmAbout.resX">
-      <DependentUpon>frmAbout.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCurrent.resX">
-      <DependentUpon>frmCurrent.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmEnviron.resX">
-      <DependentUpon>frmEnviron.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmOptions.resX">
-      <DependentUpon>frmOptions.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmProgress.resX">
-      <DependentUpon>frmProgress.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTransient.resX">
+    <Compile Include="..\commonCode\Wind.vb">
+      <Link>Wind.vb</Link>
+    </Compile>
+    <Compile Include="Constants.vb" />
+    <Compile Include="Riser.vb" />
+    <Compile Include="Vessel.vb" />
+    <EmbeddedResource Include="..\commonCode\frmTransient.resx">
+      <Link>frmTransient.resx</Link>
       <DependentUpon>frmTransient.vb</DependentUpon>
     </EmbeddedResource>
     <Content Include="DODO.ico" />
