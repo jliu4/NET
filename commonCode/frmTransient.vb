@@ -112,10 +112,10 @@ ErrHandler:
             FileClose(10)
 
         End If
-		
-		NumTimeSteps = 800
-		TimeStep = 0.5 ' sec
-		MaxTimeSteps = 10000
+
+        NumTimeSteps = 2400
+        TimeStep = 0.25 ' sec
+        MaxTimeSteps = 10000
 		
 		' Intialize the text boxes
 		

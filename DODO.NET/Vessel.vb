@@ -36,10 +36,11 @@ Friend Class Vessel
 	Private msngShipDraft As Single
 	Private msngShipDraftSur As Single
 	Private msngShipDraftOpr As Single
-	
-	Private msngWaterDepth As Single
-	
-	Private mclsRiser As Riser
+
+    Private msngWaterDepth As Single
+    Private msngBottomFJElevationfromMudline As Single
+
+    Private mclsRiser As Riser
 	
 	Private mclsEnvLoad As EnvLoad
 	
@@ -176,22 +177,35 @@ Friend Class Vessel
 			
 		End Set
 	End Property
-	
-	
-	Public Property WaterDepth() As Single
-		Get
-			
-			WaterDepth = msngWaterDepth
-			
-		End Get
-		Set(ByVal Value As Single)
-			
-			msngWaterDepth = Value
-			
-		End Set
-	End Property
-	
-	Public ReadOnly Property ShipMass(ByVal Draft As Single) As Motion
+
+
+    Public Property BottomFJElevationfromMudline() As Single
+        Get
+
+            BottomFJElevationfromMudline = msngBottomFJElevationfromMudline
+
+        End Get
+        Set(ByVal Value As Single)
+
+            msngBottomFJElevationfromMudline = Value
+
+        End Set
+    End Property
+
+    Public Property WaterDepth() As Single
+        Get
+
+            WaterDepth = msngWaterDepth
+
+        End Get
+        Set(ByVal Value As Single)
+
+            msngWaterDepth = Value
+
+        End Set
+    End Property
+
+    Public ReadOnly Property ShipMass(ByVal Draft As Single) As Motion
 		Get
 			
 			Dim N, i, Ns As Short
@@ -570,9 +584,12 @@ Friend Class Vessel
 		
 		Input(FileNum, WD)
 		msngWaterDepth = WD
-		mclsRiser.Length = WD
-		
-		Input(FileNum, mass)
+        mclsRiser.Length = WD
+
+        Input(FileNum, BottomFJElevationfromMudline)
+        msngBottomFJElevationfromMudline = BottomFJElevationfromMudline
+
+        Input(FileNum, mass)
 		Input(FileNum, TopTen)
 		Input(FileNum, Dia)
 		With mclsRiser

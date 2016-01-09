@@ -634,7 +634,6 @@
         '
         Me.btnReport.BackColor = System.Drawing.SystemColors.Control
         Me.btnReport.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btnReport.Enabled = False
         Me.btnReport.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnReport.Location = New System.Drawing.Point(300, 62)
         Me.btnReport.Name = "btnReport"

@@ -1,8 +1,3 @@
-C:\jinwork\NET\DODO.NET\bin\DODO.exe
-C:\jinwork\NET\DODO.NET\bin\DODO.pdb
-C:\jinwork\NET\DODO.NET\bin\DODO.xml
-C:\jinwork\NET\DODO.NET\bin\Interop.SysInfoLib.dll
-C:\jinwork\NET\DODO.NET\bin\AxInterop.SysInfoLib.dll
 C:\jinwork\NET\DODO.NET\obj\Debug\DODO.vbprojResolveAssemblyReference.cache
 C:\jinwork\NET\DODO.NET\obj\Debug\Interop.SysInfoLib.dll
 C:\jinwork\NET\DODO.NET\obj\Debug\AxInterop.SysInfoLib.dll
@@ -14,6 +9,14 @@ C:\jinwork\NET\DODO.NET\obj\Debug\DODO.frmOptions.resources
 C:\jinwork\NET\DODO.NET\obj\Debug\DODO.frmProgress.resources
 C:\jinwork\NET\DODO.NET\obj\Debug\DODO.frmTransient.resources
 C:\jinwork\NET\DODO.NET\obj\Debug\DODO.vbproj.GenerateResource.Cache
-C:\jinwork\NET\DODO.NET\obj\Debug\DODO.exe
 C:\jinwork\NET\DODO.NET\obj\Debug\DODO.xml
+C:\jinwork\NET\DODO.NET\bin\DODO.exe
+C:\jinwork\NET\DODO.NET\bin\DODO.pdb
+C:\jinwork\NET\DODO.NET\bin\DODO.xml
+C:\jinwork\NET\DODO.NET\bin\Interop.SysInfoLib.dll
+C:\jinwork\NET\DODO.NET\bin\AxInterop.SysInfoLib.dll
+C:\jinwork\NET\DODO.NET\obj\Debug\DODO.exe
 C:\jinwork\NET\DODO.NET\obj\Debug\DODO.pdb
+C:\jinwork\NET\DODO.NET\bin\Interop.AccessibilityCplAdminLib.dll
+C:\jinwork\NET\DODO.NET\bin\Interop.Microsoft.Office.Interop.Excel.dll
+C:\jinwork\NET\DODO.NET\bin\stdole.dll

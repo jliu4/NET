@@ -112,10 +112,10 @@ ErrHandler:
             FileClose(10)
 
         End If
-		
-		NumTimeSteps = 800
-		TimeStep = 0.5 ' sec
-		MaxTimeSteps = 10000
+
+        NumTimeSteps = 2400
+        TimeStep = 0.25 ' sec
+        MaxTimeSteps = 10000
 		
 		' Intialize the text boxes
 		
@@ -184,21 +184,42 @@ ErrHandler:
         txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
 		
 	End Sub
-	
-	Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
-        On Error GoTo ErrHandler
-		If Not TransientComputed Then
-			MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
-			Exit Sub
-		End If
 
-		Exit Sub
-ErrHandler: 
-		MsgBox("Err creating report...")
-		
-	End Sub
-	
-	Private Sub btnTransient_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnTransient.Click
+    Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
+        On Error GoTo ErrHandler
+        If Not TransientComputed Then
+            MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
+            Exit Sub
+        End If
+        Dim oxApp As New Microsoft.Office.Interop.Excel.Application
+
+        Dim oxBook As Microsoft.Office.Interop.Excel.Workbook
+        'Dim oxTmpBook As New Microsoft.Office.Interop.Excel.Workbook
+        oxBook = oxApp.Workbooks.Add(My.Application.Info.DirectoryPath & "\DODO.xltm")
+        ' set intro-input values
+
+        'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.Sheets().Activate. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        oxBook.Sheets("temp").Activate()
+
+        oxBook.Sheets("temp").Copy(After:=oxBook.Sheets(2))
+
+        'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.Sheets().Name. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        oxBook.Sheets("temp (2)").Activate()
+        oxBook.Sheets("temp (2)").Name = CurVessel.EnvLoad.EnvCur.Name
+
+        '--------------------------------------------------------------------------------------
+        'UPGRADE_WARNING: Array has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
+        oxApp.Workbooks.OpenText(Filename:=CurProj.Directory & "appvel.out", StartRow:=3, DataType:=Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited, TextQualifier:=Microsoft.Office.Interop.Excel.Constants.xlDoubleClosed, ConsecutiveDelimiter:=False, Tab:=True, Semicolon:=False, Comma:=True, Space:=False, Other:=False, FieldInfo:=New Object() {1, 1})
+        oxApp.Workbooks.OpenText(Filename:=CurProj.Directory & "offset.out", StartRow:=27, DataType:=Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited, TextQualifier:=Microsoft.Office.Interop.Excel.Constants.xlDoubleClosed, ConsecutiveDelimiter:=False, Tab:=False, Semicolon:=False, Comma:=True, Space:=False, Other:=False, FieldInfo:=New Object() {1, 1})
+        oxApp.CutCopyMode = False
+        oxApp.ActiveWorkbook.Close(SaveChanges:=False)
+        Exit Sub
+ErrHandler:
+        MsgBox("Err creating report...")
+
+    End Sub
+
+    Private Sub btnTransient_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnTransient.Click
         On Error GoTo ErrHandler
 
 		Dim LFactor, FrcFactor As Single
@@ -208,9 +229,10 @@ ErrHandler:
 		Dim Depth(MaxCurrentPair) As Single
 		Dim NumCurrent As Short
 		Dim WaveDir(8) As Single
-		
-		Dim k, i, r, c, j, L As Short
-		Dim PWD, Dist, Dist0 As Single
+
+        Dim k, i, r, c, j, L As Short
+        Dim initialOffset As Boolean
+        Dim PWD, Dist, Dist0, DistFromWell As Single
         Dim CurX, CurDir_Renamed, CurY As Single
         Dim Pos() As ShipGlobal
 		Dim Exx As Single
@@ -224,8 +246,9 @@ ErrHandler:
 		Dim FRiser As New Force
 		
 		Dim ZWD As Single
-		
-		If IsMetricUnit Then
+        Dim actualZWD As Single
+        initialOffset = False
+        If IsMetricUnit Then
 			LFactor = 0.3048 ' ft -> m
 			FrcFactor = 4.448222 ' kips -> KN
 		Else
@@ -275,9 +298,9 @@ ErrHandler:
 		End With
 		
 		SaveLC()
-		
-		ZWD = CurVessel.WaterDepth
-		
+
+        ZWD = CurVessel.WaterDepth
+        actualZWD = ZWD + CurVessel.BottomFJElevationfromMudline
         TransX(0) = CurVessel.ShipCurGlob.Xg
         TransY(0) = CurVessel.ShipCurGlob.Yg
         TransYaw(0) = CurVessel.ShipCurGlob.Heading
@@ -361,9 +384,11 @@ ErrHandler:
             TransX(i) = Pos(2).Xg
             TransY(i) = Pos(2).Yg
             TransYaw(i) = Pos(2).Heading
-			
+
             Dist = System.Math.Sqrt((TransX(i) - TransX(0)) ^ 2 + (TransY(i) - TransY(0)) ^ 2)
-			If Dist > Dist0 Then
+            DistFromWell = System.Math.Sqrt(TransX(i) ^ 2 + TransY(i) ^ 2)
+
+            If Dist > Dist0 Then
 				k = 1
 				Do While Dist0 / ZWD * 100# - k * 2 > 0#
 					k = k + 1
@@ -382,9 +407,9 @@ ErrHandler:
 				End If
 			End If
             'offset
-            WriteLine(FileNum2, TimeStep * (i - 1), TransX(i), TransY(i), RadTo360(TransYaw(i)), Vel(2).Surge * Ftps2Knots, Vel(2).Sway * Ftps2Knots, Vel(2).Move * Ftps2Knots, Acc(2).Move, FEnv.Ft * 0.001, FRiser.Ft * 0.001, Dist / ZWD * 100.0#)
-			
-			'debug
+            WriteLine(FileNum2, TimeStep * (i - 1), TransX(i), TransY(i), RadTo360(TransYaw(i)), Vel(2).Surge * Ftps2Knots, Vel(2).Sway * Ftps2Knots, Vel(2).Move * Ftps2Knots, Acc(2).Move, FEnv.Ft * 0.001, FRiser.Ft * 0.001, DistFromWell / actualZWD * 100.0#)
+
+            'debug
             WriteLine(FileNum3, TimeStep * (i - 1), TransYaw(i), Vel(2).Yaw, Acc(2).Yaw, FEnv.MYaw, FRiser.MYaw, sMass.Yaw, Pos(1).Heading)
 			
 			Dist0 = Dist
@@ -525,10 +550,10 @@ ErrHandler:
 			End With
 		End If
 		UpdateFileMenu()
-		
-			frmTransient_Load(Me, New System.EventArgs())
-		
-	End Sub
+
+        frmTransient_Load(Me, New System.EventArgs())
+
+    End Sub
 	
 	
 	Public Sub mnuFileOpen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileOpen.Click
