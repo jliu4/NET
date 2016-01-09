@@ -1,0 +1,43 @@
+ 10			! number of hydrodynamic files including the file 'basic_bare' 
+basic_bare.db   36   0     ! BASIC HYDRO DATA - must be always here
+'out1.db'  14  5	! second file name, number of frequencies, number of drag values (see manual)
+'out2.db'  14  5	! third file, etc
+'out3.db'  14  5	! 
+'out4.db'  14  5	! 
+'out5.db'  14  5	!
+'out6.db'  14  5	!
+'out7.db'  11  5	!
+'basic_bare-hr.db'   36   5	! file with high-Re data
+'out_s.db'  15  4	! file with strakes P/D=17, h/D=-0.25
+
+
+
+---------------------------------------------------------------------
+
+NOTES
+-----
+The files can be input-specified to account for proprietary data
+    but must have a specific form per the manual
+
+The sequence is important because it must correspond with the ICHAR
+    value given in the file 'RISPRE.IN'.  For example, ICHAR=4 means to
+    use the fourth file above, 'out3.in'
+
+The list above gives the "standard hydrodynamic database for VIVA":
+    ICHAR=1 for 'basic_bare' is for a bare cylinder
+    ICHAR=2 for 'out1.in' is for a VETCO-section at 0 deg
+    ICHAR=3 for 'out2.in' is for a VETCO-section at 30 deg
+    ICHAR=4 for 'out3.in' is for a VETCO-section at 60 deg
+    ICHAR=5 for 'out4.in' is for a VETCO-section at 90 deg
+    ICHAR=6 for 'out5.in' is for a VETCO-section at 120 deg
+    ICHAR=7 for 'out6.in' is for a VETCO-section at 150 deg
+    ICHAR=8 for 'out7.in' is for a staggered buoyancy-bare configuration
+    ICHAR=9 for 'out_hr.in' is for high-RE data
+    ICHAR=10 for 'out1.in' is for a straked cylinder
+
+
+
+'basic_bare-sche'   36   0	! file with high-Re data
+'basic_bare-07'   36   0	! file with low-Re data
+'basic_bare-14'   36   0	! file with low-Re data
+'out_hr.in'  77  61	     ! file with high-Re data

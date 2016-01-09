@@ -1,0 +1,17 @@
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA82.vbprojResolveAssemblyReference.cache
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmAbout.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmAuxLines.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmComputation.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmCurrent.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmDBConfig.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmDosData.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmGlobalParms.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmMainMenu.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmOtherRiserProperties.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmProjDesc.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmRiser.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmSegments.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmStaticSolution.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmSupSpring.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA.frmTabulateResults.resources
+D:\Work\NET\WinVIVA82.NET\obj\Release\WinVIVA82.vbproj.GenerateResource.Cache
