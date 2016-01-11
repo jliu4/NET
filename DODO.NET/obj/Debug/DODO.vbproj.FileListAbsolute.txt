@@ -37,3 +37,11 @@ C:\jinwork\NET\DODO.NET\bin\Interop.AccessibilityCplAdminLib.dll
 C:\jinwork\NET\DODO.NET\bin\Interop.Microsoft.Office.Interop.Excel.dll
 C:\jinwork\NET\DODO.NET\bin\stdole.dll
 >>>>>>> 90e7c49e59aae1564d91f5970881af74cff5a3d9
+D:\Work\NET\DODO.NET\bin\Interop.AccessibilityCplAdminLib.dll
+D:\Work\NET\DODO.NET\bin\Interop.Microsoft.Office.Interop.Excel.dll
+D:\Work\NET\DODO.NET\bin\stdole.dll
+D:\Work\NET\DODO.NET\obj\Debug\DODO.frmAbout.resources
+D:\Work\NET\DODO.NET\obj\Debug\DODO.frmCurrent.resources
+D:\Work\NET\DODO.NET\obj\Debug\DODO.frmEnviron.resources
+D:\Work\NET\DODO.NET\obj\Debug\DODO.frmOptions.resources
+D:\Work\NET\DODO.NET\obj\Debug\DODO.frmProgress.resources
