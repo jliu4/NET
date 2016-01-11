@@ -36,29 +36,30 @@ Friend Class Vessel
 	Private msngShipDraft As Single
 	Private msngShipDraftSur As Single
 	Private msngShipDraftOpr As Single
+
+    Private msngWaterDepth As Single
+    Private msngBottomFJElevationfromMudline As Single
+
+    Private mclsRiser As Riser
 	
-	Private msngWaterDepth As Single
+	Private mclsEnvLoad As EnvLoad
 	
-	Private mclsRiser As Riser
-
-    Private mclsEnvLoad As EnvLoad
-
-    Private mcolShipMass As Collection
-    Private mcolShipDamp As Collection
-    Private mcolMotionRAOs As Collection
-    Private mcolYawRateDrag As Collection
-
-    Private Const DistTol As Single = 0.0001
-    Private Const AngleTol As Single = 0.0001
-
-    Private Const FreqS As Single = 0.02
-    Private Const FreqE As Single = 2.4
-    Private Const FreqD As Single = 0.02
-    Private Const FreqE1 As Single = 0.2
-    Private Const FreqE2 As Single = 1.0#
-    Private Const FreqD1 As Single = 0.02
-    Private Const FreqD2 As Single = 0.1
-
+	Private mcolShipMass As Collection
+	Private mcolShipDamp As Collection
+	Private mcolMotionRAOs As Collection
+	Private mcolYawRateDrag As Collection
+	
+	Private Const DistTol As Single = 0.0001
+	Private Const AngleTol As Single = 0.0001
+	
+	Private Const FreqS As Single = 0.02
+	Private Const FreqE As Single = 2.4
+	Private Const FreqD As Single = 0.02
+	Private Const FreqE1 As Single = 0.2
+	Private Const FreqE2 As Single = 1#
+	Private Const FreqD1 As Single = 0.02
+	Private Const FreqD2 As Single = 0.1
+	
     Public Sub New()
         MyBase.New()
         mclsShipCurGlob = New ShipGlobal
@@ -77,106 +78,119 @@ Friend Class Vessel
         mclsOriginalDampingPercent = New Motion
         mclsCriticalDamping = New Motion
     End Sub
+	
+	
+	Public Property Name() As String
+		Get
+			
+			Name = mstrName
+			
+		End Get
+		Set(ByVal Value As String)
+			
+			mstrName = Value
+			
+		End Set
+	End Property
+	
+	Public ReadOnly Property ShipCurGlob() As ShipGlobal
+		Get
+			
+			ShipCurGlob = mclsShipCurGlob
+			
+			mclsEnvLoad.ShipHead = mclsShipCurGlob.Heading
+			
+		End Get
+	End Property
+	
+	Public ReadOnly Property ShipDesGlob() As ShipGlobal
+		Get
+			
+			ShipDesGlob = mclsShipDesGlob
+			
+		End Get
+	End Property
+	
+	Public ReadOnly Property ShipCurLocl() As ShipLocal
+		Get
+			
+			ShipCurLocl = mclsShipCurLocl
+			
+		End Get
+	End Property
+	
+	Public ReadOnly Property Riser() As Riser
+		Get
+			
+			Riser = mclsRiser
+			
+		End Get
+	End Property
+	
+	Public ReadOnly Property EnvLoad() As EnvLoad
+		Get
+			
+			EnvLoad = mclsEnvLoad
+			
+		End Get
+	End Property
+	
+	
+	Public Property ShipDraft() As Single
+		Get
+			
+			ShipDraft = msngShipDraft
+			
+		End Get
+		Set(ByVal Value As Single)
+			
+			msngShipDraft = Value
+			mclsEnvLoad.ShipDraft = Value
+			
+		End Set
+	End Property
+	
+	
+	Public Property ShipDraftSur() As Single
+		Get
+			
+			ShipDraftSur = msngShipDraftSur
+			
+		End Get
+		Set(ByVal Value As Single)
+			
+			msngShipDraftSur = Value
+			
+		End Set
+	End Property
+	
+	
+	Public Property ShipDraftOpr() As Single
+		Get
+			
+			ShipDraftOpr = msngShipDraftOpr
+			
+		End Get
+		Set(ByVal Value As Single)
+			
+			msngShipDraftOpr = Value
+			
+		End Set
+	End Property
 
 
-    Public Property Name() As String
+    Public Property BottomFJElevationfromMudline() As Single
         Get
 
-            Name = mstrName
-
-        End Get
-        Set(ByVal Value As String)
-
-            mstrName = Value
-
-        End Set
-    End Property
-
-    Public ReadOnly Property ShipCurGlob() As ShipGlobal
-        Get
-
-            ShipCurGlob = mclsShipCurGlob
-
-            mclsEnvLoad.ShipHead = mclsShipCurGlob.Heading
-
-        End Get
-    End Property
-
-    Public ReadOnly Property ShipDesGlob() As ShipGlobal
-        Get
-
-            ShipDesGlob = mclsShipDesGlob
-
-        End Get
-    End Property
-
-    Public ReadOnly Property ShipCurLocl() As ShipLocal
-        Get
-
-            ShipCurLocl = mclsShipCurLocl
-
-        End Get
-    End Property
-
-    Public ReadOnly Property Riser() As Riser
-        Get
-
-            Riser = mclsRiser
-
-        End Get
-    End Property
-
-    Public ReadOnly Property EnvLoad() As EnvLoad
-        Get
-
-            EnvLoad = mclsEnvLoad
-
-        End Get
-    End Property
-
-
-    Public Property ShipDraft() As Single
-        Get
-
-            ShipDraft = msngShipDraft
+            BottomFJElevationfromMudline = msngBottomFJElevationfromMudline
 
         End Get
         Set(ByVal Value As Single)
 
-            msngShipDraft = Value
-            mclsEnvLoad.ShipDraft = Value
+            msngBottomFJElevationfromMudline = Value
 
         End Set
     End Property
-
-
-    Public Property ShipDraftSur() As Single
-        Get
-
-            ShipDraftSur = msngShipDraftSur
-
-        End Get
-        Set(ByVal Value As Single)
-
-            msngShipDraftSur = Value
-
-        End Set
-    End Property
-
-
-    Public Property ShipDraftOpr() As Single
-        Get
-
-            ShipDraftOpr = msngShipDraftOpr
-
-        End Get
-        Set(ByVal Value As Single)
-
-            msngShipDraftOpr = Value
-
-        End Set
-    End Property
-
 
     Public Property WaterDepth() As Single
         Get
@@ -192,428 +206,431 @@ Friend Class Vessel
     End Property
 
     Public ReadOnly Property ShipMass(ByVal Draft As Single) As Motion
-        Get
-
-            Dim N, i, Ns As Short
-            Dim Rd As Single
-            Dim My1, Mx1, Mm1 As Single
-            Dim My2, Mx2, Mm2 As Single
-            Dim mass As New Motion
-
-            N = mcolShipMass.Count()
-
-            If N = 1 Then
-                With mass
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    .Surge = mcolShipMass.Item(1).VirMassSurge
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    .Sway = mcolShipMass.Item(1).VirMassSway
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    .Yaw = mcolShipMass.Item(1).VirMassYaw
-                End With
-            Else
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If Draft <= mcolShipMass.Item(1).Draft Then
-                    With mcolShipMass.Item(1)
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mx1 = .VirMassSurge
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        My1 = .VirMassSway
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mm1 = .VirMassYaw
-                    End With
-                    With mcolShipMass.Item(2)
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mx2 = .VirMassSurge
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        My2 = .VirMassSway
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mm2 = .VirMassYaw
-                    End With
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(2).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Rd = (Draft - mcolShipMass.Item(1).Draft) / (mcolShipMass.Item(2).Draft - mcolShipMass.Item(1).Draft)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                ElseIf Draft >= mcolShipMass.Item(N).Draft Then
-                    With mcolShipMass.Item(N - 1)
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mx1 = .VirMassSurge
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        My1 = .VirMassSway
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mm1 = .VirMassYaw
-                    End With
-                    With mcolShipMass.Item(N)
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mx2 = .VirMassSurge
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        My2 = .VirMassSway
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mm2 = .VirMassYaw
-                    End With
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(N - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Rd = (Draft - mcolShipMass.Item(N - 1).Draft) / (mcolShipMass.Item(N).Draft - mcolShipMass.Item(N - 1).Draft)
-                Else
-                    For i = 2 To N
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(i).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        If Draft <= mcolShipMass.Item(i).Draft Then
-                            Ns = i
-                            Exit For
-                        End If
-                    Next
-                    With mcolShipMass.Item(Ns - 1)
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mx1 = .VirMassSurge
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        My1 = .VirMassSway
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mm1 = .VirMassYaw
-                    End With
-                    With mcolShipMass.Item(Ns)
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mx2 = .VirMassSurge
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        My2 = .VirMassSway
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        Mm2 = .VirMassYaw
-                    End With
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(Ns - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(Ns).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Rd = (Draft - mcolShipMass.Item(Ns - 1).Draft) / (mcolShipMass.Item(Ns).Draft - mcolShipMass.Item(Ns - 1).Draft)
-                End If
-                With mass
-                    .Surge = Mx1 + (Mx2 - Mx1) * Rd
-                    .Sway = My1 + (My2 - My1) * Rd
-                    .Yaw = Mm1 + (Mm2 - Mm1) * Rd
-                End With
-            End If
-
-            ShipMass = mass
-
-        End Get
-    End Property
-
-    Public ReadOnly Property DampingPercent() As Motion
-        Get
-            DampingPercent = mclsDampingPercent
-        End Get
-    End Property
-
-    Public ReadOnly Property CriticalDamping() As Motion
-        Get
-            CriticalDamping = mclsCriticalDamping
-        End Get
-    End Property
-
-    Public ReadOnly Property ShipDamp(ByVal Draft As Single) As Motion
-        Get
-
-            Dim Damp As New Motion
-
-            If mclsDampingPercent.Surge > 0 And mclsDampingPercent.Sway > 0 And mclsDampingPercent.Yaw > 0 Then
-                If mclsDampingPercent.Surge = mclsOriginalDampingPercent.Surge And mclsDampingPercent.Sway = mclsOriginalDampingPercent.Sway And mclsDampingPercent.Yaw = mclsOriginalDampingPercent.Yaw Then
-                    ShipDamp = GetOriginalDamping(Draft)
-                Else
-                    Damp.Surge = mclsDampingPercent.Surge / 100 * mclsCriticalDamping.Surge
-                    Damp.Sway = mclsDampingPercent.Sway / 100 * mclsCriticalDamping.Sway
-                    Damp.Yaw = mclsDampingPercent.Yaw / 100 * mclsCriticalDamping.Yaw
-                    ShipDamp = Damp
-                End If
-            Else
-                ShipDamp = GetOriginalDamping(Draft)
-            End If
-
-        End Get
-    End Property
-
-    Public ReadOnly Property ShipYawRateDrag(ByVal Draft As Single) As Single
-        Get
-
-            Dim N, i, Ns As Short
-            Dim Rd As Single
-            Dim YRD2, YRD1, YRD As Single
-
-
-            N = mcolYawRateDrag.Count()
-
-
-            If N = 1 Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                YRD = mcolYawRateDrag.Item(1).YawRateDrag
-            Else
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                If Draft <= mcolYawRateDrag.Item(1).Draft Then
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    YRD1 = mcolYawRateDrag.Item(1).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    YRD2 = mcolYawRateDrag.Item(2).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(2).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Rd = (Draft - mcolYawRateDrag.Item(1).Draft) / (mcolYawRateDrag.Item(2).Draft - mcolYawRateDrag.Item(1).Draft)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                ElseIf Draft >= mcolYawRateDrag.Item(N).Draft Then
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    YRD1 = mcolYawRateDrag.Item(N - 1).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    YRD2 = mcolYawRateDrag.Item(N).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Rd = (Draft - mcolYawRateDrag.Item(N - 1).Draft) / (mcolYawRateDrag.Item(N).Draft - mcolYawRateDrag.Item(N - 1).Draft)
-                Else
-                    For i = 2 To N
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(i).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        If Draft <= mcolYawRateDrag.Item(i).Draft Then
-                            Ns = i
-                            Exit For
-                        End If
-                    Next
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    YRD1 = mcolYawRateDrag.Item(Ns - 1).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    YRD2 = mcolYawRateDrag.Item(Ns).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(Ns - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(Ns).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    Rd = (Draft - mcolYawRateDrag.Item(Ns - 1).Draft) / (mcolYawRateDrag.Item(Ns).Draft - mcolYawRateDrag.Item(Ns - 1).Draft)
-                End If
-                YRD = YRD1 + (YRD2 - YRD1) * Rd
-            End If
-
-            ShipYawRateDrag = YRD
-
-        End Get
-    End Property
-
-    Public ReadOnly Property ShipMotion(ByVal InitialLoc As ShipGlobal, ByVal FinalLoc As ShipGlobal) As Motion
-        Get
-
-            Dim dy, Alpha, dx, Drz As Single
-            Dim Move As Motion
-
-            With InitialLoc
-                dx = FinalLoc.Xg - .Xg
-                dy = FinalLoc.Yg - .Yg
-                Drz = -FinalLoc.Heading + .Heading
-                If Drz >= PI Then Drz = Drz - PI * 2.0#
-                If Drz <= -PI Then Drz = Drz + PI * 2.0#
-                Alpha = PI / 2 - .Heading
-            End With
-
-            Move = New Motion
-            With Move
-                .Surge = System.Math.Cos(Alpha) * dx + System.Math.Sin(Alpha) * dy
-                .Sway = -System.Math.Sin(Alpha) * dx + System.Math.Cos(Alpha) * dy
-                .Yaw = Drz
-            End With
-
-            ShipMotion = Move
-
-        End Get
-    End Property
-
-    Public Function GetSigWFM(ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByVal Heading As Single = 0) As Motion
-
-        Dim MotionRAO As Motion
-        Dim Direct, Freq, Sw As Single
-        Dim Sway, Surge, Yaw As Single
-
-        Dim IniProg As Short
-
-        'UPGRADE_ISSUE: Control prgProgress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
+		Get
+			
+			Dim N, i, Ns As Short
+			Dim Rd As Single
+			Dim My1, Mx1, Mm1 As Single
+			Dim My2, Mx2, Mm2 As Single
+			Dim mass As New Motion
+			
+			N = mcolShipMass.Count()
+			
+			If N = 1 Then
+				With mass
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					.Surge = mcolShipMass.Item(1).VirMassSurge
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					.Sway = mcolShipMass.Item(1).VirMassSway
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					.Yaw = mcolShipMass.Item(1).VirMassYaw
+				End With
+			Else
+				'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+				If Draft <= mcolShipMass.Item(1).Draft Then
+					With mcolShipMass.Item(1)
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mx1 = .VirMassSurge
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						My1 = .VirMassSway
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mm1 = .VirMassYaw
+					End With
+					With mcolShipMass.Item(2)
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mx2 = .VirMassSurge
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						My2 = .VirMassSway
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mm2 = .VirMassYaw
+					End With
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(2).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					Rd = (Draft - mcolShipMass.Item(1).Draft) / (mcolShipMass.Item(2).Draft - mcolShipMass.Item(1).Draft)
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+				ElseIf Draft >= mcolShipMass.Item(N).Draft Then 
+					With mcolShipMass.Item(N - 1)
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mx1 = .VirMassSurge
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						My1 = .VirMassSway
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mm1 = .VirMassYaw
+					End With
+					With mcolShipMass.Item(N)
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mx2 = .VirMassSurge
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						My2 = .VirMassSway
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mm2 = .VirMassYaw
+					End With
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(N - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					Rd = (Draft - mcolShipMass.Item(N - 1).Draft) / (mcolShipMass.Item(N).Draft - mcolShipMass.Item(N - 1).Draft)
+				Else
+					For i = 2 To N
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(i).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						If Draft <= mcolShipMass.Item(i).Draft Then
+							Ns = i
+							Exit For
+						End If
+					Next 
+					With mcolShipMass.Item(Ns - 1)
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mx1 = .VirMassSurge
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						My1 = .VirMassSway
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mm1 = .VirMassYaw
+					End With
+					With mcolShipMass.Item(Ns)
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSurge. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mx2 = .VirMassSurge
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassSway. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						My2 = .VirMassSway
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().VirMassYaw. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						Mm2 = .VirMassYaw
+					End With
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(Ns - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass(Ns).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolShipMass().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					Rd = (Draft - mcolShipMass.Item(Ns - 1).Draft) / (mcolShipMass.Item(Ns).Draft - mcolShipMass.Item(Ns - 1).Draft)
+				End If
+				With mass
+					.Surge = Mx1 + (Mx2 - Mx1) * Rd
+					.Sway = My1 + (My2 - My1) * Rd
+					.Yaw = Mm1 + (Mm2 - Mm1) * Rd
+				End With
+			End If
+			
+			ShipMass = mass
+			
+		End Get
+	End Property
+	
+	Public ReadOnly Property DampingPercent() As Motion
+		Get
+			DampingPercent = mclsDampingPercent
+		End Get
+	End Property
+	
+	Public ReadOnly Property CriticalDamping() As Motion
+		Get
+			CriticalDamping = mclsCriticalDamping
+		End Get
+	End Property
+	
+	Public ReadOnly Property ShipDamp(ByVal Draft As Single) As Motion
+		Get
+			
+			Dim Damp As New Motion
+			
+			If mclsDampingPercent.Surge > 0 And mclsDampingPercent.Sway > 0 And mclsDampingPercent.Yaw > 0 Then
+				If mclsDampingPercent.Surge = mclsOriginalDampingPercent.Surge And mclsDampingPercent.Sway = mclsOriginalDampingPercent.Sway And mclsDampingPercent.Yaw = mclsOriginalDampingPercent.Yaw Then
+					ShipDamp = GetOriginalDamping(Draft)
+				Else
+					Damp.Surge = mclsDampingPercent.Surge / 100 * mclsCriticalDamping.Surge
+					Damp.Sway = mclsDampingPercent.Sway / 100 * mclsCriticalDamping.Sway
+					Damp.Yaw = mclsDampingPercent.Yaw / 100 * mclsCriticalDamping.Yaw
+					ShipDamp = Damp
+				End If
+			Else
+				ShipDamp = GetOriginalDamping(Draft)
+			End If
+			
+		End Get
+	End Property
+	
+	Public ReadOnly Property ShipYawRateDrag(ByVal Draft As Single) As Single
+		Get
+			
+			Dim N, i, Ns As Short
+			Dim Rd As Single
+			Dim YRD2, YRD1, YRD As Single
+			
+			
+			N = mcolYawRateDrag.Count()
+			
+			
+			If N = 1 Then
+				'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+				YRD = mcolYawRateDrag.Item(1).YawRateDrag
+			Else
+				'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+				If Draft <= mcolYawRateDrag.Item(1).Draft Then
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					YRD1 = mcolYawRateDrag.Item(1).YawRateDrag
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					YRD2 = mcolYawRateDrag.Item(2).YawRateDrag
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(2).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					Rd = (Draft - mcolYawRateDrag.Item(1).Draft) / (mcolYawRateDrag.Item(2).Draft - mcolYawRateDrag.Item(1).Draft)
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+				ElseIf Draft >= mcolYawRateDrag.Item(N).Draft Then 
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					YRD1 = mcolYawRateDrag.Item(N - 1).YawRateDrag
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					YRD2 = mcolYawRateDrag.Item(N).YawRateDrag
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					Rd = (Draft - mcolYawRateDrag.Item(N - 1).Draft) / (mcolYawRateDrag.Item(N).Draft - mcolYawRateDrag.Item(N - 1).Draft)
+				Else
+					For i = 2 To N
+						'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(i).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+						If Draft <= mcolYawRateDrag.Item(i).Draft Then
+							Ns = i
+							Exit For
+						End If
+					Next 
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					YRD1 = mcolYawRateDrag.Item(Ns - 1).YawRateDrag
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					YRD2 = mcolYawRateDrag.Item(Ns).YawRateDrag
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(Ns - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(Ns).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+					Rd = (Draft - mcolYawRateDrag.Item(Ns - 1).Draft) / (mcolYawRateDrag.Item(Ns).Draft - mcolYawRateDrag.Item(Ns - 1).Draft)
+				End If
+				YRD = YRD1 + (YRD2 - YRD1) * Rd
+			End If
+			
+			ShipYawRateDrag = YRD
+			
+		End Get
+	End Property
+	
+	Public ReadOnly Property ShipMotion(ByVal InitialLoc As ShipGlobal, ByVal FinalLoc As ShipGlobal) As Motion
+		Get
+			
+			Dim dy, Alpha, dx, Drz As Single
+			Dim Move As Motion
+			
+			With InitialLoc
+				dx = FinalLoc.Xg - .Xg
+				dy = FinalLoc.Yg - .Yg
+				Drz = -FinalLoc.Heading + .Heading
+				If Drz >= PI Then Drz = Drz - PI * 2#
+				If Drz <= -PI Then Drz = Drz + PI * 2#
+				Alpha = PI / 2 - .Heading
+			End With
+			
+			Move = New Motion
+			With Move
+				.Surge = System.Math.Cos(Alpha) * dx + System.Math.Sin(Alpha) * dy
+				.Sway = -System.Math.Sin(Alpha) * dx + System.Math.Cos(Alpha) * dy
+				.Yaw = Drz
+			End With
+			
+			ShipMotion = Move
+			
+		End Get
+	End Property
+	
+	Public Function GetSigWFM(ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByVal Heading As Single = 0) As Motion
+		
+		Dim MotionRAO As Motion
+		Dim Direct, Freq, Sw As Single
+		Dim Sway, Surge, Yaw As Single
+		
+		Dim IniProg As Short
+		
+		'UPGRADE_ISSUE: Control prgProgress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
         'IniProg = frmProgress.prgProgress.Value
-        'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
-        If IsNothing(Heading) Then Heading = mclsShipCurGlob.Heading
-
-        Direct = Heading - mclsEnvLoad.EnvCur.Wave.Heading
-        Surge = 0#
-        Sway = 0#
-        Yaw = 0#
-
-        For Freq = FreqS To FreqE Step FreqD
-            Sw = mclsEnvLoad.EnvCur.Wave.Spectrum(Freq)
-            MotionRAO = RAO(msngShipDraft, Freq, Direct)
-
-            With MotionRAO
-                Surge = Surge + .Surge ^ 2 * Sw * FreqD
-                Sway = Sway + .Sway ^ 2 * Sw * FreqD
-                Yaw = Yaw + .Yaw ^ 2 * Sw * FreqD
-            End With
-
-            'UPGRADE_NOTE: Object MotionRAO may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-            MotionRAO = Nothing
-            System.Windows.Forms.Application.DoEvents()
-
-            If Cancelled Then Exit For
-            'UPGRADE_ISSUE: Control Progress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
+		'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
+		If IsNothing(Heading) Then Heading = mclsShipCurGlob.Heading
+		
+		Direct = Heading - mclsEnvLoad.EnvCur.Wave.Heading
+		Surge = 0#
+		Sway = 0#
+		Yaw = 0#
+		
+		For Freq = FreqS To FreqE Step FreqD
+			Sw = mclsEnvLoad.EnvCur.Wave.Spectrum(Freq)
+			MotionRAO = RAO(msngShipDraft, Freq, Direct)
+			
+			With MotionRAO
+				Surge = Surge + .Surge ^ 2 * Sw * FreqD
+				Sway = Sway + .Sway ^ 2 * Sw * FreqD
+				Yaw = Yaw + .Yaw ^ 2 * Sw * FreqD
+			End With
+			
+			'UPGRADE_NOTE: Object MotionRAO may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+			MotionRAO = Nothing
+			System.Windows.Forms.Application.DoEvents()
+			
+			If Cancelled Then Exit For
+			'UPGRADE_ISSUE: Control Progress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
             'frmProgress.Progress = IniProg + (Freq - FreqS) / (FreqE - FreqS) * 15
-        Next Freq
-
-        GetSigWFM = New Motion
-        With GetSigWFM
-            .Surge = 2.0# * System.Math.Sqrt(Surge)
-            .Sway = 2.0# * System.Math.Sqrt(Sway)
-            .Yaw = 2.0# * System.Math.Sqrt(Yaw)
-        End With
-
-    End Function
-
-    Public Function GetSigLFM(ByRef StiffLocl As Force, ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByRef ShipLoc As ShipGlobal = Nothing) As Motion
-
-        Dim Sf As Force
-        Dim mass, Damp As Motion
-        Dim Freq, Heading As Single
-        Dim Freq0, FreqD0, Freq1 As Single
-        Dim Sxy, Sxx, Sxz As Single
-        Dim Sway, Surge, Yaw As Single
-
-        Dim IniProg As Short
-
-        'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
-        If IsNothing(ShipLoc) Then ShipLoc = mclsShipCurGlob
-        Heading = ShipLoc.Heading
-        'UPGRADE_ISSUE: Control prgProgress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
+		Next Freq
+		
+		GetSigWFM = New Motion
+		With GetSigWFM
+			.Surge = 2# * System.Math.Sqrt(Surge)
+			.Sway = 2# * System.Math.Sqrt(Sway)
+			.Yaw = 2# * System.Math.Sqrt(Yaw)
+		End With
+		
+	End Function
+	
+	Public Function GetSigLFM(ByRef StiffLocl As Force, ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByRef ShipLoc As ShipGlobal = Nothing) As Motion
+		
+		Dim Sf As Force
+		Dim mass, Damp As Motion
+		Dim Freq, Heading As Single
+		Dim Freq0, FreqD0, Freq1 As Single
+		Dim Sxy, Sxx, Sxz As Single
+		Dim Sway, Surge, Yaw As Single
+		
+		Dim IniProg As Short
+		
+		'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
+		If IsNothing(ShipLoc) Then ShipLoc = mclsShipCurGlob
+		Heading = ShipLoc.Heading
+		'UPGRADE_ISSUE: Control prgProgress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
         'IniProg = frmProgress.prgProgress.Value
-
-        Surge = 0#
-        Sway = 0#
-        Yaw = 0#
-
-        mass = ShipMass(msngShipDraft)
-        Damp = ShipDamp(msngShipDraft)
-
-        Freq = 0#
-        Freq0 = 0#
-        Do While Freq <= FreqE2
-            If Freq < FreqE1 Then
-                Freq1 = Freq + FreqD1
-            Else
-                Freq1 = Freq + FreqD2
-            End If
-
-            Sf = mclsEnvLoad.DrftFrSpec(Freq, Heading)
-            Sxx = 1.0# / System.Math.Sqrt((mass.Surge * Freq ^ 2 - StiffLocl.Fx) ^ 2 + (Damp.Surge * Freq) ^ 2)
-            Sxy = 1.0# / System.Math.Sqrt((mass.Sway * Freq ^ 2 - StiffLocl.Fy) ^ 2 + (Damp.Sway * Freq) ^ 2)
-            Sxz = 1.0# / System.Math.Sqrt((mass.Yaw * Freq ^ 2 - StiffLocl.MYaw) ^ 2 + (Damp.Yaw * Freq) ^ 2)
-
-            With Sf
-                Surge = Surge + .Fx * Sxx ^ 2 * (Freq1 - Freq0) * 0.5
-                Sway = Sway + .Fy * Sxy ^ 2 * (Freq1 - Freq0) * 0.5
-                Yaw = Yaw + .MYaw * Sxz ^ 2 * (Freq1 - Freq0) * 0.5
-            End With
-
-            Freq0 = Freq
-            Freq = Freq1
-
-            'UPGRADE_NOTE: Object Sf may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-            Sf = Nothing
-            System.Windows.Forms.Application.DoEvents()
-
-            If Cancelled Then Exit Do
-            'UPGRADE_ISSUE: Control Progress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
+		
+		Surge = 0#
+		Sway = 0#
+		Yaw = 0#
+		
+		mass = ShipMass(msngShipDraft)
+		Damp = ShipDamp(msngShipDraft)
+		
+		Freq = 0#
+		Freq0 = 0#
+		Do While Freq <= FreqE2
+			If Freq < FreqE1 Then
+				Freq1 = Freq + FreqD1
+			Else
+				Freq1 = Freq + FreqD2
+			End If
+			
+			Sf = mclsEnvLoad.DrftFrSpec(Freq, Heading)
+			Sxx = 1# / System.Math.Sqrt((mass.Surge * Freq ^ 2 - StiffLocl.Fx) ^ 2 + (Damp.Surge * Freq) ^ 2)
+			Sxy = 1# / System.Math.Sqrt((mass.Sway * Freq ^ 2 - StiffLocl.Fy) ^ 2 + (Damp.Sway * Freq) ^ 2)
+			Sxz = 1# / System.Math.Sqrt((mass.Yaw * Freq ^ 2 - StiffLocl.MYaw) ^ 2 + (Damp.Yaw * Freq) ^ 2)
+			
+			With Sf
+				Surge = Surge + .Fx * Sxx ^ 2 * (Freq1 - Freq0) * 0.5
+				Sway = Sway + .Fy * Sxy ^ 2 * (Freq1 - Freq0) * 0.5
+				Yaw = Yaw + .MYaw * Sxz ^ 2 * (Freq1 - Freq0) * 0.5
+			End With
+			
+			Freq0 = Freq
+			Freq = Freq1
+			
+			'UPGRADE_NOTE: Object Sf may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+			Sf = Nothing
+			System.Windows.Forms.Application.DoEvents()
+			
+			If Cancelled Then Exit Do
+			'UPGRADE_ISSUE: Control Progress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
             'frmProgress.Progress = IniProg + Freq / FreqE2 * 30
-        Loop
-
-        GetSigLFM = New Motion
-        With GetSigLFM
-            .Surge = 2.0# * System.Math.Sqrt(Surge)
-            .Sway = 2.0# * System.Math.Sqrt(Sway)
-            .Yaw = 2.0# * System.Math.Sqrt(Yaw)
-        End With
-
-    End Function
-
-    Public Function InputVsl(ByVal FileNum As Short) As Boolean
-
-        Dim VslName As String
-        Dim DesY, DesX, DesH As Single
-        Dim CurY, CurX, CurH As Single
-        Dim OprD, SurD, CurD As Single
-        Dim WD As Single
-        Dim mass, TopTen, Dia As Single
-
-        InputVsl = False
-
-        On Error GoTo ErrorHandler
-
-        Input(FileNum, VslName)
-        mstrName = VslName
-
-        Input(FileNum, DesX)
-        Input(FileNum, DesY)
-        Input(FileNum, DesH)
-        Input(FileNum, SurD)
-        Input(FileNum, OprD)
-        With mclsShipDesGlob
-            .Xg = DesX
-            .Yg = DesY
-            .Heading = DesH
-        End With
-        msngShipDraftSur = SurD
-        msngShipDraftOpr = OprD
-
-        Input(FileNum, CurX)
-        Input(FileNum, CurY)
-        Input(FileNum, CurH)
-        Input(FileNum, CurD)
-        With mclsShipCurGlob
-            .Xg = CurX
-            .Yg = CurY
-            .Heading = CurH
-        End With
-        ShipDraft = CurD
-
-        Input(FileNum, WD)
-        msngWaterDepth = WD
+		Loop 
+		
+		GetSigLFM = New Motion
+		With GetSigLFM
+			.Surge = 2# * System.Math.Sqrt(Surge)
+			.Sway = 2# * System.Math.Sqrt(Sway)
+			.Yaw = 2# * System.Math.Sqrt(Yaw)
+		End With
+		
+	End Function
+	
+	Public Function InputVsl(ByVal FileNum As Short) As Boolean
+		
+		Dim VslName As String
+		Dim DesY, DesX, DesH As Single
+		Dim CurY, CurX, CurH As Single
+		Dim OprD, SurD, CurD As Single
+		Dim WD As Single
+		Dim mass, TopTen, Dia As Single
+		
+		InputVsl = False
+		
+		On Error GoTo ErrorHandler
+		
+		Input(FileNum, VslName)
+		mstrName = VslName
+		
+		Input(FileNum, DesX)
+		Input(FileNum, DesY)
+		Input(FileNum, DesH)
+		Input(FileNum, SurD)
+		Input(FileNum, OprD)
+		With mclsShipDesGlob
+			.Xg = DesX
+			.Yg = DesY
+			.Heading = DesH
+		End With
+		msngShipDraftSur = SurD
+		msngShipDraftOpr = OprD
+		
+		Input(FileNum, CurX)
+		Input(FileNum, CurY)
+		Input(FileNum, CurH)
+		Input(FileNum, CurD)
+		With mclsShipCurGlob
+			.Xg = CurX
+			.Yg = CurY
+			.Heading = CurH
+		End With
+		ShipDraft = CurD
+		
+		Input(FileNum, WD)
+		msngWaterDepth = WD
         mclsRiser.Length = WD
 
+        Input(FileNum, BottomFJElevationfromMudline)
+        msngBottomFJElevationfromMudline = BottomFJElevationfromMudline
+
         Input(FileNum, mass)
-        Input(FileNum, TopTen)
-        Input(FileNum, Dia)
-        With mclsRiser
-            .TopTen = TopTen
-            .mass = mass
-            .Dia = Dia
-        End With
-
-        InputVsl = True
-        Exit Function
-ErrorHandler:
-        InputVsl = False
-        MsgBox("Error reading vessel data: " & Err.Description, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Error")
-
-    End Function
-
-    Public Function OutputVsl(ByVal FileNum As Short) As Boolean
-
-        OutputVsl = False
-
-        WriteLine(FileNum, mstrName)
-
-        With mclsShipDesGlob
-            WriteLine(FileNum, .Xg, .Yg, .Heading, msngShipDraftSur, msngShipDraftOpr)
-        End With
-
-        With mclsShipCurGlob
-            WriteLine(FileNum, .Xg, .Yg, .Heading, msngShipDraft)
-        End With
-
-        WriteLine(FileNum, msngWaterDepth)
-
-        With mclsRiser
-            WriteLine(FileNum, .mass, .TopTen, .Dia)
-        End With
-
-        OutputVsl = True
-
-    End Function
-
-    Private Function RAO(ByVal Draft As Single, ByVal Frequency As Single, ByVal Direction As Single) As Motion
+		Input(FileNum, TopTen)
+		Input(FileNum, Dia)
+		With mclsRiser
+			.TopTen = TopTen
+			.mass = mass
+			.Dia = Dia
+		End With
+		
+		InputVsl = True
+		Exit Function
+ErrorHandler: 
+		InputVsl = False
+		MsgBox("Error reading vessel data: " & Err.Description, MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
+		
+	End Function
+	
+	Public Function OutputVsl(ByVal FileNum As Short) As Boolean
+		
+		OutputVsl = False
+		
+		WriteLine(FileNum, mstrName)
+		
+		With mclsShipDesGlob
+			WriteLine(FileNum, .Xg, .Yg, .Heading, msngShipDraftSur, msngShipDraftOpr)
+		End With
+		
+		With mclsShipCurGlob
+			WriteLine(FileNum, .Xg, .Yg, .Heading, msngShipDraft)
+		End With
+		
+		WriteLine(FileNum, msngWaterDepth)
+		
+		With mclsRiser
+			WriteLine(FileNum, .mass, .TopTen, .Dia)
+		End With
+		
+		OutputVsl = True
+		
+	End Function
+	
+	Private Function RAO(ByVal Draft As Single, ByVal Frequency As Single, ByVal Direction As Single) As Motion
 		
 		Dim N, i, Ns As Short
 		Dim Rd As Single
