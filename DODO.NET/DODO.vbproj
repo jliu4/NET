@@ -63,11 +63,10 @@
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>none</DebugType>
   </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Text</OptionCompare>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.AccessibilityCplAdminLib">
-      <HintPath>obj\Debug\Interop.AccessibilityCplAdminLib.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Interop.Microsoft.Office.Interop.Excel">
       <HintPath>obj\Debug\Interop.Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -96,20 +95,6 @@
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="Microsoft.Vbe.Interop">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
-    <COMReference Include="office">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>5</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
     </COMReference>
     <COMReference Include="SysInfoLib">
       <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>

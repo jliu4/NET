@@ -38,7 +38,7 @@ Friend Class Vessel
 	Private msngShipDraftOpr As Single
 
     Private msngWaterDepth As Single
-    Private msngBottomFJElevationfromMudline As Single
+    Private msngBottomFJ As Single
 
     Private mclsRiser As Riser
 	
@@ -179,15 +179,15 @@ Friend Class Vessel
 	End Property
 
 
-    Public Property BottomFJElevationfromMudline() As Single
+    Public Property BottomFJ() As Single
         Get
 
-            BottomFJElevationfromMudline = msngBottomFJElevationfromMudline
+            BottomFJ = msngBottomFJ
 
         End Get
         Set(ByVal Value As Single)
 
-            msngBottomFJElevationfromMudline = Value
+            msngBottomFJ = Value
 
         End Set
     End Property
@@ -586,8 +586,8 @@ Friend Class Vessel
 		msngWaterDepth = WD
         mclsRiser.Length = WD
 
-        Input(FileNum, BottomFJElevationfromMudline)
-        msngBottomFJElevationfromMudline = BottomFJElevationfromMudline
+        Input(FileNum, BottomFJ)
+        msngBottomFJ = BottomFJ
 
         Input(FileNum, mass)
 		Input(FileNum, TopTen)

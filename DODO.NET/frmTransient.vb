@@ -4,6 +4,7 @@ Imports VB = Microsoft.VisualBasic
 Imports System
 Imports System.Diagnostics
 Imports System.ComponentModel
+Imports Microsoft.Office.Interop
 
 Friend Class frmTransient
 	Inherits System.Windows.Forms.Form
@@ -41,8 +42,9 @@ Friend Class frmTransient
 	Dim TMColHead(3) As String
 	Dim TMRowHead() As String
 	Dim LCRowHead() As String
-	
-	Dim TransientComputed As Boolean
+    Dim oxApp As Excel.Application, oxBook As Excel.Workbook, oxSheet As Excel.Worksheet
+
+    Dim TransientComputed As Boolean
 
     Private Sub setLabel()
         On Error GoTo ErrHandler
@@ -174,6 +176,9 @@ ErrHandler:
         Catch
             MsgBox("frmTransient.closing Error")
         End Try
+        oxBook = Nothing
+
+        oxApp = Nothing
     End Sub
 
 	' buttons
@@ -186,36 +191,55 @@ ErrHandler:
 	End Sub
 
     Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
-        On Error GoTo ErrHandler
-        If Not TransientComputed Then
-            MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
-            Exit Sub
-        End If
-        Dim oxApp As New Microsoft.Office.Interop.Excel.Application
+        Try
 
-        Dim oxBook As Microsoft.Office.Interop.Excel.Workbook
-        'Dim oxTmpBook As New Microsoft.Office.Interop.Excel.Workbook
-        oxBook = oxApp.Workbooks.Add(My.Application.Info.DirectoryPath & "\DODO.xltm")
-        ' set intro-input values
+            If Not TransientComputed Then
+                MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
+                Exit Sub
+            End If
 
-        'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.Sheets().Activate. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        oxBook.Sheets("temp").Activate()
+            oxBook.Sheets("temp").Copy(After:=oxBook.Sheets(2))
+            oxBook.Sheets("temp (2)").Activate()
+            oxBook.Sheets("temp (2)").Name = CurVessel.EnvLoad.EnvCur.Name
+            oxSheet = DirectCast(oxApp.ActiveSheet, Excel.Worksheet)
+            oxSheet.Range("$B$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Velocity
+            oxSheet.Range("$D$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Heading * Radians2Degrees
+            oxSheet.Range("$B$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Height
+            oxSheet.Range("$D$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Heading * Radians2Degrees
+            oxSheet.Range("$G$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Period
 
-        oxBook.Sheets("temp").Copy(After:=oxBook.Sheets(2))
+            oxSheet.Range("$B$3").Value = CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity
+            oxSheet.Range("$D$3").Value = CurVessel.EnvLoad.EnvCur.Current.Heading * Radians2Degrees
 
-        'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.Sheets().Name. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        oxBook.Sheets("temp (2)").Activate()
-        oxBook.Sheets("temp (2)").Name = CurVessel.EnvLoad.EnvCur.Name
+            With oxSheet.QueryTables.Add(Connection:="TEXT;" & CurProj.Directory & "appvel.out", Destination:=oxSheet.Range("$N$3"))
+                .PreserveFormatting = False
+                .RefreshStyle = Excel.XlCellInsertionMode.xlOverwriteCells 'xlOverwriteCells
+                .AdjustColumnWidth = False
+                .TextFileParseType = Excel.XlTextParsingType.xlDelimited
+                .TextFileCommaDelimiter = True
+                .Refresh(BackgroundQuery:=False)
+            End With
+            With oxSheet.QueryTables.Add(Connection:="TEXT;" & CurProj.Directory & "offset.out", Destination:=oxSheet.Range("$N$27"))
+                .PreserveFormatting = False
+                .RefreshStyle = Excel.XlCellInsertionMode.xlOverwriteCells 'xlOverwriteCells
+                .AdjustColumnWidth = False
+                .TextFileParseType = Excel.XlTextParsingType.xlDelimited
+                .TextFileCommaDelimiter = True
+                .Refresh(BackgroundQuery:=False)
 
-        '--------------------------------------------------------------------------------------
-        'UPGRADE_WARNING: Array has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-        oxApp.Workbooks.OpenText(Filename:=CurProj.Directory & "appvel.out", StartRow:=3, DataType:=Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited, TextQualifier:=Microsoft.Office.Interop.Excel.Constants.xlDoubleClosed, ConsecutiveDelimiter:=False, Tab:=True, Semicolon:=False, Comma:=True, Space:=False, Other:=False, FieldInfo:=New Object() {1, 1})
-        oxApp.Workbooks.OpenText(Filename:=CurProj.Directory & "offset.out", StartRow:=27, DataType:=Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited, TextQualifier:=Microsoft.Office.Interop.Excel.Constants.xlDoubleClosed, ConsecutiveDelimiter:=False, Tab:=False, Semicolon:=False, Comma:=True, Space:=False, Other:=False, FieldInfo:=New Object() {1, 1})
-        oxApp.CutCopyMode = False
-        oxApp.ActiveWorkbook.Close(SaveChanges:=False)
-        Exit Sub
-ErrHandler:
-        MsgBox("Err creating report...")
+            End With
+            oxSheet.Range("$N1:$X2400").Font.Name = "Calibri"
+            oxSheet.Range("$N1:$X2400").Font.Size = 8
+            oxSheet.Range("$N1:$X2400").Font.Bold = False
+            'Return control of Excel to the user.
+            oxApp.Visible = True
+            oxApp.ScreenUpdating = True
+            oxApp.CutCopyMode = False
+            oxApp.UserControl = True
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+        End Try
 
     End Sub
 
@@ -300,7 +324,7 @@ ErrHandler:
 		SaveLC()
 
         ZWD = CurVessel.WaterDepth
-        actualZWD = ZWD + CurVessel.BottomFJElevationfromMudline
+        actualZWD = ZWD + CurVessel.BottomFJ
         TransX(0) = CurVessel.ShipCurGlob.Xg
         TransY(0) = CurVessel.ShipCurGlob.Yg
         TransYaw(0) = CurVessel.ShipCurGlob.Heading
@@ -1034,7 +1058,7 @@ ErrHandler:
 
         With CurVessel
             txtWell.Text = VB6.Format(.WaterDepth * LFactor, "0.0")
-
+            txtBottomFJ.Text = VB6.Format(.BottomFJ * LFactor, "0.0")
             With .ShipCurGlob
                 txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.00")
                 txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.00")
@@ -1049,6 +1073,9 @@ ErrHandler:
                 txtRiser(2).Text = VB6.Format(.Dia * 12.0# * DiaFactor, "0.0")
             End With
         End With
+        oxApp = New Excel.Application
+
+        oxBook = oxApp.Workbooks.Add(My.Application.Info.DirectoryPath & "\DODO2.xltx")
 
     End Sub
 
@@ -1074,6 +1101,7 @@ ErrHandler:
             End With
             .ShipDraft = CDbl(CheckData(txtVslSt(3).Text, , True)) / LFactor
             .WaterDepth = CDbl(CheckData(txtWell.Text, , True)) / LFactor
+            .BottomFJ = CDbl(CheckData(txtBottomFJ.Text, , True)) / LFactor
             .Riser.Length = .WaterDepth
 
             With .Riser
