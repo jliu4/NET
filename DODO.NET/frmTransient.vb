@@ -198,10 +198,11 @@ ErrHandler:
                 Exit Sub
             End If
 
-            oxBook.Sheets("temp").Copy(After:=oxBook.Sheets(2))
-            oxBook.Sheets("temp (2)").Activate()
-            oxBook.Sheets("temp (2)").Name = CurVessel.EnvLoad.EnvCur.Name
+            oxBook.Sheets("dodo").Copy(After:=oxBook.Sheets(1))
+            oxBook.Sheets("dodo (2)").Activate()
+            oxBook.Sheets("dodo (2)").Name = CurVessel.EnvLoad.EnvCur.Name
             oxSheet = DirectCast(oxApp.ActiveSheet, Excel.Worksheet)
+            oxSheet.Range("$B$16").Value = oxBook.Sheets.Count - 5 'JLIU TODO
             oxSheet.Range("$B$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Velocity
             oxSheet.Range("$D$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Heading * Radians2Degrees
             oxSheet.Range("$B$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Height
@@ -228,9 +229,9 @@ ErrHandler:
                 .Refresh(BackgroundQuery:=False)
 
             End With
-            oxSheet.Range("$N1:$X2400").Font.Name = "Calibri"
-            oxSheet.Range("$N1:$X2400").Font.Size = 8
-            oxSheet.Range("$N1:$X2400").Font.Bold = False
+            oxSheet.Columns("N:X").Font.Name = "Calibri"
+            oxSheet.Columns("N:X").Font.Size = 8
+            oxSheet.Columns("N:X").Font.Bold = False
             'Return control of Excel to the user.
             oxApp.Visible = True
             oxApp.ScreenUpdating = True
