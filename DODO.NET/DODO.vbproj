@@ -67,13 +67,191 @@
     <OptionCompare>Text</OptionCompare>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.Microsoft.Office.Interop.Excel">
-      <HintPath>obj\Debug\Interop.Microsoft.Office.Interop.Excel.dll</HintPath>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Microsoft.VisualBasic.Compatibility" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\commonCode\AssemblyInfo.vb">
+      <Link>AssemblyInfo.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Current.vb">
+      <Link>Current.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\CurrentData.vb">
+      <Link>CurrentData.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\CurrentPair.vb">
+      <Link>CurrentPair.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\DrftFCbyFreq.vb">
+      <Link>DrftFCbyFreq.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\DrftForceCoef.vb">
+      <Link>DrftForceCoef.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\EnvForceCoef.vb">
+      <Link>EnvForceCoef.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\EnvLoad.vb">
+      <Link>EnvLoad.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Force.vb">
+      <Link>Force.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ForceCoef.vb">
+      <Link>ForceCoef.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmAbout.Designer.vb">
+      <Link>frmAbout.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmAbout.vb">
+      <Link>frmAbout.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmCurrent.Designer.vb">
+      <Link>frmCurrent.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmCurrent.vb">
+      <Link>frmCurrent.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmEnviron.Designer.vb">
+      <Link>frmEnviron.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmEnviron.vb">
+      <Link>frmEnviron.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmOptions.Designer.vb">
+      <Link>frmOptions.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmOptions.vb">
+      <Link>frmOptions.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmProgress.Designer.vb">
+      <Link>frmProgress.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\frmProgress.vb">
+      <Link>frmProgress.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\Metocean.vb">
+      <Link>Metocean.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modGridUtilities.vb">
+      <Link>modGridUtilities.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modPlot.vb">
+      <Link>modPlot.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modRegConstants.vb">
+      <Link>modRegConstants.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modRegistry.vb">
+      <Link>modRegistry.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\modUtilityFunctions.vb">
+      <Link>modUtilityFunctions.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Motion.vb">
+      <Link>Motion.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Project.vb">
+      <Link>Project.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\RAObyFreq.vb">
+      <Link>RAObyFreq.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\RAOs.vb">
+      <Link>RAOs.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Riser.vb">
+      <Link>Riser.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipDamp.vb">
+      <Link>ShipDamp.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipGlobal.vb">
+      <Link>ShipGlobal.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipLocal.vb">
+      <Link>ShipLocal.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipMass.vb">
+      <Link>ShipMass.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ShipYawRate.vb">
+      <Link>ShipYawRate.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\UpgradeSupport.vb">
+      <Link>UpgradeSupport.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wave.vb">
+      <Link>Wave.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Well.vb">
+      <Link>Well.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wells.vb">
+      <Link>Wells.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wind.vb">
+      <Link>Wind.vb</Link>
+    </Compile>
+    <Compile Include="Constants.vb" />
+    <Compile Include="frmTransient.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmTransient.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTransient.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarsIni.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Vessel.vb" />
+    <EmbeddedResource Include="..\commonCode\frmAbout.resx">
+      <Link>frmAbout.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\commonCode\frmCurrent.resx">
+      <Link>frmCurrent.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\commonCode\frmEnviron.resx">
+      <Link>frmEnviron.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\commonCode\frmOptions.resX">
+      <Link>frmOptions.resX</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\commonCode\frmProgress.resX">
+      <Link>frmProgress.resX</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTransient.resX">
+      <DependentUpon>frmTransient.vb</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="DODO.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Interop.Microsoft.Office.Interop.Excel, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>obj\Debug\Interop.Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic.Compatibility">
-      <Name>Microsoft.VisualBasic.Compatibility</Name>
-    </Reference>
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility.Data" />
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -86,23 +264,6 @@
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
     </Reference>
-    <Reference Include="System.XML">
-      <Name>System.XML</Name>
-    </Reference>
-    <COMReference Include="AxSysInfoLib">
-      <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="SysInfoLib">
-      <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -113,174 +274,6 @@
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.vb" />
-    <Compile Include="Constants.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Current.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CurrentData.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CurrentPair.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DrftFCbyFreq.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DrftForceCoef.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EnvForceCoef.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EnvLoad.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Force.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ForceCoef.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="frmAbout.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmAbout.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmAbout.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmCurrent.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmCurrent.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmCurrent.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmEnviron.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmEnviron.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmEnviron.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmOptions.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmOptions.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmOptions.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmProgress.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmProgress.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmProgress.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTransient.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmTransient.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmTransient.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MarsIni.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Metocean.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modGridUtilities.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modPlot.vb" />
-    <Compile Include="modRegConstants.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modRegistry.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="modUtilityFunctions.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Motion.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Project.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RAObyFreq.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RAOs.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Riser.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ShipDamp.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ShipGlobal.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ShipLocal.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ShipMass.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ShipYawRate.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UpgradeSupport.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Vessel.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Wave.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Wind.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="frmAbout.resX">
-      <DependentUpon>frmAbout.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCurrent.resX">
-      <DependentUpon>frmCurrent.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmEnviron.resX">
-      <DependentUpon>frmEnviron.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmOptions.resX">
-      <DependentUpon>frmOptions.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmProgress.resX">
-      <DependentUpon>frmProgress.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTransient.resX">
-      <DependentUpon>frmTransient.vb</DependentUpon>
-    </EmbeddedResource>
-    <Content Include="DODO.ico" />
-    <None Include="_UpgradeReport.htm">
-      <SubType>Preview</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="My Project\" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

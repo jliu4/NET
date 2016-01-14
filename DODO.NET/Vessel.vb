@@ -1,31 +1,31 @@
 Option Strict Off
 Option Explicit On
 Friend Class Vessel
-	
-	' vessel properties and motion
-	
-	' properties
-	' Name:         vessel name
-	
-	' ShipCurGlob:  current ship location in global system
-	' ShipDesGlob:  design ship location in global system
-	' ShipCurLocl:  current ship location in local system
-	' ShipDraft:    ship current draft
-	' ShipDraftSur: ship survival draft
-	' ShipDraftOpr: ship operating draft
-	
-	' WaterDepth:   water depth
-	
-	' ShipMovGlob:  current ship movement in global system
-	' ShipMovLocl:  current ship movement in local system
-	
-	' Riser:  riser system
-	' EnvLoad:      environment load
-	
-	' SigLFM:       significant low frequency motion
-	' SigWFM:       significant wave frequency motion
-	
-	Private mstrName As String
+
+    ' vessel properties and motion
+
+    ' properties
+    ' Name:         vessel name
+
+    ' ShipCurGlob:  current ship location in global system
+    ' ShipDesGlob:  design ship location in global system
+    ' ShipCurLocl:  current ship location in local system
+    ' ShipDraft:    ship current draft
+    ' ShipDraftSur: ship survival draft
+    ' ShipDraftOpr: ship operating draft
+
+    ' WaterDepth:   water depth
+
+    ' ShipMovGlob:  current ship movement in global system
+    ' ShipMovLocl:  current ship movement in local system
+
+    ' Riser:        riser system
+    ' EnvLoad:      environment load
+
+    ' SigLFM:       significant low frequency motion
+    ' SigWFM:       significant wave frequency motion
+
+    Private mstrName As String
 	
 	Private mclsCriticalDamping As Motion
 	Private mclsOriginalDampingPercent As Motion
