@@ -21,72 +21,11 @@ Friend Class Riser
 	Private msngDia As Single
 	Private msngCd As Single
 	Private msngCm As Single
-
-    Private mclsFhLocl As Force
-    Public RiserGrapher As threeDGrapher
-
-    Private theRiser As threeDLine
-
-
-
-    'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-    Private Sub Class_Initialize_Renamed()
-
-        theRiser = New threeDLine
-        theRiser.setColor(System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red))
-
-        RiserGrapher = New threeDGrapher
-
-    End Sub
-
-    Public Sub drawRiser(ByRef WellSite As Well, ByRef ShipGlob As ShipGlobal, ByVal ShipDraft As Single)
-
-        Dim x1 As Single
-        Dim y1 As Single
-        Dim z1 As Single
-        Dim x2 As Single
-        Dim y2 As Single
-        Dim z2 As Single
-
-        x1 = 0 '...ship water center x coords sys.
-        y1 = 0 '...ship water center y coords sys.
-        z1 = DeckElev
-
-        With WellSite
-            x2 = .Xg - ShipGlob.Xg '...referencr to ship sys. coords
-            y2 = .Yg - ShipGlob.Yg '...referencr to ship sys. coords
-            z2 = ShipDraft - .Depth
-        End With
-
-        theRiser.setCoords(x1, y1, z1, x2, y2, z2)
-        RiserGrapher.drawTheLine(theRiser)
-
-    End Sub
-
-    Public Sub angleChange(ByVal hChange As Short, ByRef vChange As Short)
-        RiserGrapher.newAngles(hChange, vChange)
-    End Sub
-
-    Public Sub setGraph(ByRef aGrapher As System.Windows.Forms.PictureBox, ByRef X As Single, ByRef Y As Single, ByRef Incremental As Boolean)
-        RiserGrapher.setDrawSurface(aGrapher, X, Y, Incremental)
-    End Sub
-
-    Public Function ZoomGraph(ByVal aChange As Single, ByRef WellSite As Well, ByRef ShipGlob As ShipGlobal, ByVal ShipDraft As Single) As Object
-
-        Dim zoomVar As Boolean
-
-        zoomVar = RiserGrapher.changeScale(aChange)
-        If zoomVar = True Then
-            drawRiser(WellSite, ShipGlob, ShipDraft)
-        End If
-        ZoomGraph = zoomVar
-
-    End Function
-
-    Public Sub New()
-        MyBase.New()
-
-        Class_Initialize_Renamed()
+	
+	Private mclsFhLocl As Force
+	
+	Public Sub New()
+		MyBase.New()
         mclsFhLocl = New Force
         msngCd = 1.2
         msngCm = 1.0#

@@ -23,21 +23,22 @@ Friend Class Project
 	Private mstrTitle, mstrDescription As String
 	Private mstrDirectory, mstrFileName As String
 	Private mblnSaved As Boolean
-	Private mclsVessel As Vessel
-	Private mclsEnvironment As EnvLoad
-	
-	' initialization and termination
+    Private mclsVessel As Vessel
+    Private mclsWellSites As Wells
 
-	Public Sub New()
+
+    ' initialization and termination
+
+    Public Sub New()
 		MyBase.New()
         mstrTitle = ""
         mstrDescription = ""
         mstrDirectory = ""
         mstrFileName = ""
         mblnSaved = False
-
         mclsVessel = New Vessel
-	End Sub
+        mclsWellSites = New Wells
+    End Sub
 	
 	' properties
 	
@@ -121,10 +122,17 @@ Friend Class Project
 			
 		End Get
 	End Property
-	
-	' methods
-	
-	Public Sub GetDirNFileName(ByVal NewFullName As String)
+
+    Public ReadOnly Property WellSites() As Wells
+        Get
+
+            WellSites = mclsWellSites
+
+        End Get
+    End Property
+    ' methods
+
+    Public Sub GetDirNFileName(ByVal NewFullName As String)
 		
 		Dim DirChrPos, Pos, NameLen As Short
 		Dim Valid As Boolean

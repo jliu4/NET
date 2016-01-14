@@ -1,31 +1,31 @@
 Option Strict Off
 Option Explicit On
 Friend Class Vessel
-	
-	' vessel properties and motion
-	
-	' properties
-	' Name:         vessel name
-	
-	' ShipCurGlob:  current ship location in global system
-	' ShipDesGlob:  design ship location in global system
-	' ShipCurLocl:  current ship location in local system
-	' ShipDraft:    ship current draft
-	' ShipDraftSur: ship survival draft
-	' ShipDraftOpr: ship operating draft
-	
-	' WaterDepth:   water depth
-	
-	' ShipMovGlob:  current ship movement in global system
-	' ShipMovLocl:  current ship movement in local system
-	
-	' Riser:  riser system
-	' EnvLoad:      environment load
-	
-	' SigLFM:       significant low frequency motion
-	' SigWFM:       significant wave frequency motion
-	
-	Private mstrName As String
+
+    ' vessel properties and motion
+
+    ' properties
+    ' Name:         vessel name
+
+    ' ShipCurGlob:  current ship location in global system
+    ' ShipDesGlob:  design ship location in global system
+    ' ShipCurLocl:  current ship location in local system
+    ' ShipDraft:    ship current draft
+    ' ShipDraftSur: ship survival draft
+    ' ShipDraftOpr: ship operating draft
+
+    ' WaterDepth:   water depth
+
+    ' ShipMovGlob:  current ship movement in global system
+    ' ShipMovLocl:  current ship movement in local system
+
+    ' Riser:        riser system
+    ' EnvLoad:      environment load
+
+    ' SigLFM:       significant low frequency motion
+    ' SigWFM:       significant wave frequency motion
+
+    Private mstrName As String
 	
 	Private mclsCriticalDamping As Motion
 	Private mclsOriginalDampingPercent As Motion
@@ -36,13 +36,13 @@ Friend Class Vessel
 	Private msngShipDraft As Single
 	Private msngShipDraftSur As Single
 	Private msngShipDraftOpr As Single
-	
-	Private msngWaterDepth As Single
-	
-	Private mclsRiser As Riser
-    Private mclsMoorSystem As MoorSystem
 
-    Private mclsEnvLoad As EnvLoad
+    Private msngWaterDepth As Single
+    Private msngBottomFJ As Single
+
+    Private mclsRiser As Riser
+	
+	Private mclsEnvLoad As EnvLoad
 	
 	Private mcolShipMass As Collection
 	Private mcolShipDamp As Collection
@@ -65,7 +65,7 @@ Friend Class Vessel
         mclsShipCurGlob = New ShipGlobal
         mclsShipDesGlob = New ShipGlobal
         mclsShipCurLocl = New ShipLocal
-        mclsMoorSystem = New MoorSystem
+
         mclsRiser = New Riser
         mclsEnvLoad = New EnvLoad
 
@@ -118,14 +118,8 @@ Friend Class Vessel
 			
 		End Get
 	End Property
-    Public ReadOnly Property MoorSystem() As MoorSystem
-        Get
-
-            MoorSystem = mclsMoorSystem
-
-        End Get
-    End Property
-    Public ReadOnly Property Riser() As Riser
+	
+	Public ReadOnly Property Riser() As Riser
 		Get
 			
 			Riser = mclsRiser
@@ -183,22 +177,35 @@ Friend Class Vessel
 			
 		End Set
 	End Property
-	
-	
-	Public Property WaterDepth() As Single
-		Get
-			
-			WaterDepth = msngWaterDepth
-			
-		End Get
-		Set(ByVal Value As Single)
-			
-			msngWaterDepth = Value
-			
-		End Set
-	End Property
-	
-	Public ReadOnly Property ShipMass(ByVal Draft As Single) As Motion
+
+
+    Public Property BottomFJ() As Single
+        Get
+
+            BottomFJ = msngBottomFJ
+
+        End Get
+        Set(ByVal Value As Single)
+
+            msngBottomFJ = Value
+
+        End Set
+    End Property
+
+    Public Property WaterDepth() As Single
+        Get
+
+            WaterDepth = msngWaterDepth
+
+        End Get
+        Set(ByVal Value As Single)
+
+            msngWaterDepth = Value
+
+        End Set
+    End Property
+
+    Public ReadOnly Property ShipMass(ByVal Draft As Single) As Motion
 		Get
 			
 			Dim N, i, Ns As Short
@@ -423,188 +430,54 @@ Friend Class Vessel
 			
 		End Get
 	End Property
-
-    Public Function FindEquilibriumPosition(ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByRef ShipLoc As ShipGlobal = Nothing) As ShipGlobal
-
-        Dim i As Short
-        Dim DtLim, Tol, DtRat As Double
-        Dim Drz, dx, dy, DT As Double
-        Dim Dy0, Dx0, Drz0 As Double
-        Dim Dy1, Dx1, Drz1 As Double
-        Dim Dyp, Dxp, Drzp As Double
-        Dim ShipIntLoc As New ShipGlobal
-        Dim FMoor As New Force
-        Dim FEnv As Force
-        Dim SMoor As New Force
-        Dim Recal As Boolean
-        Dim IniProg As Short
-
-        'UPGRADE_ISSUE: Control prgProgress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
-        'IniProg = frmProgress.Value
-        If ShipLoc Is Nothing Then ShipLoc = mclsShipCurGlob
-        ' Set ShipLoc = mclsShipCurGlob
-
-        Tol = Max(DistTol * msngWaterDepth, 0.1)
-        DtLim = Max(0.075 * msngWaterDepth, 50.0#)
-        With ShipIntLoc
-            .Xg = ShipLoc.Xg
-            .Yg = ShipLoc.Yg
-            .Heading = ShipLoc.Heading
-        End With
-        Recal = True
-        Dx0 = 0#
-        Dy0 = 0#
-        Drz0 = 0#
-        Dxp = 0#
-        Dyp = 0#
-        Drzp = 0#
-
-        For i = 1 To MaxNumIter
-            System.Windows.Forms.Application.DoEvents()
-            If Cancelled Then Exit For
-            'UPGRADE_ISSUE: Control Progress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
-            'frmProgress.Progress = IniProg + Min(40, i * 2)
-
-            If Recal Then Call mclsMoorSystem.MoorStiff(SMoor, ShipIntLoc)
-            Call mclsMoorSystem.MoorForce(FMoor, ShipIntLoc)
-            FEnv = mclsEnvLoad.FEnvGlob(ShipIntLoc.Heading)
-
-            Dx1 = (FEnv.Fx + FMoor.Fx) / SMoor.Fx
-            Dy1 = (FEnv.Fy + FMoor.Fy) / SMoor.Fy
-            Drz1 = (FEnv.MYaw + FMoor.MYaw) / SMoor.MYaw
-
-            If Dx1 <> Dx0 And Dxp <> 0# Then
-                dx = Dx1 * Dxp / (Dx0 - Dx1)
-                If System.Math.Abs(dx) > System.Math.Abs(Dx1) Or dx * Dx1 < 0# Then dx = Dx1
-            Else
-                dx = Dx1
-            End If
-            If Dy1 <> Dy0 And Dyp <> 0# Then
-                dy = Dy1 * Dyp / (Dy0 - Dy1)
-                If System.Math.Abs(dy) > System.Math.Abs(Dy1) Or dy * Dy1 < 0# Then dy = Dy1
-            Else
-                dy = Dy1
-            End If
-            If Drz1 <> Drz0 And Drzp <> 0# Then
-                Drz = Drz1 * Drzp / (Drz0 - Drz1)
-                If System.Math.Abs(Drz) > System.Math.Abs(Drz1) Or Drz * Drz1 < 0# Then Drz = Drz1
-            Else
-                Drz = Drz1
-            End If
-
-            DT = System.Math.Sqrt(dx ^ 2 + dy ^ 2)
-            If DT > DtLim Then
-                DtRat = DtLim / DT
-                DT = DtLim
-                dx = dx * DtRat
-                dy = dy * DtRat
-            End If
-
-            If DT > 10.0# Or System.Math.Abs(Drz) > 0.005 Then
-                Recal = True
-            Else
-                Recal = False
-            End If
-
-            With ShipIntLoc
-                .Xg = .Xg + dx
-                .Yg = .Yg + dy
-                .Heading = .Heading - Drz
-            End With
-
-            If DT < Tol And System.Math.Abs(Drz) < AngleTol Then Exit For
-
-            Dx0 = Dx1
-            Dy0 = Dy1
-            Drz0 = Drz1
-            Dxp = dx
-            Dyp = dy
-            Drzp = Drz
-        Next i
-
-        ' if no env, calc damping percentage
-        Dim MassVal, StiffVal, AddedMass As Double
-        Dim Mass As New Motion
-        Dim Damp As New Motion
-        If InStr(mclsEnvLoad.EnvCur.Name, "No Environment") > 0 Then
-
-            '    If mclsOriginalDampingPercent.Surge = 0 Then     ' never computed
-            Mass = ShipMass(msngShipDraft)
-            Damp = ShipDamp(msngShipDraft)
-            ' calc critical damping
-
-            mclsCriticalDamping.Surge = (2 * System.Math.Sqrt(mclsMoorSystem.StiffLocl(True).Fx * Mass.Surge))
-            mclsCriticalDamping.Sway = (2 * System.Math.Sqrt(mclsMoorSystem.StiffLocl(True).Fy * Mass.Sway))
-            mclsCriticalDamping.Yaw = (2 * System.Math.Sqrt(mclsMoorSystem.StiffLocl(True).MYaw * Mass.Yaw))
-
-            mclsOriginalDampingPercent.Surge = 100 * (Damp.Surge / mclsCriticalDamping.Surge)
-            mclsOriginalDampingPercent.Sway = 100 * (Damp.Sway / mclsCriticalDamping.Sway)
-            mclsOriginalDampingPercent.Yaw = 100 * (Damp.Yaw / mclsCriticalDamping.Yaw)
-
-            With mclsDampingPercent
-                .Surge = mclsOriginalDampingPercent.Surge
-                .Sway = mclsOriginalDampingPercent.Sway
-                .Yaw = mclsOriginalDampingPercent.Yaw
-            End With
-            '     End If
-        End If
-
-        FindEquilibriumPosition = ShipIntLoc
-        'UPGRADE_NOTE: Object FEnv may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        FEnv = Nothing
-        'UPGRADE_NOTE: Object SMoor may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        SMoor = Nothing
-        'UPGRADE_NOTE: Object FMoor may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        FMoor = Nothing
-
-    End Function
-    Public Function GetSigWFM(ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByVal Heading As Single = 0) As Motion
-
-        Dim MotionRAO As Motion
-        Dim Direct, Freq, Sw As Single
-        Dim Sway, Surge, Yaw As Single
-
-        Dim IniProg As Short
-
-        'UPGRADE_ISSUE: Control prgProgress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
+	
+	Public Function GetSigWFM(ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByVal Heading As Single = 0) As Motion
+		
+		Dim MotionRAO As Motion
+		Dim Direct, Freq, Sw As Single
+		Dim Sway, Surge, Yaw As Single
+		
+		Dim IniProg As Short
+		
+		'UPGRADE_ISSUE: Control prgProgress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
         'IniProg = frmProgress.prgProgress.Value
-        'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
-        If IsNothing(Heading) Then Heading = mclsShipCurGlob.Heading
-
-        Direct = Heading - mclsEnvLoad.EnvCur.Wave.Heading
-        Surge = 0#
-        Sway = 0#
-        Yaw = 0#
-
-        For Freq = FreqS To FreqE Step FreqD
-            Sw = mclsEnvLoad.EnvCur.Wave.Spectrum(Freq)
-            MotionRAO = RAO(msngShipDraft, Freq, Direct)
-
-            With MotionRAO
-                Surge = Surge + .Surge ^ 2 * Sw * FreqD
-                Sway = Sway + .Sway ^ 2 * Sw * FreqD
-                Yaw = Yaw + .Yaw ^ 2 * Sw * FreqD
-            End With
-
-            'UPGRADE_NOTE: Object MotionRAO may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-            MotionRAO = Nothing
-            System.Windows.Forms.Application.DoEvents()
-
-            If Cancelled Then Exit For
-            'UPGRADE_ISSUE: Control Progress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
+		'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
+		If IsNothing(Heading) Then Heading = mclsShipCurGlob.Heading
+		
+		Direct = Heading - mclsEnvLoad.EnvCur.Wave.Heading
+		Surge = 0#
+		Sway = 0#
+		Yaw = 0#
+		
+		For Freq = FreqS To FreqE Step FreqD
+			Sw = mclsEnvLoad.EnvCur.Wave.Spectrum(Freq)
+			MotionRAO = RAO(msngShipDraft, Freq, Direct)
+			
+			With MotionRAO
+				Surge = Surge + .Surge ^ 2 * Sw * FreqD
+				Sway = Sway + .Sway ^ 2 * Sw * FreqD
+				Yaw = Yaw + .Yaw ^ 2 * Sw * FreqD
+			End With
+			
+			'UPGRADE_NOTE: Object MotionRAO may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+			MotionRAO = Nothing
+			System.Windows.Forms.Application.DoEvents()
+			
+			If Cancelled Then Exit For
+			'UPGRADE_ISSUE: Control Progress could not be resolved because it was within the generic namespace Form. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"'
             'frmProgress.Progress = IniProg + (Freq - FreqS) / (FreqE - FreqS) * 15
-        Next Freq
-
-        GetSigWFM = New Motion
-        With GetSigWFM
-            .Surge = 2.0# * System.Math.Sqrt(Surge)
-            .Sway = 2.0# * System.Math.Sqrt(Sway)
-            .Yaw = 2.0# * System.Math.Sqrt(Yaw)
-        End With
-
-    End Function
-
-    Public Function GetSigLFM(ByRef StiffLocl As Force, ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByRef ShipLoc As ShipGlobal = Nothing) As Motion
+		Next Freq
+		
+		GetSigWFM = New Motion
+		With GetSigWFM
+			.Surge = 2# * System.Math.Sqrt(Surge)
+			.Sway = 2# * System.Math.Sqrt(Sway)
+			.Yaw = 2# * System.Math.Sqrt(Yaw)
+		End With
+		
+	End Function
+	
+	Public Function GetSigLFM(ByRef StiffLocl As Force, ByRef Cancelled As Boolean, ByRef frmProgress As System.Windows.Forms.Form, Optional ByRef ShipLoc As ShipGlobal = Nothing) As Motion
 		
 		Dim Sf As Force
 		Dim mass, Damp As Motion
@@ -668,111 +541,72 @@ Friend Class Vessel
 		End With
 		
 	End Function
-
-    Public Sub FindSigDynMLTen(ByRef Tension() As Double, ByRef SigMF() As Double, ByRef ShipLoc As ShipGlobal, ByRef SigMotion As Motion)
-
-        Dim i, NumLine As Short
-        Dim T1, T2 As Double
-        Dim ShipMotion As Motion
-        Dim ShipLoc1, ShipLoc2 As ShipGlobal
-
-        ShipMotion = New Motion
-
-        With ShipMotion
-            .Surge = SigMotion.Surge
-            .Sway = SigMotion.Sway
-            .Yaw = SigMotion.Yaw
-        End With
-        ShipLoc1 = NewShipLoc(ShipLoc, ShipMotion)
-        With ShipMotion
-            .Surge = -SigMotion.Surge
-            .Sway = -SigMotion.Sway
-            .Yaw = -SigMotion.Yaw
-        End With
-        ShipLoc2 = NewShipLoc(ShipLoc, ShipMotion)
-
-        With mclsMoorSystem
-            NumLine = .MoorLineCount
-
-            For i = 1 To NumLine
-                Tension(i) = .MoorLines(i).TensionByVesselLocation(ShipLoc) '  mean ship location
-                T1 = .MoorLines(i).TensionByVesselLocation(ShipLoc1)
-                T2 = .MoorLines(i).TensionByVesselLocation(ShipLoc2)
-
-                SigMF(i) = Max(System.Math.Abs(T1 - Tension(i)), System.Math.Abs(T2 - Tension(i)))
-            Next i
-        End With
-
-        'UPGRADE_NOTE: Object ShipMotion may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        ShipMotion = Nothing
-        'UPGRADE_NOTE: Object ShipLoc1 may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        ShipLoc1 = Nothing
-        'UPGRADE_NOTE: Object ShipLoc2 may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        ShipLoc2 = Nothing
-
-    End Sub
-    Public Function InputVsl(ByVal FileNum As Short) As Boolean
-
-        Dim VslName As String
-        Dim DesY, DesX, DesH As Single
-        Dim CurY, CurX, CurH As Single
-        Dim OprD, SurD, CurD As Single
-        Dim WD As Single
-        Dim mass, TopTen, Dia As Single
-
-        InputVsl = False
-
-        On Error GoTo ErrorHandler
-
-        Input(FileNum, VslName)
-        mstrName = VslName
-
-        Input(FileNum, DesX)
-        Input(FileNum, DesY)
-        Input(FileNum, DesH)
-        Input(FileNum, SurD)
-        Input(FileNum, OprD)
-        With mclsShipDesGlob
-            .Xg = DesX
-            .Yg = DesY
-            .Heading = DesH
-        End With
-        msngShipDraftSur = SurD
-        msngShipDraftOpr = OprD
-
-        Input(FileNum, CurX)
-        Input(FileNum, CurY)
-        Input(FileNum, CurH)
-        Input(FileNum, CurD)
-        With mclsShipCurGlob
-            .Xg = CurX
-            .Yg = CurY
-            .Heading = CurH
-        End With
-        ShipDraft = CurD
-
-        Input(FileNum, WD)
-        msngWaterDepth = WD
+	
+	Public Function InputVsl(ByVal FileNum As Short) As Boolean
+		
+		Dim VslName As String
+		Dim DesY, DesX, DesH As Single
+		Dim CurY, CurX, CurH As Single
+		Dim OprD, SurD, CurD As Single
+		Dim WD As Single
+		Dim mass, TopTen, Dia As Single
+		
+		InputVsl = False
+		
+		On Error GoTo ErrorHandler
+		
+		Input(FileNum, VslName)
+		mstrName = VslName
+		
+		Input(FileNum, DesX)
+		Input(FileNum, DesY)
+		Input(FileNum, DesH)
+		Input(FileNum, SurD)
+		Input(FileNum, OprD)
+		With mclsShipDesGlob
+			.Xg = DesX
+			.Yg = DesY
+			.Heading = DesH
+		End With
+		msngShipDraftSur = SurD
+		msngShipDraftOpr = OprD
+		
+		Input(FileNum, CurX)
+		Input(FileNum, CurY)
+		Input(FileNum, CurH)
+		Input(FileNum, CurD)
+		With mclsShipCurGlob
+			.Xg = CurX
+			.Yg = CurY
+			.Heading = CurH
+		End With
+		ShipDraft = CurD
+		
+		Input(FileNum, WD)
+		msngWaterDepth = WD
         mclsRiser.Length = WD
-        If 1 = 0 Then
-            Input(FileNum, mass)
-        Input(FileNum, TopTen)
-        Input(FileNum, Dia)
-        With mclsRiser
-            .TopTen = TopTen
-            .mass = mass
-            .Dia = Dia
-        End With
-        End If
-        InputVsl = True
-        Exit Function
-ErrorHandler:
-        InputVsl = False
-        MsgBox("Error reading vessel data: " & Err.Description, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Error")
 
-    End Function
+        Input(FileNum, BottomFJ)
+        msngBottomFJ = BottomFJ
 
-    Public Function OutputVsl(ByVal FileNum As Short) As Boolean
+        Input(FileNum, mass)
+		Input(FileNum, TopTen)
+		Input(FileNum, Dia)
+		With mclsRiser
+			.TopTen = TopTen
+			.mass = mass
+			.Dia = Dia
+		End With
+		
+		InputVsl = True
+		Exit Function
+ErrorHandler: 
+		InputVsl = False
+		MsgBox("Error reading vessel data: " & Err.Description, MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
+		
+	End Function
+	
+	Public Function OutputVsl(ByVal FileNum As Short) As Boolean
 		
 		OutputVsl = False
 		
