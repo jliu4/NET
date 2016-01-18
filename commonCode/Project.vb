@@ -217,8 +217,8 @@ Friend Class Project
                 Case "[Vessel]"
                     If mclsVessel.InputVsl(FileNum) Then CheckInput(1) = True
 
-                    'Case "[Mooring Lines]"
-                    'If mclsVessel.MoorSystem.InputML(FileNum) Then CheckInput(2) = True
+                Case "[Mooring Lines]"
+                    If mclsVessel.MoorSystem.InputML(FileNum) Then CheckInput(2) = True
 
                 Case "[Environment]"
 					If mclsVessel.EnvLoad.InputEnv(FileNum) Then CheckInput(3) = True
@@ -259,8 +259,8 @@ ErrorHandler:
         '    Write #FileNum, mstrVesselDataPath     '  This will break version compatibility
         '    Instead of saving the RAO path, make a copy of Vessel Data to MARSDir
 
-        'PrintLine(FileNum, "[Mooring Lines]")
-        'If Not mclsVessel.MoorSystem.OutputML(FileNum) Then Exit Function
+        PrintLine(FileNum, "[Mooring Lines]")
+        If Not mclsVessel.MoorSystem.OutputML(FileNum) Then Exit Function
 
         PrintLine(FileNum, "[Environment]")
 		If Not mclsVessel.EnvLoad.OutputEnv(FileNum) Then Exit Function
@@ -318,14 +318,14 @@ ErrorHandler:
 			FileOpen_Renamed = False
 			If Not InputOK Then Exit Function
 
-            'If .MoorSystem.MoorLineCount = 0 Then
-            'FileOpen(FileNumRes, VslName & ".mor", OpenMode.Input)
-            '         FileOpen_Renamed = True
-            'InputOK = .InputFairleads(FileNumRes)
-            'FileClose(FileNumRes)
-            '         FileOpen_Renamed = False
-            'If Not InputOK Then Exit Function
-            'End If
+            If .MoorSystem.MoorLineCount = 0 Then
+                FileOpen(FileNumRes, VslName & ".mor", OpenMode.Input)
+                FileOpen_Renamed = True
+                InputOK = .InputFairleads(FileNumRes)
+                FileClose(FileNumRes)
+                FileOpen_Renamed = False
+                If Not InputOK Then Exit Function
+            End If
         End With
 		
 		VesselParticular = True
