@@ -31,12 +31,7 @@ D:\Work\NET\MARS.NET\obj\Debug\MARS.Resources.resources
 D:\Work\NET\MARS.NET\obj\Debug\MARS.exe
 D:\Work\NET\MARS.NET\obj\Debug\MARS.xml
 D:\Work\NET\MARS.NET\obj\Debug\MARS.pdb
-C:\jinwork\NET\MARS.NET\obj\Debug\Interop.MSComctlLib.dll
-C:\jinwork\NET\MARS.NET\obj\Debug\Interop.MSFlexGridLib.dll
 C:\jinwork\NET\MARS.NET\obj\Debug\Interop.SysInfoLib.dll
-C:\jinwork\NET\MARS.NET\obj\Debug\AxInterop.MSComctlLib.dll
-C:\jinwork\NET\MARS.NET\obj\Debug\AxInterop.MSFlexGridLib.dll
-C:\jinwork\NET\MARS.NET\obj\Debug\AxInterop.SysInfoLib.dll
 C:\jinwork\NET\MARS.NET\obj\Debug\Mars.vbproj.ResolveComReference.cache
 C:\jinwork\NET\MARS.NET\obj\Debug\MARS.exe
 C:\jinwork\NET\MARS.NET\obj\Debug\MARS.xml
@@ -44,12 +39,7 @@ C:\jinwork\NET\MARS.NET\obj\Debug\MARS.pdb
 C:\jinwork\NET\MARS.NET\bin\MARS.exe
 C:\jinwork\NET\MARS.NET\bin\MARS.pdb
 C:\jinwork\NET\MARS.NET\bin\MARS.xml
-C:\jinwork\NET\MARS.NET\bin\Interop.MSComctlLib.dll
-C:\jinwork\NET\MARS.NET\bin\Interop.MSFlexGridLib.dll
 C:\jinwork\NET\MARS.NET\bin\Interop.SysInfoLib.dll
-C:\jinwork\NET\MARS.NET\bin\AxInterop.MSComctlLib.dll
-C:\jinwork\NET\MARS.NET\bin\AxInterop.MSFlexGridLib.dll
-C:\jinwork\NET\MARS.NET\bin\AxInterop.SysInfoLib.dll
 C:\jinwork\NET\MARS.NET\obj\Debug\Mars.vbprojResolveAssemblyReference.cache
 C:\jinwork\NET\MARS.NET\obj\Debug\MARS.frmEnviron.resources
 C:\jinwork\NET\MARS.NET\obj\Debug\MARS.frmTransient.resources
@@ -64,3 +54,6 @@ C:\jinwork\NET\MARS.NET\obj\Debug\MARS.frmProjDesc.resources
 C:\jinwork\NET\MARS.NET\obj\Debug\MARS.frmWells.resources
 C:\jinwork\NET\MARS.NET\obj\Debug\MARS.Resources.resources
 C:\jinwork\NET\MARS.NET\obj\Debug\Mars.vbproj.GenerateResource.Cache
+C:\jinwork\NET\MARS.NET\bin\stdole.dll
+C:\jinwork\NET\MARS.NET\bin\Interop.AccessibilityCplAdminLib.dll
+C:\jinwork\NET\MARS.NET\bin\Interop.Microsoft.Office.Interop.Excel.dll

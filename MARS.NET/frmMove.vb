@@ -125,37 +125,37 @@ Friend Class frmMove
 
     ' grids operation
 
-    Private Sub grdLC_DblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles grdLC.DblClick
+    '  Private Sub grdLC_DblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles grdLC.DblClick
 
-        With grdLC
-            Select Case .Col
-                Case 1
-                    If .Text = "Yes" Then
-                        .Text = "No"
-                    Else
-                        .Text = "Yes"
-                    End If
-                    MoorLines.MoorLines(.Row).Connected = Not MoorLines.MoorLines(.Row).Connected
-                Case 2
-                    If .Text = "Yes" Then
-                        .Text = "No"
-                    Else
-                        .Text = "Yes"
-                    End If
-                    MoorLines.MoorLines(.Row).Winched = Not MoorLines.MoorLines(.Row).Winched
-            End Select
-        End With
+    '  With grdLC
+    ' Select Case .Col
+    'Case 1
+    'If .Text = "Yes" Then
+    '.Text = "No"
+    'Else
+    '.Text = "Yes"
+    'End If
+    '               MoorLines.MoorLines(.Row).Connected = Not MoorLines.MoorLines(.Row).Connected
+    'Case 2
+    'If .Text = "Yes" Then
+    '.Text = "No"
+    'Else
+    '.Text = "Yes"
+    'End If
+    '               MoorLines.MoorLines(.Row).Winched = Not MoorLines.MoorLines(.Row).Winched
+    'End Select
+    'End With
+    '
+    ' ************  Temporarily Disabled 9/21/99   *******************
+    '        Exit Sub
+    '        If grdLC.Text = "Yes" Then
+    '            grdLC.Text = "No"
+    '        ElseIf grdLC.Text = "No" Then
+    '            grdLC.Text = "Yes"
+    '        End If
+    '        TensionFixed(grdLC.Row) = Not TensionFixed(grdLC.Row)
 
-        ' ************  Temporarily Disabled 9/21/99   *******************
-        '        Exit Sub
-        '        If grdLC.Text = "Yes" Then
-        '            grdLC.Text = "No"
-        '        ElseIf grdLC.Text = "No" Then
-        '            grdLC.Text = "Yes"
-        '        End If
-        '        TensionFixed(grdLC.Row) = Not TensionFixed(grdLC.Row)
-
-    End Sub
+    '  End Sub
 
     ' combo box
 
@@ -183,76 +183,77 @@ Friend Class frmMove
 
         Call SetLabels()
         If NumLines > 8 Then
-            BarSize = SysInfo1.ScrollBarSize
+            'BarSize = SysInfo1.ScrollBarSize
         Else
             BarSize = 0
         End If
 
-        With grdLC
-            .Rows = Max(9, NumLines + 1)
-            .WordWrap = True
+        'With grdLC
+        ' .Rows.count
+        '.Rows = Max(9, NumLines + 1)
+        '.WordWrap = True
 
-            ColW = (VB6.PixelsToTwipsX(.Width) - BarSize) / .Cols - .GridLineWidth
-            RowH = VB6.PixelsToTwipsY(.Height) / 11 - .GridLineWidth
-            .set_ColWidth(0, VB6.PixelsToTwipsX(.Width) - BarSize - ColW * (.Cols - 1) - 100)
-            .set_RowHeight(0, VB6.PixelsToTwipsY(.Height) - RowH * 8 - 90)
+        'ColW = (VB6.PixelsToTwipsX(.Width) - BarSize) / .Cols - .GridLineWidth
+        'RowH = VB6.PixelsToTwipsY(.Height) / 11 - .GridLineWidth
+        '.set_ColWidth(0, VB6.PixelsToTwipsX(.Width) - BarSize - ColW * (.Cols - 1) - 100)
+        '.set_RowHeight(0, VB6.PixelsToTwipsY(.Height) - RowH * 8 - 90)
 
-            For c = 1 To .Cols - 1
-                .set_ColWidth(c, ColW)
-            Next c
-            For r = .FixedRows To .Rows - 1
-                .set_RowHeight(r, RowH)
-            Next r
+        'For c = 1 To .Cols - 1
+        '.set_ColWidth(c, ColW)
+        'Next c
+        'For r = .FixedRows To .Rows - 1
+        '.set_RowHeight(r, RowH)
+        'Next r
 
-            .Col = 0
-            For r = .FixedRows To .Rows - 1
-                .Row = r
-                .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                .Text = "Line " & (r - .FixedRows + 1)
-            Next r
-            .Row = 0
-            For c = 0 To .Cols - 1
-                .Col = c
-                .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                .Text = LCLabels(c)
-            Next c
+        '.Col = 0
+        'For r = .FixedRows To .Rows - 1
+        '.Row = r
+        '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        '.Text = "Line " & (r - .FixedRows + 1)
+        'Next r
+        '.Row = 0
+        'For c = 0 To .Cols - 1
+        '.Col = c
+        '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        '.Text = LCLabels(c)
+        'Next c
 
-            .Col = 0
-            .Row = 0
-        End With
+        '.Col = 0
+        '.Row = 0
+        'End With
 
-        With grdPayout
-            .Rows = Max(9, NumLines + 1)
-            .WordWrap = True
+        'With grdPayout
+        '.Rows = Max(9, NumLines + 1)
+        '.WordWrap = True
+        '
+        'ColW = (VB6.PixelsToTwipsX(.Width) - BarSize) / .Cols - .GridLineWidth
+        'RowH = VB6.PixelsToTwipsY(.Height) / 11 - .GridLineWidth
+        '.set_ColWidth(0, VB6.PixelsToTwipsX(.Width) - BarSize - ColW * (.Cols - 1) - 80)
+        '.set_RowHeight(0, VB6.PixelsToTwipsY(.Height) - RowH * 8 - 90)
+        '
+        'For c = 1 To .Cols - 1
+        '.set_ColWidth(c, ColW)
+        'Next c
+        'For r = .FixedRows To .Rows - 1
+        '.set_RowHeight(r, RowH)
+        'Next r
 
-            ColW = (VB6.PixelsToTwipsX(.Width) - BarSize) / .Cols - .GridLineWidth
-            RowH = VB6.PixelsToTwipsY(.Height) / 11 - .GridLineWidth
-            .set_ColWidth(0, VB6.PixelsToTwipsX(.Width) - BarSize - ColW * (.Cols - 1) - 80)
-            .set_RowHeight(0, VB6.PixelsToTwipsY(.Height) - RowH * 8 - 90)
+        '.Col = 0
+        'For r = .FixedRows To .Rows - 1
+        '.Row = r
+        '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        '.Text = "Line " & (r - .FixedRows + 1)
+        'Next r
+        '.Row = 0
+        'For c = 0 To .Cols - 1
+        '.Col = c
+        '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        '.Text = PayoutLabels(c)
+        'Next c
 
-            For c = 1 To .Cols - 1
-                .set_ColWidth(c, ColW)
-            Next c
-            For r = .FixedRows To .Rows - 1
-                .set_RowHeight(r, RowH)
-            Next r
-
-            .Col = 0
-            For r = .FixedRows To .Rows - 1
-                .Row = r
-                .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                .Text = "Line " & (r - .FixedRows + 1)
-            Next r
-            .Row = 0
-            For c = 0 To .Cols - 1
-                .Col = c
-                .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                .Text = PayoutLabels(c)
-            Next c
-
-            .Col = 0
-            .Row = 0
-        End With
+        '.Col = 0
+        '.Row = 0
+        'End With
 
         CheckingGrid = False
 
@@ -335,56 +336,56 @@ Friend Class frmMove
             txtExtLoad(2).Text = VB6.Format(.MYaw * 0.001 * FrcFactor, "0.0")
         End With
 
-        With grdLC
-            For r = 1 To NumLines
-                .Row = r
-                .Col = 1
-                If MoorLines.MoorLines(r).Connected Then
-                    .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                    .Text = "Yes"
-                Else
-                    .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                    .Text = "No"
-                End If
-                .Col = 2
-                If MoorLines.MoorLines(r).Winched Then
-                    .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                    .Text = "Yes"
-                Else
-                    .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                    .Text = "No"
-                End If
-            Next r
-        End With
+        ' With grdLC
+        'For r = 1 To NumLines
+        '        .Row = r
+        '       .Col = 1
+        '      If MoorLines.MoorLines(r).Connected Then
+        '     .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        '    .Text = "Yes"
+        '   Else
+        '  .CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        ' .Text = "No"
+        'End If
+        '.Col = 2
+        'If MoorLines.MoorLines(r).Winched Then
+        '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        '.Text = "Yes"
+        'Else
+        '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
+        '.Text = "No"
+        'End If
+        'Next r
+        ' End With
 
-        With grdPayout
-            For r = 1 To NumLines
-                .Row = r
-                If MoorLines.MoorLines(r).Connected Then
-                    TmpStr = VB6.Format(MoorLines.MoorLines(r).Payout * LFactor, "0.0")
-                Else
-                    TmpStr = "--"
-                End If
-                .Col = 1
-                .Text = TmpStr
-                .Col = 2
-                .Text = TmpStr
-                .Col = 3
-                If MoorLines.MoorLines(r).Connected Then
-                    .Text = "0.0"
-                    TmpStr = VB6.Format(MoorLines.MoorLines(r).TopTension * 0.001 * FrcFactor, "0.00")
-                Else
-                    .Text = "--"
-                End If
-                .Col = 4
-                .Text = TmpStr
-                .Col = 5
-                .Text = TmpStr
-            Next r
-        End With
+        ' With grdPayout
+        'For r = 1 To NumLines
+        ''.Row = r
+        'If MoorLines.MoorLines(r).Connected Then
+        'TmpStr = VB6.Format(MoorLines.MoorLines(r).Payout * LFactor, "0.0")
+        'Else
+        'TmpStr = "--"
+        'End If
+        '.Col = 1
+        '.Text = TmpStr
+        '.Col = 2
+        '.Text = TmpStr
+        '.Col = 3
+        'If MoorLines.MoorLines(r).Connected Then
+        '.Text = "0.0"
+        'TmpStr = VB6.Format(MoorLines.MoorLines(r).TopTension * 0.001 * FrcFactor, "0.00")
+        'Else
+        '.Text = "--"
+        'End If
+        '.Col = 4
+        '.Text = TmpStr
+        '.Col = 5
+        '.Text = TmpStr
+        'Next r
+        'End With
 
         'UPGRADE_NOTE: Object FMGlob may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        FMGlob = Nothing
+        'FMGlob = Nothing
 
     End Sub
 
@@ -434,25 +435,7 @@ Friend Class frmMove
         Dim r As Short
         Dim Distance, Bearing As Single
 
-        With grdLC
-            For r = 1 To NumLines
-                .Row = r
-                .Col = 1
-                If .Text = "Yes" Then
-                    MoorLines.MoorLines(r).Connected = True
-                Else
-                    MoorLines.MoorLines(r).Connected = False
-                End If
-                .Col = 2
-                If .Text = "Yes" Then
-                    MoorLines.MoorLines(r).Winched = True
-                Else
-                    MoorLines.MoorLines(r).Winched = False
-                End If
-                'UPGRADE_WARNING: Couldn't resolve default property of object Payout(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                MoorLines.MoorLines(r).Payout = Payout(r) / LFactor
-            Next r
-        End With
+
 
         With MoorLines
             If optInputSystem(0).Checked Then
@@ -507,21 +490,6 @@ Friend Class frmMove
         Dim OldPOL As Single
         Dim FMGlob As New Force
 
-        With grdPayout
-            For r = 1 To NumLines
-                .Row = r
-                TmpStr = VB6.Format(MoorLines.MoorLines(r).Payout * LFactor, "0.0")
-                .Col = 1
-                If .Text <> "--" Then OldPOL = CDbl(.Text)
-                .Col = 2
-                If .Text <> "--" Then .Text = TmpStr
-                .Col = 3
-                If .Text <> "--" Then .Text = VB6.Format(CDbl(TmpStr) - OldPOL, "0.0")
-                TmpStr = VB6.Format(MoorLines.MoorLines(r).TopTension * 0.001 * FrcFactor, "0.00")
-                .Col = 5
-                If .Text <> "--" Then .Text = TmpStr
-            Next r
-        End With
 
         MoorLines.MoorForce(FMGlob, ShipTarLoc)
         With FMGlob
@@ -982,4 +950,8 @@ Again:
 		Dim Index As Short = txtVslSt.GetIndex(eventSender)
 		btnPosition.Enabled = False
 	End Sub
+
+    Private Sub frmMove_Load_1(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

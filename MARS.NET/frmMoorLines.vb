@@ -163,13 +163,34 @@ Friend Class frmMoorLines
     End Sub
 
     Private Sub grdSegments_ClickEvent(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellEventArgs) Handles grdSegments.CellClick
-        If eventArgs.ColumnIndex = 0 Then
-            grdSegments(eventArgs.ColumnIndex, eventArgs.RowIndex) = cboSegType
-            If cboSegType.Visible = False Then
-                ExistingTxt = grdSegments.Text
-                SetSegTypeCbo((grdSegments.Text))
-                'MSFlexGridCombo(grdSegments, cboSegType, True)
-            End If
+        If eventArgs.ColumnIndex = 1 Then
+
+            Dim cell As New DataGridViewComboBoxCell()
+            With cell
+                .FlatStyle = FlatStyle.Flat
+                .MaxDropDownItems = 7
+                .Items.Add("WIRE")
+                .Items.Add("CHAIN")
+                .Items.Add("WIRE-P")
+                .Items.Add("CHAIN-P")
+                .Items.Add("POLY-P")
+                .Items.Add("BUOY-P")
+                .Items.Add("SPRING") '2.2.1
+            End With
+
+            cell.Value = "WIRE"
+            grdSegments(eventArgs.ColumnIndex, eventArgs.RowIndex) = cell
+
+        End If
+    End Sub
+
+    Private Sub grdSegments_LeaveCell(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellEventArgs) _
+    Handles grdSegments.CellLeave
+        If eventArgs.ColumnIndex = 1 Then
+            Dim cell As New DataGridViewTextBoxCell()
+
+            cell.Value = grdSegments(eventArgs.ColumnIndex, eventArgs.RowIndex).Value
+            'grdSegments(eventArgs.ColumnIndex, eventArgs.RowIndex) = cell
         End If
     End Sub
 
@@ -889,7 +910,8 @@ Errhandler:
                 .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
                 .Columns(c).HeaderText = SegLabels(c)
             Next c
-
+            .Columns(0).FillWeight = 80 / .ColumnCount
+            .Columns(1).FillWeight = 120 / .ColumnCount
         End With
 
         With grdAnchor
@@ -914,6 +936,8 @@ Errhandler:
 
         '   segment type
         With cboSegType '2.1.4
+            .FlatStyle = FlatStyle.Flat
+            .MaxDropDownItems = 7
             .Items.Add("WIRE")
             .Items.Add("CHAIN")
             .Items.Add("WIRE-P")
@@ -942,7 +966,7 @@ Errhandler:
         SegLabels(8) = "Unit Dry Weight"
         SegLabels(9) = "Unit Wet Weight"
         SegLabels(10) = "Friction Coeff"
-        SegLabels(11) = "Buoy Net Buoyancy"
+        SegLabels(11) = "Buoy Net" ' Buoyancy"
         SegLabels(12) = "Vertical Distance"
 
         If IsMetricUnit Then
@@ -960,12 +984,12 @@ Errhandler:
             SegLabels(2) = SegLabels(2) & vbCrLf & "(ft)"
             SegLabels(3) = SegLabels(3) & vbCrLf & "(ft)"
             SegLabels(4) = SegLabels(4) & vbCrLf & "(in)"
-            SegLabels(5) = SegLabels(5) & vbCrLf & "(kips)"
+            SegLabels(5) = SegLabels(5) & vbCrLf & "(kip)"
             SegLabels(6) = SegLabels(6) & vbCrLf & "(ksi)"
             SegLabels(7) = SegLabels(7) & vbCrLf & "(ksi)"
             SegLabels(8) = SegLabels(8) & vbCrLf & "(lb/ft)"
             SegLabels(9) = SegLabels(9) & vbCrLf & "(lb/ft)"
-            SegLabels(11) = SegLabels(11) & vbCrLf & "(kips)"
+            SegLabels(11) = SegLabels(11) & vbCrLf & "(kip)"
             SegLabels(12) = SegLabels(12) & vbCrLf & "(ft)"
         End If
     End Sub

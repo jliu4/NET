@@ -722,7 +722,7 @@
         Me._lblSegCmt_0.Location = New System.Drawing.Point(0, 186)
         Me._lblSegCmt_0.Name = "_lblSegCmt_0"
         Me._lblSegCmt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._lblSegCmt_0.Size = New System.Drawing.Size(281, 17)
+        Me._lblSegCmt_0.Size = New System.Drawing.Size(352, 17)
         Me._lblSegCmt_0.TabIndex = 67
         Me._lblSegCmt_0.Text = "Input started from top of the mooring line, i.e. the fair lead"
         '
@@ -823,10 +823,10 @@
         Me._lblGenCmt_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblGenCmt_0.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblGenCmt.SetIndex(Me._lblGenCmt_0, CType(0, Short))
-        Me._lblGenCmt_0.Location = New System.Drawing.Point(32, 168)
+        Me._lblGenCmt_0.Location = New System.Drawing.Point(12, 168)
         Me._lblGenCmt_0.Name = "_lblGenCmt_0"
         Me._lblGenCmt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._lblGenCmt_0.Size = New System.Drawing.Size(137, 41)
+        Me._lblGenCmt_0.Size = New System.Drawing.Size(157, 41)
         Me._lblGenCmt_0.TabIndex = 25
         Me._lblGenCmt_0.Text = "Spread Angle measured clockwise from the x-axis of the vessel local system (bow)"
         '
@@ -835,7 +835,7 @@
         Me._lblGenCmt_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblGenCmt_1.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblGenCmt.SetIndex(Me._lblGenCmt_1, CType(1, Short))
-        Me._lblGenCmt_1.Location = New System.Drawing.Point(16, 168)
+        Me._lblGenCmt_1.Location = New System.Drawing.Point(6, 168)
         Me._lblGenCmt_1.Name = "_lblGenCmt_1"
         Me._lblGenCmt_1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblGenCmt_1.Size = New System.Drawing.Size(9, 17)
@@ -1534,7 +1534,7 @@
         Me._lblFLCmt_0.Location = New System.Drawing.Point(26, 102)
         Me._lblFLCmt_0.Name = "_lblFLCmt_0"
         Me._lblFLCmt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._lblFLCmt_0.Size = New System.Drawing.Size(105, 41)
+        Me._lblFLCmt_0.Size = New System.Drawing.Size(150, 30)
         Me._lblFLCmt_0.TabIndex = 48
         Me._lblFLCmt_0.Text = "Defined in the vessel local coordinate system"
         '

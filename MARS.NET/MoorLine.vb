@@ -121,11 +121,6 @@ Friend Class MoorLine
         msngWinchCap = 0#
     End Sub
 
-    Protected Overrides Sub Finalize()
-
-        MyBase.Finalize()
-    End Sub
-
     Public Property moorName() As String
         Get
 
@@ -164,7 +159,6 @@ Friend Class MoorLine
         Get
 
             If mblnConnected And mcolSegments.Count() > 0 Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().TenUpp. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 TopTension = mcolSegments.Item(1).TenUpp
                 If TopTension = 0# Then TopTension = msngTopTension
             Else
@@ -611,12 +605,12 @@ Friend Class MoorLine
 
         End Get
     End Property
-
+    'JLIU TODO
     'UPGRADE_NOTE: NewEnum property was commented out. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="B3FC1610-34F3-43F5-86B7-16C984F0E88E"'
     'Public ReadOnly Property NewEnum() As stdole.IUnknown
     'Get
     '
-    'NewEnum = mcolSegments._NewEnum
+    '       NewEnum = mcolSegments._NewEnum
     '
     'End Get
     'End Property

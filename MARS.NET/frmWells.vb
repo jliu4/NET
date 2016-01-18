@@ -97,14 +97,14 @@ Friend Class frmWells
 
     ' grid
 
-    Private Sub grdWS_MouseDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As AxMSFlexGridLib.DMSFlexGridEvents_MouseDownEvent)
+    'Private Sub grdWS_MouseDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As AxMSFlexGridLib.DMSFlexGridEvents_MouseDownEvent)
 
-        If eventArgs.button = VB6.MouseButtonConstants.RightButton Then
-            'UPGRADE_ISSUE: Form method frmWells.PopupMenu was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-            'PopupMenu(mnuGridEdit)
-        End If
+    'If eventArgs.button = VB6.MouseButtonConstants.RightButton Then
+    'UPGRADE_ISSUE: Form method frmWells.PopupMenu was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+    'PopupMenu(mnuGridEdit)
+    ' End If
 
-    End Sub
+    ' End Sub
 
     Public Sub mnuAddRow_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuAddRow.Click
 
@@ -131,11 +131,11 @@ Friend Class frmWells
 
     End Sub
 
-    Private Sub grdWS_KeyDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As AxMSFlexGridLib.DMSFlexGridEvents_KeyDownEvent)
+    '  Private Sub grdWS_KeyDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As AxMSFlexGridLib.DMSFlexGridEvents_KeyDownEvent)
 
-        ' KeyHandler(grdWS, txtEdit, eventArgs.keyCode, eventArgs.shift, JustEnterCell, ExistingTxt)
+    ' KeyHandler(grdWS, txtEdit, eventArgs.keyCode, eventArgs.shift, JustEnterCell, ExistingTxt)
 
-    End Sub
+    ' End Sub
 
     Private Sub grdWS_LeaveCell(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 

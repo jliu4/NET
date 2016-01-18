@@ -49,6 +49,14 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.AccessibilityCplAdminLib">
+      <HintPath>..\DODO.NET\obj\Debug\Interop.AccessibilityCplAdminLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.Microsoft.Office.Interop.Excel">
+      <HintPath>..\DODO.NET\obj\Debug\Interop.Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic.Compatibility">
       <Name>Microsoft.VisualBasic.Compatibility</Name>
     </Reference>
@@ -64,65 +72,6 @@
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
     </Reference>
-    <Reference Include="System.XML">
-      <Name>System.XML</Name>
-    </Reference>
-    <COMReference Include="AxMSComctlLib">
-      <Guid>{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="AxMSFlexGridLib">
-      <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="AxSysInfoLib">
-      <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>7</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
-    <COMReference Include="Microsoft.Vbe.Interop">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
-    <COMReference Include="MSComctlLib">
-      <Guid>{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="MSFlexGridLib">
-      <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="office">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>5</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
     <COMReference Include="SysInfoLib">
       <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
       <Lcid>0</Lcid>
@@ -240,14 +189,14 @@
     <Compile Include="..\commonCode\Motion.vb">
       <Link>Motion.vb</Link>
     </Compile>
+    <Compile Include="..\commonCode\Project.vb">
+      <Link>Project.vb</Link>
+    </Compile>
     <Compile Include="..\commonCode\RAObyFreq.vb">
       <Link>RAObyFreq.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\RAOs.vb">
       <Link>RAOs.vb</Link>
-    </Compile>
-    <Compile Include="..\commonCode\Riser.vb">
-      <Link>Riser.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\ShipDamp.vb">
       <Link>ShipDamp.vb</Link>
@@ -269,6 +218,12 @@
     </Compile>
     <Compile Include="..\commonCode\Wave.vb">
       <Link>Wave.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Well.vb">
+      <Link>Well.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wells.vb">
+      <Link>Wells.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\Wind.vb">
       <Link>Wind.vb</Link>
@@ -398,12 +353,10 @@
     <Compile Include="Pontoon3d.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Project.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Pyramid.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Riser.vb" />
     <Compile Include="Seabed.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -427,12 +380,6 @@
     </Compile>
     <Compile Include="Vessel.vb" />
     <Compile Include="WaterSurface.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Well.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Wells.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="xyzAxis.vb">
@@ -479,9 +426,6 @@
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <None Include="_UpgradeReport.htm">
-      <SubType>Preview</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
