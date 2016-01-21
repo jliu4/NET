@@ -18,7 +18,6 @@
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
     Public WithEvents cboLines As System.Windows.Forms.ComboBox
-    Public WithEvents picCatenary As System.Windows.Forms.PictureBox
     Public WithEvents btnOK As System.Windows.Forms.Button
     Public WithEvents lblForceUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
     Public WithEvents lblVelUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
@@ -35,13 +34,11 @@
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cboLines = New System.Windows.Forms.ComboBox()
-        Me.picCatenary = New System.Windows.Forms.PictureBox()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.lblForceUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
         Me.lblVelUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
         Me.grdLength = New System.Windows.Forms.DataGridView()
         Me.grdDetails = New System.Windows.Forms.DataGridView()
-        CType(Me.picCatenary, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdLength, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -59,19 +56,6 @@
         Me.cboLines.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cboLines.Size = New System.Drawing.Size(113, 21)
         Me.cboLines.TabIndex = 1
-        '
-        'picCatenary
-        '
-        Me.picCatenary.BackColor = System.Drawing.SystemColors.Control
-        Me.picCatenary.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.picCatenary.Cursor = System.Windows.Forms.Cursors.Default
-        Me.picCatenary.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.picCatenary.Location = New System.Drawing.Point(16, 16)
-        Me.picCatenary.Name = "picCatenary"
-        Me.picCatenary.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.picCatenary.Size = New System.Drawing.Size(369, 201)
-        Me.picCatenary.TabIndex = 7
-        Me.picCatenary.TabStop = False
         '
         'btnOK
         '
@@ -106,7 +90,7 @@
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdLength.DefaultCellStyle = DataGridViewCellStyle2
-        Me.grdLength.Location = New System.Drawing.Point(16, 223)
+        Me.grdLength.Location = New System.Drawing.Point(16, 212)
         Me.grdLength.Name = "grdLength"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
@@ -117,7 +101,7 @@
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdLength.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.grdLength.RowHeadersVisible = False
-        Me.grdLength.Size = New System.Drawing.Size(369, 41)
+        Me.grdLength.Size = New System.Drawing.Size(369, 67)
         Me.grdLength.TabIndex = 8
         '
         'grdDetails
@@ -139,7 +123,7 @@
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdDetails.DefaultCellStyle = DataGridViewCellStyle5
-        Me.grdDetails.Location = New System.Drawing.Point(16, 281)
+        Me.grdDetails.Location = New System.Drawing.Point(16, 285)
         Me.grdDetails.Name = "grdDetails"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
@@ -150,7 +134,7 @@
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdDetails.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.grdDetails.RowHeadersVisible = False
-        Me.grdDetails.Size = New System.Drawing.Size(369, 137)
+        Me.grdDetails.Size = New System.Drawing.Size(369, 130)
         Me.grdDetails.TabIndex = 9
         '
         'frmCatenary
@@ -163,7 +147,6 @@
         Me.Controls.Add(Me.grdDetails)
         Me.Controls.Add(Me.grdLength)
         Me.Controls.Add(Me.cboLines)
-        Me.Controls.Add(Me.picCatenary)
         Me.Controls.Add(Me.btnOK)
         Me.Cursor = System.Windows.Forms.Cursors.Default
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -174,7 +157,6 @@
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.ShowInTaskbar = False
         Me.Text = " Catenary"
-        CType(Me.picCatenary, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdLength, System.ComponentModel.ISupportInitialize).EndInit()

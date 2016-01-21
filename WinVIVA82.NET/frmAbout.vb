@@ -143,7 +143,7 @@ SysInfoErr:
                 For i = Len(tmpVal) To 1 Step -1 ' Convert Each Bit
                     KeyVal = KeyVal & Hex(Asc(Mid(tmpVal, i, 1))) ' Build Value Char. By Char.
                 Next
-                KeyVal = VB6.Format("&h" & KeyVal) ' Convert Double Word To String
+                KeyVal = Format("&h" & KeyVal) ' Convert Double Word To String
         End Select
 
         GetKeyValue = True ' Return Success

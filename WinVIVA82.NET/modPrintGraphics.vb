@@ -159,9 +159,9 @@ Module modPrintGraphics
             'Printer.Line((ScaleX * TicLoc + OfstX, PYmin) - (ScaleX * TicLoc + OfstX, PYmax))
 
             If TicLoc <> 0 And (System.Math.Abs(TicLoc) > 1000.0# Or System.Math.Abs(TicLoc) < 0.01) Then
-                TicLab = VB6.Format(TicLoc, "Scientific")
+                TicLab = Format(TicLoc, "Scientific")
             Else
-                TicLab = VB6.Format(TicLoc, "#0.00")
+                TicLab = Format(TicLoc, "#0.00")
             End If
 
             'UPGRADE_ISSUE: Printer method Printer.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"'
@@ -212,7 +212,7 @@ Module modPrintGraphics
             'UPGRADE_ISSUE: Printer method Printer.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"'
             'Printer.Line((PXmin, ScaleY * TicLoc + OfstY) - (PXmax, ScaleY * TicLoc + OfstY))
 
-            TicLab = VB6.Format(TicLoc, "####")
+            TicLab = Format(TicLoc, "####")
 
             'UPGRADE_ISSUE: Printer method Printer.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"'
             'UPGRADE_ISSUE: Printer property Printer.CurrentX was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="076C26E5-B7A9-4E77-B69C-B4448DF39E58"'

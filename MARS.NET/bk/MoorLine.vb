@@ -605,15 +605,6 @@ Friend Class MoorLine
 
         End Get
     End Property
-    'JLIU TODO
-    'UPGRADE_NOTE: NewEnum property was commented out. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="B3FC1610-34F3-43F5-86B7-16C984F0E88E"'
-    'Public ReadOnly Property NewEnum() As stdole.IUnknown
-    'Get
-    '
-    '       NewEnum = mcolSegments._NewEnum
-    '
-    'End Get
-    'End Property
 
     Public Function GetEnumerator() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
         GetEnumerator = mcolSegments.GetEnumerator
@@ -1465,9 +1456,7 @@ Friend Class MoorLine
                 If i = 1 Then Exit Function
                 Connector(i) = Connector(i + 1) + 1
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().XLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 CatX(Connector(i)) = mcolSegments.Item(i - 1).XLow
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().YLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 CatY(Connector(i)) = mcolSegments.Item(i - 1).YLow
                 '   If CatX(1) - CatX(Connector(i)) < msngGrdLen Then CatY(Connector(i)) = CatY(1)                   ' make sure lowest is on the ground
 
@@ -1502,9 +1491,7 @@ Friend Class MoorLine
                     CatX(Connector(i)) = 0#
                     CatY(Connector(i)) = msngDraft - mclsFairLead.z
                 Else
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().XLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     CatX(Connector(i)) = mcolSegments.Item(i - 1).XLow
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().YLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     CatY(Connector(i)) = mcolSegments.Item(i - 1).YLow
                     '   If CatX(1) - CatX(Connector(i)) < msngGrdLen Then CatY(Connector(i)) = CatY(1)                   ' make sure lowest is on the ground
                 End If
@@ -1562,15 +1549,9 @@ Friend Class MoorLine
                     End If
 
                     If TopTen < 0# Then TopTen = 0#
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item(i).XArea. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().E1. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     tmp1 = TopTen / (.E1 * .XArea)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item(i).E1. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().E2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     tmp2 = tmp1 * 2.0# / (System.Math.Sqrt(1.0# + 4.0# * tmp1 * .E2 / .E1) + 1.0#)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().LengthStr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     .LengthStr = SegLen0 * (1 + tmp2)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().LengthStr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     TotalLen = TotalLen + .LengthStr
                 End With
             Next i
@@ -1581,25 +1562,14 @@ Friend Class MoorLine
 
             For i = NumSeg To 1
                 If i = NumSeg Then
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().XLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     .Item(i).XLow = ScopeC
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().YLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     .Item(i).YLow = msngWaterDepth
                 Else
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item(i).XLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item(i + 1).LengthStr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().XLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     .Item(i).XLow = .Item(i + 1).XLow - .Item(i + 1).LengthStr / TotalLen * ScopeC
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item(i).YLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item(i + 1).LengthStr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().YLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     .Item(i).YLow = .Item(i + 1).YLow - .Item(i + 1).LengthStr / TotalLen * DepthFL
                 End If
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().AngUpp. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .Item(i).AngUpp = angle
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().AngLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .Item(i).AngLow = angle
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().TenUpp. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .Item(i).TenUpp = TopTen
             Next i
         End With
@@ -1656,28 +1626,17 @@ Friend Class MoorLine
             With mcolSegments.Item(i)
                 If i = 1 Then
                     SegLen0(i) = POL
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments(i).TotalWeight. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().Length. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     SegWgt(i) = POL / .Length * .TotalWeight
                 Else
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().Length. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     SegLen0(i) = .Length
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().TotalWeight. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     SegWgt(i) = .TotalWeight
                 End If
-
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().FrictionCoef. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 SegFrc(i) = .FrictionCoef
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().XArea. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 SegXA(i) = .XArea
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().E1. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 SegE1(i) = .E1
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().E2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 SegE2(i) = .E2
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().Buoy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 SegBuoy0(i) = .Buoy
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().BuoyLength. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 BuoyLen(i) = .BuoyLength
                 If System.Math.Abs(SegBuoy0(i)) > 0.00001 Then NumBuoy = NumBuoy + 1
             End With
@@ -1692,17 +1651,11 @@ Friend Class MoorLine
 
         For i = 1 To NumSeg
             With mcolSegments.Item(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().LengthStr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .LengthStr = SegLen(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().XLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .XLow = Xi(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments(i).YLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .YLow = Yi(i) + msngDraft - mclsFairLead.z
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().AngUpp. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .AngUpp = ThU(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().AngLow. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .AngLow = ThL(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments().TenUpp. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .TenUpp = TenU(i)
             End With
         Next i

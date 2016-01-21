@@ -360,7 +360,7 @@ ErrHandler:
 
                 .Rows(r).Cells(VelVCol).Value = CStr(Point.VCurrentVelocity / CFVel)
 
-                .Rows(r).Cells(TensionChangeCol).Value = VB6.Format(Point.ChangeInStaticTension / CFChFr, "0.000")
+                .Rows(r).Cells(TensionChangeCol).Value = Format(Point.ChangeInStaticTension / CFChFr, "0.000")
 
                 r = r + 1
 
@@ -440,7 +440,7 @@ ErrHandler:
 
             CR = DeltaA1 / DeltaS1
             If OutputCol = TensionChangeCol Then CR = -CR
-            .Rows(0).Cells(OutputCol).Value = VB6.Format(CR, "0.000")
+            .Rows(0).Cells(OutputCol).Value = Format(CR, "0.000")
 
             r = 0
             DeltaA2 = DeltaA1
@@ -494,7 +494,7 @@ ErrHandler:
                 End If
 
                 If OutputCol = TensionChangeCol Then CR = -CR
-                .Rows(r).Cells(OutputCol).Value = VB6.Format(CR, "0.000")
+                .Rows(r).Cells(OutputCol).Value = Format(CR, "0.000")
             Loop
         End With
 

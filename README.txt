@@ -1,3 +1,9 @@
+1/19/2016
+git log
+--get the hash code
+git fetch
+git checkout -m hash code path\file
+
 1/12/2016
 
 work

@@ -146,18 +146,8 @@ Friend Class MoorSystem
         End Get
     End Property
 
-    'UPGRADE_NOTE: NewEnum property was commented out. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="B3FC1610-34F3-43F5-86B7-16C984F0E88E"'
-    'Public ReadOnly Property NewEnum() As stdole.IUnknown
-    'Get
-    '
-    'NewEnum = mcolMoorLines._NewEnum
-    '
-    'End Get
-    'End Property
-
     Public Function GetEnumerator() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
-        'UPGRADE_TODO: Uncomment and change the following line to return the collection enumerator. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="95F9AAD0-1319-4921-95F0-B9D3C4FF7F1C"'
-        'GetEnumerator = mcolMoorLines.GetEnumerator
+        GetEnumerator = mcolMoorLines.GetEnumerator
     End Function
 
     Public Sub MoorLineAdd()
@@ -303,7 +293,6 @@ ErrorHandler:
     Public Function OutputML(ByVal FileNum As Short) As Boolean
 
         Dim i, j As Short
-        'UPGRADE_NOTE: Segment was upgraded to Segment_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         Dim Segment_Renamed As Segment
         Dim NumLine As Short
 
@@ -314,28 +303,13 @@ ErrorHandler:
 
         For i = 1 To NumLine
             With mcolMoorLines.Item(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).WinchCap. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).PretensionOpr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).PayoutOpr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).PretensionSur. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).PayoutSur. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).TopTension. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).Payout. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).DesScope. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, .DesScope, .Payout, .TopTension, .PayoutSur, .PretensionSur, .PayoutOpr, .PretensionOpr, .WinchCap)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).FairLead. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, .FairLead.SprdAngle * Radians2Degrees, .FairLead.Xs, .FairLead.Ys, .FairLead.z)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).BottomSlope. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).WaterDepth. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).Anchor. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, .Anchor.Xg, .Anchor.Yg, .WaterDepth, .BottomSlope * Radians2Degrees)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).Anchor. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 With .Anchor
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).Anchor. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WriteLine(FileNum, .Model, .HoldCap, .Remark)
                 End With
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).SegmentCount. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, .SegmentCount)
             End With
 
@@ -361,7 +335,6 @@ ErrorHandler:
         Dim Connector(MaxNumSeg + 1) As Short
         Dim SprdAngle As Single
         Dim NumPoints, NP As Short
-        'UPGRADE_NOTE: FileOpen was upgraded to FileOpen_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         Dim FileOpen_Renamed As Boolean
 
         On Error GoTo ErrorHandler
@@ -375,27 +348,18 @@ ErrorHandler:
 
         For i = 1 To mcolMoorLines.Count()
             With mcolMoorLines.Item(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).Connected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 If .Connected Then
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines().CatenaryPoints. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     If Not .CatenaryPoints(CatX, CatY, Connector) Then Exit Function
-
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines().SprdAngle. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     SprdAngle = .SprdAngle(mclsShipGlob)
 
                     WriteLine(FileNumRes, "Line " & i)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).FairLead. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     With .FairLead
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines().FairLead. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         Xfl = .Xs
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines().FairLead. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         Yfl = .Ys
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines().FairLead. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         Zfl = .z
                     End With
                     WriteLine(FileNumRes, Xfl, Yfl, Zfl)
 
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolMoorLines(i).SegmentCount. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     For j = 1 To .SegmentCount
                         NumPoints = Connector(j) - Connector(j + 1)
                         If NumPoints > 10 Then
@@ -440,8 +404,6 @@ ErrorHandler:
             End With
         End If
 
-        'UPGRADE_NOTE: Object FMLocl may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        FMLocl = Nothing
 
     End Sub
 
@@ -452,13 +414,11 @@ ErrorHandler:
         Dim SgnY, SgnX, SgnR As Single
         Dim DFy, DFx, DMz As Single
         Dim ShipMove As New ShipGlobal
-        'UPGRADE_NOTE: MoorLine was upgraded to MoorLine_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         Dim MoorLine_Renamed As MoorLine
         Dim FLocl1 As New Force
         Dim FGlob1 As New Force
         Dim FLocl, FGlob As Force
 
-        'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
         If IsNothing(ShipLoc) Then
             ShipLoc = mclsShipGlob
             FLocl = mclsFMoorLocl
@@ -562,12 +522,8 @@ ErrorHandler:
 
     Private Sub TotFMoor(ByRef FLocl As Force, ByRef ShipLoc As ShipGlobal, Optional ByRef Moved As Boolean = True)
 
-        Dim i As Short
         Dim LineForce As Force
-        'UPGRADE_NOTE: MY was upgraded to MY_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         Dim FSw, FSg, MY_Renamed As Single
-        'UPGRADE_NOTE: MoorLine was upgraded to MoorLine_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-        Dim Alpha As Single
         Dim MoorLine_Renamed As MoorLine
 
         FSg = 0#

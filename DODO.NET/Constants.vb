@@ -4,10 +4,16 @@ Module MARSConstants
 	'--------------  conditional compilation flag -----------------
 	
 	Public Const DTCEL As Boolean = True
-	
-	'--------------------------------------------------------------
-	
-	Public Cancelled As Boolean ' for progress bar cancel action
+
+    '--------------------------------------------------------------
+
+    Public Const MaxNumLines As Short = 24
+    Public Const MaxNumSeg As Short = 24
+    Public Const MaxNumSubSeg As Short = 200
+    Public Const MaxNumWells As Short = 30
+    Public Const MaxNumIter As Short = 100
+
+    Public Cancelled As Boolean ' for progress bar cancel action
 	
 	Public Const MaxNumPreFiles As Short = 4
 	Public Const FileNumRes As Short = 99

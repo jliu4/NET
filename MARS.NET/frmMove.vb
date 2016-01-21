@@ -303,14 +303,14 @@ Friend Class frmMove
 
         If FirstTime Then
             With MoorLines
-                txtVslSt(0).Text = VB6.Format(.ShipGlob.Xg * LFactor, "0.0")
-                txtVslSt(1).Text = VB6.Format(.ShipGlob.Yg * LFactor, "0.0")
-                txtVslSt(4).Text = VB6.Format(.ShipGlob.Heading * Radians2Degrees, "0.00")
-                txtVslSt(5).Text = VB6.Format(.ShipDraft * LFactor, "0.00")
+                txtVslSt(0).Text = Format(.ShipGlob.Xg * LFactor, "0.0")
+                txtVslSt(1).Text = Format(.ShipGlob.Yg * LFactor, "0.0")
+                txtVslSt(4).Text = Format(.ShipGlob.Heading * Radians2Degrees, "0.00")
+                txtVslSt(5).Text = Format(.ShipDraft * LFactor, "0.00")
 
                 Coord2Bear(.ShipGlob, Distance, Bearing)
-                txtVslSt(2).Text = VB6.Format(Distance * LFactor, "0.0")
-                txtVslSt(3).Text = VB6.Format(Bearing * Radians2Degrees, "0.00")
+                txtVslSt(2).Text = Format(Distance * LFactor, "0.0")
+                txtVslSt(3).Text = Format(Bearing * Radians2Degrees, "0.00")
 
                 txtVslSt(6).Text = txtVslSt(0).Text
                 txtVslSt(7).Text = txtVslSt(1).Text
@@ -325,15 +325,15 @@ Friend Class frmMove
             If MoorLines.WinchCap <= 0# Then
                 txtConditions.Text = " "
             Else
-                txtConditions.Text = VB6.Format(MoorLines.WinchCap * 0.0018 * FrcFactor, "0.0")
+                txtConditions.Text = Format(MoorLines.WinchCap * 0.0018 * FrcFactor, "0.0")
             End If
         End If
 
         FMGlob = MoorLines.FMoorGlob
         With FMGlob
-            txtExtLoad(0).Text = VB6.Format(.Fx * 0.001 * FrcFactor, "0.0")
-            txtExtLoad(1).Text = VB6.Format(.Fy * 0.001 * FrcFactor, "0.0")
-            txtExtLoad(2).Text = VB6.Format(.MYaw * 0.001 * FrcFactor, "0.0")
+            txtExtLoad(0).Text = Format(.Fx * 0.001 * FrcFactor, "0.0")
+            txtExtLoad(1).Text = Format(.Fy * 0.001 * FrcFactor, "0.0")
+            txtExtLoad(2).Text = Format(.MYaw * 0.001 * FrcFactor, "0.0")
         End With
 
         ' With grdLC
@@ -362,7 +362,7 @@ Friend Class frmMove
         'For r = 1 To NumLines
         ''.Row = r
         'If MoorLines.MoorLines(r).Connected Then
-        'TmpStr = VB6.Format(MoorLines.MoorLines(r).Payout * LFactor, "0.0")
+        'TmpStr = Format(MoorLines.MoorLines(r).Payout * LFactor, "0.0")
         'Else
         'TmpStr = "--"
         'End If
@@ -373,7 +373,7 @@ Friend Class frmMove
         '.Col = 3
         'If MoorLines.MoorLines(r).Connected Then
         '.Text = "0.0"
-        'TmpStr = VB6.Format(MoorLines.MoorLines(r).TopTension * 0.001 * FrcFactor, "0.00")
+        'TmpStr = Format(MoorLines.MoorLines(r).TopTension * 0.001 * FrcFactor, "0.00")
         'Else
         '.Text = "--"
         'End If
@@ -405,11 +405,11 @@ Friend Class frmMove
                 .Yg = ShipTarLoc.Yg
                 .Heading = ShipTarLoc.Heading
 
-                txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.0")
-                txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.0")
-                txtVslSt(2).Text = VB6.Format(Distance * LFactor, "0.0")
-                txtVslSt(3).Text = VB6.Format(Bearing * Radians2Degrees, "0.00")
-                txtVslSt(4).Text = VB6.Format(.Heading * Radians2Degrees, "0.0")
+                txtVslSt(0).Text = Format(.Xg * LFactor, "0.0")
+                txtVslSt(1).Text = Format(.Yg * LFactor, "0.0")
+                txtVslSt(2).Text = Format(Distance * LFactor, "0.0")
+                txtVslSt(3).Text = Format(Bearing * Radians2Degrees, "0.00")
+                txtVslSt(4).Text = Format(.Heading * Radians2Degrees, "0.0")
             End With
 
             For r = 1 To NumLines
@@ -420,9 +420,9 @@ Friend Class frmMove
 
         FMGlob = MoorLines.FMoorGlob
         With FMGlob
-            txtExtLoad(0).Text = VB6.Format(.Fx * 0.001 * FrcFactor, "0.0")
-            txtExtLoad(1).Text = VB6.Format(.Fy * 0.001 * FrcFactor, "0.0")
-            txtExtLoad(2).Text = VB6.Format(.MYaw * 0.001 * FrcFactor * LFactor, "0.0")
+            txtExtLoad(0).Text = Format(.Fx * 0.001 * FrcFactor, "0.0")
+            txtExtLoad(1).Text = Format(.Fy * 0.001 * FrcFactor, "0.0")
+            txtExtLoad(2).Text = Format(.MYaw * 0.001 * FrcFactor * LFactor, "0.0")
         End With
 
         'UPGRADE_NOTE: Object FMGlob may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -445,15 +445,15 @@ Friend Class frmMove
                     .Heading = CDbl(CheckData(txtVslSt(4).Text,  , True)) * Degrees2Radians
                 End With
                 Coord2Bear(.ShipGlob, Distance, Bearing)
-                txtVslSt(2).Text = VB6.Format(Distance / LFactor, "0.0")
-                txtVslSt(3).Text = VB6.Format(Bearing * Radians2Degrees, "0.00")
+                txtVslSt(2).Text = Format(Distance / LFactor, "0.0")
+                txtVslSt(3).Text = Format(Bearing * Radians2Degrees, "0.00")
             Else
                 Distance = CDbl(CheckData(txtVslSt(2).Text,  , True)) / LFactor
                 Bearing = CDbl(CheckData(txtVslSt(3).Text,  , True)) * Degrees2Radians
                 Bear2Coord(.ShipGlob, Distance, Bearing)
                 With .ShipGlob
-                    txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.0")
-                    txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.0")
+                    txtVslSt(0).Text = Format(.Xg * LFactor, "0.0")
+                    txtVslSt(1).Text = Format(.Yg * LFactor, "0.0")
                     .Heading = CDbl(CheckData(txtVslSt(4).Text,  , True)) * Degrees2Radians
                 End With
             End If
@@ -468,15 +468,15 @@ Friend Class frmMove
                 .Heading = CDbl(CheckData(txtVslSt(10).Text,  , True)) * Degrees2Radians
             End With
             Coord2Bear(ShipTarLoc, Distance, Bearing)
-            txtVslSt(8).Text = VB6.Format(Distance * LFactor, "0.0")
-            txtVslSt(9).Text = VB6.Format(Bearing * Radians2Degrees, "0.00")
+            txtVslSt(8).Text = Format(Distance * LFactor, "0.0")
+            txtVslSt(9).Text = Format(Bearing * Radians2Degrees, "0.00")
         Else
             Distance = CDbl(CheckData(txtVslSt(8).Text,  , True)) / LFactor
             Bearing = CDbl(CheckData(txtVslSt(9).Text,  , True)) * Degrees2Radians
             Bear2Coord(ShipTarLoc, Distance, Bearing)
             With ShipTarLoc
-                txtVslSt(6).Text = VB6.Format(.Xg * LFactor, "0.0")
-                txtVslSt(7).Text = VB6.Format(.Yg * LFactor, "0.0")
+                txtVslSt(6).Text = Format(.Xg * LFactor, "0.0")
+                txtVslSt(7).Text = Format(.Yg * LFactor, "0.0")
                 .Heading = CDbl(CheckData(txtVslSt(10).Text,  , True)) * Degrees2Radians
             End With
         End If
@@ -493,9 +493,9 @@ Friend Class frmMove
 
         MoorLines.MoorForce(FMGlob, ShipTarLoc)
         With FMGlob
-            txtExtLoad(3).Text = VB6.Format(.Fx * 0.001 * FrcFactor, "0.0")
-            txtExtLoad(4).Text = VB6.Format(.Fy * 0.001 * FrcFactor, "0.0")
-            txtExtLoad(5).Text = VB6.Format(.MYaw * 0.001 * FrcFactor * LFactor, "0.0")
+            txtExtLoad(3).Text = Format(.Fx * 0.001 * FrcFactor, "0.0")
+            txtExtLoad(4).Text = Format(.Fy * 0.001 * FrcFactor, "0.0")
+            txtExtLoad(5).Text = Format(.MYaw * 0.001 * FrcFactor * LFactor, "0.0")
         End With
 
         'UPGRADE_NOTE: Object FMGlob may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'

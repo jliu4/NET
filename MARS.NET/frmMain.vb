@@ -126,15 +126,9 @@ ErrorHandler:
         'TODO JLIU
         If Not Cancel Then
             On Error Resume Next
-            For i = My.Application.OpenForms.Count - 1 To 0 Step -1
-                'Unload(My.Application.OpenForms(i))
-            Next
-
             Defaults.WorkDir = CurProj.Directory
             FileOpen(20, MarsDir & IniFile, OpenMode.Output)
-            If Not Defaults.OutputData(20) Then
 
-            End If
             FileClose(20)
 
             'Destroy existing case and leave
@@ -166,7 +160,7 @@ ErrorHandler:
 
     Private Sub btnMooring_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnMooring.Click
 
-        VB6.ShowForm(frmMoorLines, 1, Me)
+        frmMoorLines.Show()
         NumLines = CurVessel.MoorSystem.MoorLineCount
         UpdateMenu()
         RefreshData()
@@ -177,8 +171,7 @@ ErrorHandler:
 
         Dim NumWells As Short
         Dim i As Short
-
-        VB6.ShowForm(frmWells, 1, Me)
+        frmWells.Show()
 
         NumWells = CurField.Count
         With CurField
@@ -188,10 +181,10 @@ ErrorHandler:
             Next i
             cboWells.SelectedIndex = .CurWellNo - 1
             With .Item(.CurWellNo)
-                txtWell(0).Text = VB6.Format(.Xg * LFactor, "0.0")
-                txtWell(1).Text = VB6.Format(.Yg * LFactor, "0.0")
+                txtWell(0).Text = Format(.Xg * LFactor, "0.0")
+                txtWell(1).Text = Format(.Yg * LFactor, "0.0")
                 If .Depth > 0# Then CurVessel.WaterDepth = .Depth
-                txtWell(2).Text = VB6.Format(CurVessel.WaterDepth * LFactor, "0.0")
+                txtWell(2).Text = Format(CurVessel.WaterDepth * LFactor, "0.0")
             End With
         End With
 
@@ -549,8 +542,8 @@ ErrHandler:
     End Sub
 
     Public Sub mnuInpEnviron_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuInpEnviron.Click
+        frmEnviron.Show()
 
-        VB6.ShowForm(frmEnviron, 1, Me)
     End Sub
 
     Public Sub mnuInpMoor_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuInpMoor.Click
@@ -560,8 +553,7 @@ ErrHandler:
     End Sub
 
     Public Sub mnuInpProjDes_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuInpProjDes.Click
-
-        VB6.ShowForm(frmProjDesc, 1, Me)
+        frmProjDesc.Show()
 
     End Sub
 
@@ -569,14 +561,16 @@ ErrHandler:
 
         Me.Enabled = False
         SaveLC()
-        VB6.ShowForm(frmAnalyses,  , Me)
+        frmAnalyses.Show()
+
 
     End Sub
 
     Public Sub mnuAnalysesB_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuAnalysesB.Click
 
         Me.Enabled = False
-        VB6.ShowForm(frmAnalysesB,  , Me)
+        frmAnalysesB.Show()
+
 
     End Sub
 
@@ -594,14 +588,12 @@ ErrHandler:
     End Sub
 
     Public Sub mnuMove_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuMove.Click
-
-        VB6.ShowForm(frmMove, 1, Me)
+        frmMove.Show()
 
     End Sub
 
     Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
-
-        VB6.ShowForm(frmAbout, 1, Me)
+        frmAbout.Show()
 
     End Sub
 
@@ -671,7 +663,6 @@ ErrHandler:
     Private Sub ClearScreenData()
         grdLD.Rows.Clear()
         grdEL.Rows.Clear()
-        Dim j As Short
 
         txtWell(0).Text = "0"
         txtWell(1).Text = "0"
@@ -705,7 +696,6 @@ ErrHandler:
                 .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
                 .Columns(c).HeaderText = LDLabels(c)
             Next
-            '.Columns(0).Width = 50
 
         End With
 
@@ -730,30 +720,6 @@ ErrHandler:
 
     End Sub
 
-    'Private Sub grdLD_RowPrePaint(ByVal sender As Object, ByVal e As DataGridViewRowPrePaintEventArgs) Handles grdLD.RowPrePaint
-    '   e.PaintCells(e.ClipBounds, DataGridViewPaintParts.All)
-    '  e.PaintHeader(DataGridViewPaintParts.Background Or DataGridViewPaintParts.Border Or DataGridViewPaintParts.Focus Or DataGridViewPaintParts.SelectionBackground)
-
-    ' e.Handled = True
-
-    'End Sub
-
-    'Private Sub grdLD_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles grdLD.CellFormatting
-
-    '   grdLD.Rows(e.RowIndex).HeaderCell.Value = e.RowIndex.ToString()
-
-    'End Sub
-
-    'Private Sub grdEL_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles grdEL.CellFormatting
-
-    '   grdEL.Rows(e.RowIndex).HeaderCell.Value = "Mooring Forces"
-    'End Sub
-
-    'Private Sub grdEL_RowPrePaint(ByVal sender As Object, ByVal e As DataGridViewRowPrePaintEventArgs) Handles grdEL.RowPrePaint
-    '   e.PaintCells(e.ClipBounds, DataGridViewPaintParts.All)
-    '  e.PaintHeader(DataGridViewPaintParts.Background Or DataGridViewPaintParts.Border Or DataGridViewPaintParts.Focus Or DataGridViewPaintParts.SelectionBackground)
-    ' e.Handled = True
-    'End Sub
 
     Private Sub SetLblMoorForce()
         ELLabels(0) = "Direction"
@@ -851,25 +817,25 @@ ErrHandler:
             Next i
             cboWells.SelectedIndex = .CurWellNo - 1
             With .Item(.CurWellNo)
-                txtWell(0).Text = VB6.Format(.Xg * LFactor, "0.0")
-                txtWell(1).Text = VB6.Format(.Yg * LFactor, "0.0")
+                txtWell(0).Text = Format(.Xg * LFactor, "0.0")
+                txtWell(1).Text = Format(.Yg * LFactor, "0.0")
                 If .Depth > 0# Then CurVessel.WaterDepth = .Depth
-                txtWell(2).Text = VB6.Format(CurVessel.WaterDepth * LFactor, "0.0")
+                txtWell(2).Text = Format(CurVessel.WaterDepth * LFactor, "0.0")
             End With
         End With
 
         With CurVessel
             With .ShipCurGlob
-                txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.00")
-                txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.00")
-                txtVslSt(4).Text = VB6.Format(RadTo360(.Heading), "0.00")
+                txtVslSt(0).Text = Format(.Xg * LFactor, "0.00")
+                txtVslSt(1).Text = Format(.Yg * LFactor, "0.00")
+                txtVslSt(4).Text = Format(RadTo360(.Heading), "0.00")
             End With
 
-            txtVslSt(5).Text = VB6.Format(.ShipDraft * LFactor, "0.00")
+            txtVslSt(5).Text = Format(.ShipDraft * LFactor, "0.00")
 
             Coord2Bear(.ShipCurGlob, Distance, Bearing)
-            txtVslSt(2).Text = VB6.Format(Distance * LFactor, "0.0")
-            txtVslSt(3).Text = VB6.Format(Bearing * Radians2Degrees, "0.00")
+            txtVslSt(2).Text = Format(Distance * LFactor, "0.0")
+            txtVslSt(3).Text = Format(Bearing * Radians2Degrees, "0.00")
 
             .MoorSystem.MoorForce(FMGlob, (CurVessel.ShipCurGlob))
         End With
@@ -886,22 +852,22 @@ ErrHandler:
                     .Rows(r).Cells(0).Value = (r + 1)
                     Scope = CurLine.ScopeByVesselLocation((CurVessel.ShipCurGlob))
 
-                    .Rows(r).Cells(1).Value = VB6.Format(CurLine.TensionByScopePOL(Scope, HorForce, (CurLine.Payout)) * 0.001 * FrcFactor, "0.00")
+                    .Rows(r).Cells(1).Value = Format(CurLine.TensionByScopePOL(Scope, HorForce, (CurLine.Payout)) * 0.001 * FrcFactor, "0.00")
 
-                    .Rows(r).Cells(2).Value = VB6.Format(CurLine.FOS, "0.00")
-                    .Rows(r).Cells(3).Value = VB6.Format(CurLine.Payout * LFactor, "0.0")
+                    .Rows(r).Cells(2).Value = Format(CurLine.FOS, "0.00")
+                    .Rows(r).Cells(3).Value = Format(CurLine.Payout * LFactor, "0.0")
 
-                    .Rows(r).Cells(4).Value = VB6.Format(CurLine.FLAngle * Radians2Degrees, "0.00")
+                    .Rows(r).Cells(4).Value = Format(CurLine.FLAngle * Radians2Degrees, "0.00")
 
-                    .Rows(r).Cells(5).Value = VB6.Format(CurLine.SprdAngle(ShipCurLoc) * Radians2Degrees, "0.00")
+                    .Rows(r).Cells(5).Value = Format(CurLine.SprdAngle(ShipCurLoc) * Radians2Degrees, "0.00")
                     '                .Text = Format(Dir * Radians2Degrees, "0.00")
 
-                    .Rows(r).Cells(6).Value = VB6.Format(CurLine.GrdLen * LFactor, "0.0")
+                    .Rows(r).Cells(6).Value = Format(CurLine.GrdLen * LFactor, "0.0")
 
-                    .Rows(r).Cells(7).Value = VB6.Format(CurLine.AnchPull * 0.001 * FrcFactor, "0.0")
+                    .Rows(r).Cells(7).Value = Format(CurLine.AnchPull * 0.001 * FrcFactor, "0.0")
 
                     .Rows(r).Cells(8).Value = CurLine.AnchorFOS
-                    .Rows(r).Cells(9).Value = VB6.Format(Scope * LFactor, "0.0")
+                    .Rows(r).Cells(9).Value = Format(Scope * LFactor, "0.0")
 
                     If CurLine.Connected Then
                         .Rows(r).Cells(10).Value = "Yes"
@@ -922,11 +888,11 @@ ErrHandler:
 
         With grdEL
 
-            .Rows(0).Cells(1).Value = VB6.Format(FMGlob.Fx * 0.001 * FrcFactor, "0.0")
+            .Rows(0).Cells(1).Value = Format(FMGlob.Fx * 0.001 * FrcFactor, "0.0")
 
-            .Rows(0).Cells(2).Value = VB6.Format(FMGlob.Fy * 0.001 * FrcFactor, "0.0")
+            .Rows(0).Cells(2).Value = Format(FMGlob.Fy * 0.001 * FrcFactor, "0.0")
 
-            .Rows(0).Cells(3).Value = VB6.Format(FMGlob.MYaw * 0.001 * FrcFactor * LFactor, "0.0")
+            .Rows(0).Cells(3).Value = Format(FMGlob.MYaw * 0.001 * FrcFactor * LFactor, "0.0")
         End With
 
         '   btnOnBoard.Enabled = True
@@ -949,26 +915,25 @@ ErrHandler:
             FrcFactor = 1
         End If
 
-
         Dim Distance, Bearing As Single
 
         With CurVessel
             If optInputSystem(0).Checked Then
                 With .ShipCurGlob
-                    .Xg = CDbl(VB6.Format(CDbl(CheckData(CStr(Val(txtVslSt(0).Text)),  , True)) / LFactor, "0.00"))
-                    .Yg = CDbl(VB6.Format(CDbl(CheckData(CStr(Val(txtVslSt(1).Text)),  , True)) / LFactor, "0.00"))
+                    .Xg = CDbl(Format(CDbl(CheckData(CStr(Val(txtVslSt(0).Text)),  , True)) / LFactor, "0.00"))
+                    .Yg = CDbl(Format(CDbl(CheckData(CStr(Val(txtVslSt(1).Text)),  , True)) / LFactor, "0.00"))
                     .Heading = CDbl(CheckData(CStr(Val(txtVslSt(4).Text)),  , True)) * Degrees2Radians
                 End With
                 Coord2Bear(.ShipCurGlob, Distance, Bearing)
-                txtVslSt(2).Text = VB6.Format(Distance * LFactor, "0.0")
-                txtVslSt(3).Text = VB6.Format(Bearing * Radians2Degrees, "0.00")
+                txtVslSt(2).Text = Format(Distance * LFactor, "0.0")
+                txtVslSt(3).Text = Format(Bearing * Radians2Degrees, "0.00")
             Else
                 Distance = CDbl(CheckData(CStr(Val(txtVslSt(2).Text) / LFactor),  , True))
                 Bearing = CDbl(CheckData(CStr(Val(txtVslSt(3).Text)),  , True)) * Degrees2Radians
                 Bear2Coord(.ShipCurGlob, Distance, Bearing)
                 With .ShipCurGlob
-                    txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.0")
-                    txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.0")
+                    txtVslSt(0).Text = Format(.Xg * LFactor, "0.0")
+                    txtVslSt(1).Text = Format(.Yg * LFactor, "0.0")
                     .Heading = CDbl(CheckData(txtVslSt(4).Text,  , True)) * Degrees2Radians
                 End With
             End If

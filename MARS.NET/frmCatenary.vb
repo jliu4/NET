@@ -11,11 +11,13 @@ Friend Class frmCatenary
 	Private ExistingTxt As String
 	Private LastChanged As Short '1 - topten; 2 - horfrc
 	Private InitiateCbo As Boolean
-	
-	Private LUnit, FrcUnit As String
+
+    Private LUnit, FrcUnit As String
     Private LFactor, FrcFactor As Single
     Private cboSegment As New ComboBox()
     Private cboSegmentColIndex As Short = 2
+    Private drawingX As Short
+    Private drawingY As Short
 
     ' form load and unload
 
@@ -60,6 +62,9 @@ Friend Class frmCatenary
         DetailLabelR(3) = "Hor. Force" & FrcUnit
         DetailLabelR(4) = "Angle (deg)"
         DetailLabelR(5) = "Depth at Top" & LUnit
+        'set drawing area for the form
+        drawingX = Me.Size.Width
+        drawingY = grdLength.Location.Y - 10
 
         With grdLength
             .RowCount = 1
@@ -86,15 +91,15 @@ Friend Class frmCatenary
             For r = 0 To .RowCount - 1
                 .Rows(r).Cells(0).Value = DetailLabelR(r + 1)
             Next
-            .Rows(0).Cells(cboSegmentColIndex).Value = VB6.Format(SegLength(1) * LFactor, "0.0")
+            .Rows(0).Cells(cboSegmentColIndex).Value = Format(SegLength(1) * LFactor, "0.0")
 
-            .Rows(1).Cells(cboSegmentColIndex).Value = VB6.Format(SegTension(1) * 0.001 * FrcFactor, "0.00")
+            .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegTension(1) * 0.001 * FrcFactor, "0.00")
 
-            .Rows(2).Cells(cboSegmentColIndex).Value = VB6.Format(SegTension(1) * 0.001 * System.Math.Cos(SegAngle(1)) * FrcFactor, "0.00")
+            .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(1) * 0.001 * System.Math.Cos(SegAngle(1)) * FrcFactor, "0.00")
 
-            .Rows(3).Cells(cboSegmentColIndex).Value = VB6.Format(SegAngle(1) * Radians2Degrees, "0.00")
+            .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegAngle(1) * Radians2Degrees, "0.00")
 
-            .Rows(4).Cells(cboSegmentColIndex).Value = VB6.Format(SegPosition(1) * LFactor, "0.0")
+            .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegPosition(1) * LFactor, "0.0")
         End With
 
         JustEnter = True
@@ -154,11 +159,11 @@ Friend Class frmCatenary
             Dim ID As Short
             ID = cboSegment.SelectedIndex
             With grdDetails
-                .Rows(0).Cells(cboSegmentColIndex).Value = VB6.Format(SegLength(ID + 1) * LFactor, "0.0")
-                .Rows(1).Cells(cboSegmentColIndex).Value = VB6.Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
-                .Rows(2).Cells(cboSegmentColIndex).Value = VB6.Format(SegTension(ID + 1) * 0.001 * System.Math.Cos(SegAngle(ID + 1)) * FrcFactor, "0.00")
-                .Rows(3).Cells(cboSegmentColIndex).Value = VB6.Format(SegAngle(ID + 1) * Radians2Degrees, "0.00")
-                .Rows(4).Cells(cboSegmentColIndex).Value = VB6.Format(SegPosition(ID + 1) * LFactor, "0.0")
+                .Rows(0).Cells(cboSegmentColIndex).Value = Format(SegLength(ID + 1) * LFactor, "0.0")
+                .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
+                .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * System.Math.Cos(SegAngle(ID + 1)) * FrcFactor, "0.00")
+                .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegAngle(ID + 1) * Radians2Degrees, "0.00")
+                .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegPosition(ID + 1) * LFactor, "0.0")
             End With
 
         End If
@@ -180,24 +185,24 @@ Friend Class frmCatenary
     ' buttons
 
     Private Sub btnOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnOK.Click
-		
-		Me.Close()
-		
-	End Sub
-	
-	Private Sub btnRefresh_Click()
-		
-		If IsMetricUnit Then
-			LFactor = 0.3048 ' ft -> m
-			FrcFactor = 4.448222 ' kips -> KN
-			LUnit = " (m)"
-			FrcUnit = " (KN)"
-		Else
-			LFactor = 1
-			FrcFactor = 1
-			LUnit = " (ft)"
-			FrcUnit = " (kips)"
-		End If
+
+        Me.Close()
+
+    End Sub
+
+    Private Sub btnRefresh_Click()
+
+        If IsMetricUnit Then
+            LFactor = 0.3048 ' ft -> m
+            FrcFactor = 4.448222 ' kips -> KN
+            LUnit = " (m)"
+            FrcUnit = " (KN)"
+        Else
+            LFactor = 1
+            FrcFactor = 1
+            LUnit = " (ft)"
+            FrcUnit = " (kips)"
+        End If
 
         Dim TopTension, HorForce As Single
 
@@ -245,15 +250,15 @@ Friend Class frmCatenary
         ID = cboSegment.SelectedIndex
         With grdDetails
 
-            .Rows(0).Cells(cboSegmentColIndex).Value = VB6.Format(SegLength(ID + 1) * LFactor, "0.0")
+            .Rows(0).Cells(cboSegmentColIndex).Value = Format(SegLength(ID + 1) * LFactor, "0.0")
 
-            .Rows(1).Cells(cboSegmentColIndex).Value = VB6.Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
+            .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
 
-            .Rows(2).Cells(cboSegmentColIndex).Value = VB6.Format(SegTension(ID + 1) * 0.001 * System.Math.Cos(SegAngle(ID + 1)) * FrcFactor, "0.00")
+            .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * System.Math.Cos(SegAngle(ID + 1)) * FrcFactor, "0.00")
 
-            .Rows(3).Cells(cboSegmentColIndex).Value = VB6.Format(SegAngle(ID + 1) * Radians2Degrees, "0.00")
+            .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegAngle(ID + 1) * Radians2Degrees, "0.00")
 
-            .Rows(4).Cells(cboSegmentColIndex).Value = VB6.Format(SegPosition(ID + 1) * LFactor, "0.0")
+            .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegPosition(ID + 1) * LFactor, "0.0")
         End With
 
     End Sub
@@ -333,6 +338,9 @@ Friend Class frmCatenary
         Dim Color(3) As Integer
         Dim X(MaxNumSubSeg + 1) As Single
         Dim Y(MaxNumSubSeg + 1) As Single
+        'Me.AutoScaleBaseSize = New System.Drawing.Size(16, 10)
+        'Me.ClientSize = New System.Drawing.Size(drawingX, drawingY)
+        'Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -382,31 +390,31 @@ Friend Class frmCatenary
         With grdLength
             .RowCount = 1
             .ColumnCount = 5
-            .Rows(0).Cells(0).Value = VB6.Format(Scope * LFactor, "0.0")
-            .Rows(0).Cells(1).Value = VB6.Format(lineLength * LFactor, "0.0")
-            .Rows(0).Cells(2).Value = VB6.Format(SuspendLength * LFactor, "0.0")
-            .Rows(0).Cells(3).Value = VB6.Format(GroundedLength * LFactor, "0.0")
-            .Rows(0).Cells(4).Value = VB6.Format(StretchLength * LFactor, "0.0")
+            .Rows(0).Cells(0).Value = Format(Scope * LFactor, "0.0")
+            .Rows(0).Cells(1).Value = Format(lineLength * LFactor, "0.0")
+            .Rows(0).Cells(2).Value = Format(SuspendLength * LFactor, "0.0")
+            .Rows(0).Cells(3).Value = Format(GroundedLength * LFactor, "0.0")
+            .Rows(0).Cells(4).Value = Format(StretchLength * LFactor, "0.0")
         End With
 
         With grdDetails
             .RowCount = 5
             .ColumnCount = 4
-            .Rows(0).Cells(1).Value = VB6.Format(TopLength * LFactor, "0.0")
+            .Rows(0).Cells(1).Value = Format(TopLength * LFactor, "0.0")
 
-            .Rows(1).Cells(1).Value = VB6.Format(TopTension * 0.001 * FrcFactor, "0.00")
+            .Rows(1).Cells(1).Value = Format(TopTension * 0.001 * FrcFactor, "0.00")
 
-            .Rows(2).Cells(1).Value = VB6.Format(TopTension * 0.001 * System.Math.Cos(TopAngle) * FrcFactor, "0.00")
+            .Rows(2).Cells(1).Value = Format(TopTension * 0.001 * System.Math.Cos(TopAngle) * FrcFactor, "0.00")
 
-            .Rows(3).Cells(1).Value = VB6.Format(TopAngle * Radians2Degrees, "0.00")
+            .Rows(3).Cells(1).Value = Format(TopAngle * Radians2Degrees, "0.00")
 
-            .Rows(4).Cells(1).Value = VB6.Format(TopPosition * LFactor, "0.0")
+            .Rows(4).Cells(1).Value = Format(TopPosition * LFactor, "0.0")
 
-            .Rows(1).Cells(3).Value = VB6.Format(BottomTension * 0.001 * FrcFactor, "0.00")
+            .Rows(1).Cells(3).Value = Format(BottomTension * 0.001 * FrcFactor, "0.00")
 
-            .Rows(2).Cells(3).Value = VB6.Format(BottomTension * 0.001 * System.Math.Cos(BottomAngle) * FrcFactor, "0.00")
+            .Rows(2).Cells(3).Value = Format(BottomTension * 0.001 * System.Math.Cos(BottomAngle) * FrcFactor, "0.00")
 
-            .Rows(3).Cells(3).Value = VB6.Format(BottomAngle * Radians2Degrees, "0.00")
+            .Rows(3).Cells(3).Value = Format(BottomAngle * Radians2Degrees, "0.00")
 
         End With
 
@@ -420,7 +428,7 @@ Friend Class frmCatenary
         Color(0) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow)
         'find drawing scales
 
-        Call drawAxis(Xmax, Xmin, Ymax, Ymin, "Distance" & LUnit, "Depth" & LUnit, picCatenary, False)
+        'Call drawAxis0(Xmax, Xmin, Ymax, Ymin, "Distance" & LUnit, "Depth" & LUnit, picCatenary, False)
 
         FileClose(FileNumRes)
         '    Open MarsDir & "catenary.dat" For Output Access Write As #FileNumRes
@@ -437,19 +445,20 @@ Friend Class frmCatenary
                     WriteLine(FileNumRes, X(j), Y(j))
                 End If
             Next j
-            Call DrawLine(X, Y, NumPoints, 0, picCatenary)
+            'Call DrawLine(X, Y, NumPoints, 0, picCatenary)
         Next i
 
         FileClose(FileNumRes)
 
     End Sub
-    Sub DrawLine0(ByRef x() As Single, ByRef Y() As Single, ByRef NumPoints As Short, ByRef pic As PictureBox)
-        Dim g = pic.CreateGraphics
-        Dim blackpen As New Drawing.Pen(Color.Black)
-        g.DrawLine(blackpen, x(1), Y(1), x(2), Y(2))
 
 
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        ' Call the base class
+        MyBase.OnPaint(e)
 
+        ' Do your painting
+        ' e.Graphics.DrawLine(Pens.Black, 16, 16, drawingX, drawingY)
     End Sub
 
 End Class

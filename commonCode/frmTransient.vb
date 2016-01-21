@@ -119,8 +119,8 @@ ErrHandler:
 		
 		' Intialize the text boxes
 		
-		txtDuration.Text = VB6.Format(TimeStep * NumTimeSteps, "##,##0.0")
-		txtInterval.Text = VB6.Format(TimeStep, "##0.00")
+		txtDuration.Text = Format(TimeStep * NumTimeSteps, "##,##0.0")
+		txtInterval.Text = Format(TimeStep, "##0.00")
 		
 		TransientComputed = False
 		
@@ -427,8 +427,8 @@ ErrHandler:
 		Dist = System.Math.Sqrt(dx ^ 2 + dy ^ 2)
 		PWD = Dist / CurVessel.WaterDepth
 		
-		txtOffset.Text = VB6.Format(Dist * LFactor, "##,##0") '  final offset
-		txtOffsetPWD.Text = VB6.Format(PWD * 100#, "#0.0") ' final offset percent WD
+		txtOffset.Text = Format(Dist * LFactor, "##,##0") '  final offset
+		txtOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' final offset percent WD
 		
 		If dx = 0 And dy = 0 Then
 			Bearing = 0#
@@ -437,12 +437,12 @@ ErrHandler:
 			Bearing = PI / 2# - Bearing
 		End If
 		
-		txtOffsetBearing.Text = VB6.Format(RadTo360(Bearing), "#0") '  Bearing is the angle of final position measured clockwise from TN ???
+		txtOffsetBearing.Text = Format(RadTo360(Bearing), "#0") '  Bearing is the angle of final position measured clockwise from TN ???
 		
 		PWD = MaxOffset / CurVessel.WaterDepth
 		
-		txtMaxOffset.Text = VB6.Format(MaxOffset * LFactor, "##,##0") ' Max Transient Offset
-		txtMaxOffsetPWD.Text = VB6.Format(PWD * 100#, "#0.0") ' Max Transient Offset Percent WD
+		txtMaxOffset.Text = Format(MaxOffset * LFactor, "##,##0") ' Max Transient Offset
+		txtMaxOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' Max Transient Offset Percent WD
 		txtMaxOffsetTime.Text = CStr(MaxTransTime)
 
         ' Update the data table
@@ -451,11 +451,11 @@ ErrHandler:
             .RowCount = NumTimeSteps + 1
             For r = 0 To .RowCount - 1
                 .Rows(r).Cells(0).Value = r * TimeStep
-                .Rows(r).Cells(1).Value = VB6.Format(TransX(r) * LFactor, "#,##0.00")
+                .Rows(r).Cells(1).Value = Format(TransX(r) * LFactor, "#,##0.00")
 
-                .Rows(r).Cells(2).Value = VB6.Format(TransY(r) * LFactor, "#,##0.00")
+                .Rows(r).Cells(2).Value = Format(TransY(r) * LFactor, "#,##0.00")
 
-                .Rows(r).Cells(3).Value = VB6.Format(RadTo360(Val(TransYaw(r))), "##0.0")
+                .Rows(r).Cells(3).Value = Format(RadTo360(Val(TransYaw(r))), "##0.0")
 
             Next r
         End With
@@ -852,7 +852,7 @@ ErrHandler:
 		
 		ReDim TMRowHead(NumTimeSteps + 2)
 		For i = 0 To NumTimeSteps + 1
-			TMRowHead(i) = VB6.Format((i - 1) * TimeStep, "#,##0.0")
+			TMRowHead(i) = Format((i - 1) * TimeStep, "#,##0.0")
 		Next i
 
         If IsMetricUnit Then
@@ -954,7 +954,7 @@ ErrHandler:
 				NumTimeSteps = Fix((Dur / TimeStep) + 0.5)
 				ReDim TMRowHead(NumTimeSteps + 1)
 				For i = 0 To NumTimeSteps + 1
-					TMRowHead(i) = VB6.Format((i - 1) * TimeStep, "#,##0.0")
+					TMRowHead(i) = Format((i - 1) * TimeStep, "#,##0.0")
 				Next i
                 'grdTM.Rows = NumTimeSteps + 2
                 'With grdTM
@@ -1008,20 +1008,20 @@ ErrHandler:
         If FirstTime Then FirstLoad = True
 
         With CurVessel
-            txtWell.Text = VB6.Format(.WaterDepth * LFactor, "0.0")
+            txtWell.Text = Format(.WaterDepth * LFactor, "0.0")
 
             With .ShipCurGlob
-                txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.00")
-                txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.00")
-                txtVslSt(2).Text = VB6.Format(RadTo360(.Heading), "0")
+                txtVslSt(0).Text = Format(.Xg * LFactor, "0.00")
+                txtVslSt(1).Text = Format(.Yg * LFactor, "0.00")
+                txtVslSt(2).Text = Format(RadTo360(.Heading), "0")
             End With
 
-            txtVslSt(3).Text = VB6.Format(.ShipDraft * LFactor, "0.00")
+            txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.00")
 
             'With .Riser
-            'txtRiser(0).Text = VB6.Format(.TopTen / 1000.0# * FrcFactor, "0.0")
-            'txtRiser(1).Text = VB6.Format(.mass / 1000.0# * MassFactor, "0.0")
-            'txtRiser(2).Text = VB6.Format(.Dia * 12.0# * DiaFactor, "0.0")
+            'txtRiser(0).Text = Format(.TopTen / 1000.0# * FrcFactor, "0.0")
+            'txtRiser(1).Text = Format(.mass / 1000.0# * MassFactor, "0.0")
+            'txtRiser(2).Text = Format(.Dia * 12.0# * DiaFactor, "0.0")
             'End With
         End With
 

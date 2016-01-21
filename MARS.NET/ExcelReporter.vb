@@ -126,7 +126,7 @@ Friend Class ExcelReporter
             oSummarySheet = .Sheets.Add(After:= .Worksheets(.Worksheets.Count))
             oSummarySheet.Name = "Summary"
             With oSummarySheet
-                .Range("B1").Formula = "Water Depth = " & VB6.Format(oVessel.WaterDepth, "0.0") & " ft, Pretension = " & oxApp.Range("OperTension").Value & " kips"
+                .Range("B1").Formula = "Water Depth = " & Format(oVessel.WaterDepth, "0.0") & " ft, Pretension = " & oxApp.Range("OperTension").Value & " kips"
                 .Range("B2").Formula = oxApp.Range("MainTitle").Value & ", " & oxApp.Range("SubTitle").Value
                 .Range("B1:B2").Font.Bold = True
                 .Range("B1:B2").Font.Size = 16
@@ -179,7 +179,7 @@ Friend Class ExcelReporter
                         .Cells._Default(10, i).Formula = oxSheet.Range("T21")._Default
                         TmpStr = CStr(System.Math.Sqrt((oxSheet.Range("Q32"))._Default ^ 2 + (oxSheet.Range("S32"))._Default ^ 2))
                         'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells(12, i).FormulaR1C1. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        .Cells._Default(12, i).FormulaR1C1 = VB6.Format(TmpStr, "0.0")
+                        .Cells._Default(12, i).FormulaR1C1 = Format(TmpStr, "0.0")
                         'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells(13, i).Formula. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         'UPGRADE_WARNING: Couldn't resolve default property of object oxSheet.Range()._Default. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         .Cells._Default(13, i).Formula = oxSheet.Range("Q37")._Default
@@ -205,9 +205,9 @@ Friend Class ExcelReporter
                         'UPGRADE_WARNING: Couldn't resolve default property of object oxSheet.Range()._Default. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         .Cells._Default(23, i).Formula = oxSheet.Range("V39")._Default
                         'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells(26, i).Formula. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        .Cells._Default(26, i).Formula = VB6.Format(oxSheet.Range("U13")._Default, "0.00")
+                        .Cells._Default(26, i).Formula = Format(oxSheet.Range("U13")._Default, "0.00")
                         'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells(27, i).Formula. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        .Cells._Default(27, i).Formula = VB6.Format(oxSheet.Range("U12")._Default, "0.00")
+                        .Cells._Default(27, i).Formula = Format(oxSheet.Range("U12")._Default, "0.00")
                         For j = 1 To oVessel.MoorSystem.MoorLineCount
                             If InStr(oxSheet.Range("V" & (44 + j))._Default, "DAMAGED") > 0 Then
                                 'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells().Value. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -353,7 +353,7 @@ Friend Class ExcelReporter
                     .Cells(29 + i, Col + 5).NumberFormat = "0"
                     'UPGRADE_WARNING: Couldn't resolve default property of object Col. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveWorkbook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    TmpCaseName = "case" & VB6.Format(.Cells(29 + i, Col + 4).Value, "0")
+                    TmpCaseName = "case" & Format(.Cells(29 + i, Col + 4).Value, "0")
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     maxT = Max(oxApp.Sheets(TmpCaseName).Range("T" & 44 + i).Value, oxApp.Sheets(TmpCaseName).Range("U" & 44 + i).Value)
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -373,7 +373,7 @@ Friend Class ExcelReporter
                     .Cells(29 + i, Col + 5).FormulaR1C1 = MaxGL
                     'UPGRADE_WARNING: Couldn't resolve default property of object Col. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveWorkbook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    .Cells(29 + i, Col + 6).FormulaR1C1 = VB6.Format(MinT / 1000, "0")
+                    .Cells(29 + i, Col + 6).FormulaR1C1 = Format(MinT / 1000, "0")
                     'UPGRADE_NOTE: Object tmpMoorLine may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                     tmpMoorLine = Nothing
                 Next i
@@ -389,13 +389,13 @@ Friend Class ExcelReporter
                 .Cells(7, j + 3).FormulaR1C1 = "Current"
 
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveWorkbook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                .Cells(4, j + 4).FormulaR1C1 = VB6.Format(oVessel.EnvLoad.EnvCur.Wind.Velocity * 0.5924838, "#0.00")
+                .Cells(4, j + 4).FormulaR1C1 = Format(oVessel.EnvLoad.EnvCur.Wind.Velocity * 0.5924838, "#0.00")
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveWorkbook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                .Cells(5, j + 4).FormulaR1C1 = VB6.Format(oVessel.EnvLoad.EnvCur.Wave.Height, "#0.00")
+                .Cells(5, j + 4).FormulaR1C1 = Format(oVessel.EnvLoad.EnvCur.Wave.Height, "#0.00")
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveWorkbook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                .Cells(6, j + 4).FormulaR1C1 = VB6.Format(oVessel.EnvLoad.EnvCur.Wave.Period, "#0.00")
+                .Cells(6, j + 4).FormulaR1C1 = Format(oVessel.EnvLoad.EnvCur.Wave.Period, "#0.00")
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveWorkbook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                .Cells(7, j + 4).FormulaR1C1 = VB6.Format(oVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity * 0.5924838, "#0.00")
+                .Cells(7, j + 4).FormulaR1C1 = Format(oVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity * 0.5924838, "#0.00")
 
                 .Cells(4, j + 5).FormulaR1C1 = "  knots"
                 .Cells(5, j + 5).FormulaR1C1 = "  ft"
@@ -427,7 +427,7 @@ Friend Class ExcelReporter
                 End If
             Next i
         End With
-        FindMax = VB6.Format(MaxVal, "0.00")
+        FindMax = Format(MaxVal, "0.00")
     End Function
 
     Function FindMin(ByVal LineNo As Short, ByRef CaseNo As Short) As Object
@@ -448,7 +448,7 @@ Friend Class ExcelReporter
                 End If
             Next i
         End With
-        FindMin = VB6.Format(MinVal, "0.00")
+        FindMin = Format(MinVal, "0.00")
     End Function
 
     Function GetDamagedLineNo(ByRef oxSheet As Microsoft.Office.Interop.Excel.Worksheet, ByRef NumLines As Short) As String
@@ -515,8 +515,8 @@ Friend Class ExcelReporter
         Next i
 
         Call GetArrayElemRange(tmpVal, MaxVal, MinVal)
-        oxApp.Range("WirePayoutMin").Formula = VB6.Format(MinVal, "#0")
-        oxApp.Range("WirePayoutMax").Formula = VB6.Format(MaxVal, "#0")
+        oxApp.Range("WirePayoutMin").Formula = Format(MinVal, "#0")
+        oxApp.Range("WirePayoutMax").Formula = Format(MaxVal, "#0")
 
         For i = 1 To NumLines
             If MoorSystem Is Nothing Then
@@ -543,17 +543,17 @@ Friend Class ExcelReporter
         Next i
 
         Call GetArrayElemRange(tmpVal, MaxVal, MinVal)
-        oxApp.Sheets("User Input").Range("B14").Formula = VB6.Format(MinVal, "#0")
-        oxApp.Sheets("User Input").Range("C14").Formula = VB6.Format(MaxVal, "#0")
+        oxApp.Sheets("User Input").Range("B14").Formula = Format(MinVal, "#0")
+        oxApp.Sheets("User Input").Range("C14").Formula = Format(MaxVal, "#0")
 
         If ShipLoc Is Nothing Then
-            oxApp.Sheets("User Input").Range("VesselHdg").Value = VB6.Format(RadTo360(oVessel.ShipCurGlob.Heading), "#0.00")
-            oxApp.Sheets("User Input").Range("vPosX").Value = VB6.Format(oVessel.ShipCurGlob.Xg, "#0.00")
-            oxApp.Sheets("User Input").Range("vPosY").Value = VB6.Format(oVessel.ShipCurGlob.Yg, "#0.00")
+            oxApp.Sheets("User Input").Range("VesselHdg").Value = Format(RadTo360(oVessel.ShipCurGlob.Heading), "#0.00")
+            oxApp.Sheets("User Input").Range("vPosX").Value = Format(oVessel.ShipCurGlob.Xg, "#0.00")
+            oxApp.Sheets("User Input").Range("vPosY").Value = Format(oVessel.ShipCurGlob.Yg, "#0.00")
         Else
-            oxApp.Sheets("User Input").Range("VesselHdg").Value = VB6.Format(RadTo360((ShipLoc.Heading)), "#0.00")
-            oxApp.Sheets("User Input").Range("vPosX").Value = VB6.Format(ShipLoc.Xg, "#0.00")
-            oxApp.Sheets("User Input").Range("vPosY").Value = VB6.Format(ShipLoc.Yg, "#0.00")
+            oxApp.Sheets("User Input").Range("VesselHdg").Value = Format(RadTo360((ShipLoc.Heading)), "#0.00")
+            oxApp.Sheets("User Input").Range("vPosX").Value = Format(ShipLoc.Xg, "#0.00")
+            oxApp.Sheets("User Input").Range("vPosY").Value = Format(ShipLoc.Yg, "#0.00")
         End If
 
         For i = 1 To NumLines
@@ -564,8 +564,8 @@ Friend Class ExcelReporter
             End If
         Next i
         Call GetArrayElemRange(tmpVal, MaxVal, MinVal)
-        oxApp.Range("pretensionMin").Formula = VB6.Format(MinVal, "#0")
-        oxApp.Range("pretensionMax").Formula = VB6.Format(MaxVal, "#0")
+        oxApp.Range("pretensionMin").Formula = Format(MinVal, "#0")
+        oxApp.Range("pretensionMax").Formula = Format(MaxVal, "#0")
         If System.Math.Abs(MaxVal - MinVal) < 0.5 Then
             oxApp.Range("pretensionMax").Formula = ""
         End If
@@ -575,13 +575,13 @@ Friend Class ExcelReporter
         If MoorSystem Is Nothing Then
             If oVessel.MoorSystem.MoorLines(CtrlLineNo).Connected Then
                 If ShipLoc Is Nothing Then
-                    oxApp.Range("CtrlLineScope").Formula = VB6.Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation((oVessel.ShipCurGlob), False), "#0.00")
+                    oxApp.Range("CtrlLineScope").Formula = Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation((oVessel.ShipCurGlob), False), "#0.00")
                 Else
-                    oxApp.Range("CtrlLineScope").Formula = VB6.Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation(ShipLoc, False), "#0.00")
+                    oxApp.Range("CtrlLineScope").Formula = Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation(ShipLoc, False), "#0.00")
                 End If
-                oxApp.Range("CtrlLineGrdLen").Formula = VB6.Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).GrdLen, "#0.00")
-                oxApp.Range("CtrlLineAnchorUpliftAngle").Formula = VB6.Format((oVessel.MoorSystem.MoorLines(CtrlLineNo).BtmAngle - oVessel.MoorSystem.MoorLines(CtrlLineNo).BottomSlope) * Radians2Degrees, "#0.0")
-                oxApp.Range("CtrlLineAnchorLoad").Formula = VB6.Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).AnchPull / 1000, "#0")
+                oxApp.Range("CtrlLineGrdLen").Formula = Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).GrdLen, "#0.00")
+                oxApp.Range("CtrlLineAnchorUpliftAngle").Formula = Format((oVessel.MoorSystem.MoorLines(CtrlLineNo).BtmAngle - oVessel.MoorSystem.MoorLines(CtrlLineNo).BottomSlope) * Radians2Degrees, "#0.0")
+                oxApp.Range("CtrlLineAnchorLoad").Formula = Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).AnchPull / 1000, "#0")
             Else
                 oxApp.Range("CtrlLineScope").Formula = "Broken"
                 oxApp.Range("CtrlLineGrdLen").Formula = "Broken"
@@ -591,14 +591,14 @@ Friend Class ExcelReporter
         Else
             If MoorSystem.MoorLines(CtrlLineNo).Connected Then
                 If ShipLoc Is Nothing Then
-                    oxApp.Range("CtrlLineScope").Formula = VB6.Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation((oVessel.ShipCurGlob), False), "#0.00")
+                    oxApp.Range("CtrlLineScope").Formula = Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation((oVessel.ShipCurGlob), False), "#0.00")
                 Else
-                    oxApp.Range("CtrlLineScope").Formula = VB6.Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation(ShipLoc, False), "#0.00")
+                    oxApp.Range("CtrlLineScope").Formula = Format(oVessel.MoorSystem.MoorLines(CtrlLineNo).ScopeByVesselLocation(ShipLoc, False), "#0.00")
                 End If
-                oxApp.Range("CtrlLineGrdLen").Formula = VB6.Format(MoorSystem.MoorLines(CtrlLineNo).GrdLen, "#0")
-                oxApp.Range("CtrlLineAnchorUpliftAngle").Formula = VB6.Format((MoorSystem.MoorLines(CtrlLineNo).BtmAngle - MoorSystem.MoorLines(CtrlLineNo).BottomSlope) * Radians2Degrees, "#0.0")
-                oxApp.Range("CtrlLineAnchorLoad").Formula = VB6.Format(MoorSystem.MoorLines(CtrlLineNo).AnchPull / 1000, "#0")
-                oxApp.Range("Pretension").Formula = VB6.Format(MoorSystem.MoorLines(CtrlLineNo).PretensionOpr / 1000, "#0")
+                oxApp.Range("CtrlLineGrdLen").Formula = Format(MoorSystem.MoorLines(CtrlLineNo).GrdLen, "#0")
+                oxApp.Range("CtrlLineAnchorUpliftAngle").Formula = Format((MoorSystem.MoorLines(CtrlLineNo).BtmAngle - MoorSystem.MoorLines(CtrlLineNo).BottomSlope) * Radians2Degrees, "#0.0")
+                oxApp.Range("CtrlLineAnchorLoad").Formula = Format(MoorSystem.MoorLines(CtrlLineNo).AnchPull / 1000, "#0")
+                oxApp.Range("Pretension").Formula = Format(MoorSystem.MoorLines(CtrlLineNo).PretensionOpr / 1000, "#0")
             Else
                 oxApp.Range("CtrlLineScope").Formula = "Broken"
                 oxApp.Range("CtrlLineGrdLen").Formula = "Broken"
@@ -634,14 +634,14 @@ Friend Class ExcelReporter
             If MoorSystem Is Nothing Then
                 With oVessel.MoorSystem
                     For i = 1 To NumLines
-                        oxApp.Sheets("Payout").Range("L" & (13 + i - 1)).Value = VB6.Format(i, "0")
+                        oxApp.Sheets("Payout").Range("L" & (13 + i - 1)).Value = Format(i, "0")
                         If ShipLoc Is Nothing Then
 
-                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = VB6.Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation((oVessel.ShipCurGlob)))) * LFactor, "0.00")
-                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = VB6.Format(.MoorLines(i).SpreadAngleTN(oVessel.ShipCurGlob.Heading) * Radians2Degrees, "0.00")
+                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation((oVessel.ShipCurGlob)))) * LFactor, "0.00")
+                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = Format(.MoorLines(i).SpreadAngleTN(oVessel.ShipCurGlob.Heading) * Radians2Degrees, "0.00")
                         Else
-                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = VB6.Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation(ShipLoc))) * LFactor, "0.00")
-                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = VB6.Format(.MoorLines(i).SpreadAngleTN(ShipLoc.Heading) * Radians2Degrees, "0.00")
+                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation(ShipLoc))) * LFactor, "0.00")
+                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = Format(.MoorLines(i).SpreadAngleTN(ShipLoc.Heading) * Radians2Degrees, "0.00")
                         End If
                         oxApp.Sheets("Payout").Range("O" & (13 + i - 1)).Value = Val(CStr(.MoorLines(i).TouchDownXg)) * LFactor
                         oxApp.Sheets("Payout").Range("P" & (13 + i - 1)).Value = Val(CStr(.MoorLines(i).TouchDownYg)) * LFactor
@@ -658,14 +658,14 @@ Friend Class ExcelReporter
             Else
                 With MoorSystem
                     For i = 1 To NumLines
-                        oxApp.Sheets("Payout").Range("L" & (13 + i - 1)).Value = VB6.Format(i, "0")
+                        oxApp.Sheets("Payout").Range("L" & (13 + i - 1)).Value = Format(i, "0")
                         If ShipLoc Is Nothing Then
-                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = VB6.Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation((oVessel.ShipCurGlob)))) * LFactor, "0.00")
-                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = VB6.Format(.MoorLines(i).SpreadAngleTN(oVessel.ShipCurGlob.Heading) * Radians2Degrees, "0.00")
+                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation((oVessel.ShipCurGlob)))) * LFactor, "0.00")
+                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = Format(.MoorLines(i).SpreadAngleTN(oVessel.ShipCurGlob.Heading) * Radians2Degrees, "0.00")
                         Else
 
-                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = VB6.Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation(ShipLoc))) * LFactor, "0.00")
-                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = VB6.Format(.MoorLines(i).SpreadAngleTN(ShipLoc.Heading) * Radians2Degrees, "0.00")
+                            oxApp.Sheets("Payout").Range("M" & (13 + i - 1)).Value = Format(Val(CStr(.MoorLines(i).ScopeByVesselLocation(ShipLoc))) * LFactor, "0.00")
+                            oxApp.Sheets("Payout").Range("N" & (13 + i - 1)).Value = Format(.MoorLines(i).SpreadAngleTN(ShipLoc.Heading) * Radians2Degrees, "0.00")
                         End If
                         'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         oxApp.Sheets("Payout").Range("O" & (13 + i - 1)).Value = Val(CStr(.MoorLines(i).TouchDownXg)) * LFactor
@@ -700,7 +700,7 @@ Friend Class ExcelReporter
             If MoorSystem Is Nothing Then
                 For j = 1 To NumLines
                     If oVessel.MoorSystem.MoorLines(j).Connected Then
-                        .ActiveChart.SeriesCollection(j).Name = VB6.Format(oVessel.MoorSystem.MoorLines(j).TopTension / 1000 * FrcFactor, "#0") & FrcUnit
+                        .ActiveChart.SeriesCollection(j).Name = Format(oVessel.MoorSystem.MoorLines(j).TopTension / 1000 * FrcFactor, "#0") & FrcUnit
                         .ActiveChart.SeriesCollection(j).Points(2).ApplyDataLabels(AutoText:=True, LegendKey:=False, ShowSeriesName:=True, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
 
                         '                 dx = oVessel.MoorSystem.MoorLines(j).Anchor.Xg - oVessel.MoorSystem.MoorLines(j).FairLead.Xg(oVessel.ShipCurGlob)
@@ -735,7 +735,7 @@ Friend Class ExcelReporter
             Else
                 For j = 1 To NumLines
                     If MoorSystem.MoorLines(j).Connected Then
-                        .ActiveChart.SeriesCollection(j).Name = VB6.Format(MoorSystem.MoorLines(j).TopTension / 1000 * FrcFactor, "#0") & FrcUnit
+                        .ActiveChart.SeriesCollection(j).Name = Format(MoorSystem.MoorLines(j).TopTension / 1000 * FrcFactor, "#0") & FrcUnit
                         .ActiveChart.SeriesCollection(j).Points(2).ApplyDataLabels(AutoText:=True, LegendKey:=False, ShowSeriesName:=True, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
 
                         If ShipLoc Is Nothing Then
@@ -1112,19 +1112,19 @@ ErrHandler:
             End If
             Call GetArrayElemRange(tmpVal, MaxVal, MinVal)
             If MaxVal - MinVal < 5 Then
-                oxApp.Range("OperTension").Value = VB6.Format((MinVal + MaxVal) / 2, "#0")
+                oxApp.Range("OperTension").Value = Format((MinVal + MaxVal) / 2, "#0")
             Else
-                oxApp.Range("OperTension").Value = VB6.Format(MinVal, "#0") & " - " & VB6.Format(MaxVal, "#0")
-                oxApp.Range("PreTensionKN").Value = VB6.Format(MinVal * 4.448222, "#0") & " - " & VB6.Format(MaxVal * 4.448222, "#0") ' kips -> KN
+                oxApp.Range("OperTension").Value = Format(MinVal, "#0") & " - " & Format(MaxVal, "#0")
+                oxApp.Range("PreTensionKN").Value = Format(MinVal * 4.448222, "#0") & " - " & Format(MaxVal * 4.448222, "#0") ' kips -> KN
             End If
-            oxApp.Range("BreakStrength").Formula = VB6.Format(.MoorSystem.MoorLines(1).Segments(1).BS / 1000, "#0")
+            oxApp.Range("BreakStrength").Formula = Format(.MoorSystem.MoorLines(1).Segments(1).BS / 1000, "#0")
             oxApp.Range("WD").Formula = .WaterDepth
             oxApp.Range("xx").Formula = InitPos.Surge
             oxApp.Range("yy").Formula = InitPos.Sway
             oxApp.Range("zz").Formula = ""
             oxApp.Range("rx").Formula = ""
             oxApp.Range("ry").Formula = ""
-            oxApp.Range("rz").Formula = VB6.Format(InitPos.Yaw * Radians2Degrees, "0.00")
+            oxApp.Range("rz").Formula = Format(InitPos.Yaw * Radians2Degrees, "0.00")
         End With
         oxApp.Visible = True
 
@@ -1157,7 +1157,7 @@ ErrHandler:
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .Cells._Default(6, 3) = (oVessel.EnvLoad.EnvCur.Wind.Heading) * Radians2Degrees
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                .Cells._Default(6, 7) = VB6.Format(RadTo360(oVessel.EnvLoad.EnvCur.Wave.Heading), "#0.0")
+                .Cells._Default(6, 7) = Format(RadTo360(oVessel.EnvLoad.EnvCur.Wave.Heading), "#0.0")
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .Cells._Default(6, 8) = ""
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -1577,7 +1577,7 @@ ErrHandler:
                         End With
                     End If
                     .Range("W" & (44 + j)).FormulaR1C1 = CritSegNo
-                    .Range("V" & (44 + j)).FormulaR1C1 = VB6.Format(minFS, "0.00")
+                    .Range("V" & (44 + j)).FormulaR1C1 = Format(minFS, "0.00")
                 Next j
 
                 If IsDamaged Then ' clear content for the damaged lines
@@ -1779,19 +1779,19 @@ ErrHandler:
             End If
             Call GetArrayElemRange(tmpVal, MaxVal, MinVal)
             If MaxVal - MinVal < 5 Then
-                oxApp.Range("OperTension").Value = VB6.Format((MinVal + MaxVal) / 2, "#0")
+                oxApp.Range("OperTension").Value = Format((MinVal + MaxVal) / 2, "#0")
             Else
-                oxApp.Range("OperTension").Value = VB6.Format(MinVal, "#0") & " - " & VB6.Format(MaxVal, "#0")
-                oxApp.Range("PreTensionKN").Value = VB6.Format(MinVal * 4.448222, "#0") & " - " & VB6.Format(MaxVal * 4.448222, "#0") ' kips -> KN
+                oxApp.Range("OperTension").Value = Format(MinVal, "#0") & " - " & Format(MaxVal, "#0")
+                oxApp.Range("PreTensionKN").Value = Format(MinVal * 4.448222, "#0") & " - " & Format(MaxVal * 4.448222, "#0") ' kips -> KN
             End If
-            oxApp.Range("BreakStrength").Formula = VB6.Format(.MoorSystem.MoorLines(1).Segments(1).BS / 1000, "#0")
+            oxApp.Range("BreakStrength").Formula = Format(.MoorSystem.MoorLines(1).Segments(1).BS / 1000, "#0")
             oxApp.Range("WD").Formula = .WaterDepth
             oxApp.Range("xx").Formula = InitPos.Surge
             oxApp.Range("yy").Formula = InitPos.Sway
             oxApp.Range("zz").Formula = ""
             oxApp.Range("rx").Formula = ""
             oxApp.Range("ry").Formula = ""
-            oxApp.Range("rz").Formula = VB6.Format(InitPos.Yaw * Radians2Degrees, "0.00")
+            oxApp.Range("rz").Formula = Format(InitPos.Yaw * Radians2Degrees, "0.00")
         End With
         oxApp.Visible = True
         '--------------------------------------------------------------------------------------
@@ -2205,7 +2205,7 @@ ErrHandler:
                                 .Range("W" & (Row + j + 9)).FormulaR1C1 = 1
                             End If
                         End If
-                        .Range("V" & (Row + j + 9)).FormulaR1C1 = VB6.Format(minFS, "0.00")
+                        .Range("V" & (Row + j + 9)).FormulaR1C1 = Format(minFS, "0.00")
                     End If
 
                 Next j
@@ -2392,12 +2392,12 @@ ErrHandler:
                 '   Debug.Print "i= " & i & " BS/1.43= " & BS & " Slope= " & CurLine.BottomSlope * Radians2Degrees
                 If ShipLoc Is Nothing Then
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    .Range("J" & Row).Value = VB6.Format(RadTo360(CurLine.SprdAngle((oVessel.ShipCurGlob))), "0.0")
+                    .Range("J" & Row).Value = Format(RadTo360(CurLine.SprdAngle((oVessel.ShipCurGlob))), "0.0")
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     .Range("K" & Row).Value = CurLine.ScopeByVesselLocation((oVessel.ShipCurGlob))
                 Else
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    .Range("J" & Row).Value = VB6.Format(RadTo360(CurLine.SprdAngle(ShipLoc)), "0.0")
+                    .Range("J" & Row).Value = Format(RadTo360(CurLine.SprdAngle(ShipLoc)), "0.0")
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     .Range("K" & Row).Value = CurLine.ScopeByVesselLocation(ShipLoc)
                 End If

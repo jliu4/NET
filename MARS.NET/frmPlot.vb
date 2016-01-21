@@ -28,8 +28,8 @@ Friend Class frmPlot
 		H = 0
 		V = 0
 		
-		txtPicControls(0).Text = VB6.Format(H, "##0")
-		txtPicControls(1).Text = VB6.Format(V, "##0")
+		txtPicControls(0).Text = Format(H, "##0")
+		txtPicControls(1).Text = Format(V, "##0")
 		
 		frmMain.PlotShow = True
 		
@@ -150,10 +150,10 @@ Friend Class frmPlot
 		anObj2.angleChange(H, V)
 		anObj2.drawBoat()
 		With CurVessel
-			anRiser.angleChange(H, V)
-			anRiser.drawRiser(CurWell, .ShipCurGlob, .ShipDraft)
-			
-			anSeaBed.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
+            'anRiser.angleChange(H, V)
+            'anRiser.drawRiser(CurWell, .ShipCurGlob, .ShipDraft)
+
+            anSeaBed.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
 			anSeaBed.drawSeabed(.ShipCurGlob, .ShipDraft)
 			
 			anPipeLines.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
@@ -163,7 +163,7 @@ Friend Class frmPlot
 			anSurface.drawSurface(.ShipDraft)
 		End With
 		
-		txtPicControls(0).Text = VB6.Format(H, "##0")
+		txtPicControls(0).Text = Format(H, "##0")
 		AddNorthIndicator((-H * Degrees2Radians))
 		
 	End Sub
@@ -182,10 +182,10 @@ Friend Class frmPlot
 		anObj2.angleChange(H, V)
 		anObj2.drawBoat()
 		With CurVessel
-			anRiser.angleChange(H, V)
-			anRiser.drawRiser(CurWell, .ShipCurGlob, .ShipDraft)
-			
-			anSeaBed.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
+            'anRiser.angleChange(H, V)
+            'anRiser.drawRiser(CurWell, .ShipCurGlob, .ShipDraft)
+
+            anSeaBed.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
 			anSeaBed.drawSeabed(.ShipCurGlob, .ShipDraft)
 			
 			anPipeLines.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
@@ -195,7 +195,7 @@ Friend Class frmPlot
 			anSurface.drawSurface(.ShipDraft)
 		End With
 		
-		txtPicControls(1).Text = VB6.Format(V, "##0")
+		txtPicControls(1).Text = Format(V, "##0")
 		AddNorthIndicator((-H * Degrees2Radians))
 		
 	End Sub
@@ -319,8 +319,8 @@ Friend Class frmPlot
 		
 		anObj2.angleChange(H, V)
 		With CurVessel
-			anRiser.angleChange(H, V)
-			anSeaBed.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
+            'anRiser.angleChange(H, V)
+            anSeaBed.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
 			anPipeLines.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
 			anSurface.angleChange(H - .ShipCurGlob.Heading * Radians2Degrees, V)
 		End With
@@ -374,15 +374,15 @@ Friend Class frmPlot
 
         anObj2.setGraph(ThreeD, ThreeD.Width * (Hmax - H) / Hmax, ThreeD.Height * (Vmax - V) / Vmax, False)
 
-        anRiser.setGraph(ThreeD, ThreeD.Width * (Hmax - H) / Hmax, ThreeD.Height * (Vmax - V) / Vmax, False)
+        'anRiser.setGraph(ThreeD, ThreeD.Width * (Hmax - H) / Hmax, ThreeD.Height * (Vmax - V) / Vmax, False)
         anSeaBed.setGraph(ThreeD, ThreeD.Width * (Hmax - H) / Hmax, ThreeD.Height * (Vmax - V) / Vmax, False)
         anPipeLines.setGraph(ThreeD, ThreeD.Width * (Hmax - H) / Hmax, ThreeD.Height * (Vmax - V) / Vmax, False)
         anSurface.setGraph(ThreeD, ThreeD.Width * (Hmax - H) / Hmax, ThreeD.Height * (Vmax - V) / Vmax, False)
         anObj2.drawBoat()
 		
 		With CurVessel
-			anRiser.drawRiser(CurWell, .ShipCurGlob, .ShipDraft)
-			anSeaBed.drawSeabed(.ShipCurGlob, .ShipDraft)
+            'anRiser.drawRiser(CurWell, .ShipCurGlob, .ShipDraft)
+            anSeaBed.drawSeabed(.ShipCurGlob, .ShipDraft)
 			anPipeLines.drawPipeLines(.ShipCurGlob, .ShipDraft)
 			anSurface.drawSurface(.ShipDraft)
 		End With
@@ -425,10 +425,10 @@ Friend Class frmPlot
 		'UPGRADE_WARNING: Couldn't resolve default property of object anObj2.ZoomGraph(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 		Zoom = anObj2.ZoomGraph(ZoomRatio)
 		With CurVessel
-			'UPGRADE_WARNING: Couldn't resolve default property of object anRiser.ZoomGraph(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Zoom1 = anRiser.ZoomGraph(ZoomRatio, CurWell, .ShipCurGlob, .ShipDraft)
-			'UPGRADE_WARNING: Couldn't resolve default property of object anSeaBed.ZoomGraph(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Zoom1 = anSeaBed.ZoomGraph(ZoomRatio, .ShipCurGlob, .ShipDraft)
+            'UPGRADE_WARNING: Couldn't resolve default property of object anRiser.ZoomGraph(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            'Zoom1 = anRiser.ZoomGraph(ZoomRatio, CurWell, .ShipCurGlob, .ShipDraft)
+            'UPGRADE_WARNING: Couldn't resolve default property of object anSeaBed.ZoomGraph(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            Zoom1 = anSeaBed.ZoomGraph(ZoomRatio, .ShipCurGlob, .ShipDraft)
 			Zoom1 = anPipeLines.ZoomGraph(ZoomRatio, .ShipCurGlob, .ShipDraft)
 			'UPGRADE_WARNING: Couldn't resolve default property of object anSurface.ZoomGraph(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 			Zoom1 = anSurface.ZoomGraph(ZoomRatio, .ShipDraft)

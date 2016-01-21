@@ -71,7 +71,7 @@ ErrHandler:
 
         btnDerp.Enabled = False
         btnReport.Enabled = False
-        txtReportTitle.Text = CurVessel.Name & ", Draft " & VB6.Format(CurVessel.ShipDraft, CStr(0)) & " ft, " & CurProj.WellSites.Item(CurProj.WellSites.CurWellNo).NameID
+        txtReportTitle.Text = CurVessel.Name & ", Draft " & Format(CurVessel.ShipDraft, CStr(0)) & " ft, " & CurProj.WellSites.Item(CurProj.WellSites.CurWellNo).NameID
         txtSubTitle.Text = txtEnvironment.Text & ", " & txtPercentDamping(0).Text & "% Damping"
         RefreshData()
     End Sub
@@ -338,21 +338,21 @@ ErrorHandler:
         Dim Bearing, Distance, Depth As Single
 
         With CurVessel
-            txtWaterDepth.Text = VB6.Format(.WaterDepth * LFactor, "0.0")
+            txtWaterDepth.Text = Format(.WaterDepth * LFactor, "0.0")
             With .ShipCurGlob
-                txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.00")
-                txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.00")
-                txtVslSt(2).Text = VB6.Format(.Heading * Radians2Degrees, "0.00")
+                txtVslSt(0).Text = Format(.Xg * LFactor, "0.00")
+                txtVslSt(1).Text = Format(.Yg * LFactor, "0.00")
+                txtVslSt(2).Text = Format(.Heading * Radians2Degrees, "0.00")
                 ShipLoc.Xg = .Xg
                 ShipLoc.Yg = .Yg
                 ShipLoc.Heading = .Heading
             End With
-            txtVslSt(3).Text = VB6.Format(.ShipDraft * LFactor, "0.00")
+            txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.00")
 
             If CurVessel.DampingPercent.Surge > 0 Then
-                txtPercentDamping(0).Text = VB6.Format(CurVessel.DampingPercent.Surge, "0")
-                txtPercentDamping(1).Text = VB6.Format(CurVessel.DampingPercent.Sway, "0")
-                txtPercentDamping(2).Text = VB6.Format(CurVessel.DampingPercent.Yaw, "0")
+                txtPercentDamping(0).Text = Format(CurVessel.DampingPercent.Surge, "0")
+                txtPercentDamping(1).Text = Format(CurVessel.DampingPercent.Sway, "0")
+                txtPercentDamping(2).Text = Format(CurVessel.DampingPercent.Yaw, "0")
             Else
                 txtPercentDamping(0).Text = ""
                 txtPercentDamping(1).Text = ""
@@ -367,8 +367,8 @@ ErrorHandler:
 
         Coord2Bear(ShipLoc, Distance, Bearing)
 
-        txtMotion(2).Text = VB6.Format(Distance * LFactor, "0.0")
-        txtMotion(3).Text = VB6.Format(Distance / Depth * 100, "0.00")
+        txtMotion(2).Text = Format(Distance * LFactor, "0.0")
+        txtMotion(3).Text = Format(Distance / Depth * 100, "0.00")
         txtMotion(4).Text = txtVslSt(0).Text
         txtMotion(5).Text = txtVslSt(1).Text
         txtMotion(6).Text = txtVslSt(2).Text
@@ -451,9 +451,9 @@ ErrorHandler:
     Private Sub UpdateData()
         Dim minFS, Bearing As Single
 
-        txtPercentDamping(0).Text = VB6.Format(CurVessel.DampingPercent.Surge, "0")
-        txtPercentDamping(1).Text = VB6.Format(CurVessel.DampingPercent.Sway, "0")
-        txtPercentDamping(2).Text = VB6.Format(CurVessel.DampingPercent.Yaw, "0")
+        txtPercentDamping(0).Text = Format(CurVessel.DampingPercent.Surge, "0")
+        txtPercentDamping(1).Text = Format(CurVessel.DampingPercent.Sway, "0")
+        txtPercentDamping(2).Text = Format(CurVessel.DampingPercent.Yaw, "0")
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -475,40 +475,40 @@ ErrorHandler:
         MaxDynamicMotion = MaxDM.Move
         Call MaxOffset(ToCurLoc, ToCurWell, Bearing)
 
-        txtMotion(0).Text = VB6.Format(ToCurLoc * LFactor, "0.0")
-        txtMotion(1).Text = VB6.Format(ToCurLoc / Depth * 100.0#, "0.00")
-        txtMotion(2).Text = VB6.Format(ToCurWell * LFactor, "0.0")
-        txtMotion(3).Text = VB6.Format(ToCurWell / Depth * 100.0#, "0.00")
-        txtBearing.Text = VB6.Format(Bearing * Radians2Degrees, "0.0")
+        txtMotion(0).Text = Format(ToCurLoc * LFactor, "0.0")
+        txtMotion(1).Text = Format(ToCurLoc / Depth * 100.0#, "0.00")
+        txtMotion(2).Text = Format(ToCurWell * LFactor, "0.0")
+        txtMotion(3).Text = Format(ToCurWell / Depth * 100.0#, "0.00")
+        txtBearing.Text = Format(Bearing * Radians2Degrees, "0.0")
 
         With ShipLoc
-            txtMotion(4).Text = VB6.Format(.Xg * LFactor, "0.0")
-            txtMotion(5).Text = VB6.Format(.Yg * LFactor, "0.0")
-            txtMotion(6).Text = VB6.Format(.Heading * Radians2Degrees, "0.00")
+            txtMotion(4).Text = Format(.Xg * LFactor, "0.0")
+            txtMotion(5).Text = Format(.Yg * LFactor, "0.0")
+            txtMotion(6).Text = Format(.Heading * Radians2Degrees, "0.00")
         End With
 
         With grdVM
 
-            .Rows(0).Cells(1).Value = VB6.Format(Movement.Surge * LFactor, "0.00")
-            .Rows(0).Cells(2).Value = VB6.Format(LFM.Surge * LFactor, "0.00")
-            .Rows(0).Cells(3).Value = VB6.Format(WFM.Surge * LFactor, "0.00")
-            .Rows(0).Cells(4).Value = VB6.Format(MaxDM.Surge * LFactor, "0.00")
-            .Rows(0).Cells(5).Value = VB6.Format((Movement.Surge + MaxDM.Surge) * LFactor, "0.00")
-            .Rows(0).Cells(6).Value = VB6.Format((Movement.Surge - MaxDM.Surge) * LFactor, "0.00")
+            .Rows(0).Cells(1).Value = Format(Movement.Surge * LFactor, "0.00")
+            .Rows(0).Cells(2).Value = Format(LFM.Surge * LFactor, "0.00")
+            .Rows(0).Cells(3).Value = Format(WFM.Surge * LFactor, "0.00")
+            .Rows(0).Cells(4).Value = Format(MaxDM.Surge * LFactor, "0.00")
+            .Rows(0).Cells(5).Value = Format((Movement.Surge + MaxDM.Surge) * LFactor, "0.00")
+            .Rows(0).Cells(6).Value = Format((Movement.Surge - MaxDM.Surge) * LFactor, "0.00")
 
-            .Rows(1).Cells(1).Value = VB6.Format(Movement.Sway * LFactor, "0.00")
-            .Rows(1).Cells(2).Value = VB6.Format(LFM.Sway * LFactor, "0.00")
-            .Rows(1).Cells(3).Value = VB6.Format(WFM.Sway * LFactor, "0.00")
-            .Rows(1).Cells(4).Value = VB6.Format(MaxDM.Sway * LFactor, "0.00")
-            .Rows(1).Cells(5).Value = VB6.Format((Movement.Sway + MaxDM.Sway) * LFactor, "0.00")
-            .Rows(1).Cells(6).Value = VB6.Format((Movement.Sway - MaxDM.Sway) * LFactor, "0.00")
+            .Rows(1).Cells(1).Value = Format(Movement.Sway * LFactor, "0.00")
+            .Rows(1).Cells(2).Value = Format(LFM.Sway * LFactor, "0.00")
+            .Rows(1).Cells(3).Value = Format(WFM.Sway * LFactor, "0.00")
+            .Rows(1).Cells(4).Value = Format(MaxDM.Sway * LFactor, "0.00")
+            .Rows(1).Cells(5).Value = Format((Movement.Sway + MaxDM.Sway) * LFactor, "0.00")
+            .Rows(1).Cells(6).Value = Format((Movement.Sway - MaxDM.Sway) * LFactor, "0.00")
 
-            .Rows(2).Cells(1).Value = VB6.Format(Movement.Yaw * Radians2Degrees, "0.00")
-            .Rows(2).Cells(2).Value = VB6.Format(LFM.Yaw * Radians2Degrees, "0.00")
-            .Rows(2).Cells(3).Value = VB6.Format(WFM.Yaw * Radians2Degrees, "0.00")
-            .Rows(2).Cells(4).Value = VB6.Format(MaxDM.Yaw * Radians2Degrees, "0.00")
-            .Rows(2).Cells(5).Value = VB6.Format((Movement.Yaw + MaxDM.Yaw) * Radians2Degrees, "0.00")
-            .Rows(2).Cells(6).Value = VB6.Format((Movement.Yaw - MaxDM.Yaw) * Radians2Degrees, "0.00")
+            .Rows(2).Cells(1).Value = Format(Movement.Yaw * Radians2Degrees, "0.00")
+            .Rows(2).Cells(2).Value = Format(LFM.Yaw * Radians2Degrees, "0.00")
+            .Rows(2).Cells(3).Value = Format(WFM.Yaw * Radians2Degrees, "0.00")
+            .Rows(2).Cells(4).Value = Format(MaxDM.Yaw * Radians2Degrees, "0.00")
+            .Rows(2).Cells(5).Value = Format((Movement.Yaw + MaxDM.Yaw) * Radians2Degrees, "0.00")
+            .Rows(2).Cells(6).Value = Format((Movement.Yaw - MaxDM.Yaw) * Radians2Degrees, "0.00")
 
         End With
 
@@ -516,15 +516,15 @@ ErrorHandler:
 
         With grdTensions
             For r = 1 To NumLines
-                .Rows(r - 1).Cells(2).Value = VB6.Format(Tension(r) * 0.001 * FrcFactor, "0.0")
+                .Rows(r - 1).Cells(2).Value = Format(Tension(r) * 0.001 * FrcFactor, "0.0")
 
-                .Rows(r - 1).Cells(3).Value = VB6.Format(TSigLF(r) * 0.001 * FrcFactor, "0.0")
+                .Rows(r - 1).Cells(3).Value = Format(TSigLF(r) * 0.001 * FrcFactor, "0.0")
 
-                .Rows(r - 1).Cells(4).Value = VB6.Format(TSigWF(r) * 0.001 * FrcFactor, "0.0")
+                .Rows(r - 1).Cells(4).Value = Format(TSigWF(r) * 0.001 * FrcFactor, "0.0")
 
-                .Rows(r - 1).Cells(5).Value = VB6.Format((Tension(r) + MaxDynTen(r)) * 0.001 * FrcFactor, "0.0")
+                .Rows(r - 1).Cells(5).Value = Format((Tension(r) + MaxDynTen(r)) * 0.001 * FrcFactor, "0.0")
 
-                .Rows(r - 1).Cells(6).Value = VB6.Format((Tension(r) - MaxDynTen(r)) * 0.001 * FrcFactor, "0.0")
+                .Rows(r - 1).Cells(6).Value = Format((Tension(r) - MaxDynTen(r)) * 0.001 * FrcFactor, "0.0")
 
                 If Tension(r) + MaxDynTen(r) > 0 Then ' connected and converged
                     ' jguan 4/22/2004           '  update catenary using top tension
@@ -535,7 +535,7 @@ ErrorHandler:
                         minFS = CurVessel.MoorSystem.MoorLines(r).Segments(1).BS / (Tension(r) + MaxDynTen(r))
                     End If
                     '   Debug.Print "FS=" & CurVessel.MoorSystem.MoorLines(r).Segments(1).BS / (Tension(r) + MaxDynTen(r)) & ", minFS = " & CurVessel.MoorSystem.MoorLines(r).FOS
-                    .Rows(r - 1).Cells(7).Value = VB6.Format(minFS, "0.00")
+                    .Rows(r - 1).Cells(7).Value = Format(minFS, "0.00")
                 Else
                     .Rows(r - 1).Cells(7).Value = "Damaged"
                 End If

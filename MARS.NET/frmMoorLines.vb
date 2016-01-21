@@ -367,8 +367,8 @@ Errhandler:
         AnchXg = System.Math.Cos(Alpha) * AnchXs - System.Math.Sin(Alpha) * AnchYs + ShipDesLoc.Xg
         AnchYg = System.Math.Sin(Alpha) * AnchXs + System.Math.Cos(Alpha) * AnchYs + ShipDesLoc.Yg
 
-        txtAnchor(0).Text = VB6.Format(AnchXg * LFactor, "0.00")
-        txtAnchor(1).Text = VB6.Format(AnchYg * LFactor, "0.00")
+        txtAnchor(0).Text = Format(AnchXg * LFactor, "0.00")
+        txtAnchor(1).Text = Format(AnchYg * LFactor, "0.00")
 
         btnAnchor.Enabled = False
         btnScope.Enabled = False
@@ -519,11 +519,11 @@ Errhandler:
             If POL = -1.0# Then
                 txtGeneral(2).Text = "0.000"
             Else
-                txtGeneral(2).Text = VB6.Format(-POL * LFactor, "0.000")
+                txtGeneral(2).Text = Format(-POL * LFactor, "0.000")
             End If
             TenCalc = False
         Else
-            txtGeneral(2).Text = VB6.Format(POL * LFactor, "0.000")
+            txtGeneral(2).Text = Format(POL * LFactor, "0.000")
             TenCalc = True
         End If
 
@@ -636,8 +636,8 @@ Errhandler:
             .FairLead.Ys = CDbl(txtFL(1).Text) / LFactor
             .FairLead.Node = CInt(_txtFL_3.Text)
             .Anchor.Node = CInt(_txtFL_4.Text)
-            txtGeneral(1).Text = VB6.Format(.ScopeByVesselLocation(ShipDesLoc, True) * LFactor, "0.000")
-            txtGeneral(0).Text = VB6.Format(.SprdAngle(ShipDesLoc, True) * Radians2Degrees, "0.000")
+            txtGeneral(1).Text = Format(.ScopeByVesselLocation(ShipDesLoc, True) * LFactor, "0.000")
+            txtGeneral(0).Text = Format(.SprdAngle(ShipDesLoc, True) * Radians2Degrees, "0.000")
         End With
 
         btnAnchor.Enabled = False
@@ -663,7 +663,7 @@ Errhandler:
             Cursor = System.Windows.Forms.Cursors.WaitCursor
             TopTension = .TensionByScopePOL(Scope, HorForce, POL)
             Cursor = System.Windows.Forms.Cursors.Default
-            txtTopTen.Text = VB6.Format(TopTension * 0.001 * FrcFactor, "0.000")
+            txtTopTen.Text = Format(TopTension * 0.001 * FrcFactor, "0.000")
         End With
 
         TenCalc = True
@@ -701,22 +701,22 @@ Errhandler:
                 Case 2
                     .ShipDraft = OprDraft
             End Select
-            txtVslSt(3).Text = VB6.Format(.ShipDraft * LFactor, "0.000")
+            txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.000")
             Select Case cboDraft.SelectedIndex
                 Case 0
-                    txtTopTen.Text = VB6.Format(.MoorLines(CurLine).TopTension * 0.001 * FrcFactor, "0.000")
+                    txtTopTen.Text = Format(.MoorLines(CurLine).TopTension * 0.001 * FrcFactor, "0.000")
                 Case 1
                     For i = 1 To NumLines
                         If .MoorLines(i).PayoutSur > 0# Then .MoorLines(i).Payout = .MoorLines(i).PayoutSur
                     Next
-                    txtTopTen.Text = VB6.Format(.MoorLines(CurLine).PretensionSur * 0.001 * FrcFactor, "0.000")
+                    txtTopTen.Text = Format(.MoorLines(CurLine).PretensionSur * 0.001 * FrcFactor, "0.000")
                 Case 2
                     For i = 1 To NumLines
                         If .MoorLines(i).PayoutOpr > 0# Then .MoorLines(i).Payout = .MoorLines(i).PayoutOpr
                     Next
-                    txtTopTen.Text = VB6.Format(.MoorLines(CurLine).PretensionOpr * 0.001 * FrcFactor, "0.000")
+                    txtTopTen.Text = Format(.MoorLines(CurLine).PretensionOpr * 0.001 * FrcFactor, "0.000")
             End Select
-            txtGeneral(2).Text = VB6.Format(.MoorLines(CurLine).Payout * LFactor, "0.000")
+            txtGeneral(2).Text = Format(.MoorLines(CurLine).Payout * LFactor, "0.000")
         End With
 
     End Sub
@@ -812,9 +812,9 @@ Errhandler:
                 If Len(Trim(txtWD.Text)) > 0 And Val(txtWD.Text) <> 0 Then
                     ' calc average slope as default
                     If Val(txtWD.Text) > CDbl(txtAnchor(2).Text) Then
-                        txtAnchor(3).Text = -VB6.Format(Atan(Val(txtGeneral(1).Text), Val(txtWD.Text) - Val(txtAnchor(2).Text), True) * 180 / PI, "#0.00")
+                        txtAnchor(3).Text = -Format(Atan(Val(txtGeneral(1).Text), Val(txtWD.Text) - Val(txtAnchor(2).Text), True) * 180 / PI, "#0.00")
                     Else
-                        txtAnchor(3).Text = VB6.Format(Atan(Val(txtGeneral(1).Text), Val(txtAnchor(2).Text) - Val(txtWD.Text), True) * 180 / PI, "#0.00")
+                        txtAnchor(3).Text = Format(Atan(Val(txtGeneral(1).Text), Val(txtAnchor(2).Text) - Val(txtWD.Text), True) * 180 / PI, "#0.00")
                     End If
                 End If
         End Select
@@ -1054,11 +1054,11 @@ Errhandler:
         '   set ship location at first time
         If FirstTime Then
             With CurVessel
-                txtVslSt(0).Text = VB6.Format(.ShipDesGlob.Xg * LFactor, "0.000")
-                txtVslSt(1).Text = VB6.Format(.ShipDesGlob.Yg * LFactor, "0.000")
-                txtWD.Text = VB6.Format(.WaterDepth * LFactor, "0.000")
-                txtVslSt(2).Text = VB6.Format(.ShipDesGlob.Heading * Radians2Degrees, "0.000")
-                txtVslSt(3).Text = VB6.Format(.ShipDraft * LFactor, "0.000")
+                txtVslSt(0).Text = Format(.ShipDesGlob.Xg * LFactor, "0.000")
+                txtVslSt(1).Text = Format(.ShipDesGlob.Yg * LFactor, "0.000")
+                txtWD.Text = Format(.WaterDepth * LFactor, "0.000")
+                txtVslSt(2).Text = Format(.ShipDesGlob.Heading * Radians2Degrees, "0.000")
+                txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.000")
             End With
 
             '       initiate form appearance
@@ -1074,17 +1074,17 @@ Errhandler:
 
         With MoorLines.MoorLines(CurLine)
             '       anchor
-            txtAnchor(0).Text = VB6.Format(.Anchor.Xg * LFactor, "0.000")
-            txtAnchor(1).Text = VB6.Format(.Anchor.Yg * LFactor, "0.000")
-            txtAnchor(2).Text = VB6.Format(.WaterDepth * LFactor, "0.000")
-            txtAnchor(3).Text = VB6.Format(.BottomSlope * Radians2Degrees, "0.000")
+            txtAnchor(0).Text = Format(.Anchor.Xg * LFactor, "0.000")
+            txtAnchor(1).Text = Format(.Anchor.Yg * LFactor, "0.000")
+            txtAnchor(2).Text = Format(.WaterDepth * LFactor, "0.000")
+            txtAnchor(3).Text = Format(.BottomSlope * Radians2Degrees, "0.000")
 
             '       fairlead
-            txtFL(0).Text = VB6.Format(.FairLead.Xs * LFactor, "0.000")
-            txtFL(1).Text = VB6.Format(.FairLead.Ys * LFactor, "0.000")
-            txtFL(2).Text = VB6.Format(.FairLead.z * LFactor, "0.000")
-            _txtFL_3.Text = VB6.Format(.FairLead.Node, "0")
-            _txtFL_4.Text = VB6.Format(.Anchor.Node, "0")
+            txtFL(0).Text = Format(.FairLead.Xs * LFactor, "0.000")
+            txtFL(1).Text = Format(.FairLead.Ys * LFactor, "0.000")
+            txtFL(2).Text = Format(.FairLead.z * LFactor, "0.000")
+            _txtFL_3.Text = Format(.FairLead.Node, "0")
+            _txtFL_4.Text = Format(.Anchor.Node, "0")
             '       general
             ' ????? .FairLead.SprdAngle = 0 will cause actual 0 deg angle to be changed to 180 deg ??????
             If .FairLead.SprdAngle = 0# Then
@@ -1104,8 +1104,8 @@ Errhandler:
             '        txtGeneral(1) = Format(HD * LFactor, "0.0")
 
             ' This assumes scope from fairlead
-            txtGeneral(0).Text = VB6.Format(SprdAng * Radians2Degrees, "0.000")
-            txtGeneral(1).Text = VB6.Format(Scope * LFactor, "0.000")
+            txtGeneral(0).Text = Format(SprdAng * Radians2Degrees, "0.000")
+            txtGeneral(1).Text = Format(Scope * LFactor, "0.000")
             If .FairLead.SprdAngle = 0# And .DesScope = 0# Then
                 btnAnchor.Enabled = False
                 btnScope.Enabled = False
@@ -1117,12 +1117,12 @@ Errhandler:
                 btnScope.Enabled = False
             End If
 
-            txtGeneral(2).Text = VB6.Format(.Payout * LFactor, "0.000")
+            txtGeneral(2).Text = Format(.Payout * LFactor, "0.000")
 
             '       top tensions
-            txtTopTen.Text = VB6.Format(.TopTension * 0.001 * FrcFactor, "0.000")
-            txtPreTen(0).Text = VB6.Format(.PretensionSur * 0.001 * FrcFactor, "0.000")
-            txtPreTen(1).Text = VB6.Format(.PretensionOpr * 0.001 * FrcFactor, "0.000")
+            txtTopTen.Text = Format(.TopTension * 0.001 * FrcFactor, "0.000")
+            txtPreTen(0).Text = Format(.PretensionSur * 0.001 * FrcFactor, "0.000")
+            txtPreTen(1).Text = Format(.PretensionOpr * 0.001 * FrcFactor, "0.000")
             btnPayout.Enabled = False
 
             '       segments
@@ -1133,25 +1133,25 @@ Errhandler:
             For r = 1 To NumSeg
                 grdSegments.Rows(r - 1).Cells(0).Value = r
                 grdSegments.Rows(r - 1).Cells(1).Value = .Segments(r).SegType
-                grdSegments.Rows(r - 1).Cells(2).Value = VB6.Format(.Segments(r).Length * LFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(3).Value = VB6.Format(.Segments(r).TotalLength * LFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(4).Value = VB6.Format(.Segments(r).Diameter * DiameterFactor, "0.000")
-                grdSegments.Rows(r - 1).Cells(5).Value = VB6.Format(.Segments(r).BS * 0.001 * FrcFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(6).Value = VB6.Format(.Segments(r).E1 * 0.001 * StressFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(2).Value = Format(.Segments(r).Length * LFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(3).Value = Format(.Segments(r).TotalLength * LFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(4).Value = Format(.Segments(r).Diameter * DiameterFactor, "0.000")
+                grdSegments.Rows(r - 1).Cells(5).Value = Format(.Segments(r).BS * 0.001 * FrcFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(6).Value = Format(.Segments(r).E1 * 0.001 * StressFactor, "0.0")
 
-                grdSegments.Rows(r - 1).Cells(7).Value = VB6.Format(.Segments(r).E2 * 0.001 * StressFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(8).Value = VB6.Format(.Segments(r).UnitDryWeight * (FrcFactor / LFactor), "0.00")
-                grdSegments.Rows(r - 1).Cells(9).Value = VB6.Format(.Segments(r).UnitWetWeight * (FrcFactor / LFactor), "0.00")
+                grdSegments.Rows(r - 1).Cells(7).Value = Format(.Segments(r).E2 * 0.001 * StressFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(8).Value = Format(.Segments(r).UnitDryWeight * (FrcFactor / LFactor), "0.00")
+                grdSegments.Rows(r - 1).Cells(9).Value = Format(.Segments(r).UnitWetWeight * (FrcFactor / LFactor), "0.00")
 
-                grdSegments.Rows(r - 1).Cells(10).Value = VB6.Format(.Segments(r).FrictionCoef, "0.00")
-                grdSegments.Rows(r - 1).Cells(11).Value = VB6.Format(.Segments(r).Buoy / 1000 * FrcFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(12).Value = VB6.Format(.Segments(r).BuoyLength * LFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(10).Value = Format(.Segments(r).FrictionCoef, "0.00")
+                grdSegments.Rows(r - 1).Cells(11).Value = Format(.Segments(r).Buoy / 1000 * FrcFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(12).Value = Format(.Segments(r).BuoyLength * LFactor, "0.0")
             Next
 
             grdAnchor.Rows(0).Cells(2).Value = .Anchor.Model
-            grdAnchor.Rows(0).Cells(4).Value = VB6.Format(.Anchor.HoldCap * 0.001 * FrcFactor, "0.0")
+            grdAnchor.Rows(0).Cells(4).Value = Format(.Anchor.HoldCap * 0.001 * FrcFactor, "0.0")
             grdAnchor.Rows(0).Cells(5).Value = .Anchor.Remark
-            grdAnchor.Rows(0).Cells(7).Value = VB6.Format(.WinchCap * 0.001 * FrcFactor, "0.0")
+            grdAnchor.Rows(0).Cells(7).Value = Format(.WinchCap * 0.001 * FrcFactor, "0.0")
             CheckingGrid = False
         End With
 

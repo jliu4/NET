@@ -62,7 +62,7 @@ Friend Class frmAnalysesB
 		Text = Text & " - " & CurProj.Title
 		Cancelled = False
 		RefreshData()
-		txtReportTitle.Text = CurVessel.Name & ", Draft " & VB6.Format(CurVessel.ShipDraft, CStr(0)) & " ft, " & CurProj.WellSites.Item(CurProj.WellSites.CurWellNo).NameID
+		txtReportTitle.Text = CurVessel.Name & ", Draft " & Format(CurVessel.ShipDraft, CStr(0)) & " ft, " & CurProj.WellSites.Item(CurProj.WellSites.CurWellNo).NameID
 		txtSubTitle.Text = txtEnvironment.Text & ", " & CurVessel.DampingPercent.Surge & "% Damping"
 	End Sub
 	
@@ -234,11 +234,11 @@ ErrHandler:
 		
 		With CurVessel
 			With .ShipCurGlob
-				txtVslSt(0).Text = VB6.Format(.Xg * LFactor, "0.0")
-				txtVslSt(1).Text = VB6.Format(.Yg * LFactor, "0.0")
-				txtVslSt(2).Text = VB6.Format(.Heading * Radians2Degrees, "0.00")
+				txtVslSt(0).Text = Format(.Xg * LFactor, "0.0")
+				txtVslSt(1).Text = Format(.Yg * LFactor, "0.0")
+				txtVslSt(2).Text = Format(.Heading * Radians2Degrees, "0.00")
 			End With
-			txtVslSt(3).Text = VB6.Format(.ShipDraft * LFactor, "0.00")
+			txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.00")
 		End With
 		
 		txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
@@ -350,7 +350,7 @@ ErrHandler:
 				CurVessel.EnvLoad.EnvCur.Current.Heading = EnvHead * Degrees2Radians + (currHead - windHead)
 				
 				With frmProgress
-					.lblBatchStage.Text = VB6.Format(EnvHead, "0.0") & "Invalid_string_refer_to_original_code" & SID
+					.lblBatchStage.Text = Format(EnvHead, "0.0") & "Invalid_string_refer_to_original_code" & SID
 					'UPGRADE_WARNING: Couldn't resolve default property of object CurRun. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 					.ProgressBatch = CurRun / NumRuns * 99
 				End With
@@ -369,13 +369,13 @@ ErrHandler:
 					FCr = .FCurrGlob( , False)
 					FWv = .FWaveGlob( , False)
 					
-					PrintLine(FileNum, Trim(.EnvCur.Name), VB6.Format(.EnvCur.Wind.Heading * Radians2Degrees, "0.0"), VB6.Format(.EnvCur.Wave.Heading * Radians2Degrees, "0.0"), VB6.Format(.EnvCur.Current.Heading * Radians2Degrees, "0.0"), " (deg TN) ", SID)
+					PrintLine(FileNum, Trim(.EnvCur.Name), Format(.EnvCur.Wind.Heading * Radians2Degrees, "0.0"), Format(.EnvCur.Wave.Heading * Radians2Degrees, "0.0"), Format(.EnvCur.Current.Heading * Radians2Degrees, "0.0"), " (deg TN) ", SID)
 					PrintLine(FileNum, "Env ", " Fx ", "  Fy ", " Mz ", "Metocean ")
 					PrintLine(FileNum, "Loads", "kips", "kips", "kips-ft", "   ")
-					PrintLine(FileNum, "Wind", VB6.Format(FWd.Fx / 1000# / FrcFactor, "0.0"), VB6.Format(FWd.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FWd.MYaw / FrcFactor / LFactor / 1000#, "0.0"), VB6.Format(.EnvCur.Wind.VelCorr / Knots2Ftps / VelFactor, "0.00"), " kn ")
-					PrintLine(FileNum, "Curr", VB6.Format(FCr.Fx / 1000# / FrcFactor, "0.0"), VB6.Format(FCr.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FCr.MYaw / 1000# / FrcFactor / LFactor, "0.0"), VB6.Format(.EnvCur.Current.Profile(1).Velocity / Knots2Ftps / VelFactor, "0.00"), " kn ")
-					PrintLine(FileNum, "Wave", VB6.Format(FWv.Fx / 1000# / FrcFactor, "0.0"), VB6.Format(FWv.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FWv.MYaw / 1000# / FrcFactor / LFactor, "0.0"), VB6.Format(.EnvCur.Wave.Height / LFactor, "0.00"), " ft ", VB6.Format(.EnvCur.Wave.Period, "#0.00"), " sec ")
-					PrintLine(FileNum, "Total", VB6.Format(FEv.Fx / FrcFactor / 1000#, "0.0"), VB6.Format(FEv.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FEv.MYaw / FrcFactor / LFactor / 1000#, "####0.0"))
+					PrintLine(FileNum, "Wind", Format(FWd.Fx / 1000# / FrcFactor, "0.0"), Format(FWd.Fy / 1000# / FrcFactor, "0.0"), Format(FWd.MYaw / FrcFactor / LFactor / 1000#, "0.0"), Format(.EnvCur.Wind.VelCorr / Knots2Ftps / VelFactor, "0.00"), " kn ")
+					PrintLine(FileNum, "Curr", Format(FCr.Fx / 1000# / FrcFactor, "0.0"), Format(FCr.Fy / 1000# / FrcFactor, "0.0"), Format(FCr.MYaw / 1000# / FrcFactor / LFactor, "0.0"), Format(.EnvCur.Current.Profile(1).Velocity / Knots2Ftps / VelFactor, "0.00"), " kn ")
+					PrintLine(FileNum, "Wave", Format(FWv.Fx / 1000# / FrcFactor, "0.0"), Format(FWv.Fy / 1000# / FrcFactor, "0.0"), Format(FWv.MYaw / 1000# / FrcFactor / LFactor, "0.0"), Format(.EnvCur.Wave.Height / LFactor, "0.00"), " ft ", Format(.EnvCur.Wave.Period, "#0.00"), " sec ")
+					PrintLine(FileNum, "Total", Format(FEv.Fx / FrcFactor / 1000#, "0.0"), Format(FEv.Fy / 1000# / FrcFactor, "0.0"), Format(FEv.MYaw / FrcFactor / LFactor / 1000#, "####0.0"))
 					PrintLine(FileNum)
 				End With
 				
@@ -389,13 +389,13 @@ ErrHandler:
 					FWv = .FWaveLocl( , False)
 					
 					PrintLine(FileNum, vbCrLf) ' add a blank line
-					PrintLine(FileNum, Trim(.EnvCur.Name), VB6.Format(.EnvCur.Wind.Heading, "0.0"), VB6.Format(.EnvCur.Wave.Heading, "0.0"), VB6.Format(.EnvCur.Current.Heading, "0.0"), " (deg TN) ", SID)
+					PrintLine(FileNum, Trim(.EnvCur.Name), Format(.EnvCur.Wind.Heading, "0.0"), Format(.EnvCur.Wave.Heading, "0.0"), Format(.EnvCur.Current.Heading, "0.0"), " (deg TN) ", SID)
 					PrintLine(FileNum, "Env ", "Surge", "Sway", "Yaw", "Metocean ")
 					PrintLine(FileNum, "Loads", "kips", "kips", "kips-ft", "   ")
-					PrintLine(FileNum, "Wind", VB6.Format(FWd.Fx / 1000# / FrcFactor, "0.0"), VB6.Format(FWd.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FWd.MYaw / FrcFactor / LFactor / 1000#, "0.0"), VB6.Format(.EnvCur.Wind.VelCorr / Knots2Ftps / VelFactor, "0.00"), " ft ")
-					PrintLine(FileNum, "Curr", VB6.Format(FCr.Fx / 1000# / FrcFactor, "0.0"), VB6.Format(FCr.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FCr.MYaw / 1000# / FrcFactor / LFactor, "0.0"), VB6.Format(.EnvCur.Current.Profile(1).Velocity / Knots2Ftps / VelFactor, "0.00"), " kn ")
-					PrintLine(FileNum, "Wave", VB6.Format(FWv.Fx / 1000# / FrcFactor, "0.0"), VB6.Format(FWv.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FWv.MYaw / 1000# / FrcFactor / LFactor, "0.0"), VB6.Format(.EnvCur.Wave.Height / LFactor, "0.00"), " ft ", VB6.Format(.EnvCur.Wave.Period, "0.00"), " sec ")
-					PrintLine(FileNum, "Total", VB6.Format(FEv.Fx / FrcFactor / 1000#, "0.0"), VB6.Format(FEv.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(FEv.MYaw * FrcFactor / LFactor / 1000#, "0.0"))
+					PrintLine(FileNum, "Wind", Format(FWd.Fx / 1000# / FrcFactor, "0.0"), Format(FWd.Fy / 1000# / FrcFactor, "0.0"), Format(FWd.MYaw / FrcFactor / LFactor / 1000#, "0.0"), Format(.EnvCur.Wind.VelCorr / Knots2Ftps / VelFactor, "0.00"), " ft ")
+					PrintLine(FileNum, "Curr", Format(FCr.Fx / 1000# / FrcFactor, "0.0"), Format(FCr.Fy / 1000# / FrcFactor, "0.0"), Format(FCr.MYaw / 1000# / FrcFactor / LFactor, "0.0"), Format(.EnvCur.Current.Profile(1).Velocity / Knots2Ftps / VelFactor, "0.00"), " kn ")
+					PrintLine(FileNum, "Wave", Format(FWv.Fx / 1000# / FrcFactor, "0.0"), Format(FWv.Fy / 1000# / FrcFactor, "0.0"), Format(FWv.MYaw / 1000# / FrcFactor / LFactor, "0.0"), Format(.EnvCur.Wave.Height / LFactor, "0.00"), " ft ", Format(.EnvCur.Wave.Period, "0.00"), " sec ")
+					PrintLine(FileNum, "Total", Format(FEv.Fx / FrcFactor / 1000#, "0.0"), Format(FEv.Fy / 1000# / FrcFactor, "0.0"), Format(FEv.MYaw * FrcFactor / LFactor / 1000#, "0.0"))
 					PrintLine(FileNum)
 				End With
 				With FWv
@@ -420,7 +420,7 @@ ErrHandler:
 				With Stiff
 					PrintLine(FileNum, "    ", "Surge", "Sway", "Yaw")
 					PrintLine(FileNum, "Moor ", "kips/ft", "kips/ft", "kips-ft/ft", " ")
-					PrintLine(FileNum, "Stiff", VB6.Format(.Fx / 1000# / FrcFactor, "0.0"), VB6.Format(.Fy / 1000# / FrcFactor, "0.0"), VB6.Format(.MYaw / 1000# / FrcFactor / LFactor, "0.0"))
+					PrintLine(FileNum, "Stiff", Format(.Fx / 1000# / FrcFactor, "0.0"), Format(.Fy / 1000# / FrcFactor, "0.0"), Format(.MYaw / 1000# / FrcFactor / LFactor, "0.0"))
 					PrintLine(FileNum)
 				End With
 				
@@ -428,7 +428,7 @@ ErrHandler:
 				With Move_Renamed
 					PrintLine(FileNum, "Vessel", "Surge", "Sway", "Yaw")
 					PrintLine(FileNum, "Move ", "ft", "ft", "deg TN", " ")
-					PrintLine(FileNum, "Mean", VB6.Format(.Surge / LFactor, "0.00"), VB6.Format(.Sway / LFactor, "0.00"), VB6.Format(.Yaw * Radians2Degrees, "0.00"))
+					PrintLine(FileNum, "Mean", Format(.Surge / LFactor, "0.00"), Format(.Sway / LFactor, "0.00"), Format(.Yaw * Radians2Degrees, "0.00"))
 				End With
 				
 				If Cancelled Then GoTo UserCancelled
@@ -441,13 +441,13 @@ ErrHandler:
 				frmProgress.Progress = 60
 				WFM = CurVessel.GetSigWFM(Cancelled, frmProgress, ShipLoc.Heading)
 				With LFM
-					PrintLine(FileNum, "LFSig", VB6.Format(.Surge / LFactor, "0.00"), VB6.Format(.Sway / LFactor, "0.00"), VB6.Format(.Yaw * Radians2Degrees, "0.00"))
+					PrintLine(FileNum, "LFSig", Format(.Surge / LFactor, "0.00"), Format(.Sway / LFactor, "0.00"), Format(.Yaw * Radians2Degrees, "0.00"))
 					.Surge = .Surge * SgnX
 					.Sway = .Sway * SgnY
 					.Yaw = .Yaw * SgnZ
 				End With
 				With WFM
-					PrintLine(FileNum, "WFSig", VB6.Format(.Surge / LFactor, "0.00"), VB6.Format(.Sway / LFactor, "0.00"), VB6.Format(.Yaw * Radians2Degrees, "0.00"))
+					PrintLine(FileNum, "WFSig", Format(.Surge / LFactor, "0.00"), Format(.Sway / LFactor, "0.00"), Format(.Yaw * Radians2Degrees, "0.00"))
 					PrintLine(FileNum)
 					.Surge = .Surge * SgnX
 					.Sway = .Sway * SgnY
@@ -468,7 +468,7 @@ ErrHandler:
 				NumLines = CurVessel.MoorSystem.MoorLineCount
 				
 				For i = 1 To NumLines
-					PrintLine(FileNum, i, VB6.Format(Tension(i) / 1000# / FrcFactor, "0.0"), VB6.Format(TSigLF(i) / 1000# / FrcFactor, "0.0"), VB6.Format(TSigWF(i) / 1000# / FrcFactor, "0.0"))
+					PrintLine(FileNum, i, Format(Tension(i) / 1000# / FrcFactor, "0.0"), Format(TSigLF(i) / 1000# / FrcFactor, "0.0"), Format(TSigWF(i) / 1000# / FrcFactor, "0.0"))
 					
 					TenTotal(i) = Tension(i) + Max(TSigLF(i) + TSigWF(i) * 1.86, TSigLF(i) * 1.5 + TSigWF(i))
 				Next i

@@ -57,9 +57,7 @@
       <HintPath>..\DODO.NET\obj\Debug\Interop.Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic.Compatibility">
-      <Name>Microsoft.VisualBasic.Compatibility</Name>
-    </Reference>
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -91,6 +89,9 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\commonCode\Anchor.vb">
+      <Link>Anchor.vb</Link>
+    </Compile>
     <Compile Include="..\commonCode\AssemblyInfo.vb">
       <Link>AssemblyInfo.vb</Link>
     </Compile>
@@ -117,6 +118,9 @@
     </Compile>
     <Compile Include="..\commonCode\EnvLoad.vb">
       <Link>EnvLoad.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\FairLead.vb">
+      <Link>FairLead.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\Force.vb">
       <Link>Force.vb</Link>
@@ -186,6 +190,12 @@
     <Compile Include="..\commonCode\modUtilityFunctions.vb">
       <Link>modUtilityFunctions.vb</Link>
     </Compile>
+    <Compile Include="..\commonCode\MoorLine.vb">
+      <Link>MoorLine.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\MoorSystem.vb">
+      <Link>MoorSystem.vb</Link>
+    </Compile>
     <Compile Include="..\commonCode\Motion.vb">
       <Link>Motion.vb</Link>
     </Compile>
@@ -197,6 +207,9 @@
     </Compile>
     <Compile Include="..\commonCode\RAOs.vb">
       <Link>RAOs.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Riser.vb">
+      <Link>Riser.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\ShipDamp.vb">
       <Link>ShipDamp.vb</Link>
@@ -216,6 +229,9 @@
     <Compile Include="..\commonCode\UpgradeSupport.vb">
       <Link>UpgradeSupport.vb</Link>
     </Compile>
+    <Compile Include="..\commonCode\Vessel.vb">
+      <Link>Vessel.vb</Link>
+    </Compile>
     <Compile Include="..\commonCode\Wave.vb">
       <Link>Wave.vb</Link>
     </Compile>
@@ -227,9 +243,6 @@
     </Compile>
     <Compile Include="..\commonCode\Wind.vb">
       <Link>Wind.vb</Link>
-    </Compile>
-    <Compile Include="Anchor.vb">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Anchor3d.vb">
       <SubType>Code</SubType>
@@ -262,9 +275,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ExcelReporter.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FairLead.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="frmAnalyses.Designer.vb">
@@ -330,12 +340,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MarsIni.vb" />
-    <Compile Include="MoorLine.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MoorSystem.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -356,7 +360,6 @@
     <Compile Include="Pyramid.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Riser.vb" />
     <Compile Include="Seabed.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -378,7 +381,6 @@
     <Compile Include="threeDRect.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Vessel.vb" />
     <Compile Include="WaterSurface.vb">
       <SubType>Code</SubType>
     </Compile>

@@ -1,36 +1,33 @@
 Option Strict Off
 Option Explicit On
 Friend Class Project
-	' Project           project data
-	' Version 1.0
-	' 2001, Copyright DTCEL, All Rights Reserved
-	
-	
-	' properties
-	' Title             project title
-	' Description       project description
-	' Directory         project directory name
-	' FileName          project data file name
-	' Saved             data been saved
-	' Vessel            vessel data (including mooring)
-	' WellSites         wells location
-	
-	' methods
-	' GetDirNFileName   get project directory and name
-	' ImportData        input data from file
-	' ExportData        output project data
-	
-	Private mstrTitle, mstrDescription As String
+    ' Project           project data
+    ' Version 1.0
+    ' 2001, Copyright DTCEL, All Rights Reserved
+
+
+    ' properties
+    ' Title             project title
+    ' Description       project description
+    ' Directory         project directory name
+    ' FileName          project data file name
+    ' Saved             data been saved
+    ' Vessel            vessel data (including mooring)
+    ' WellSites         wells location
+
+    ' methods
+    ' GetDirNFileName   get project directory and name
+    ' ImportData        input data from file
+    ' ExportData        output project data
+
+    Private mstrTitle, mstrDescription As String
 	Private mstrDirectory, mstrFileName As String
 	Private mblnSaved As Boolean
-	Private mclsVessel As Vessel
-	Private mclsEnvironment As EnvLoad
-	Private mclsWellSites As Wells
+    Private mclsVessel As Vessel
+    Private mclsWellSites As Wells
 
-    ' initialization and termination
-
-    'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-    Private Sub Class_Initialize_Renamed()
+    Public Sub New()
+		MyBase.New()
         mstrTitle = ""
         mstrDescription = ""
         mstrDirectory = ""
@@ -39,36 +36,15 @@ Friend Class Project
 
         mclsVessel = New Vessel
         mclsWellSites = New Wells
-
     End Sub
-    Public Sub New()
-		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
-	
-	'UPGRADE_NOTE: Class_Terminate was upgraded to Class_Terminate_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Terminate_Renamed()
-		
-		'UPGRADE_NOTE: Object mclsVessel may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-		mclsVessel = Nothing
-		'UPGRADE_NOTE: Object mclsWellSites may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-		mclsWellSites = Nothing
-	End Sub
-	Protected Overrides Sub Finalize()
-		Class_Terminate_Renamed()
-		MyBase.Finalize()
-	End Sub
-	
-	' properties
-	
-	
-	Public Property Title() As String
-		Get
-			
-			Title = mstrTitle
-			
-		End Get
-		Set(ByVal Value As String)
+
+    ' properties
+    Public Property Title() As String
+        Get
+            Title = mstrTitle
+
+        End Get
+        Set(ByVal Value As String)
 			
 			mstrTitle = Value
 			
@@ -181,23 +157,17 @@ Friend Class Project
 	End Sub
 	
 	Public Function ImportData(ByVal InputFile As String) As Boolean
-		
-		Const NumCheck As Short = 4
-		Dim i As Short
-		Dim CheckInput(NumCheck) As Boolean
-		Dim Keyword, Entry As String
-		Dim VslName As String
+
+        Dim Keyword, Entry As String
+        Dim VslName As String
 		Dim FileNum As Short
 		
 		On Error GoTo ErrorHandler
 		
 		ImportData = False
-		For i = 0 To NumCheck
-			CheckInput(i) = False
-		Next i
-		
-		
-		FileNum = FreeFile
+
+
+        FileNum = FreeFile
 		
 		FileOpen(FileNum, InputFile, OpenMode.Input, OpenAccess.Read)
 		
@@ -212,34 +182,34 @@ Friend Class Project
 					mstrTitle = Trim(Entry)
 					If EOF(FileNum) Then Exit Function
 					Input(FileNum, mstrDescription)
-					CheckInput(0) = True
 
                 Case "[Vessel]"
-                    If mclsVessel.InputVsl(FileNum) Then CheckInput(1) = True
+                    If Not mclsVessel.InputVsl(FileNum) Then Exit Function
+
+                Case "[Riser]"
+                    If Not mclsVessel.Riser.InputRiser(FileNum) Then Exit Function
 
                 Case "[Mooring Lines]"
-                    If mclsVessel.MoorSystem.InputML(FileNum) Then CheckInput(2) = True
+                    If Not mclsVessel.MoorSystem.InputML(FileNum) Then Exit Function
 
                 Case "[Environment]"
-					If mclsVessel.EnvLoad.InputEnv(FileNum) Then CheckInput(3) = True
-					
-				Case "[Well Sites]"
-					If mclsWellSites.InputWS(FileNum) Then CheckInput(4) = True
-					
-				Case "[Damping Percent]"
+                    If Not mclsVessel.EnvLoad.InputEnv(FileNum) Then Exit Function
+
+                Case "[Well Sites]"
+                    If Not mclsWellSites.InputWS(FileNum) Then Exit Function
+
+                Case "[Damping Percent]"
 					mclsVessel.ReadDampingPercent(FileNum)
 				Case Else
 			End Select
 		Loop 
 		
 		FileClose(FileNum)
-		
-		For i = 0 To NumCheck
-			If Not CheckInput(i) Then Exit Function
-		Next i
-		ImportData = True
-		Exit Function
-		
+
+
+        ImportData = True
+        Exit Function
+
 ErrorHandler: 
 		FileClose(FileNum)
 		
@@ -259,6 +229,9 @@ ErrorHandler:
         '    Write #FileNum, mstrVesselDataPath     '  This will break version compatibility
         '    Instead of saving the RAO path, make a copy of Vessel Data to MARSDir
 
+        PrintLine(FileNum, "[Riser]") '  output currernt vessel station
+        If Not mclsVessel.Riser.OutputRiser(FileNum) Then Exit Function
+
         PrintLine(FileNum, "[Mooring Lines]")
         If Not mclsVessel.MoorSystem.OutputML(FileNum) Then Exit Function
 
@@ -267,18 +240,18 @@ ErrorHandler:
 		
 		PrintLine(FileNum, "[Well Sites]")
 		If Not mclsWellSites.OutputWS(FileNum) Then Exit Function
-		PrintLine(FileNum, "[Damping Percent]")
-		mclsVessel.SaveDampingPercent(FileNum)
+
+        PrintLine(FileNum, "[Damping Percent]")
+        mclsVessel.SaveDampingPercent(FileNum)
 		
 		ExportData = True
 		
 	End Function
 	
 	Public Function VesselParticular(Optional ByVal sPath As String = "") As Boolean
-		
-		'UPGRADE_NOTE: FileOpen was upgraded to FileOpen_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim VslName As String
-		Dim InputOK, FileOpen_Renamed As Boolean
+
+        Dim VslName As String
+        Dim InputOK, FileOpen_Renamed As Boolean
 		Dim FS As Object
 		
 		On Error GoTo ErrorHandler
@@ -290,14 +263,13 @@ ErrorHandler:
 		
 		With mclsVessel
 			If Len(sPath) > 0 Then
-				' make a copy of the ship data files to MARSDir folder
-				'UPGRADE_WARNING: Couldn't resolve default property of object FS.CopyFile. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				FS.CopyFile(sPath & "\" & .Name & ".*", mstrDirectory)
-			End If
-			
-			VslName = mstrDirectory & "\" & .Name
-			
-			FileOpen(FileNumRes, VslName & ".rao", OpenMode.Input)
+                ' make a copy of the ship data files to MARSDir folder
+                FS.CopyFile(sPath & "\" & .Name & ".*", mstrDirectory)
+            End If
+
+            VslName = mstrDirectory & .Name
+
+            FileOpen(FileNumRes, VslName & ".rao", OpenMode.Input)
 			FileOpen_Renamed = True
 			InputOK = .InputRAOs(FileNumRes)
 			FileClose(FileNumRes)
@@ -317,8 +289,8 @@ ErrorHandler:
 			FileClose(FileNumRes)
 			FileOpen_Renamed = False
 			If Not InputOK Then Exit Function
-
-            If .MoorSystem.MoorLineCount = 0 Then
+            'JLIU TODO comment out below, no example of .mor file 1/20/2016
+            If 1 = 0 And .MoorSystem.MoorLineCount = 0 Then
                 FileOpen(FileNumRes, VslName & ".mor", OpenMode.Input)
                 FileOpen_Renamed = True
                 InputOK = .InputFairleads(FileNumRes)

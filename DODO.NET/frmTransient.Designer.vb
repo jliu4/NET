@@ -118,7 +118,7 @@
         Me._lblRiser_0 = New System.Windows.Forms.Label()
         Me.fraWell = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtBottomFJ = New System.Windows.Forms.TextBox()
+        Me.txtRiserLen = New System.Windows.Forms.TextBox()
         Me.lblBottomFJ = New System.Windows.Forms.Label()
         Me._txtVslSt_3 = New System.Windows.Forms.TextBox()
         Me._txtVslSt_2 = New System.Windows.Forms.TextBox()
@@ -382,7 +382,7 @@
         '
         Me.fraWell.BackColor = System.Drawing.SystemColors.Control
         Me.fraWell.Controls.Add(Me.Label2)
-        Me.fraWell.Controls.Add(Me.txtBottomFJ)
+        Me.fraWell.Controls.Add(Me.txtRiserLen)
         Me.fraWell.Controls.Add(Me.lblBottomFJ)
         Me.fraWell.Controls.Add(Me._txtVslSt_3)
         Me.fraWell.Controls.Add(Me._txtVslSt_2)
@@ -420,33 +420,33 @@
         Me.Label2.TabIndex = 48
         Me.Label2.Text = "ft"
         '
-        'txtBottomFJ
+        'txtRiserLen
         '
-        Me.txtBottomFJ.AcceptsReturn = True
-        Me.txtBottomFJ.BackColor = System.Drawing.SystemColors.Window
-        Me.txtBottomFJ.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtBottomFJ.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtBottomFJ.Location = New System.Drawing.Point(76, 134)
-        Me.txtBottomFJ.MaxLength = 0
-        Me.txtBottomFJ.Name = "txtBottomFJ"
-        Me.txtBottomFJ.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtBottomFJ.Size = New System.Drawing.Size(62, 20)
-        Me.txtBottomFJ.TabIndex = 46
-        Me.txtBottomFJ.TabStop = False
-        Me.txtBottomFJ.Text = "0"
-        Me.txtBottomFJ.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRiserLen.AcceptsReturn = True
+        Me.txtRiserLen.BackColor = System.Drawing.SystemColors.Window
+        Me.txtRiserLen.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtRiserLen.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtRiserLen.Location = New System.Drawing.Point(76, 134)
+        Me.txtRiserLen.MaxLength = 0
+        Me.txtRiserLen.Name = "txtRiserLen"
+        Me.txtRiserLen.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtRiserLen.Size = New System.Drawing.Size(62, 20)
+        Me.txtRiserLen.TabIndex = 46
+        Me.txtRiserLen.TabStop = False
+        Me.txtRiserLen.Text = "0"
+        Me.txtRiserLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblBottomFJ
         '
         Me.lblBottomFJ.BackColor = System.Drawing.SystemColors.Control
         Me.lblBottomFJ.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblBottomFJ.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblBottomFJ.Location = New System.Drawing.Point(8, 140)
+        Me.lblBottomFJ.Location = New System.Drawing.Point(8, 135)
         Me.lblBottomFJ.Name = "lblBottomFJ"
         Me.lblBottomFJ.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lblBottomFJ.Size = New System.Drawing.Size(69, 19)
         Me.lblBottomFJ.TabIndex = 47
-        Me.lblBottomFJ.Text = "BottomFJ"
+        Me.lblBottomFJ.Text = "Riser Length"
         '
         '_txtVslSt_3
         '
@@ -1232,7 +1232,7 @@
     Friend WithEvents grdTM As DataGridView
     Friend WithEvents picPolar As PictureBox
     Public WithEvents Label2 As Label
-    Public WithEvents txtBottomFJ As TextBox
+    Public WithEvents txtRiserLen As TextBox
     Public WithEvents lblBottomFJ As Label
 #End Region
 End Class

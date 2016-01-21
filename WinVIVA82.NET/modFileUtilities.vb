@@ -1296,7 +1296,7 @@ ErrHandler:
                 If CurProj.BatchProcess = False Then 'only check if not batch process
 
                     If AxialTension < 0.0# Then
-                        Select Case MsgBox("Warning: There is compression of about " & VB6.Format(AxialTension, "#,##0") _
+                        Select Case MsgBox("Warning: There is compression of about " & Format(AxialTension, "#,##0") _
                             & " N. along the riser string. Do you still want to continue VIV analysis before checking the Top Tension?", _
                             MsgBoxStyle.YesNo, "WinVIVA - Top Tension")
                             Case MsgBoxResult.Yes
@@ -1306,7 +1306,7 @@ ErrHandler:
                         End Select
                     ElseIf .LowerBC = VIVAMain.BoundaryConditions.Free Then
                         If AxialTension > 0.0# And .RiserType <> VIVAMain.RiserTypes.SCRorLazyWave Then
-                            Select Case MsgBox("Warning: There is a Bottom Tension of about " & VB6.Format(AxialTension, "#,##0") _
+                            Select Case MsgBox("Warning: There is a Bottom Tension of about " & Format(AxialTension, "#,##0") _
                                 & " N. " & "Do you still want to continue VIV analysis " & " before checking the Top Tension?", _
                                 MsgBoxStyle.YesNo, "WinVIVA - Top Tension")
                                 Case MsgBoxResult.Yes

@@ -164,9 +164,9 @@ Module modPlot
             Graph.DrawLine(grPen, TicLoc, Ymin, TicLoc, Ymax)
 
             If TicLoc <> 0 And (System.Math.Abs(TicLoc / sc.Width) > 1000.0# Or System.Math.Abs(TicLoc / sc.Width) < 0.01) Then
-                TicLab = VB6.Format(TicLoc / sc.Width, "Scientific")
+                TicLab = Format(TicLoc / sc.Width, "Scientific")
             Else
-                TicLab = VB6.Format(TicLoc / sc.Width, "##0.00")
+                TicLab = Format(TicLoc / sc.Width, "##0.00")
             End If
 
             strF = Graph.MeasureString(TicLab, f)
@@ -189,9 +189,9 @@ Module modPlot
             Graph.DrawLine(grPen, TicLoc, Ymin, TicLoc, Ymax)
 
             If TicLoc <> 0 And (System.Math.Abs(TicLoc / sc.Width) > 1000.0# Or System.Math.Abs(TicLoc / sc.Width) < 0.01) Then
-                TicLab = VB6.Format(TicLoc / sc.Width, "Scientific")
+                TicLab = Format(TicLoc / sc.Width, "Scientific")
             Else
-                TicLab = VB6.Format(TicLoc / sc.Width, "##0.00")
+                TicLab = Format(TicLoc / sc.Width, "##0.00")
             End If
 
             strF = Graph.MeasureString(TicLab, f)
@@ -229,7 +229,7 @@ Module modPlot
 
             Graph.DrawLine(grPen, Xmin, TicLoc, Xmax, TicLoc)
 
-            TicLab = VB6.Format(TicLoc / sc.Height, "####")
+            TicLab = Format(TicLoc / sc.Height, "####")
 
             strF = Graph.MeasureString(TicLab, f)
             CurrentX = Xmin - strF.Width * 1.1
@@ -247,7 +247,7 @@ Module modPlot
 
             Graph.DrawLine(grPen, Xmin, TicLoc, Xmax, TicLoc)
 
-            TicLab = VB6.Format(TicLoc / sc.Height, "####")
+            TicLab = Format(TicLoc / sc.Height, "####")
 
             strF = Graph.MeasureString(TicLab, f)
             CurrentX = Xmin - strF.Width * 1.1
@@ -409,9 +409,9 @@ Module modPlot
                 .DrawLine(picPen, TicLoc, Ymin, TicLoc, Ymax)
 
                 If XLogScale Then
-                    TicLab = VB6.Format(10 ^ (TicLoc / sc.Width), XTicFormat)
+                    TicLab = Format(10 ^ (TicLoc / sc.Width), XTicFormat)
                 Else
-                    TicLab = VB6.Format(TicLoc / sc.Width, XTicFormat)
+                    TicLab = Format(TicLoc / sc.Width, XTicFormat)
                 End If
 
                 strF = .MeasureString(TicLab, f)
@@ -427,7 +427,7 @@ Module modPlot
 
                 .DrawLine(picPen, TicLoc, Ymin, TicLoc, Ymax)
 
-                TicLab = VB6.Format(0.0#, "0")
+                TicLab = Format(0.0#, "0")
 
                 strF = .MeasureString(TicLab, f)
                 CurrentX = TicLoc - strF.Width / 2
@@ -461,9 +461,9 @@ Module modPlot
                 .DrawLine(picPen, Xmin, TicLoc, Xmax, TicLoc)
 
                 If ReverseY Then
-                    TicLab = VB6.Format((Ymax - TicLoc + Ymin) / sc.Height, YTicFormat)
+                    TicLab = Format((Ymax - TicLoc + Ymin) / sc.Height, YTicFormat)
                 Else
-                    TicLab = VB6.Format(TicLoc / sc.Height, YTicFormat)
+                    TicLab = Format(TicLoc / sc.Height, YTicFormat)
                 End If
 
                 strF = .MeasureString(TicLab, f)

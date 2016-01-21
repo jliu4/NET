@@ -169,6 +169,8 @@ Module modPlot
         gr.TranslateTransform(-left_x, -top_y)
     End Sub
 
+
+
     Public Sub drawAxis(ByVal Xmax As Single, ByVal Xmin As Single, ByVal Ymax As Single, ByVal Ymin As Single, ByVal XLabel As String, ByVal YLabel As String, ByRef pic As System.Windows.Forms.PictureBox, Optional ByRef ReverseY As Boolean = True)
         Dim deltaX, deltaY As Single
         Dim LabelX, LabelY As Single
@@ -198,7 +200,7 @@ Module modPlot
 
         'pic.Font = VB6.FontChangeBold(pic.Font, True)
         Dim strF As SizeF
-        Dim f As New System.Drawing.Font("Arial", 200)
+        Dim f As New System.Drawing.Font("Arial", 10)
 
         strF = gr.MeasureString(XLabel, f)
         CurrentX = LabelX - strF.Width / 2
@@ -267,7 +269,7 @@ Module modPlot
             If TicLoc > Xmax Then TicLoc = Xmax
             'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             gr.DrawLine(pen, TicLoc, Ymin, TicLoc, Ymax)
-            TicLab = VB6.Format(TicLoc, "#####")
+            TicLab = Format(TicLoc, "#####")
             'UPGRADE_ISSUE: PictureBox method picGraph.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             'UPGRADE_ISSUE: PictureBox property picGraph.CurrentX was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             CurrentX = TicLoc - gr.MeasureString(TicLab, f).Width / 2
@@ -288,9 +290,9 @@ Module modPlot
             'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             gr.DrawLine(pen, Xmin, TicLoc, Xmax, TicLoc)
             If ReverseY Then
-                TicLab = VB6.Format(Ymax - TicLoc + Ymin, "####0")
+                TicLab = Format(Ymax - TicLoc + Ymin, "####0")
             Else
-                TicLab = VB6.Format(TicLoc, "####0")
+                TicLab = Format(TicLoc, "####0")
             End If
             'UPGRADE_ISSUE: PictureBox method picGraph.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             'UPGRADE_ISSUE: PictureBox property picGraph.CurrentX was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
@@ -876,7 +878,7 @@ Module modPlot
                     'UPGRADE_ISSUE: PictureBox property picPG.CurrentY was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                     CurrentY = tY
                     'UPGRADE_ISSUE: PictureBox method picPG.Print was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-                    gr.DrawString((VB6.Format(Rsc(i), "#0.0%")), pic.Font, pen.Brush, CurrentX, CurrentY)
+                    gr.DrawString((Format(Rsc(i), "#0.0%")), pic.Font, pen.Brush, CurrentX, CurrentY)
 
                 Next i
 
@@ -1086,7 +1088,7 @@ Module modPlot
             'UPGRADE_ISSUE: PictureBox property picPG.CurrentY was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             '.CurrentY = tY
             'UPGRADE_ISSUE: PictureBox method picPG.Print was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-            'picPG.Print(VB6.Format(Rsc(i), "#0.0%"))
+            'picPG.Print(Format(Rsc(i), "#0.0%"))
 
         Next i
         pic.Font = VB6.FontChangeSize(pic.Font, 15)

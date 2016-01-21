@@ -74,6 +74,9 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\commonCode\Anchor.vb">
+      <Link>Anchor.vb</Link>
+    </Compile>
     <Compile Include="..\commonCode\AssemblyInfo.vb">
       <Link>AssemblyInfo.vb</Link>
     </Compile>
@@ -97,6 +100,9 @@
     </Compile>
     <Compile Include="..\commonCode\EnvLoad.vb">
       <Link>EnvLoad.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\FairLead.vb">
+      <Link>FairLead.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\Force.vb">
       <Link>Force.vb</Link>
@@ -145,9 +151,6 @@
     <Compile Include="..\commonCode\modGridUtilities.vb">
       <Link>modGridUtilities.vb</Link>
     </Compile>
-    <Compile Include="..\commonCode\modPlot.vb">
-      <Link>modPlot.vb</Link>
-    </Compile>
     <Compile Include="..\commonCode\modRegConstants.vb">
       <Link>modRegConstants.vb</Link>
     </Compile>
@@ -156,6 +159,12 @@
     </Compile>
     <Compile Include="..\commonCode\modUtilityFunctions.vb">
       <Link>modUtilityFunctions.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\MoorLine.vb">
+      <Link>MoorLine.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\MoorSystem.vb">
+      <Link>MoorSystem.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\Motion.vb">
       <Link>Motion.vb</Link>
@@ -171,6 +180,9 @@
     </Compile>
     <Compile Include="..\commonCode\Riser.vb">
       <Link>Riser.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Segment.vb">
+      <Link>Segment.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\ShipDamp.vb">
       <Link>ShipDamp.vb</Link>
@@ -189,6 +201,9 @@
     </Compile>
     <Compile Include="..\commonCode\UpgradeSupport.vb">
       <Link>UpgradeSupport.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Vessel.vb">
+      <Link>Vessel.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\Wave.vb">
       <Link>Wave.vb</Link>
@@ -213,7 +228,7 @@
     <Compile Include="MarsIni.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Vessel.vb" />
+    <Compile Include="modPlot.vb" />
     <EmbeddedResource Include="..\commonCode\frmAbout.resx">
       <Link>frmAbout.resx</Link>
     </EmbeddedResource>

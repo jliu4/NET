@@ -10,13 +10,15 @@ Friend Class frmEnviron
     Private ReName As Boolean
     Private Updated As Boolean
 	Private VslHead As Single
-	
-	Private FrcLabels(9) As String
+
+    Private FrcLabels(9) As String
+    Private lblLengthUnit(5) As Label
+    Private btrDuration(2) As Button
 
     Private Sub setLabel()
         On Error GoTo ErrHandler
         Dim i As Short
-        For i = 0 To lblLengthUnit.Count - 1
+        For i = 0 To 4 'lblLengthUnit.unbound - 1
             If i <> 5 Then
                 If IsMetricUnit Then
                     lblLengthUnit(i).Text = "m"
@@ -40,6 +42,8 @@ ErrHandler:
         Text = Text & " - " & CurProj.Title
 
         EnvBack = New Metocean
+        lblLengthUnit = New Label() {_lblLengthUnit_0, _lblLengthUnit_1, _lblLengthUnit_2}
+
         RefreshData()
         BackCurEnv()
         Exit Sub
@@ -57,10 +61,11 @@ ErrHandler:
         LoadCurEnv()
         setLabel()
         btnForce_Click(btnForce, New System.EventArgs())
+        Exit Sub
 ErrHandler:
 
         MsgBox("RefreshData:")
-        Exit Sub
+
     End Sub
 
     ' command buttons
@@ -126,15 +131,16 @@ ErrHandler:
 	End Sub
 	
 	Private Sub btnForce_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnForce.Click
-		If IsMetricUnit Then
-			LFactor = 0.3048 ' ft -> m
-			FrcFactor = 4.448222 ' kips -> KN
-			StressFactor = 6.894757 ' ksi -> MPa
-			DiaFactor = 25.4 ' in -> mm
-			LUnit = "m"
-			FrcUnit = "KN"
-		Else
-			LFactor = 1
+        Dim i As Short
+        If IsMetricUnit Then
+            LFactor = 0.3048 ' ft -> m
+            FrcFactor = 4.448222 ' kips -> KN
+            StressFactor = 6.894757 ' ksi -> MPa
+            DiaFactor = 25.4 ' in -> mm
+            LUnit = "m"
+            FrcUnit = "KN"
+        Else
+            LFactor = 1
 			FrcFactor = 1
 			StressFactor = 1
 			DiaFactor = 1
@@ -159,34 +165,41 @@ ErrHandler:
 
         With grdForce
             .ColumnCount = 4
+            For i = 0 To .ColumnCount - 1
+                .Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            Next
+            .Columns(0).FillWeight = 100 / .ColumnCount
+            .Columns(1).FillWeight = 100 / .ColumnCount
+            .Columns(2).FillWeight = 100 / .ColumnCount
+            .Columns(3).FillWeight = 100 / .ColumnCount
             .RowCount = 5
-            .Rows(0).Cells(0).Value = VB6.Format(FWd.Fx / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(0).Cells(1).Value = VB6.Format(FWv.Fx / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(0).Cells(2).Value = VB6.Format(FCr.Fx / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(0).Cells(3).Value = VB6.Format(FEv.Fx / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(1).Cells(0).Value = VB6.Format(FWd.Fy / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(1).Cells(1).Value = VB6.Format(FWv.Fy / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(1).Cells(2).Value = VB6.Format(FCr.Fy / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(1).Cells(3).Value = VB6.Format(FEv.Fy / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(2).Cells(0).Value = VB6.Format(FWd.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
-            .Rows(2).Cells(1).Value = VB6.Format(FWv.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
-            .Rows(2).Cells(2).Value = VB6.Format(FCr.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
-            .Rows(2).Cells(3).Value = VB6.Format(FEv.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
-            .Rows(3).Cells(0).Value = VB6.Format(FWd.Ft / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(3).Cells(1).Value = VB6.Format(FWv.Ft / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(3).Cells(2).Value = VB6.Format(FCr.Ft / 1000.0# * FrcFactor, "##,##0.0")
-            .Rows(3).Cells(3).Value = VB6.Format(FEv.Ft / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(0).Cells(0).Value = Format(FWd.Fx / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(0).Cells(1).Value = Format(FWv.Fx / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(0).Cells(2).Value = Format(FCr.Fx / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(0).Cells(3).Value = Format(FEv.Fx / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(1).Cells(0).Value = Format(FWd.Fy / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(1).Cells(1).Value = Format(FWv.Fy / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(1).Cells(2).Value = Format(FCr.Fy / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(1).Cells(3).Value = Format(FEv.Fy / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(2).Cells(0).Value = Format(FWd.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
+            .Rows(2).Cells(1).Value = Format(FWv.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
+            .Rows(2).Cells(2).Value = Format(FCr.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
+            .Rows(2).Cells(3).Value = Format(FEv.MYaw / 1000.0# * FrcFactor * LFactor, "##,##0.0")
+            .Rows(3).Cells(0).Value = Format(FWd.Ft / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(3).Cells(1).Value = Format(FWv.Ft / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(3).Cells(2).Value = Format(FCr.Ft / 1000.0# * FrcFactor, "##,##0.0")
+            .Rows(3).Cells(3).Value = Format(FEv.Ft / 1000.0# * FrcFactor, "##,##0.0")
             WindDir = Atan((FWd.Fx), (FWd.Fy), True)
 
-            .Rows(4).Cells(0).Value = VB6.Format(WindDir * Radians2Degrees, "##0.0")
+            .Rows(4).Cells(0).Value = Format(WindDir * Radians2Degrees, "##0.0")
 
             WaveDir = Atan((FWv.Fx), (FWv.Fy), True)
-            .Rows(4).Cells(1).Value = VB6.Format(WaveDir * Radians2Degrees, "##0.0")
+            .Rows(4).Cells(1).Value = Format(WaveDir * Radians2Degrees, "##0.0")
 
             CurrDir = Atan((FCr.Fx), (FCr.Fy), True)
-            .Rows(4).Cells(2).Value = VB6.Format(CurrDir * Radians2Degrees, "##0.0")
+            .Rows(4).Cells(2).Value = Format(CurrDir * Radians2Degrees, "##0.0")
 
-            .Rows(4).Cells(3).Value = VB6.Format(Atan((FEv.Fx), (FEv.Fy), True) * Radians2Degrees, "##0.0")
+            .Rows(4).Cells(3).Value = Format(Atan((FEv.Fx), (FEv.Fy), True) * Radians2Degrees, "##0.0")
 
         End With
 
@@ -332,9 +345,9 @@ ErrHandler:
 
     ' option button
 
-    Private Sub btrDuration_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btrDuration.CheckedChanged
+    Private Sub btrDuration_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         If eventSender.Checked Then
-            Dim Index As Short = btrDuration.GetIndex(eventSender)
+            ' Dim Index As Short = btrDuration.GetIndex(eventSender)
 
             Updated = False
 
@@ -344,7 +357,7 @@ ErrHandler:
     ' text boxes
 
     Private Sub txtWind_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWind.TextChanged
-        Dim Index As Short = txtWind.GetIndex(eventSender)
+        ' Dim Index As Short = txtWind.GetIndex(eventSender)
 
         Updated = False
     End Sub
@@ -474,29 +487,29 @@ ErrHandler:
 		End If
 		
 		With CurVessel.EnvLoad.EnvCur.Wind
-			txtWind(0).Text = VB6.Format(.Velocity * Ftps2Knots * VelFactor, "0.00")
-			txtWind(1).Text = VB6.Format(.Elevation * LFactor, "0.00")
-			txtWind(2).Text = VB6.Format(.Heading * Radians2Degrees, "0.00")
+			txtWind(0).Text = Format(.Velocity * Ftps2Knots * VelFactor, "0.00")
+			txtWind(1).Text = Format(.Elevation * LFactor, "0.00")
+			txtWind(2).Text = Format(.Heading * Radians2Degrees, "0.00")
 			
 			Select Case .Duration
 				Case 3600
-					btrDuration(0).Checked = True
-				Case 60
-					btrDuration(1).Checked = True
-				Case 3
-					btrDuration(2).Checked = True
-			End Select
+                    'btrDuration(0).Checked = True
+                Case 60
+                    'btrDuration(1).Checked = True
+                Case 3
+                    'btrDuration(2).Checked = True
+            End Select
 		End With
 		
 		With CurVessel.EnvLoad.EnvCur.Wave
-			txtWave(0).Text = VB6.Format(.Height * LFactor, "0.00")
-			txtWave(1).Text = VB6.Format(.Period, "0.00")
-			txtWave(2).Text = VB6.Format(.Heading * Radians2Degrees, "0.00")
+			txtWave(0).Text = Format(.Height * LFactor, "0.00")
+			txtWave(1).Text = Format(.Period, "0.00")
+			txtWave(2).Text = Format(.Heading * Radians2Degrees, "0.00")
 		End With
 		
 		With CurVessel.EnvLoad.EnvCur.Current
-			txtCurr(0).Text = VB6.Format(.Profile(1).Velocity * Ftps2Knots * VelFactor, "0.00")
-			txtCurr(1).Text = VB6.Format(.Heading * Radians2Degrees, "0.00")
+			txtCurr(0).Text = Format(.Profile(1).Velocity * Ftps2Knots * VelFactor, "0.00")
+			txtCurr(1).Text = Format(.Heading * Radians2Degrees, "0.00")
 		End With
 		
 		If cboCurEnv.SelectedIndex < 0 Then
@@ -515,8 +528,8 @@ ErrHandler:
 	Private Sub LoadVesselStation()
 		
 		VslHead = CurVessel.ShipCurGlob.Heading
-		txtVslSt(0).Text = VB6.Format(VslHead * Radians2Degrees, "0.00")
-		txtVslSt(1).Text = VB6.Format(CurVessel.ShipDraft * LFactor, "0.00")
+		txtVslSt(0).Text = Format(VslHead * Radians2Degrees, "0.00")
+		txtVslSt(1).Text = Format(CurVessel.ShipDraft * LFactor, "0.00")
 		
 	End Sub
 	
@@ -551,18 +564,18 @@ ErrHandler:
 			.Heading = CDbl(txtWind(2).Text) * Degrees2Radians
 			
 			For i = 0 To 2
-				If btrDuration(i).Checked Then
-					Select Case i
-						Case 0
-							.Duration = 3600
-						Case 1
-							.Duration = 60
-						Case 2
-							.Duration = 3
-					End Select
-					Exit For
-				End If
-			Next 
+                If 1 = 1 Then 'btrDuration(i).Checked Then
+                    Select Case i
+                        Case 0
+                            .Duration = 3600
+                        Case 1
+                            .Duration = 60
+                        Case 2
+                            .Duration = 3
+                    End Select
+                    Exit For
+                End If
+            Next 
 		End With
 		
 		With CurVessel.EnvLoad.EnvCur.Wave

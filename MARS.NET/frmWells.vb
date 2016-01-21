@@ -299,9 +299,9 @@ ErrHandler:
                 WSD = CurField.Item(r + 1)
                 If r > MaxNumWells Then Exit For
                 .Rows(r).Cells(0).Value = WSD.NameID
-                .Rows(r).Cells(1).Value = VB6.Format(WSD.Xg * LFactor, "0.00")
-                .Rows(r).Cells(2).Value = VB6.Format(WSD.Yg * LFactor, "0.00")
-                .Rows(r).Cells(3).Value = VB6.Format(WSD.Depth * LFactor, "0.00")
+                .Rows(r).Cells(1).Value = Format(WSD.Xg * LFactor, "0.00")
+                .Rows(r).Cells(2).Value = Format(WSD.Yg * LFactor, "0.00")
+                .Rows(r).Cells(3).Value = Format(WSD.Depth * LFactor, "0.00")
 
 
             Next

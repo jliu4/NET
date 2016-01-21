@@ -1096,22 +1096,22 @@ ErrorHandler:
                 'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments(i).Name. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, .Name)
                 'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Wind. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                WriteLine(FileNum, VB6.Format(.Wind.VelCorr * Ftps2Knots, "0.000"), VB6.Format(.Wind.Heading * Radians2Degrees, "0.000"))
+                WriteLine(FileNum, Format(.Wind.VelCorr * Ftps2Knots, "0.000"), Format(.Wind.Heading * Radians2Degrees, "0.000"))
                 'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Wave. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments(i).Wave. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                WriteLine(FileNum, .Wave.Height, .Wave.Period, VB6.Format(.Wave.Heading * Radians2Degrees, "0.000"))
+                WriteLine(FileNum, .Wave.Height, .Wave.Period, Format(.Wave.Heading * Radians2Degrees, "0.000"))
 
                 'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 NumCur = .Current.ProfileCount
                 'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                WriteLine(FileNum, NumCur, VB6.Format(.Current.Heading * Radians2Degrees, "0.000"))
+                WriteLine(FileNum, NumCur, Format(.Current.Heading * Radians2Degrees, "0.000"))
             End With
 
             For j = 1 To NumCur
                 'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 With mcolEnvironments.Item(i).Current.Profile(j)
                     'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    WriteLine(FileNum, VB6.Format(.Depth, "0.000"), VB6.Format(.Velocity * Ftps2Knots, "0.000"))
+                    WriteLine(FileNum, Format(.Depth, "0.000"), Format(.Velocity * Ftps2Knots, "0.000"))
                 End With
             Next j
         Next i
