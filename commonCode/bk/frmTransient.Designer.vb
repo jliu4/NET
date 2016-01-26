@@ -43,9 +43,8 @@
 	Public WithEvents _lblLengthUnit_3 As System.Windows.Forms.Label
 	Public WithEvents _lblLengthUnit_2 As System.Windows.Forms.Label
 	Public WithEvents fraWell As System.Windows.Forms.GroupBox
-	Public WithEvents btnDisplayCurves As System.Windows.Forms.Button
-	Public WithEvents btnReport As System.Windows.Forms.Button
-	Public WithEvents txtEnvironment As System.Windows.Forms.TextBox
+    Public WithEvents btnReport As System.Windows.Forms.Button
+    Public WithEvents txtEnvironment As System.Windows.Forms.TextBox
 	Public WithEvents btnEnvironment As System.Windows.Forms.Button
 	Public WithEvents fraEnvironment As System.Windows.Forms.GroupBox
 	Public WithEvents txtDuration As System.Windows.Forms.TextBox
@@ -104,7 +103,6 @@
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTransient))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnDisplayCurves = New System.Windows.Forms.Button()
         Me.fraRiser = New System.Windows.Forms.GroupBox()
         Me._txtRiser_2 = New System.Windows.Forms.TextBox()
         Me._txtRiser_1 = New System.Windows.Forms.TextBox()
@@ -116,9 +114,7 @@
         Me._lblForceUnit_0 = New System.Windows.Forms.Label()
         Me._lblRiser_0 = New System.Windows.Forms.Label()
         Me.fraWell = New System.Windows.Forms.GroupBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtRiserLen = New System.Windows.Forms.TextBox()
-        Me.lblBottomFJ = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me._txtVslSt_3 = New System.Windows.Forms.TextBox()
         Me._txtVslSt_2 = New System.Windows.Forms.TextBox()
         Me._txtVslSt_0 = New System.Windows.Forms.TextBox()
@@ -209,22 +205,6 @@
         CType(Me.txtVslSt, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MainMenu1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnDisplayCurves
-        '
-        Me.btnDisplayCurves.BackColor = System.Drawing.SystemColors.Control
-        Me.btnDisplayCurves.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btnDisplayCurves.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDisplayCurves.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnDisplayCurves.Location = New System.Drawing.Point(221, 245)
-        Me.btnDisplayCurves.Name = "btnDisplayCurves"
-        Me.btnDisplayCurves.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.btnDisplayCurves.Size = New System.Drawing.Size(143, 25)
-        Me.btnDisplayCurves.TabIndex = 29
-        Me.btnDisplayCurves.Text = "Time History Plots..."
-        Me.ToolTip1.SetToolTip(Me.btnDisplayCurves, "View Transient Line Tension Time History")
-        Me.btnDisplayCurves.UseVisualStyleBackColor = False
-        Me.btnDisplayCurves.Visible = False
         '
         'fraRiser
         '
@@ -379,9 +359,7 @@
         'fraWell
         '
         Me.fraWell.BackColor = System.Drawing.SystemColors.Control
-        Me.fraWell.Controls.Add(Me.Label2)
-        Me.fraWell.Controls.Add(Me.txtRiserLen)
-        Me.fraWell.Controls.Add(Me.lblBottomFJ)
+        Me.fraWell.Controls.Add(Me.Label1)
         Me.fraWell.Controls.Add(Me._txtVslSt_3)
         Me.fraWell.Controls.Add(Me._txtVslSt_2)
         Me.fraWell.Controls.Add(Me._txtVslSt_0)
@@ -406,45 +384,18 @@
         Me.fraWell.TabStop = False
         Me.fraWell.Text = "Vessel"
         '
-        'Label2
+        'Label1
         '
-        Me.Label2.BackColor = System.Drawing.SystemColors.Control
-        Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(144, 141)
-        Me.Label2.Name = "Label2"
-        Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label2.Size = New System.Drawing.Size(15, 16)
-        Me.Label2.TabIndex = 48
-        Me.Label2.Text = "ft"
-        '
-        'txtRiserLen
-        '
-        Me.txtRiserLen.AcceptsReturn = True
-        Me.txtRiserLen.BackColor = System.Drawing.SystemColors.Window
-        Me.txtRiserLen.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRiserLen.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtRiserLen.Location = New System.Drawing.Point(76, 134)
-        Me.txtRiserLen.MaxLength = 0
-        Me.txtRiserLen.Name = "txtRiserLen"
-        Me.txtRiserLen.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtRiserLen.Size = New System.Drawing.Size(62, 20)
-        Me.txtRiserLen.TabIndex = 46
-        Me.txtRiserLen.TabStop = False
-        Me.txtRiserLen.Text = "0"
-        Me.txtRiserLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'lblBottomFJ
-        '
-        Me.lblBottomFJ.BackColor = System.Drawing.SystemColors.Control
-        Me.lblBottomFJ.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblBottomFJ.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblBottomFJ.Location = New System.Drawing.Point(8, 135)
-        Me.lblBottomFJ.Name = "lblBottomFJ"
-        Me.lblBottomFJ.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblBottomFJ.Size = New System.Drawing.Size(69, 19)
-        Me.lblBottomFJ.TabIndex = 47
-        Me.lblBottomFJ.Text = "Riser Length"
+        Me.Label1.BackColor = System.Drawing.SystemColors.Control
+        Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.Desktop
+        Me.Label1.Location = New System.Drawing.Point(11, 140)
+        Me.Label1.Name = "Label1"
+        Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label1.Size = New System.Drawing.Size(158, 29)
+        Me.Label1.TabIndex = 46
+        Me.Label1.Text = "* Heading is clockwise from True North"
         '
         '_txtVslSt_3
         '
@@ -453,11 +404,11 @@
         Me._txtVslSt_3.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_3.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtVslSt.SetIndex(Me._txtVslSt_3, CType(3, Short))
-        Me._txtVslSt_3.Location = New System.Drawing.Point(76, 88)
+        Me._txtVslSt_3.Location = New System.Drawing.Point(68, 88)
         Me._txtVslSt_3.MaxLength = 0
         Me._txtVslSt_3.Name = "_txtVslSt_3"
         Me._txtVslSt_3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtVslSt_3.Size = New System.Drawing.Size(62, 20)
+        Me._txtVslSt_3.Size = New System.Drawing.Size(70, 20)
         Me._txtVslSt_3.TabIndex = 43
         Me._txtVslSt_3.TabStop = False
         Me._txtVslSt_3.Text = "0"
@@ -470,11 +421,11 @@
         Me._txtVslSt_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_2.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtVslSt.SetIndex(Me._txtVslSt_2, CType(2, Short))
-        Me._txtVslSt_2.Location = New System.Drawing.Point(76, 64)
+        Me._txtVslSt_2.Location = New System.Drawing.Point(68, 64)
         Me._txtVslSt_2.MaxLength = 0
         Me._txtVslSt_2.Name = "_txtVslSt_2"
         Me._txtVslSt_2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtVslSt_2.Size = New System.Drawing.Size(63, 20)
+        Me._txtVslSt_2.Size = New System.Drawing.Size(71, 20)
         Me._txtVslSt_2.TabIndex = 40
         Me._txtVslSt_2.TabStop = False
         Me._txtVslSt_2.Text = "0"
@@ -487,11 +438,11 @@
         Me._txtVslSt_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_0.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtVslSt.SetIndex(Me._txtVslSt_0, CType(0, Short))
-        Me._txtVslSt_0.Location = New System.Drawing.Point(76, 15)
+        Me._txtVslSt_0.Location = New System.Drawing.Point(39, 15)
         Me._txtVslSt_0.MaxLength = 0
         Me._txtVslSt_0.Name = "_txtVslSt_0"
         Me._txtVslSt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtVslSt_0.Size = New System.Drawing.Size(63, 20)
+        Me._txtVslSt_0.Size = New System.Drawing.Size(100, 20)
         Me._txtVslSt_0.TabIndex = 33
         Me._txtVslSt_0.TabStop = False
         Me._txtVslSt_0.Text = "0"
@@ -504,11 +455,11 @@
         Me._txtVslSt_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_1.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtVslSt.SetIndex(Me._txtVslSt_1, CType(1, Short))
-        Me._txtVslSt_1.Location = New System.Drawing.Point(76, 39)
+        Me._txtVslSt_1.Location = New System.Drawing.Point(39, 39)
         Me._txtVslSt_1.MaxLength = 0
         Me._txtVslSt_1.Name = "_txtVslSt_1"
         Me._txtVslSt_1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtVslSt_1.Size = New System.Drawing.Size(63, 20)
+        Me._txtVslSt_1.Size = New System.Drawing.Size(100, 20)
         Me._txtVslSt_1.TabIndex = 32
         Me._txtVslSt_1.TabStop = False
         Me._txtVslSt_1.Text = "0"
@@ -616,7 +567,7 @@
         Me.lblWell.Location = New System.Drawing.Point(8, 112)
         Me.lblWell.Name = "lblWell"
         Me.lblWell.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblWell.Size = New System.Drawing.Size(74, 19)
+        Me.lblWell.Size = New System.Drawing.Size(85, 17)
         Me.lblWell.TabIndex = 37
         Me.lblWell.Text = "Water Depth"
         '
@@ -663,6 +614,7 @@
         '
         Me.btnReport.BackColor = System.Drawing.SystemColors.Control
         Me.btnReport.Cursor = System.Windows.Forms.Cursors.Default
+        Me.btnReport.Enabled = False
         Me.btnReport.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnReport.Location = New System.Drawing.Point(300, 62)
         Me.btnReport.Name = "btnReport"
@@ -737,11 +689,11 @@
         Me.txtDuration.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtDuration.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDuration.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtDuration.Location = New System.Drawing.Point(89, 24)
+        Me.txtDuration.Location = New System.Drawing.Point(69, 24)
         Me.txtDuration.MaxLength = 0
         Me.txtDuration.Name = "txtDuration"
         Me.txtDuration.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtDuration.Size = New System.Drawing.Size(53, 20)
+        Me.txtDuration.Size = New System.Drawing.Size(73, 20)
         Me.txtDuration.TabIndex = 6
         Me.txtDuration.Text = "200"
         Me.txtDuration.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -753,11 +705,11 @@
         Me.txtInterval.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtInterval.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtInterval.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtInterval.Location = New System.Drawing.Point(89, 47)
+        Me.txtInterval.Location = New System.Drawing.Point(69, 47)
         Me.txtInterval.MaxLength = 0
         Me.txtInterval.Name = "txtInterval"
         Me.txtInterval.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtInterval.Size = New System.Drawing.Size(53, 20)
+        Me.txtInterval.Size = New System.Drawing.Size(73, 20)
         Me.txtInterval.TabIndex = 5
         Me.txtInterval.Text = "200"
         Me.txtInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -793,7 +745,6 @@
         Me.fraTransientMotion.BackColor = System.Drawing.SystemColors.Control
         Me.fraTransientMotion.Controls.Add(Me.grdTM)
         Me.fraTransientMotion.Controls.Add(Me.txtMaxOffsetTime)
-        Me.fraTransientMotion.Controls.Add(Me.btnDisplayCurves)
         Me.fraTransientMotion.Controls.Add(Me.txtOffset)
         Me.fraTransientMotion.Controls.Add(Me.txtOffsetPWD)
         Me.fraTransientMotion.Controls.Add(Me.txtMaxOffset)
@@ -1223,8 +1174,6 @@
 
     Friend WithEvents grdTM As DataGridView
     Friend WithEvents picPolar As PictureBox
-    Public WithEvents Label2 As Label
-    Public WithEvents txtRiserLen As TextBox
-    Public WithEvents lblBottomFJ As Label
+    Public WithEvents Label1 As Label
 #End Region
 End Class

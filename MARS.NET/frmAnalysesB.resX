@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>248, 17</value>
+  </metadata>
+  <metadata name="dlgFileOpen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="dlgFileSave.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>135, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="frmAnalysesB.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAICAQ/wAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
@@ -134,35 +143,5 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
-  </data>
-  <data name="ToolTip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 17</value>
-  </data>
-  <data name="lblAngleUnit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 17</value>
-  </data>
-  <data name="lblForceUnit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 17</value>
-  </data>
-  <data name="lblHeadings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>345, 17</value>
-  </data>
-  <data name="lblInitPos.Location" type="System.Drawing.Point, System.Drawing">
-    <value>457, 17</value>
-  </data>
-  <data name="lblLengthUnit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>561, 17</value>
-  </data>
-  <data name="lblVelUnit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>689, 17</value>
-  </data>
-  <data name="lblVslSt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>793, 17</value>
-  </data>
-  <data name="txtHeadings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>881, 17</value>
-  </data>
-  <data name="txtVslSt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>993, 17</value>
   </data>
 </root>

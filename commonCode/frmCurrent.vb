@@ -81,7 +81,7 @@ Friend Class frmCurrent
         UpdateCurrentProfile()
         Cursor = System.Windows.Forms.Cursors.Default
 
-        frmEnviron.txtCurr(0).Text = CStr(CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity * Ftps2Knots * VelFactor)
+        frmEnviron._txtCurr_0.Text = CStr(CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity * Ftps2Knots * VelFactor)
 
         Me.Close()
 
@@ -167,9 +167,9 @@ Friend Class frmCurrent
                 DepthText = .Rows(r).Cells(0).Value
                 VelU = .Rows(r).Cells(1).Value
                 VelV = .Rows(r).Cells(2).Value
-                VelA = CStr(System.Math.Sqrt(CDbl(VelU) ^ 2 + CDbl(VelV) ^ 2))
+                VelA = CStr(System.Math.Sqrt(CSng(VelU) ^ 2 + CSng(VelV) ^ 2))
 
-                CurVessel.EnvLoad.EnvCur.Current.ProfileAdd(Depth:=CDbl(DepthText), Velocity:=CDbl(VelA))
+                CurVessel.EnvLoad.EnvCur.Current.ProfileAdd(Depth:=CSng(DepthText), Velocity:=CSng(VelA))
 
             Next r
         End With

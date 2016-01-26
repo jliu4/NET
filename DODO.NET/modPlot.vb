@@ -303,6 +303,7 @@ Module modPlot
         Call DrawCompassArrow(Cx, Cy, Ascale, CurrDir, gr, pen, 12)
 
         '   Annotate the plot
+
         pic.Font = VB6.FontChangeSize(pic.Font, 7)
 
         pic.Font = VB6.FontChangeBold(pic.Font, False)

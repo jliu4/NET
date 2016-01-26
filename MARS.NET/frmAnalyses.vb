@@ -72,7 +72,7 @@ ErrHandler:
         btnDerp.Enabled = False
         btnReport.Enabled = False
         txtReportTitle.Text = CurVessel.Name & ", Draft " & Format(CurVessel.ShipDraft, CStr(0)) & " ft, " & CurProj.WellSites.Item(CurProj.WellSites.CurWellNo).NameID
-        txtSubTitle.Text = txtEnvironment.Text & ", " & txtPercentDamping(0).Text & "% Damping"
+        txtSubTitle.Text = txtEnvironment.Text & ", " & _txtPercentDamping_0.Text & "% Damping"
         RefreshData()
     End Sub
 
@@ -115,7 +115,7 @@ ErrHandler:
 
     Private Sub btnAnalysis_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnAnalysis.Click
 
-        If System.Math.Abs(Val(txtVslSt(3).Text)) < 5 Then
+        If System.Math.Abs(Val(_txtVslSt_3.Text)) < 5 Then
             MsgBox("Draft too small.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Error")
             Exit Sub
         End If
@@ -170,9 +170,9 @@ ErrorHandler:
     Private Sub btnSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnSave.Click
 
         With CurVessel.DampingPercent
-            .Surge = Val(txtPercentDamping(0).Text)
-            .Sway = Val(txtPercentDamping(1).Text)
-            .Yaw = Val(txtPercentDamping(2).Text)
+            .Surge = Val(_txtPercentDamping_0.Text)
+            .Sway = Val(_txtPercentDamping_1.Text)
+            .Yaw = Val(_txtPercentDamping_2.Text)
         End With
 
         '    If MsgBox("Are you sure you want to replace the current vessel position?", _
@@ -194,7 +194,7 @@ ErrorHandler:
 
     Private Sub btnEnvironment_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnEnvironment.Click
 
-        VB6.ShowForm(frmEnviron, 1, Me)
+        frmEnviron.Show()
         txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
         '  RefreshButtonStatus
     End Sub
@@ -225,17 +225,17 @@ ErrorHandler:
     End Sub
 
     Private Sub txtEnvironment_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtEnvironment.TextChanged
-        txtSubTitle.Text = txtEnvironment.Text & ", " & txtPercentDamping(0).Text & "% Damping"
+        txtSubTitle.Text = txtEnvironment.Text & ", " & _txtPercentDamping_0.Text & "% Damping"
     End Sub
 
     ' text box
 
-    Private Sub txtVslSt_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtVslSt.Leave
-        Dim Index As Short = txtVslSt.GetIndex(eventSender)
+    ' Private Sub txtVslSt_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    'Dim Index As Short = txtVslSt.GetIndex(eventSender)
 
-        txtVslSt(Index).Text = CheckData(txtVslSt(Index).Text)
+    '     txtVslSt(Index).Text = CheckData(txtVslSt(Index).Text)
 
-    End Sub
+    ' End Sub
 
     ' operation subroutines
     ' initiating
@@ -340,23 +340,23 @@ ErrorHandler:
         With CurVessel
             txtWaterDepth.Text = Format(.WaterDepth * LFactor, "0.0")
             With .ShipCurGlob
-                txtVslSt(0).Text = Format(.Xg * LFactor, "0.00")
-                txtVslSt(1).Text = Format(.Yg * LFactor, "0.00")
-                txtVslSt(2).Text = Format(.Heading * Radians2Degrees, "0.00")
+                _txtVslSt_0.Text = Format(.Xg * LFactor, "0.00")
+                _txtVslSt_1.Text = Format(.Yg * LFactor, "0.00")
+                _txtVslSt_2.Text = Format(.Heading * Radians2Degrees, "0.00")
                 ShipLoc.Xg = .Xg
                 ShipLoc.Yg = .Yg
                 ShipLoc.Heading = .Heading
             End With
-            txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.00")
+            _txtVslSt_3.Text = Format(.ShipDraft * LFactor, "0.00")
 
             If CurVessel.DampingPercent.Surge > 0 Then
-                txtPercentDamping(0).Text = Format(CurVessel.DampingPercent.Surge, "0")
-                txtPercentDamping(1).Text = Format(CurVessel.DampingPercent.Sway, "0")
-                txtPercentDamping(2).Text = Format(CurVessel.DampingPercent.Yaw, "0")
+                _txtPercentDamping_0.Text = Format(CurVessel.DampingPercent.Surge, "0")
+                _txtPercentDamping_1.Text = Format(CurVessel.DampingPercent.Sway, "0")
+                _txtPercentDamping_2.Text = Format(CurVessel.DampingPercent.Yaw, "0")
             Else
-                txtPercentDamping(0).Text = ""
-                txtPercentDamping(1).Text = ""
-                txtPercentDamping(2).Text = ""
+                _txtPercentDamping_0.Text = ""
+                _txtPercentDamping_1.Text = ""
+                _txtPercentDamping_2.Text = ""
             End If
         End With
 
@@ -367,11 +367,11 @@ ErrorHandler:
 
         Coord2Bear(ShipLoc, Distance, Bearing)
 
-        txtMotion(2).Text = Format(Distance * LFactor, "0.0")
-        txtMotion(3).Text = Format(Distance / Depth * 100, "0.00")
-        txtMotion(4).Text = txtVslSt(0).Text
-        txtMotion(5).Text = txtVslSt(1).Text
-        txtMotion(6).Text = txtVslSt(2).Text
+        _txtMotion_2.Text = Format(Distance * LFactor, "0.0")
+        _txtMotion_3.Text = Format(Distance / Depth * 100, "0.00")
+        _txtMotion_4.Text = _txtVslSt_0.Text
+        _txtMotion_5.Text = _txtVslSt_1.Text
+        _txtMotion_6.Text = _txtVslSt_2.Text
 
         With grdTensions
             For r = 1 To NumLines
@@ -435,15 +435,15 @@ ErrorHandler:
 
 
         With ShipLoc
-            .Xg = CDbl(CheckData(txtVslSt(0).Text,  , True)) / LFactor
-            .Yg = CDbl(CheckData(txtVslSt(1).Text,  , True)) / LFactor
-            .Heading = CDbl(CheckData(txtVslSt(2).Text,  , True)) * Degrees2Radians
+            .Xg = CDbl(CheckData(_txtVslSt_0.Text,  , True)) / LFactor
+            .Yg = CDbl(CheckData(_txtVslSt_1.Text,  , True)) / LFactor
+            .Heading = CDbl(CheckData(_txtVslSt_2.Text,  , True)) * Degrees2Radians
         End With
 
         With CurVessel.DampingPercent
-            .Surge = Val(txtPercentDamping(0).Text)
-            .Sway = Val(txtPercentDamping(1).Text)
-            .Yaw = Val(txtPercentDamping(2).Text)
+            .Surge = Val(_txtPercentDamping_0.Text)
+            .Sway = Val(_txtPercentDamping_1.Text)
+            .Yaw = Val(_txtPercentDamping_2.Text)
         End With
 
     End Sub
@@ -451,9 +451,9 @@ ErrorHandler:
     Private Sub UpdateData()
         Dim minFS, Bearing As Single
 
-        txtPercentDamping(0).Text = Format(CurVessel.DampingPercent.Surge, "0")
-        txtPercentDamping(1).Text = Format(CurVessel.DampingPercent.Sway, "0")
-        txtPercentDamping(2).Text = Format(CurVessel.DampingPercent.Yaw, "0")
+        _txtPercentDamping_0.Text = Format(CurVessel.DampingPercent.Surge, "0")
+        _txtPercentDamping_1.Text = Format(CurVessel.DampingPercent.Sway, "0")
+        _txtPercentDamping_2.Text = Format(CurVessel.DampingPercent.Yaw, "0")
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -475,16 +475,16 @@ ErrorHandler:
         MaxDynamicMotion = MaxDM.Move
         Call MaxOffset(ToCurLoc, ToCurWell, Bearing)
 
-        txtMotion(0).Text = Format(ToCurLoc * LFactor, "0.0")
-        txtMotion(1).Text = Format(ToCurLoc / Depth * 100.0#, "0.00")
-        txtMotion(2).Text = Format(ToCurWell * LFactor, "0.0")
-        txtMotion(3).Text = Format(ToCurWell / Depth * 100.0#, "0.00")
+        _txtMotion_0.Text = Format(ToCurLoc * LFactor, "0.0")
+        _txtMotion_1.Text = Format(ToCurLoc / Depth * 100.0#, "0.00")
+        _txtMotion_2.Text = Format(ToCurWell * LFactor, "0.0")
+        _txtMotion_3.Text = Format(ToCurWell / Depth * 100.0#, "0.00")
         txtBearing.Text = Format(Bearing * Radians2Degrees, "0.0")
 
         With ShipLoc
-            txtMotion(4).Text = Format(.Xg * LFactor, "0.0")
-            txtMotion(5).Text = Format(.Yg * LFactor, "0.0")
-            txtMotion(6).Text = Format(.Heading * Radians2Degrees, "0.00")
+            _txtMotion_4.Text = Format(.Xg * LFactor, "0.0")
+            _txtMotion_5.Text = Format(.Yg * LFactor, "0.0")
+            _txtMotion_6.Text = Format(.Heading * Radians2Degrees, "0.00")
         End With
 
         With grdVM
@@ -733,10 +733,10 @@ ErrorHandler:
 		FileOpen_Renamed = False
 		FileOpen(FileNumRes, DerpDir & DerpFile, OpenMode.Output)
 		FileOpen_Renamed = True
-		
-		PrintLine(FileNumRes, txtMotion(3).Text & 0#)
-		
-		FileClose(FileNumRes)
+
+        PrintLine(FileNumRes, _txtMotion_3.Text & 0#)
+
+        FileClose(FileNumRes)
 		FileOpen_Renamed = False
 		DerpData = True
 		

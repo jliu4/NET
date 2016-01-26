@@ -69,14 +69,8 @@
 	Public dlgFileOpen As System.Windows.Forms.OpenFileDialog
 	Public dlgFileSave As System.Windows.Forms.SaveFileDialog
 	Public WithEvents _lblGenCmt_0 As System.Windows.Forms.Label
-    Public WithEvents lblWind As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblWindUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-	Public WithEvents txtCurr As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-	Public WithEvents txtVslSt As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-	Public WithEvents txtWave As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-	Public WithEvents txtWind As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-	Public WithEvents mnuOpen As System.Windows.Forms.ToolStripMenuItem
-	Public WithEvents mnuSave As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuOpen As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents mnuSave As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuDum As System.Windows.Forms.ToolStripSeparator
 	Public WithEvents mnuClose As System.Windows.Forms.ToolStripMenuItem
 	Public WithEvents mnuFile As System.Windows.Forms.ToolStripMenuItem
@@ -141,12 +135,6 @@
         Me.dlgFileOpen = New System.Windows.Forms.OpenFileDialog()
         Me.dlgFileSave = New System.Windows.Forms.SaveFileDialog()
         Me._lblGenCmt_0 = New System.Windows.Forms.Label()
-        Me.lblWind = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblWindUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.txtCurr = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
-        Me.txtVslSt = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
-        Me.txtWave = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
-        Me.txtWind = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
         Me.mnuFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOpen = New System.Windows.Forms.ToolStripMenuItem()
@@ -162,12 +150,6 @@
         Me.fraWave.SuspendLayout()
         Me.fraWind.SuspendLayout()
         Me.fraCurEnv.SuspendLayout()
-        CType(Me.lblWind, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblWindUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtCurr, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtVslSt, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtWave, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtWind, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MainMenu1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -298,7 +280,6 @@
         Me._txtVslSt_0.BackColor = System.Drawing.SystemColors.Control
         Me._txtVslSt_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_0, CType(0, Short))
         Me._txtVslSt_0.Location = New System.Drawing.Point(72, 24)
         Me._txtVslSt_0.MaxLength = 0
         Me._txtVslSt_0.Name = "_txtVslSt_0"
@@ -315,7 +296,6 @@
         Me._txtVslSt_1.BackColor = System.Drawing.SystemColors.Control
         Me._txtVslSt_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_1, CType(1, Short))
         Me._txtVslSt_1.Location = New System.Drawing.Point(185, 24)
         Me._txtVslSt_1.MaxLength = 0
         Me._txtVslSt_1.Name = "_txtVslSt_1"
@@ -411,7 +391,6 @@
         Me._txtCurr_1.BackColor = System.Drawing.SystemColors.Window
         Me._txtCurr_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtCurr_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtCurr.SetIndex(Me._txtCurr_1, CType(1, Short))
         Me._txtCurr_1.Location = New System.Drawing.Point(114, 48)
         Me._txtCurr_1.MaxLength = 0
         Me._txtCurr_1.Name = "_txtCurr_1"
@@ -427,7 +406,6 @@
         Me._txtCurr_0.BackColor = System.Drawing.SystemColors.Window
         Me._txtCurr_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtCurr_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtCurr.SetIndex(Me._txtCurr_0, CType(0, Short))
         Me._txtCurr_0.Location = New System.Drawing.Point(114, 24)
         Me._txtCurr_0.MaxLength = 0
         Me._txtCurr_0.Name = "_txtCurr_0"
@@ -511,7 +489,6 @@
         Me._txtWave_2.BackColor = System.Drawing.SystemColors.Window
         Me._txtWave_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWave_2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWave.SetIndex(Me._txtWave_2, CType(2, Short))
         Me._txtWave_2.Location = New System.Drawing.Point(114, 72)
         Me._txtWave_2.MaxLength = 0
         Me._txtWave_2.Name = "_txtWave_2"
@@ -527,7 +504,6 @@
         Me._txtWave_1.BackColor = System.Drawing.SystemColors.Window
         Me._txtWave_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWave_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWave.SetIndex(Me._txtWave_1, CType(1, Short))
         Me._txtWave_1.Location = New System.Drawing.Point(114, 46)
         Me._txtWave_1.MaxLength = 0
         Me._txtWave_1.Name = "_txtWave_1"
@@ -543,7 +519,6 @@
         Me._txtWave_0.BackColor = System.Drawing.SystemColors.Window
         Me._txtWave_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWave_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWave.SetIndex(Me._txtWave_0, CType(0, Short))
         Me._txtWave_0.Location = New System.Drawing.Point(114, 23)
         Me._txtWave_0.MaxLength = 0
         Me._txtWave_0.Name = "_txtWave_0"
@@ -698,7 +673,6 @@
         Me._txtWind_2.BackColor = System.Drawing.SystemColors.Window
         Me._txtWind_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWind_2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWind.SetIndex(Me._txtWind_2, CType(2, Short))
         Me._txtWind_2.Location = New System.Drawing.Point(80, 104)
         Me._txtWind_2.MaxLength = 0
         Me._txtWind_2.Name = "_txtWind_2"
@@ -714,7 +688,6 @@
         Me._txtWind_1.BackColor = System.Drawing.SystemColors.Window
         Me._txtWind_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWind_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWind.SetIndex(Me._txtWind_1, CType(1, Short))
         Me._txtWind_1.Location = New System.Drawing.Point(80, 48)
         Me._txtWind_1.MaxLength = 0
         Me._txtWind_1.Name = "_txtWind_1"
@@ -730,7 +703,6 @@
         Me._txtWind_0.BackColor = System.Drawing.SystemColors.Window
         Me._txtWind_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWind_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWind.SetIndex(Me._txtWind_0, CType(0, Short))
         Me._txtWind_0.Location = New System.Drawing.Point(80, 24)
         Me._txtWind_0.MaxLength = 0
         Me._txtWind_0.Name = "_txtWind_0"
@@ -768,7 +740,6 @@
         Me._lblWind_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblWind_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWind_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWind.SetIndex(Me._lblWind_2, CType(2, Short))
         Me._lblWind_2.Location = New System.Drawing.Point(16, 104)
         Me._lblWind_2.Name = "_lblWind_2"
         Me._lblWind_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -781,7 +752,6 @@
         Me._lblWind_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblWind_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWind_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWind.SetIndex(Me._lblWind_1, CType(1, Short))
         Me._lblWind_1.Location = New System.Drawing.Point(16, 48)
         Me._lblWind_1.Name = "_lblWind_1"
         Me._lblWind_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -794,7 +764,6 @@
         Me._lblWindUnit_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblWindUnit_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWindUnit_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWindUnit.SetIndex(Me._lblWindUnit_1, CType(1, Short))
         Me._lblWindUnit_1.Location = New System.Drawing.Point(156, 51)
         Me._lblWindUnit_1.Name = "_lblWindUnit_1"
         Me._lblWindUnit_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -807,7 +776,6 @@
         Me._lblWind_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblWind_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWind_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWind.SetIndex(Me._lblWind_0, CType(0, Short))
         Me._lblWind_0.Location = New System.Drawing.Point(16, 24)
         Me._lblWind_0.Name = "_lblWind_0"
         Me._lblWind_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -876,15 +844,6 @@
         Me._lblGenCmt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblGenCmt_0.Size = New System.Drawing.Size(481, 65)
         Me._lblGenCmt_0.TabIndex = 41
-        '
-        'txtCurr
-        '
-        '
-        'txtWave
-        '
-        '
-        'txtWind
-        '
         '
         'MainMenu1
         '
@@ -965,12 +924,6 @@
         Me.fraWind.ResumeLayout(False)
         Me.fraWind.PerformLayout()
         Me.fraCurEnv.ResumeLayout(False)
-        CType(Me.lblWind, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblWindUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtCurr, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtVslSt, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtWave, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtWind, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MainMenu1.ResumeLayout(False)
         Me.MainMenu1.PerformLayout()
         Me.ResumeLayout(False)

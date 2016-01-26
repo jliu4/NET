@@ -37,7 +37,8 @@ Friend Class frmMain
             .Text = "Set Base Directory"
             .InitPath = lblBaseDir.Text
             .ControlToUpdate = lblBaseDir
-            VB6.ShowForm(frmBrowseDir, 1, Me)
+            frmBrowseDir.Show()
+
         End With
         If Trim(lblTargetDir.Text) = Trim(lblBaseDir.Text) Then
             MsgBox("Target directory should be different from Base directory.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Target Dierctory")
@@ -65,9 +66,9 @@ Errhandler:
 			Else
 				.InitPath = lblTargetDir.Text
 			End If
-			.ControlToUpdate = lblTargetDir
-			VB6.ShowForm(frmBrowseDir, 1, Me)
-			If Trim(lblTargetDir.Text) = Trim(lblBaseDir.Text) Then
+            .ControlToUpdate = lblTargetDir
+            frmBrowseDir.Show()
+            If Trim(lblTargetDir.Text) = Trim(lblBaseDir.Text) Then
 				MsgBox("Target directory should be different from Base directory.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Target Dierctory")
 				lblTargetDir.Text = ""
 				WorkDir = ""
@@ -374,8 +375,8 @@ ErrHandler:
 		pp2 = InStr(pp3, ss, "    15    ")
 		
 		ss1 = VB.Left(ss, pp1 - 1) ' beginning to env deck
-		ss2 = VB.Right(ss, Len(ss) - pp2) ' Deck 15 to end
-		ss3 = Mid(ss, pp3, pp2 - pp3 + 1) ' Intact mooring deck from AFFile
+        ss2 = VB.Right(ss, Len(ss) - pp2) ' Deck 15 to end
+        ss3 = Mid(ss, pp3, pp2 - pp3 + 1) ' Intact mooring deck from AFFile
 		ss4 = ss3
 		
 		'    On Error GoTo 0

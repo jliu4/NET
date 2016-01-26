@@ -272,7 +272,7 @@ Friend Class frmCatenary
         If JustEnter Then
             JustEnter = False
             'ExistingTxt = txtTopTen.Text
-            VB6.SetCancel(btnOK, False)
+            'VB6.SetCancel(btnOK, False)
         End If
 
         Select Case KeyCode
@@ -291,7 +291,7 @@ Friend Class frmCatenary
     Private Sub txtTopTen_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         JustEnter = True
-        VB6.SetCancel(btnOK, True)
+        'VB6.SetCancel(btnOK, True)
         LastChanged = 1
 
     End Sub
@@ -303,7 +303,7 @@ Friend Class frmCatenary
         If JustEnter Then
             JustEnter = False
             ' ExistingTxt = txtTopTen.Text
-            VB6.SetCancel(btnOK, False)
+            ' VB6.SetCancel(btnOK, False)
         End If
 
         Select Case KeyCode
@@ -322,7 +322,7 @@ Friend Class frmCatenary
     Private Sub txtHorFrc_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         JustEnter = True
-        VB6.SetCancel(btnOK, True)
+        'VB6.SetCancel(btnOK, True)
         LastChanged = 2
 
     End Sub

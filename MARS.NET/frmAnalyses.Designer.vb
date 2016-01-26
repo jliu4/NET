@@ -80,19 +80,6 @@
     Public WithEvents btnEnvironment As System.Windows.Forms.Button
     Public WithEvents txtEnvironment As System.Windows.Forms.TextBox
     Public WithEvents fraEnvironment As System.Windows.Forms.GroupBox
-    Public WithEvents lblAngleUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblForceUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblGenCmt As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblLengthUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblMotion As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblPercentDamping As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblPercentUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblVelUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblVslSt As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblWell As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents txtMotion As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-    Public WithEvents txtPercentDamping As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-    Public WithEvents txtVslSt As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
@@ -170,19 +157,6 @@
         Me.fraEnvironment = New System.Windows.Forms.GroupBox()
         Me.btnEnvironment = New System.Windows.Forms.Button()
         Me.txtEnvironment = New System.Windows.Forms.TextBox()
-        Me.lblAngleUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblForceUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblGenCmt = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblLengthUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblMotion = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblPercentDamping = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblPercentUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblVelUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblVslSt = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblWell = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.txtMotion = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
-        Me.txtPercentDamping = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
-        Me.txtVslSt = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
         Me.fraDamping.SuspendLayout()
         Me.fraReport.SuspendLayout()
         Me.fraVesselLoc.SuspendLayout()
@@ -191,19 +165,6 @@
         Me.fraConditions.SuspendLayout()
         CType(Me.grdTensions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.fraEnvironment.SuspendLayout()
-        CType(Me.lblAngleUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblGenCmt, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblLengthUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblMotion, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblPercentDamping, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblPercentUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblVslSt, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblWell, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtMotion, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPercentDamping, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtVslSt, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnSave
@@ -259,7 +220,6 @@
         Me._txtPercentDamping_2.BackColor = System.Drawing.SystemColors.Window
         Me._txtPercentDamping_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtPercentDamping_2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtPercentDamping.SetIndex(Me._txtPercentDamping_2, CType(2, Short))
         Me._txtPercentDamping_2.Location = New System.Drawing.Point(214, 24)
         Me._txtPercentDamping_2.Name = "_txtPercentDamping_2"
         Me._txtPercentDamping_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -273,7 +233,6 @@
         Me._txtPercentDamping_1.BackColor = System.Drawing.SystemColors.Window
         Me._txtPercentDamping_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtPercentDamping_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtPercentDamping.SetIndex(Me._txtPercentDamping_1, CType(1, Short))
         Me._txtPercentDamping_1.Location = New System.Drawing.Point(147, 24)
         Me._txtPercentDamping_1.Name = "_txtPercentDamping_1"
         Me._txtPercentDamping_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -287,7 +246,6 @@
         Me._txtPercentDamping_0.BackColor = System.Drawing.SystemColors.Window
         Me._txtPercentDamping_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtPercentDamping_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtPercentDamping.SetIndex(Me._txtPercentDamping_0, CType(0, Short))
         Me._txtPercentDamping_0.Location = New System.Drawing.Point(76, 24)
         Me._txtPercentDamping_0.Name = "_txtPercentDamping_0"
         Me._txtPercentDamping_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -300,7 +258,6 @@
         Me._lblMotion_7.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_7.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_7.ForeColor = System.Drawing.Color.Red
-        Me.lblMotion.SetIndex(Me._lblMotion_7, CType(7, Short))
         Me._lblMotion_7.Location = New System.Drawing.Point(41, 51)
         Me._lblMotion_7.Name = "_lblMotion_7"
         Me._lblMotion_7.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -313,7 +270,6 @@
         Me._lblPercentDamping_3.BackColor = System.Drawing.SystemColors.Control
         Me._lblPercentDamping_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblPercentDamping_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblPercentDamping.SetIndex(Me._lblPercentDamping_3, CType(3, Short))
         Me._lblPercentDamping_3.Location = New System.Drawing.Point(186, 26)
         Me._lblPercentDamping_3.Name = "_lblPercentDamping_3"
         Me._lblPercentDamping_3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -326,7 +282,6 @@
         Me._lblPercentDamping_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblPercentDamping_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblPercentDamping_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblPercentDamping.SetIndex(Me._lblPercentDamping_2, CType(2, Short))
         Me._lblPercentDamping_2.Location = New System.Drawing.Point(116, 26)
         Me._lblPercentDamping_2.Name = "_lblPercentDamping_2"
         Me._lblPercentDamping_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -339,7 +294,6 @@
         Me._lblPercentDamping_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblPercentDamping_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblPercentDamping_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblPercentDamping.SetIndex(Me._lblPercentDamping_1, CType(1, Short))
         Me._lblPercentDamping_1.Location = New System.Drawing.Point(40, 26)
         Me._lblPercentDamping_1.Name = "_lblPercentDamping_1"
         Me._lblPercentDamping_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -502,7 +456,6 @@
         Me._txtVslSt_3.BackColor = System.Drawing.SystemColors.Control
         Me._txtVslSt_3.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_3.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_3, CType(3, Short))
         Me._txtVslSt_3.Location = New System.Drawing.Point(139, 107)
         Me._txtVslSt_3.Name = "_txtVslSt_3"
         Me._txtVslSt_3.ReadOnly = True
@@ -519,7 +472,6 @@
         Me._txtVslSt_2.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_2, CType(2, Short))
         Me._txtVslSt_2.Location = New System.Drawing.Point(107, 63)
         Me._txtVslSt_2.Name = "_txtVslSt_2"
         Me._txtVslSt_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -535,7 +487,6 @@
         Me._txtVslSt_1.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_1, CType(1, Short))
         Me._txtVslSt_1.Location = New System.Drawing.Point(80, 41)
         Me._txtVslSt_1.Name = "_txtVslSt_1"
         Me._txtVslSt_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -551,7 +502,6 @@
         Me._txtVslSt_0.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_0, CType(0, Short))
         Me._txtVslSt_0.Location = New System.Drawing.Point(79, 19)
         Me._txtVslSt_0.Name = "_txtVslSt_0"
         Me._txtVslSt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -566,7 +516,6 @@
         Me._lblLengthUnit_7.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_7.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_7.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_7, CType(7, Short))
         Me._lblLengthUnit_7.Location = New System.Drawing.Point(182, 87)
         Me._lblLengthUnit_7.Name = "_lblLengthUnit_7"
         Me._lblLengthUnit_7.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -579,7 +528,6 @@
         Me._lblWell_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblWell_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWell_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWell.SetIndex(Me._lblWell_2, CType(2, Short))
         Me._lblWell_2.Location = New System.Drawing.Point(20, 87)
         Me._lblWell_2.Name = "_lblWell_2"
         Me._lblWell_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -592,7 +540,6 @@
         Me._lblLengthUnit_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_2, CType(2, Short))
         Me._lblLengthUnit_2.Location = New System.Drawing.Point(182, 108)
         Me._lblLengthUnit_2.Name = "_lblLengthUnit_2"
         Me._lblLengthUnit_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -605,7 +552,6 @@
         Me._lblVslSt_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_2, CType(2, Short))
         Me._lblVslSt_2.Location = New System.Drawing.Point(38, 66)
         Me._lblVslSt_2.Name = "_lblVslSt_2"
         Me._lblVslSt_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -618,7 +564,6 @@
         Me._lblVslSt_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_1, CType(1, Short))
         Me._lblVslSt_1.Location = New System.Drawing.Point(38, 44)
         Me._lblVslSt_1.Name = "_lblVslSt_1"
         Me._lblVslSt_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -631,7 +576,6 @@
         Me._lblLengthUnit_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_1, CType(1, Short))
         Me._lblLengthUnit_1.Location = New System.Drawing.Point(182, 44)
         Me._lblLengthUnit_1.Name = "_lblLengthUnit_1"
         Me._lblLengthUnit_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -644,7 +588,6 @@
         Me._lblVslSt_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_0, CType(0, Short))
         Me._lblVslSt_0.Location = New System.Drawing.Point(38, 21)
         Me._lblVslSt_0.Name = "_lblVslSt_0"
         Me._lblVslSt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -657,7 +600,6 @@
         Me._lblLengthUnit_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_0, CType(0, Short))
         Me._lblLengthUnit_0.Location = New System.Drawing.Point(182, 22)
         Me._lblLengthUnit_0.Name = "_lblLengthUnit_0"
         Me._lblLengthUnit_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -670,7 +612,6 @@
         Me._lblVslSt_3.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_3, CType(3, Short))
         Me._lblVslSt_3.Location = New System.Drawing.Point(23, 110)
         Me._lblVslSt_3.Name = "_lblVslSt_3"
         Me._lblVslSt_3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -776,7 +717,6 @@
         Me._txtMotion_6.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_6.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_6.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtMotion.SetIndex(Me._txtMotion_6, CType(6, Short))
         Me._txtMotion_6.Location = New System.Drawing.Point(447, 192)
         Me._txtMotion_6.Name = "_txtMotion_6"
         Me._txtMotion_6.ReadOnly = True
@@ -792,7 +732,6 @@
         Me._txtMotion_5.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_5.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_5.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtMotion.SetIndex(Me._txtMotion_5, CType(5, Short))
         Me._txtMotion_5.Location = New System.Drawing.Point(272, 192)
         Me._txtMotion_5.Name = "_txtMotion_5"
         Me._txtMotion_5.ReadOnly = True
@@ -808,7 +747,6 @@
         Me._txtMotion_4.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_4.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_4.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtMotion.SetIndex(Me._txtMotion_4, CType(4, Short))
         Me._txtMotion_4.Location = New System.Drawing.Point(123, 192)
         Me._txtMotion_4.Name = "_txtMotion_4"
         Me._txtMotion_4.ReadOnly = True
@@ -824,7 +762,6 @@
         Me._txtMotion_3.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_3.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_3.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtMotion.SetIndex(Me._txtMotion_3, CType(3, Short))
         Me._txtMotion_3.Location = New System.Drawing.Point(320, 166)
         Me._txtMotion_3.Name = "_txtMotion_3"
         Me._txtMotion_3.ReadOnly = True
@@ -840,7 +777,6 @@
         Me._txtMotion_2.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtMotion.SetIndex(Me._txtMotion_2, CType(2, Short))
         Me._txtMotion_2.Location = New System.Drawing.Point(224, 166)
         Me._txtMotion_2.Name = "_txtMotion_2"
         Me._txtMotion_2.ReadOnly = True
@@ -856,7 +792,6 @@
         Me._txtMotion_1.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtMotion.SetIndex(Me._txtMotion_1, CType(1, Short))
         Me._txtMotion_1.Location = New System.Drawing.Point(320, 137)
         Me._txtMotion_1.Name = "_txtMotion_1"
         Me._txtMotion_1.ReadOnly = True
@@ -872,7 +807,6 @@
         Me._txtMotion_0.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtMotion.SetIndex(Me._txtMotion_0, CType(0, Short))
         Me._txtMotion_0.Location = New System.Drawing.Point(224, 134)
         Me._txtMotion_0.Name = "_txtMotion_0"
         Me._txtMotion_0.ReadOnly = True
@@ -887,7 +821,6 @@
         Me._lblMotion_8.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_8.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_8.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_8, CType(8, Short))
         Me._lblMotion_8.Location = New System.Drawing.Point(438, 137)
         Me._lblMotion_8.Name = "_lblMotion_8"
         Me._lblMotion_8.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -900,7 +833,6 @@
         Me._lblLengthUnit_6.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_6.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_6, CType(6, Short))
         Me._lblLengthUnit_6.Location = New System.Drawing.Point(364, 195)
         Me._lblLengthUnit_6.Name = "_lblLengthUnit_6"
         Me._lblLengthUnit_6.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -913,7 +845,6 @@
         Me._lblLengthUnit_5.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_5, CType(5, Short))
         Me._lblLengthUnit_5.Location = New System.Drawing.Point(215, 195)
         Me._lblLengthUnit_5.Name = "_lblLengthUnit_5"
         Me._lblLengthUnit_5.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -926,7 +857,6 @@
         Me._lblLengthUnit_4.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_4.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_4, CType(4, Short))
         Me._lblLengthUnit_4.Location = New System.Drawing.Point(288, 166)
         Me._lblLengthUnit_4.Name = "_lblLengthUnit_4"
         Me._lblLengthUnit_4.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -939,7 +869,6 @@
         Me._lblMotion_6.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_6.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_6, CType(6, Short))
         Me._lblMotion_6.Location = New System.Drawing.Point(393, 195)
         Me._lblMotion_6.Name = "_lblMotion_6"
         Me._lblMotion_6.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -952,7 +881,6 @@
         Me._lblMotion_5.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_5, CType(5, Short))
         Me._lblMotion_5.Location = New System.Drawing.Point(233, 195)
         Me._lblMotion_5.Name = "_lblMotion_5"
         Me._lblMotion_5.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -965,7 +893,6 @@
         Me._lblMotion_4.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_4.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_4, CType(4, Short))
         Me._lblMotion_4.Location = New System.Drawing.Point(84, 195)
         Me._lblMotion_4.Name = "_lblMotion_4"
         Me._lblMotion_4.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -978,7 +905,6 @@
         Me._lblMotion_3.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_3, CType(3, Short))
         Me._lblMotion_3.Location = New System.Drawing.Point(10, 208)
         Me._lblMotion_3.Name = "_lblMotion_3"
         Me._lblMotion_3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -991,7 +917,6 @@
         Me._lblMotion_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_2, CType(2, Short))
         Me._lblMotion_2.Location = New System.Drawing.Point(87, 160)
         Me._lblMotion_2.Name = "_lblMotion_2"
         Me._lblMotion_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1004,7 +929,6 @@
         Me._lblPercentUnit_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblPercentUnit_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblPercentUnit_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblPercentUnit.SetIndex(Me._lblPercentUnit_1, CType(1, Short))
         Me._lblPercentUnit_1.Location = New System.Drawing.Point(383, 166)
         Me._lblPercentUnit_1.Name = "_lblPercentUnit_1"
         Me._lblPercentUnit_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1017,7 +941,6 @@
         Me._lblMotion_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_1, CType(1, Short))
         Me._lblMotion_1.Location = New System.Drawing.Point(96, 139)
         Me._lblMotion_1.Name = "_lblMotion_1"
         Me._lblMotion_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1030,7 +953,6 @@
         Me._lblPercentUnit_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblPercentUnit_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblPercentUnit_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblPercentUnit.SetIndex(Me._lblPercentUnit_0, CType(0, Short))
         Me._lblPercentUnit_0.Location = New System.Drawing.Point(382, 137)
         Me._lblPercentUnit_0.Name = "_lblPercentUnit_0"
         Me._lblPercentUnit_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1043,7 +965,6 @@
         Me._lblLengthUnit_3.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_3, CType(3, Short))
         Me._lblLengthUnit_3.Location = New System.Drawing.Point(288, 134)
         Me._lblLengthUnit_3.Name = "_lblLengthUnit_3"
         Me._lblLengthUnit_3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1056,7 +977,6 @@
         Me._lblMotion_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblMotion.SetIndex(Me._lblMotion_0, CType(0, Short))
         Me._lblMotion_0.Location = New System.Drawing.Point(6, 139)
         Me._lblMotion_0.Name = "_lblMotion_0"
         Me._lblMotion_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1116,7 +1036,6 @@
         '
         Me._lblGenCmt_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblGenCmt_0.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblGenCmt.SetIndex(Me._lblGenCmt_0, CType(0, Short))
         Me._lblGenCmt_0.Location = New System.Drawing.Point(20, 191)
         Me._lblGenCmt_0.Name = "_lblGenCmt_0"
         Me._lblGenCmt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1128,7 +1047,6 @@
         '
         Me._lblGenCmt_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblGenCmt_1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblGenCmt.SetIndex(Me._lblGenCmt_1, CType(1, Short))
         Me._lblGenCmt_1.Location = New System.Drawing.Point(16, 208)
         Me._lblGenCmt_1.Name = "_lblGenCmt_1"
         Me._lblGenCmt_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1177,9 +1095,6 @@
         Me.txtEnvironment.TabIndex = 2
         Me.txtEnvironment.Text = "Current Environment"
         '
-        'txtVslSt
-        '
-        '
         'frmAnalyses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1218,19 +1133,6 @@
         CType(Me.grdTensions, System.ComponentModel.ISupportInitialize).EndInit()
         Me.fraEnvironment.ResumeLayout(False)
         Me.fraEnvironment.PerformLayout()
-        CType(Me.lblAngleUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblGenCmt, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblLengthUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblMotion, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblPercentDamping, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblPercentUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblVslSt, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblWell, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtMotion, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPercentDamping, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtVslSt, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

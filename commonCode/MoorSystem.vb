@@ -249,7 +249,7 @@ Friend Class MoorSystem
                 .Anchor.Yg = AnchorY
                 .Anchor.Node = 9500 + i ' Jliu TODO
                 .WaterDepth = WaterDepth
-                .BottomSlope = CDbl(Val(BtmSlp)) * Degrees2Radians
+                .BottomSlope = CSng(Val(BtmSlp)) * Degrees2Radians
 
                 With .Anchor
                     .Model = AnchModel

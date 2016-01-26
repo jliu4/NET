@@ -50,16 +50,11 @@ Friend Class CurrentProfile
 	Public Function Item(ByVal Index As Object) As CurrentPair
 		Item = mcolCurrentProfile.Item(Index)
 	End Function
-	
-	'UPGRADE_NOTE: NewEnum property was commented out. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="B3FC1610-34F3-43F5-86B7-16C984F0E88E"'
-	'Public Function NewEnum() As stdole.IUnknown
-		'NewEnum = mcolCurrentProfile.GetEnumerator
-	'End Function
-	
-	Function GetEnumerator() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
-		'UPGRADE_TODO: Uncomment and change the following line to return the collection enumerator. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="95F9AAD0-1319-4921-95F0-B9D3C4FF7F1C"'
-		'GetEnumerator = mcolCurrentProfile.GetEnumerator
-	End Function
+
+
+    Function GetEnumerator() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
+        GetEnumerator = mcolCurrentProfile.GetEnumerator
+    End Function
 	
 	Public Function VofD(ByVal Depth As Single) As Single
 		' This function interpolates the current velocity array
@@ -71,33 +66,25 @@ Friend Class CurrentProfile
 		Dim Matched As Boolean
 		Dim LastDepth, LastVel As Single
 		Matched = False
-		'UPGRADE_WARNING: Couldn't resolve default property of object mcolCurrentProfile.Item().Depth. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		LastDepth = mcolCurrentProfile.Item(1).Depth
-		'UPGRADE_WARNING: Couldn't resolve default property of object mcolCurrentProfile.Item().Velocity. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		LastVel = mcolCurrentProfile.Item(1).Velocity
-		If Depth <= LastDepth Then
+        LastDepth = mcolCurrentProfile.Item(1).Depth
+        LastVel = mcolCurrentProfile.Item(1).Velocity
+        If Depth <= LastDepth Then
 			VofD = LastVel
 		Else
 			For	Each Pair In mcolCurrentProfile
 				With Pair
-					'UPGRADE_WARNING: Couldn't resolve default property of object Pair.Depth. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If Depth >= LastDepth And Depth < .Depth Then
-						Matched = True
-						'UPGRADE_WARNING: Couldn't resolve default property of object Pair.Depth. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						If .Depth = LastDepth Then
-							VofD = LastVel
-						Else
-							'UPGRADE_WARNING: Couldn't resolve default property of object Pair.Depth. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							'UPGRADE_WARNING: Couldn't resolve default property of object Pair.Velocity. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							VofD = LastVel + (.Velocity - LastVel) * (Depth - LastDepth) / (.Depth - LastDepth)
-						End If
-						Exit For
-					Else
-						'UPGRADE_WARNING: Couldn't resolve default property of object Pair.Depth. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						LastDepth = .Depth
-						'UPGRADE_WARNING: Couldn't resolve default property of object Pair.Velocity. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						LastVel = .Velocity
-					End If
+                    If Depth >= LastDepth And Depth < .Depth Then
+                        Matched = True
+                        If .Depth = LastDepth Then
+                            VofD = LastVel
+                        Else
+                            VofD = LastVel + (.Velocity - LastVel) * (Depth - LastDepth) / (.Depth - LastDepth)
+                        End If
+                        Exit For
+                    Else
+                        LastDepth = .Depth
+                        LastVel = .Velocity
+                    End If
 				End With
 			Next Pair
 		End If

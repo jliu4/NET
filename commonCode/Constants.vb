@@ -27,7 +27,6 @@ Module MARSConstants
     Public Const AppVelOutput As String = "appvel.out"
     ' Program constants
     Public Const mX As Short = 1
-    'UPGRADE_NOTE: MY was upgraded to MY_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
     Public Const MY_Renamed As Short = 2
     Public Const mZ As Short = 3
 
@@ -38,12 +37,6 @@ Module MARSConstants
     Public Const DefaultColor As Short = 0
 
     ' Physical constants
-    Public Const PI As Single = 3.14159265358979
-    Public Const Degrees2Radians As Single = PI / 180.0#
-    Public Const Radians2Degrees As Single = 180.0# / PI
-
-    Public Const Knots2Ftps As Single = 1.6878098571
-    Public Const Ftps2Knots As Single = 0.5924838013
 
     Public Const RegistryName As String = "\App Paths\mars.exe"
     Public Const MarsDirDefault As String = "C:\Program Files\MARS"
@@ -83,7 +76,9 @@ Module MARSConstants
     Public DiaFactor, FrcFactor, LFactor, StressFactor, MassFactor As Single
 
     Public CurProj As Project
-    Public Defaults As MarsIni
+    'Public Defaults As MarsIni
+    ' Public Defaults As DODOIni
+
     Public CurVessel As Vessel
     Public CurField As Wells
     Public NumTimeSteps As Short
@@ -93,6 +88,47 @@ Module MARSConstants
     Public TransY() As Object
     Public TransYaw() As Object
     Public TransTension() As Single
+    'Unit conversions
+    'length
+    '   metric
+    Public Const mm2M As Single = 0.001
+
+    '   english
+    Public Const In2Ft As Single = 1.0# / 12.0#
+
+    '   english - metric
+    Public Const Ft2M As Single = 0.3048
+
+    'angle
+    Public Const PI As Single = 3.14159265358979
+    Public Const Degrees2Radians As Single = PI / 180.0#
+    Public Const Radians2Degrees As Single = 180.0# / PI
+    Public Const Deg2Rad As Single = PI / 180.0#
+
+    'mass
+    '   english - metric
+    Public Const Lb2Kg As Single = 0.45359237
+
+    'force
+    '   g
+    Public Const Gm As Single = 9.80665
+
+    '   english - metric
+    Public Const Lb2N As Single = Lb2Kg * Gm
+
+    'time
+    Public Const Sec2Year As Single = 1.0# / (365.0# * 24.0# * 60.0# * 60.0#)
+
+    'volume
+    '   english - metric
+    Public Const Gal2M3 As Single = 0.003785412
+
+    'velocity
+    '   english - metric
+    Public Const Kn2MPS As Single = 0.5144444
+    Public Const Knots2Ftps As Single = 1.6878098571
+    Public Const Ftps2Knots As Single = 0.5924838013
+
 
     Public Enum SegType '2.1.4
         Wire = 1
@@ -116,7 +152,7 @@ Module MARSConstants
         On Error GoTo ErrHandler
         CurProj = New Project
         'Defaults = New DODOIni
-        Defaults = New MarsIni
+        'Defaults = New MarsIni
         ' MarsDir = GetDirFromRegistry(RegistryName) & "\"
         ' MarsDir = "c:\program files\mars\"
 

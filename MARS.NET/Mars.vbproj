@@ -107,6 +107,9 @@
     <Compile Include="..\commonCode\CurrentPair.vb">
       <Link>CurrentPair.vb</Link>
     </Compile>
+    <Compile Include="..\commonCode\DODOIni.vb">
+      <Link>DODOIni.vb</Link>
+    </Compile>
     <Compile Include="..\commonCode\DrftFCbyFreq.vb">
       <Link>DrftFCbyFreq.vb</Link>
     </Compile>
@@ -118,6 +121,9 @@
     </Compile>
     <Compile Include="..\commonCode\EnvLoad.vb">
       <Link>EnvLoad.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ExcelReporter.vb">
+      <Link>ExcelReporter.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\FairLead.vb">
       <Link>FairLead.vb</Link>
@@ -274,9 +280,6 @@
     <Compile Include="DrillRig.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExcelReporter.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="frmAnalyses.Designer.vb">
       <SubType>Code</SubType>
       <DependentUpon>frmAnalyses.vb</DependentUpon>
@@ -387,6 +390,9 @@
     <Compile Include="xyzAxis.vb">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="..\commonCode\frmCurrent.resx">
+      <Link>frmCurrent.resx</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\commonCode\frmEnviron.resx">
       <Link>frmEnviron.resx</Link>
       <DependentUpon>frmEnviron.vb</DependentUpon>

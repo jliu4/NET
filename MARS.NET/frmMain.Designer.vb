@@ -63,17 +63,8 @@
     Public WithEvents _lblVslSt_3 As System.Windows.Forms.Label
     Public WithEvents fraVesselLoc As System.Windows.Forms.GroupBox
     Public WithEvents lblVessel As System.Windows.Forms.Label
-    Public WithEvents btnPlot As Microsoft.VisualBasic.Compatibility.VB6.ButtonArray
-    Public WithEvents lblAngleUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblForceUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblLengthUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblVelUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblVslSt As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblWell As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
     Public WithEvents mnuFilePre As Microsoft.VisualBasic.Compatibility.VB6.ToolStripMenuItemArray
     Public WithEvents optInputSystem As Microsoft.VisualBasic.Compatibility.VB6.RadioButtonArray
-    Public WithEvents txtVslSt As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
-    Public WithEvents txtWell As Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray
     Public WithEvents mnuFileNew As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuFileOpen As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuLine1 As System.Windows.Forms.ToolStripSeparator
@@ -174,21 +165,12 @@
         Me._lblVslSt_5 = New System.Windows.Forms.Label()
         Me._lblVslSt_3 = New System.Windows.Forms.Label()
         Me.lblVessel = New System.Windows.Forms.Label()
-        Me.btnPlot = New Microsoft.VisualBasic.Compatibility.VB6.ButtonArray(Me.components)
-        Me.lblAngleUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblForceUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblLengthUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblVelUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblVslSt = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblWell = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
         Me.mnuFilePre = New Microsoft.VisualBasic.Compatibility.VB6.ToolStripMenuItemArray(Me.components)
         Me._mnuFilePre_0 = New System.Windows.Forms.ToolStripMenuItem()
         Me._mnuFilePre_1 = New System.Windows.Forms.ToolStripMenuItem()
         Me._mnuFilePre_2 = New System.Windows.Forms.ToolStripMenuItem()
         Me._mnuFilePre_3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.optInputSystem = New Microsoft.VisualBasic.Compatibility.VB6.RadioButtonArray(Me.components)
-        Me.txtVslSt = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
-        Me.txtWell = New Microsoft.VisualBasic.Compatibility.VB6.TextBoxArray(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
         Me.mnuFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFileNew = New System.Windows.Forms.ToolStripMenuItem()
@@ -227,17 +209,8 @@
         CType(Me.grdEL, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.fraWell.SuspendLayout()
         Me.fraVesselLoc.SuspendLayout()
-        CType(Me.btnPlot, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblAngleUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblLengthUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblVslSt, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblWell, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.mnuFilePre, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.optInputSystem, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtVslSt, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtWell, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MainMenu1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -459,7 +432,6 @@
         Me._btnPlot_1.BackColor = System.Drawing.SystemColors.Control
         Me._btnPlot_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._btnPlot_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnPlot.SetIndex(Me._btnPlot_1, CType(1, Short))
         Me._btnPlot_1.Location = New System.Drawing.Point(285, 27)
         Me._btnPlot_1.Name = "_btnPlot_1"
         Me._btnPlot_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -473,7 +445,6 @@
         Me._btnPlot_0.BackColor = System.Drawing.SystemColors.Control
         Me._btnPlot_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._btnPlot_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnPlot.SetIndex(Me._btnPlot_0, CType(0, Short))
         Me._btnPlot_0.Location = New System.Drawing.Point(218, 28)
         Me._btnPlot_0.Name = "_btnPlot_0"
         Me._btnPlot_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -524,7 +495,6 @@
         Me._txtWell_2.BackColor = System.Drawing.SystemColors.Control
         Me._txtWell_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWell_2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWell.SetIndex(Me._txtWell_2, CType(2, Short))
         Me._txtWell_2.Location = New System.Drawing.Point(263, 63)
         Me._txtWell_2.Name = "_txtWell_2"
         Me._txtWell_2.ReadOnly = True
@@ -541,7 +511,6 @@
         Me._txtWell_1.BackColor = System.Drawing.SystemColors.Control
         Me._txtWell_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWell_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWell.SetIndex(Me._txtWell_1, CType(1, Short))
         Me._txtWell_1.Location = New System.Drawing.Point(239, 39)
         Me._txtWell_1.Name = "_txtWell_1"
         Me._txtWell_1.ReadOnly = True
@@ -558,7 +527,6 @@
         Me._txtWell_0.BackColor = System.Drawing.SystemColors.Control
         Me._txtWell_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtWell_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWell.SetIndex(Me._txtWell_0, CType(0, Short))
         Me._txtWell_0.Location = New System.Drawing.Point(239, 16)
         Me._txtWell_0.Name = "_txtWell_0"
         Me._txtWell_0.ReadOnly = True
@@ -586,7 +554,6 @@
         Me._lblLengthUnit_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_2, CType(2, Short))
         Me._lblLengthUnit_2.Location = New System.Drawing.Point(333, 64)
         Me._lblLengthUnit_2.Name = "_lblLengthUnit_2"
         Me._lblLengthUnit_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -599,7 +566,6 @@
         Me._lblLengthUnit_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_1, CType(1, Short))
         Me._lblLengthUnit_1.Location = New System.Drawing.Point(333, 42)
         Me._lblLengthUnit_1.Name = "_lblLengthUnit_1"
         Me._lblLengthUnit_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -612,7 +578,6 @@
         Me._lblLengthUnit_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_0, CType(0, Short))
         Me._lblLengthUnit_0.Location = New System.Drawing.Point(333, 16)
         Me._lblLengthUnit_0.Name = "_lblLengthUnit_0"
         Me._lblLengthUnit_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -625,7 +590,6 @@
         Me._lblWell_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblWell_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWell_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWell.SetIndex(Me._lblWell_2, CType(2, Short))
         Me._lblWell_2.Location = New System.Drawing.Point(187, 64)
         Me._lblWell_2.Name = "_lblWell_2"
         Me._lblWell_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -638,7 +602,6 @@
         Me._lblWell_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblWell_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWell_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWell.SetIndex(Me._lblWell_1, CType(1, Short))
         Me._lblWell_1.Location = New System.Drawing.Point(187, 39)
         Me._lblWell_1.Name = "_lblWell_1"
         Me._lblWell_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -651,7 +614,6 @@
         Me._lblWell_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblWell_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblWell_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblWell.SetIndex(Me._lblWell_0, CType(0, Short))
         Me._lblWell_0.Location = New System.Drawing.Point(189, 17)
         Me._lblWell_0.Name = "_lblWell_0"
         Me._lblWell_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -710,7 +672,6 @@
         Me._txtVslSt_5.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_5.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_5.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_5, CType(5, Short))
         Me._txtVslSt_5.Location = New System.Drawing.Point(319, 84)
         Me._txtVslSt_5.Name = "_txtVslSt_5"
         Me._txtVslSt_5.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -726,7 +687,6 @@
         Me._txtVslSt_4.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_4.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_4.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_4, CType(4, Short))
         Me._txtVslSt_4.Location = New System.Drawing.Point(141, 84)
         Me._txtVslSt_4.Name = "_txtVslSt_4"
         Me._txtVslSt_4.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -742,7 +702,6 @@
         Me._txtVslSt_1.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_1, CType(1, Short))
         Me._txtVslSt_1.Location = New System.Drawing.Point(289, 24)
         Me._txtVslSt_1.Name = "_txtVslSt_1"
         Me._txtVslSt_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -758,7 +717,6 @@
         Me._txtVslSt_0.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_0, CType(0, Short))
         Me._txtVslSt_0.Location = New System.Drawing.Point(141, 24)
         Me._txtVslSt_0.Name = "_txtVslSt_0"
         Me._txtVslSt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -774,7 +732,6 @@
         Me._txtVslSt_3.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_3.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_3.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_3, CType(3, Short))
         Me._txtVslSt_3.Location = New System.Drawing.Point(319, 52)
         Me._txtVslSt_3.Name = "_txtVslSt_3"
         Me._txtVslSt_3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -790,7 +747,6 @@
         Me._txtVslSt_2.BackColor = System.Drawing.SystemColors.Window
         Me._txtVslSt_2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtVslSt_2.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtVslSt.SetIndex(Me._txtVslSt_2, CType(2, Short))
         Me._txtVslSt_2.Location = New System.Drawing.Point(141, 54)
         Me._txtVslSt_2.Name = "_txtVslSt_2"
         Me._txtVslSt_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -821,7 +777,6 @@
         Me._lblLengthUnit_6.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_6.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_6, CType(6, Short))
         Me._lblLengthUnit_6.Location = New System.Drawing.Point(377, 89)
         Me._lblLengthUnit_6.Name = "_lblLengthUnit_6"
         Me._lblLengthUnit_6.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -834,7 +789,6 @@
         Me._lblLengthUnit_5.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_5, CType(5, Short))
         Me._lblLengthUnit_5.Location = New System.Drawing.Point(216, 55)
         Me._lblLengthUnit_5.Name = "_lblLengthUnit_5"
         Me._lblLengthUnit_5.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -847,7 +801,6 @@
         Me._lblLengthUnit_4.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_4.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_4, CType(4, Short))
         Me._lblLengthUnit_4.Location = New System.Drawing.Point(377, 28)
         Me._lblLengthUnit_4.Name = "_lblLengthUnit_4"
         Me._lblLengthUnit_4.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -860,7 +813,6 @@
         Me._lblLengthUnit_3.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblLengthUnit.SetIndex(Me._lblLengthUnit_3, CType(3, Short))
         Me._lblLengthUnit_3.Location = New System.Drawing.Point(217, 26)
         Me._lblLengthUnit_3.Name = "_lblLengthUnit_3"
         Me._lblLengthUnit_3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -873,7 +825,6 @@
         Me._lblVslSt_2.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_2, CType(2, Short))
         Me._lblVslSt_2.Location = New System.Drawing.Point(93, 56)
         Me._lblVslSt_2.Name = "_lblVslSt_2"
         Me._lblVslSt_2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -886,7 +837,6 @@
         Me._lblVslSt_4.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_4.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_4, CType(4, Short))
         Me._lblVslSt_4.Location = New System.Drawing.Point(16, 88)
         Me._lblVslSt_4.Name = "_lblVslSt_4"
         Me._lblVslSt_4.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -899,7 +849,6 @@
         Me._lblVslSt_1.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_1, CType(1, Short))
         Me._lblVslSt_1.Location = New System.Drawing.Point(250, 24)
         Me._lblVslSt_1.Name = "_lblVslSt_1"
         Me._lblVslSt_1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -912,7 +861,6 @@
         Me._lblVslSt_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_0.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_0, CType(0, Short))
         Me._lblVslSt_0.Location = New System.Drawing.Point(109, 26)
         Me._lblVslSt_0.Name = "_lblVslSt_0"
         Me._lblVslSt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -925,7 +873,6 @@
         Me._lblVslSt_5.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_5, CType(5, Short))
         Me._lblVslSt_5.Location = New System.Drawing.Point(275, 87)
         Me._lblVslSt_5.Name = "_lblVslSt_5"
         Me._lblVslSt_5.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -938,7 +885,6 @@
         Me._lblVslSt_3.BackColor = System.Drawing.SystemColors.Control
         Me._lblVslSt_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblVslSt_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblVslSt.SetIndex(Me._lblVslSt_3, CType(3, Short))
         Me._lblVslSt_3.Location = New System.Drawing.Point(263, 54)
         Me._lblVslSt_3.Name = "_lblVslSt_3"
         Me._lblVslSt_3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -959,12 +905,6 @@
         Me.lblVessel.TabIndex = 1
         Me.lblVessel.Text = "Diamond Baroness"
         Me.lblVessel.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'btnPlot
-        '
-        '
-        'mnuFilePre
-        '
         '
         '_mnuFilePre_0
         '
@@ -1080,31 +1020,31 @@
         'mnuInpProjDes
         '
         Me.mnuInpProjDes.Name = "mnuInpProjDes"
-        Me.mnuInpProjDes.Size = New System.Drawing.Size(213, 22)
+        Me.mnuInpProjDes.Size = New System.Drawing.Size(212, 22)
         Me.mnuInpProjDes.Text = "Vessel..."
         '
         'mnuLineInp
         '
         Me.mnuLineInp.Name = "mnuLineInp"
-        Me.mnuLineInp.Size = New System.Drawing.Size(210, 6)
+        Me.mnuLineInp.Size = New System.Drawing.Size(209, 6)
         '
         'mnuInpEnviron
         '
         Me.mnuInpEnviron.Name = "mnuInpEnviron"
-        Me.mnuInpEnviron.Size = New System.Drawing.Size(213, 22)
+        Me.mnuInpEnviron.Size = New System.Drawing.Size(212, 22)
         Me.mnuInpEnviron.Text = "&Environment..."
         '
         'mnuInpMoor
         '
         Me.mnuInpMoor.Name = "mnuInpMoor"
-        Me.mnuInpMoor.Size = New System.Drawing.Size(213, 22)
+        Me.mnuInpMoor.Size = New System.Drawing.Size(212, 22)
         Me.mnuInpMoor.Text = "&Mooring System..."
         '
         'mnuInpFC
         '
         Me.mnuInpFC.Enabled = False
         Me.mnuInpFC.Name = "mnuInpFC"
-        Me.mnuInpFC.Size = New System.Drawing.Size(213, 22)
+        Me.mnuInpFC.Size = New System.Drawing.Size(212, 22)
         Me.mnuInpFC.Text = "&Vessel Force Coefficients..."
         Me.mnuInpFC.Visible = False
         '
@@ -1226,17 +1166,8 @@
         Me.fraWell.PerformLayout()
         Me.fraVesselLoc.ResumeLayout(False)
         Me.fraVesselLoc.PerformLayout()
-        CType(Me.btnPlot, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblAngleUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblLengthUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblVslSt, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblWell, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.mnuFilePre, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.optInputSystem, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtVslSt, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtWell, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MainMenu1.ResumeLayout(False)
         Me.MainMenu1.PerformLayout()
         Me.ResumeLayout(False)

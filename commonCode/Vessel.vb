@@ -852,80 +852,80 @@ ErrorHandler:
 					'            Debug.Print "Period =" & Fields(0)
 					
 					If FieldCount <> 14 Then GoTo ErrorHandler
-					
-					Freq = CDbl(Fields(1))
-					RAOx = CDbl(Fields(2))
-					RAOy = CDbl(Fields(4))
-					RAOr = CDbl(Fields(12))
-					
-					'                Input #FileNum, Dummy, Freq, RAOx, Dummy, RAOy, Dummy, _
-					''                    Dummy, Dummy, Dummy, Dummy, Dummy, Dummy, RAOr, Dummy
-					
-					'                    Debug.Print "Freq, RAOx, RAOy, RAOr = " & Freq, RAOx, RAOy, RAOr
-					
-					RAOr = RAOr * Degrees2Radians
-					
-					If j = 1 Then NewRAOs.RAOsAdd(Freq)
-					NewRAOs.RAOsItem(k).RAOx.ForceCoefAdd(RAOx)
-					NewRAOs.RAOsItem(k).RAOy.ForceCoefAdd(RAOy)
-					NewRAOs.RAOsItem(k).RAOr.ForceCoefAdd(RAOr)
-				Next k
-			Next j
-			
-			mcolMotionRAOs.Add(NewRAOs)
-		Next i
-		
-		InputRAOs = True
-		Exit Function
-		
-ErrorHandler: 
-		If Len(Err.Description) > 0 Then
-			MsgBox(Err.Description, MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
-		End If
-	End Function
-	
-	Public Function ReadDampingPercent(ByVal fnum As Integer) As Object
-		Dim tmp2, tmp1, tmp3 As Single
-		Input(fnum, tmp1)
-		Input(fnum, tmp2)
-		Input(fnum, tmp3)
-		If tmp1 > 10 And tmp2 > 10 And tmp3 > 10 Then
-			With mclsDampingPercent
-				.Surge = tmp1
-				.Sway = tmp2
-				.Yaw = tmp3
-			End With
-		Else
-			With mclsDampingPercent
-				.Surge = mclsOriginalDampingPercent.Surge
-				.Sway = mclsOriginalDampingPercent.Sway
-				.Yaw = mclsOriginalDampingPercent.Yaw
-			End With
-		End If
-	End Function
-	
-	Public Function SaveDampingPercent(ByVal fnum As Integer) As Object
-		With mclsDampingPercent
-			WriteLine(fnum, .Surge, .Sway, .Yaw)
-		End With
-	End Function
-	
-	Private Function GetOriginalDamping(ByVal Draft As Single) As Motion
-		Dim N, i, Ns As Short
-		Dim Rd As Single
-		Dim Dy1, Dx1, Dm1 As Single
-		Dim Dy2, Dx2, Dm2 As Single
-		Dim Damp As New Motion
-		
-		N = mcolShipDamp.Count()
-		
-		If N = 1 Then
-			With Damp
+
+                    Freq = CSng(Fields(1))
+                    RAOx = CSng(Fields(2))
+                    RAOy = CSng(Fields(4))
+                    RAOr = CSng(Fields(12))
+
+                    '                Input #FileNum, Dummy, Freq, RAOx, Dummy, RAOy, Dummy, _
+                    ''                    Dummy, Dummy, Dummy, Dummy, Dummy, Dummy, RAOr, Dummy
+
+                    '                    Debug.Print "Freq, RAOx, RAOy, RAOr = " & Freq, RAOx, RAOy, RAOr
+
+                    RAOr = RAOr * Degrees2Radians
+
+                    If j = 1 Then NewRAOs.RAOsAdd(Freq)
+                    NewRAOs.RAOsItem(k).RAOx.ForceCoefAdd(RAOx)
+                    NewRAOs.RAOsItem(k).RAOy.ForceCoefAdd(RAOy)
+                    NewRAOs.RAOsItem(k).RAOr.ForceCoefAdd(RAOr)
+                Next k
+            Next j
+
+            mcolMotionRAOs.Add(NewRAOs)
+        Next i
+
+        InputRAOs = True
+        Exit Function
+
+ErrorHandler:
+        If Len(Err.Description) > 0 Then
+            MsgBox(Err.Description, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Error")
+        End If
+    End Function
+
+    Public Function ReadDampingPercent(ByVal fnum As Integer) As Object
+        Dim tmp2, tmp1, tmp3 As Single
+        Input(fnum, tmp1)
+        Input(fnum, tmp2)
+        Input(fnum, tmp3)
+        If tmp1 > 10 And tmp2 > 10 And tmp3 > 10 Then
+            With mclsDampingPercent
+                .Surge = tmp1
+                .Sway = tmp2
+                .Yaw = tmp3
+            End With
+        Else
+            With mclsDampingPercent
+                .Surge = mclsOriginalDampingPercent.Surge
+                .Sway = mclsOriginalDampingPercent.Sway
+                .Yaw = mclsOriginalDampingPercent.Yaw
+            End With
+        End If
+    End Function
+
+    Public Function SaveDampingPercent(ByVal fnum As Integer) As Object
+        With mclsDampingPercent
+            WriteLine(fnum, .Surge, .Sway, .Yaw)
+        End With
+    End Function
+
+    Private Function GetOriginalDamping(ByVal Draft As Single) As Motion
+        Dim N, i, Ns As Short
+        Dim Rd As Single
+        Dim Dy1, Dx1, Dm1 As Single
+        Dim Dy2, Dx2, Dm2 As Single
+        Dim Damp As New Motion
+
+        N = mcolShipDamp.Count()
+
+        If N = 1 Then
+            With Damp
                 .Surge = mcolShipDamp.Item(1).DampSurge
                 .Sway = mcolShipDamp.Item(1).DampSway
                 .Yaw = mcolShipDamp.Item(1).DampYaw
             End With
-		Else
+        Else
             If Draft <= mcolShipDamp.Item(1).Draft Then
                 With mcolShipDamp.Item(1)
                     Dx1 = .DampSurge
@@ -956,61 +956,61 @@ ErrorHandler:
                         Ns = i
                         Exit For
                     End If
-                Next 
-				With mcolShipDamp.Item(Ns - 1)
+                Next
+                With mcolShipDamp.Item(Ns - 1)
                     Dx1 = .DampSurge
                     Dy1 = .DampSway
                     Dm1 = .DampYaw
                 End With
-				With mcolShipDamp.Item(Ns)
+                With mcolShipDamp.Item(Ns)
                     Dx2 = .DampSurge
                     Dy2 = .DampSway
                     Dm2 = .DampYaw
                 End With
                 Rd = (Draft - mcolShipDamp.Item(Ns - 1).Draft) / (mcolShipDamp.Item(Ns).Draft - mcolShipDamp.Item(Ns - 1).Draft)
             End If
-			With Damp
-				.Surge = Dx1 + (Dx2 - Dx1) * Rd
-				.Sway = Dy1 + (Dy2 - Dy1) * Rd
-				.Yaw = Dm1 + (Dm2 - Dm1) * Rd
-			End With
-		End If
-		GetOriginalDamping = Damp
-	End Function
-	
-	Public Function InputFairleads(ByVal fnum As Short) As Boolean
-		InputFairleads = False
-		On Error GoTo ErrorHandler
-		
-		Dim TmpStr As String
-		Dim Fields() As String
-		Dim FieldCount As Short
-		Dim NSeg, i, j, NumLines As Short
-		Dim SegTp As String
-		Dim Lg, dia As Single
-		Dim E1, BS, E2 As Single
-		Dim Buoy, DryWt, WetWt, BuoyL As Single
-		Dim FrCoef As Single
-		
-		TmpStr = LineInput(fnum) ' discard title comments
-		
-		Input(fnum, NumLines)
-		With mclsMoorSystem
-			For i = .MoorLineCount To 1 Step -1
-				.MoorLineDelete(i)
-			Next i
-		End With
-		For i = 1 To NumLines
-			TmpStr = LineInput(fnum)
+            With Damp
+                .Surge = Dx1 + (Dx2 - Dx1) * Rd
+                .Sway = Dy1 + (Dy2 - Dy1) * Rd
+                .Yaw = Dm1 + (Dm2 - Dm1) * Rd
+            End With
+        End If
+        GetOriginalDamping = Damp
+    End Function
+
+    Public Function InputFairleads(ByVal fnum As Short) As Boolean
+        InputFairleads = False
+        On Error GoTo ErrorHandler
+
+        Dim TmpStr As String
+        Dim Fields() As String
+        Dim FieldCount As Short
+        Dim NSeg, i, j, NumLines As Short
+        Dim SegTp As String
+        Dim Lg, dia As Single
+        Dim E1, BS, E2 As Single
+        Dim Buoy, DryWt, WetWt, BuoyL As Single
+        Dim FrCoef As Single
+
+        TmpStr = LineInput(fnum) ' discard title comments
+
+        Input(fnum, NumLines)
+        With mclsMoorSystem
+            For i = .MoorLineCount To 1 Step -1
+                .MoorLineDelete(i)
+            Next i
+        End With
+        For i = 1 To NumLines
+            TmpStr = LineInput(fnum)
             Fields = Split_Renamed(TmpStr, " ")
             FieldCount = UBound(Fields) - LBound(Fields) + 1
-			If FieldCount <> 4 Then GoTo ErrorHandler
-			mclsMoorSystem.MoorLineAdd()
-			mclsMoorSystem.MoorLines(i).FairLead.Xs = CDbl(Fields(0))
-			mclsMoorSystem.MoorLines(i).FairLead.Ys = CDbl(Fields(1))
-			mclsMoorSystem.MoorLines(i).FairLead.z = CDbl(Fields(2))
-			mclsMoorSystem.MoorLines(i).FairLead.SprdAngle = CDbl(Fields(3)) * Degrees2Radians
-		Next i
+            If FieldCount <> 4 Then GoTo ErrorHandler
+            mclsMoorSystem.MoorLineAdd()
+            mclsMoorSystem.MoorLines(i).FairLead.Xs = CSng(Fields(0))
+            mclsMoorSystem.MoorLines(i).FairLead.Ys = CSng(Fields(1))
+            mclsMoorSystem.MoorLines(i).FairLead.z = CSng(Fields(2))
+            mclsMoorSystem.MoorLines(i).FairLead.SprdAngle = CSng(Fields(3)) * Degrees2Radians
+        Next i
 		Input(fnum, msngShipDraftSur)
 		Input(fnum, msngShipDraftOpr)
 		Input(fnum, NSeg)

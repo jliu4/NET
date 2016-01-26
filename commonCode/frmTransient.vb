@@ -6,10 +6,13 @@ Imports System.Diagnostics
 Imports System.ComponentModel
 
 Friend Class frmTransient
-	Inherits System.Windows.Forms.Form
-	
-	' for messages
-	Private msgNotSavedWarning As String
+    Inherits System.Windows.Forms.Form
+
+    ' Version 1.0
+    ' 2016, Copyright Genesis, Jin Liu
+
+    ' for messages
+    Private msgNotSavedWarning As String
 	Private Const msgInputWarning As String = "The input file has not been read properly. " & " It may be corrupted. Please check data closely."
 	Private Const msgNoFileWarning As String = "Cannot find the specifiied input file."
 	Private msgOutputWarning As String
@@ -41,8 +44,11 @@ Friend Class frmTransient
 	Dim TMColHead(3) As String
 	Dim TMRowHead() As String
 	Dim LCRowHead() As String
-	
-	Dim TransientComputed As Boolean
+    Dim OxApp As ExcelReporter
+
+    Dim Defaults As DODOIni
+
+    Dim TransientComputed As Boolean
 
     Public Sub setLabel()
         On Error GoTo ErrHandler
@@ -89,10 +95,25 @@ ErrHandler:
 
     Private Sub frmTransient_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
         On Error GoTo ErrHandler
-		IsMetricUnit = False
-		InitProject()
-      
-		NumProj = 1
+        'JLIU TODO need to allow both units
+        IsMetricUnit = False
+        If CurProj Is Nothing Then
+            CurProj = New Project
+            Defaults = New DODOIni
+            DODODir = My.Application.Info.DirectoryPath & "\Data\"
+        End If
+
+        Dim FS As Object
+
+        FS = CreateObject("Scripting.FileSystemObject")
+        If Not FS.FolderExists(My.Application.Info.DirectoryPath & "\Data") Then
+            Call FS.CreateFolder(My.Application.Info.DirectoryPath & "\Data")
+        End If
+        ' check if data subdir exist
+        'MarsDir = My.Application.Info.DirectoryPath & "\Data\"
+        'InitProject()
+
+        NumProj = 1
 		With CurProj
 			CurVessel = .Vessel
 			CurVessel.Name = .Vessel.Name
@@ -180,6 +201,7 @@ ErrHandler:
 	
 	Private Sub btnEnvironment_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnEnvironment.Click
 
+        ' frmEnviron.Show()
         VB6.ShowForm(frmEnviron, 1, Me)
         txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
 		
@@ -187,12 +209,18 @@ ErrHandler:
 	
 	Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
         On Error GoTo ErrHandler
-		If Not TransientComputed Then
-			MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
-			Exit Sub
-		End If
+        If Not TransientComputed Then
+            MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
+            Exit Sub
+        End If
 
-		Exit Sub
+        If OxApp Is Nothing Then
+            OxApp = New ExcelReporter
+        End If
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+        OxApp.ReportDODO(CurVessel)
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        Exit Sub
 ErrHandler: 
 		MsgBox("Err creating report...")
 		
@@ -222,10 +250,11 @@ ErrHandler:
 		Dim FMoor As New Force
 		Dim FEnv As New Force
 		Dim FRiser As New Force
-		
-		Dim ZWD As Single
-		
-		If IsMetricUnit Then
+
+        Dim ZWD As Single
+        Dim ActualWD As Single
+
+        If IsMetricUnit Then
 			LFactor = 0.3048 ' ft -> m
 			FrcFactor = 4.448222 ' kips -> KN
 		Else
@@ -270,14 +299,16 @@ ErrHandler:
 		With frmProgress
 			.Text = "Transient Analysis"
 			.CurrentStage.Text = "Initializing..."
-			.Progress = 0
-			VB6.ShowForm(frmProgress, 0, Me)
-		End With
+            .Progress = 0
+            .Show()
+
+        End With
 		
 		SaveLC()
-		
-		ZWD = CurVessel.WaterDepth
-		
+        'TODO Should use riser length or waterdepth?
+        ZWD = CurVessel.Riser.Length
+
+        ActualWD = CurVessel.WaterDepth
         TransX(0) = CurVessel.ShipCurGlob.Xg
         TransY(0) = CurVessel.ShipCurGlob.Yg
         TransYaw(0) = CurVessel.ShipCurGlob.Heading
@@ -300,7 +331,7 @@ ErrHandler:
 		'   initializing
 		sMass = CurVessel.ShipMass(CurVessel.ShipDraft)
 		sDamp = CurVessel.ShipDamp(CurVessel.ShipDraft)
-        'sYRD = CurVessel.ShipYawRateDrag(CurVessel.ShipDraft)
+        sYRD = CurVessel.ShipYawRateDrag(CurVessel.ShipDraft)
         For i = 0 To 2
 			Acc(i).Surge = 0
 			Vel(i).Surge = 0
@@ -340,8 +371,10 @@ ErrHandler:
 			End With
 			
 			With CurVessel
-				FEnv = .EnvLoad.FEnvLocl(Pos(1).Heading, (Vel(1).Surge), (Vel(1).Sway))
-                'FRiser = .Riser.FhLocl(Pos(1), Vel(1), Acc(1), .EnvLoad.EnvCur.Current)
+                FEnv = .EnvLoad.FEnvLocl(Pos(1).Heading, (Vel(1).Surge), (Vel(1).Sway))
+                If .Riser IsNot Nothing Then
+                    FRiser = .Riser.FhLocl(Pos(1), Vel(1), Acc(1), .EnvLoad.EnvCur.Current)
+                End If
 
                 Call .NextPosnVel(TimeStep, Acc, Vel, Pos)
 				
@@ -382,9 +415,9 @@ ErrHandler:
 				End If
 			End If
             'offset
-            WriteLine(FileNum2, TimeStep * (i - 1), TransX(i), TransY(i), RadTo360(TransYaw(i)), Vel(2).Surge * Ftps2Knots, Vel(2).Sway * Ftps2Knots, Vel(2).Move * Ftps2Knots, Acc(2).Move, FEnv.Ft * 0.001, FRiser.Ft * 0.001, Dist / ZWD * 100.0#)
-			
-			'debug
+            WriteLine(FileNum2, TimeStep * (i - 1), TransX(i), TransY(i), RadTo360(TransYaw(i)), Vel(2).Surge * Ftps2Knots, Vel(2).Sway * Ftps2Knots, Vel(2).Move * Ftps2Knots, Acc(2).Move, FEnv.Ft * 0.001, FRiser.Ft * 0.001, Dist / ActualWD * 100.0#)
+
+            'debug
             WriteLine(FileNum3, TimeStep * (i - 1), TransYaw(i), Vel(2).Yaw, Acc(2).Yaw, FEnv.MYaw, FRiser.MYaw, sMass.Yaw, Pos(1).Heading)
 			
 			Dist0 = Dist
@@ -425,9 +458,9 @@ ErrHandler:
         dy = TransY(NumTimeSteps) - TransY(0)
 		
 		Dist = System.Math.Sqrt(dx ^ 2 + dy ^ 2)
-		PWD = Dist / CurVessel.WaterDepth
-		
-		txtOffset.Text = Format(Dist * LFactor, "##,##0") '  final offset
+        'PWD = Dist / CurVessel.WaterDepth
+        PWD = Dist / CurVessel.Riser.Length
+        txtOffset.Text = Format(Dist * LFactor, "##,##0") '  final offset
 		txtOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' final offset percent WD
 		
 		If dx = 0 And dy = 0 Then
@@ -438,10 +471,10 @@ ErrHandler:
 		End If
 		
 		txtOffsetBearing.Text = Format(RadTo360(Bearing), "#0") '  Bearing is the angle of final position measured clockwise from TN ???
-		
-		PWD = MaxOffset / CurVessel.WaterDepth
-		
-		txtMaxOffset.Text = Format(MaxOffset * LFactor, "##,##0") ' Max Transient Offset
+
+        'PWD = MaxOffset / CurVessel.WaterDepth
+        PWD = MaxOffset / CurVessel.Riser.Length
+        txtMaxOffset.Text = Format(MaxOffset * LFactor, "##,##0") ' Max Transient Offset
 		txtMaxOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' Max Transient Offset Percent WD
 		txtMaxOffsetTime.Text = CStr(MaxTransTime)
 
@@ -587,7 +620,7 @@ ErrHandler:
 
         CurProj = New Project
 
-        '        ClearScreenData
+        ' ClearScreenData
 
         With CurProj
             CurVessel = .Vessel
@@ -782,10 +815,10 @@ ErrHandler:
 			If .ImportData(InputFile) Then
 				.Saved = True
 				CurVessel = .Vessel
-                'lblVessel.Text = .Vessel.Name
+
                 CurVessel.Name = .Vessel.Name
-                'lblVessel.Caption = CurVessel.Name
-				If Not .VesselParticular Then
+
+                If Not .VesselParticular Then
 					MsgBox("DODO is unable to load vessel particulars.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, msgTitle)
 				End If
 			Else
@@ -870,26 +903,17 @@ ErrHandler:
             .ColumnCount = 4
             For i = 0 To .ColumnCount - 1
                 .Columns(i).HeaderText = TMColHead(i)
-
+                .Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             Next
-            .Columns(0).Width = 58
-            .Columns(1).Width = 88
-            .Columns(2).Width = 88
-            .Columns(3).Width = 88
+            .Columns(0).FillWeight = 70 / .ColumnCount
+            .Columns(1).FillWeight = 110 / .ColumnCount
+            .Columns(2).FillWeight = 110 / .ColumnCount
+            .Columns(3).FillWeight = 110 / .ColumnCount
         End With
 
         With grdTM
 
         End With
-
-        'Call SetupLineGrid(grdTM, TMRowHead, TMColHead, 0, VB6.PixelsToTwipsX(fraTransientMotion.Width) - 50, 300, VB6.PixelsToTwipsY(fraTransientMotion.Height) - SysInfo1.ScrollBarSize - 1200, NumTimeSteps + 1, SysInfo1, True, 2#, Me)
-        'With grdTM
-        '.Col = 0
-        'For i = 1 To NumTimeSteps
-        '.Row = i
-        '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-        'Next i
-        'End With
 
     End Sub
 	
@@ -921,75 +945,46 @@ ErrHandler:
 		If txtInterval.Text = "" Then
 			Exit Sub
 		Else
-			TS = CDbl(txtInterval.Text)
-			If TS <= 0 Then
-				MsgBox("Time interval must be > 0!", MsgBoxStyle.OKOnly, "DODO - Invalid Value Entered")
-				Exit Sub
-			ElseIf Fix((CDbl(txtDuration.Text) / TS) + 0.5) > MaxTimeSteps Then 
-				MsgBox("Duration / Time Interval must be less than " & CStr(MaxTimeSteps), MsgBoxStyle.OKOnly, "DODO - Too Many Time Steps")
-				Exit Sub
-			Else
-				TimeStep = TS
-				NumTimeSteps = Fix((CDbl(txtDuration.Text) / TimeStep) + 0.5)
-			End If
-		End If
-	End Sub
-	
-	Private Sub txtDuration_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtDuration.Leave
-		
-		Dim i As Short
-		Dim Dur As Single
-		
-		If txtDuration.Text = "" Then
-			Exit Sub
-		Else
-			Dur = CDbl(txtDuration.Text)
-			If Dur <= 0 Then
-				MsgBox("Duration must be >0!", MsgBoxStyle.OKOnly, "DODO - Invalid Value Entered")
-				Exit Sub
-			ElseIf Fix((Dur / TimeStep) + 0.5) > MaxTimeSteps Then 
-				MsgBox("Duration / Time Interval must be less than " & CStr(MaxTimeSteps), MsgBoxStyle.OKOnly, "DODO - Too Many Time Steps")
-				Exit Sub
-			Else
-				NumTimeSteps = Fix((Dur / TimeStep) + 0.5)
-				ReDim TMRowHead(NumTimeSteps + 1)
-				For i = 0 To NumTimeSteps + 1
-					TMRowHead(i) = Format((i - 1) * TimeStep, "#,##0.0")
-				Next i
-                'grdTM.Rows = NumTimeSteps + 2
-                'With grdTM
-                '.Col = 0
-                'For i = 1 To NumTimeSteps + 1
-                '.Row = i
-                '.CellAlignment = MSFlexGridLib.AlignmentSettings.flexAlignCenterCenter
-                '.Text = TMRowHead(i)
-                'Next i
-                'End With
-			End If
-		End If
-		
-	End Sub
-	
-    ' Private Sub txtVslSt_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtVslSt.TextChanged
-    'Dim Index As Short = txtVslSt.GetIndex(eventSender)
+            TS = CSng(txtInterval.Text)
+            If TS <= 0 Then
+                MsgBox("Time interval must be > 0!", MsgBoxStyle.OkOnly, "DODO - Invalid Value Entered")
+                Exit Sub
+            ElseIf Fix((CSng(txtDuration.Text) / TS) + 0.5) > MaxTimeSteps Then
+                MsgBox("Duration / Time Interval must be less than " & CStr(MaxTimeSteps), MsgBoxStyle.OkOnly, "DODO - Too Many Time Steps")
+                Exit Sub
+            Else
+                TimeStep = TS
+                NumTimeSteps = Fix((CSng(txtDuration.Text) / TimeStep) + 0.5)
+            End If
+        End If
+    End Sub
 
-    '   If Not FirstLoad Then CurProj.Saved = False
+    Private Sub txtDuration_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtDuration.Leave
 
-    'End Sub
+        Dim i As Short
+        Dim Dur As Single
 
-    '
-    'Private Sub txtWell_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWell.TextChanged
-    '
-    '       If Not FirstLoad Then CurProj.Saved = False
+        If txtDuration.Text = "" Then
+            Exit Sub
+        Else
+            Dur = CSng(txtDuration.Text)
+            If Dur <= 0 Then
+                MsgBox("Duration must be >0!", MsgBoxStyle.OkOnly, "DODO - Invalid Value Entered")
+                Exit Sub
+            ElseIf Fix((Dur / TimeStep) + 0.5) > MaxTimeSteps Then
+                MsgBox("Duration / Time Interval must be less than " & CStr(MaxTimeSteps), MsgBoxStyle.OkOnly, "DODO - Too Many Time Steps")
+                Exit Sub
+            Else
+                NumTimeSteps = Fix((Dur / TimeStep) + 0.5)
+                ReDim TMRowHead(NumTimeSteps + 1)
+                For i = 0 To NumTimeSteps + 1
+                    TMRowHead(i) = Format((i - 1) * TimeStep, "#,##0.0")
+                Next i
 
-    '  End Sub
+            End If
+        End If
 
-    ' Private Sub txtRiser_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtRiser.TextChanged
-    'Dim Index As Short = txtRiser.GetIndex(eventSender)
-
-    '   If Not FirstLoad Then CurProj.Saved = False
-
-    'End Sub
+    End Sub
 
     Public Sub LoadData(Optional ByRef FirstTime As Boolean = False)
 
@@ -1009,22 +1004,23 @@ ErrHandler:
 
         With CurVessel
             txtWell.Text = Format(.WaterDepth * LFactor, "0.0")
-
+            txtRiserLen.Text = Format(.Riser.Length * LFactor, "0.0")
             With .ShipCurGlob
-                txtVslSt(0).Text = Format(.Xg * LFactor, "0.00")
-                txtVslSt(1).Text = Format(.Yg * LFactor, "0.00")
-                txtVslSt(2).Text = Format(RadTo360(.Heading), "0")
+                _txtVslSt_0.Text = Format(.Xg * LFactor, "0.00")
+                _txtVslSt_1.Text = Format(.Yg * LFactor, "0.00")
+                _txtVslSt_2.Text = Format(RadTo360(.Heading), "0")
             End With
 
-            txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.00")
+            _txtVslSt_3.Text = Format(.ShipDraft * LFactor, "0.00")
+            If .Riser IsNot Nothing Then
+                With .Riser
+                    _txtRiser_0.Text = Format(.TopTen / 1000.0# * FrcFactor, "0.0")
+                    _txtRiser_1.Text = Format(.mass / 1000.0# * MassFactor, "0.0")
+                    _txtRiser_2.Text = Format(.Dia * 12.0# * DiaFactor, "0.0")
 
-            'With .Riser
-            'txtRiser(0).Text = Format(.TopTen / 1000.0# * FrcFactor, "0.0")
-            'txtRiser(1).Text = Format(.mass / 1000.0# * MassFactor, "0.0")
-            'txtRiser(2).Text = Format(.Dia * 12.0# * DiaFactor, "0.0")
-            'End With
+                End With
+            End If
         End With
-
     End Sub
 
     Public Sub SaveLC()
@@ -1043,20 +1039,21 @@ ErrHandler:
 
         With CurVessel
             With .ShipCurGlob
-                .Xg = CDbl(CheckData(txtVslSt(0).Text, , True)) / LFactor
-                .Yg = CDbl(CheckData(txtVslSt(1).Text, , True)) / LFactor
-                .Heading = CDbl(CheckData(txtVslSt(2).Text, , True)) * Degrees2Radians
+                .Xg = CSng(CheckData(txtVslSt(0).Text, , True)) / LFactor
+                .Yg = CSng(CheckData(txtVslSt(1).Text, , True)) / LFactor
+                .Heading = CSng(CheckData(txtVslSt(2).Text, , True)) * Degrees2Radians
             End With
-            .ShipDraft = CDbl(CheckData(txtVslSt(3).Text, , True)) / LFactor
-            .WaterDepth = CDbl(CheckData(txtWell.Text, , True)) / LFactor
-            ' .Riser.Length = .WaterDepth
+            .ShipDraft = CSng(CheckData(txtVslSt(3).Text, , True)) / LFactor
+            .WaterDepth = CSng(CheckData(txtWell.Text, , True)) / LFactor
 
-            '  With .Riser
-            ' .TopTen = CDbl(CheckData(txtRiser(0).Text, , True)) / FrcFactor * 1000.0#
-            ' .mass = CDbl(CheckData(txtRiser(1).Text, , True)) / MassFactor * 1000.0#
-            ' .Dia = CDbl(CheckData(txtRiser(2).Text, , True)) / DiaFactor / 12.0#
-            'End With
-
+            If .Riser IsNot Nothing Then
+                With .Riser
+                    .Length = CSng(CheckData(txtRiserLen.Text, , True)) / LFactor
+                    .TopTen = CSng(CheckData(_txtRiser_0.Text, , True)) / FrcFactor * 1000.0#
+                    .mass = CSng(CheckData(_txtRiser_1.Text, , True)) / MassFactor * 1000.0#
+                    .Dia = CSng(CheckData(_txtRiser_2.Text, , True)) / DiaFactor / 12.0#
+                End With
+            End If
         End With
 
     End Sub

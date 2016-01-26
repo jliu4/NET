@@ -29,6 +29,9 @@ Friend Class frmMain
     Private NumLines As Short
     Private FMGlob As Force
 
+    Dim Defaults As MarsIni
+
+
     Private Sub btnEnv_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnEnv.Click
         mnuInpEnviron_Click(mnuInpEnviron, New System.EventArgs())
     End Sub
@@ -40,12 +43,24 @@ Friend Class frmMain
         IsMetricUnit = False
 
         Dim i As Short
-        Dim FileOpen_Renamed As Boolean
+        Dim isFileOpen As Boolean
 
         On Error GoTo ErrorHandler
+        If CurProj Is Nothing Then
+            CurProj = New Project
+            Defaults = New MarsIni
+            DODODir = My.Application.Info.DirectoryPath & "\Data\"
+        End If
 
-        InitProject()
-        FileOpen_Renamed = False
+        Dim FS As Object
+
+        FS = CreateObject("Scripting.FileSystemObject")
+        If Not FS.FolderExists(My.Application.Info.DirectoryPath & "\Data") Then
+            Call FS.CreateFolder(My.Application.Info.DirectoryPath & "\Data")
+        End If
+
+        'InitProject()
+        isFileOpen = False
 
         NumProj = 1
         With CurProj
@@ -62,14 +77,14 @@ Friend Class frmMain
 
         If Len(Dir(MarsDir & IniFile)) > 0 Then
             FileOpen(10, MarsDir & IniFile, OpenMode.Input, OpenAccess.Read)
-            FileOpen_Renamed = True
+            isFileOpen = True
             If Defaults.InputData(10) Then
                 UpdateFileMenu()
                 UpdateMenu()
                 CurProj.Directory = Defaults.WorkDir
             End If
             FileClose(10)
-            FileOpen_Renamed = False
+            isFileOpen = False
         End If
 
         FMGlob = New Force
@@ -84,7 +99,7 @@ Friend Class frmMain
         Exit Sub
 
 ErrorHandler:
-        If FileOpen_Renamed Then FileClose(10)
+        If isFileOpen Then FileClose(10)
         Cursor = System.Windows.Forms.Cursors.Default
         Me.Close()
 
@@ -140,19 +155,22 @@ ErrorHandler:
     End Sub
 
     ' buttons
-
-    Private Sub btnPlot_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnPlot.Click
-        Dim Index As Short = btnPlot.GetIndex(eventSender)
+    Private Sub btnPlot_0_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _btnPlot_0.Click
 
         With frmPlot
-            Select Case Index
-                Case 0
-                    If Not PlotShow Then .Show()
-                    .PlotIn3D = True
-                Case 1
-                    If Not PlotShow Then .Show()
-                    .PlotIn3D = False
-            End Select
+            .PlotIn3D = True
+
+            If Not PlotShow Then .Show()
+            .UpdatePicture()
+        End With
+
+    End Sub
+    Private Sub btnPlot_1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _btnPlot_1.Click
+
+        With frmPlot
+            .PlotIn3D = False
+
+            If Not PlotShow Then .Show()
             .UpdatePicture()
         End With
 
@@ -181,10 +199,10 @@ ErrorHandler:
             Next i
             cboWells.SelectedIndex = .CurWellNo - 1
             With .Item(.CurWellNo)
-                txtWell(0).Text = Format(.Xg * LFactor, "0.0")
-                txtWell(1).Text = Format(.Yg * LFactor, "0.0")
+                _txtWell_0.Text = Format(.Xg * LFactor, "0.0")
+                _txtWell_1.Text = Format(.Yg * LFactor, "0.0")
                 If .Depth > 0# Then CurVessel.WaterDepth = .Depth
-                txtWell(2).Text = Format(CurVessel.WaterDepth * LFactor, "0.0")
+                _txtWell_2.Text = Format(CurVessel.WaterDepth * LFactor, "0.0")
             End With
         End With
 
@@ -207,7 +225,7 @@ ErrorHandler:
     End Sub
 
     Public Sub mnu3DPlot_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnu3DPlot.Click
-        Call btnPlot_Click(btnPlot.Item(0), New System.EventArgs())
+        Call btnPlot_0_Click(_btnPlot_0, New System.EventArgs())
     End Sub
 
     ' menus
@@ -241,8 +259,7 @@ ErrorHandler:
         CurProj = Nothing
         ClearScreenData()
         frmMain_Load(Me, New System.EventArgs())
-
-        VB6.ShowForm(frmProjDesc, 1, Me)
+        frmProjDesc.Show()
 
     End Sub
 
@@ -447,7 +464,7 @@ ErrHandler:
 
     End Sub
 
-    Public Sub mnuFilePre_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFilePre.Click
+    Public Sub mnuFilePre_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) 
         Dim Index As Short = mnuFilePre.GetIndex(eventSender)
 
         Dim InputFile As String
@@ -563,14 +580,12 @@ ErrHandler:
         SaveLC()
         frmAnalyses.Show()
 
-
     End Sub
 
     Public Sub mnuAnalysesB_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuAnalysesB.Click
 
         Me.Enabled = False
         frmAnalysesB.Show()
-
 
     End Sub
 
@@ -593,7 +608,7 @@ ErrHandler:
     End Sub
 
     Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
-        frmAbout.Show()
+        'frmAbout.Show()
 
     End Sub
 
@@ -664,15 +679,15 @@ ErrHandler:
         grdLD.Rows.Clear()
         grdEL.Rows.Clear()
 
-        txtWell(0).Text = "0"
-        txtWell(1).Text = "0"
-        txtWell(2).Text = "0"
-        txtVslSt(0).Text = "0"
-        txtVslSt(1).Text = "0"
-        txtVslSt(4).Text = "0"
-        txtVslSt(5).Text = "0"
-        txtVslSt(2).Text = "0"
-        txtVslSt(3).Text = "0"
+        _txtWell_0.Text = "0"
+        _txtWell_1.Text = "0"
+        _txtWell_2.Text = "0"
+        _txtVslSt_0.Text = "0"
+        _txtVslSt_1.Text = "0"
+        _txtVslSt_4.Text = "0"
+        _txtVslSt_5.Text = "0"
+        _txtVslSt_2.Text = "0"
+        _txtVslSt_3.Text = "0"
         cboWells.Items.Clear()
         cboWells.Items.Add("Default")
         cboWells.SelectedIndex = 0
@@ -817,25 +832,25 @@ ErrHandler:
             Next i
             cboWells.SelectedIndex = .CurWellNo - 1
             With .Item(.CurWellNo)
-                txtWell(0).Text = Format(.Xg * LFactor, "0.0")
-                txtWell(1).Text = Format(.Yg * LFactor, "0.0")
+                _txtWell_0.Text = Format(.Xg * LFactor, "0.0")
+                _txtWell_1.Text = Format(.Yg * LFactor, "0.0")
                 If .Depth > 0# Then CurVessel.WaterDepth = .Depth
-                txtWell(2).Text = Format(CurVessel.WaterDepth * LFactor, "0.0")
+                _txtWell_2.Text = Format(CurVessel.WaterDepth * LFactor, "0.0")
             End With
         End With
 
         With CurVessel
             With .ShipCurGlob
-                txtVslSt(0).Text = Format(.Xg * LFactor, "0.00")
-                txtVslSt(1).Text = Format(.Yg * LFactor, "0.00")
-                txtVslSt(4).Text = Format(RadTo360(.Heading), "0.00")
+                _txtVslSt_0.Text = Format(.Xg * LFactor, "0.00")
+                _txtVslSt_1.Text = Format(.Yg * LFactor, "0.00")
+                _txtVslSt_4.Text = Format(RadTo360(.Heading), "0.00")
             End With
 
-            txtVslSt(5).Text = Format(.ShipDraft * LFactor, "0.00")
+            _txtVslSt_5.Text = Format(.ShipDraft * LFactor, "0.00")
 
             Coord2Bear(.ShipCurGlob, Distance, Bearing)
-            txtVslSt(2).Text = Format(Distance * LFactor, "0.0")
-            txtVslSt(3).Text = Format(Bearing * Radians2Degrees, "0.00")
+            _txtVslSt_2.Text = Format(Distance * LFactor, "0.0")
+            _txtVslSt_3.Text = Format(Bearing * Radians2Degrees, "0.00")
 
             .MoorSystem.MoorForce(FMGlob, (CurVessel.ShipCurGlob))
         End With
@@ -920,24 +935,24 @@ ErrHandler:
         With CurVessel
             If optInputSystem(0).Checked Then
                 With .ShipCurGlob
-                    .Xg = CDbl(Format(CDbl(CheckData(CStr(Val(txtVslSt(0).Text)),  , True)) / LFactor, "0.00"))
-                    .Yg = CDbl(Format(CDbl(CheckData(CStr(Val(txtVslSt(1).Text)),  , True)) / LFactor, "0.00"))
-                    .Heading = CDbl(CheckData(CStr(Val(txtVslSt(4).Text)),  , True)) * Degrees2Radians
+                    .Xg = CSng(Format(CSng(CheckData(CStr(Val(_txtVslSt_0.Text)),  , True)) / LFactor, "0.00"))
+                    .Yg = CSng(Format(CSng(CheckData(CStr(Val(_txtVslSt_1.Text)),  , True)) / LFactor, "0.00"))
+                    .Heading = CSng(CheckData(CStr(Val(_txtVslSt_4.Text)),  , True)) * Degrees2Radians
                 End With
                 Coord2Bear(.ShipCurGlob, Distance, Bearing)
-                txtVslSt(2).Text = Format(Distance * LFactor, "0.0")
-                txtVslSt(3).Text = Format(Bearing * Radians2Degrees, "0.00")
+                _txtVslSt_2.Text = Format(Distance * LFactor, "0.0")
+                _txtVslSt_3.Text = Format(Bearing * Radians2Degrees, "0.00")
             Else
-                Distance = CDbl(CheckData(CStr(Val(txtVslSt(2).Text) / LFactor),  , True))
-                Bearing = CDbl(CheckData(CStr(Val(txtVslSt(3).Text)),  , True)) * Degrees2Radians
+                Distance = CSng(CheckData(CStr(Val(_txtVslSt_2.Text) / LFactor),  , True))
+                Bearing = CSng(CheckData(CStr(Val(_txtVslSt_3.Text)),  , True)) * Degrees2Radians
                 Bear2Coord(.ShipCurGlob, Distance, Bearing)
                 With .ShipCurGlob
-                    txtVslSt(0).Text = Format(.Xg * LFactor, "0.0")
-                    txtVslSt(1).Text = Format(.Yg * LFactor, "0.0")
-                    .Heading = CDbl(CheckData(txtVslSt(4).Text,  , True)) * Degrees2Radians
+                    _txtVslSt_0.Text = Format(.Xg * LFactor, "0.0")
+                    _txtVslSt_1.Text = Format(.Yg * LFactor, "0.0")
+                    .Heading = CSng(CheckData(_txtVslSt_4.Text,  , True)) * Degrees2Radians
                 End With
             End If
-            .ShipDraft = CDbl(CheckData(CStr(Val(txtVslSt(5).Text) / LFactor),  , True))
+            .ShipDraft = CSng(CheckData(CStr(Val(_txtVslSt_5.Text) / LFactor),  , True))
         End With
 
     End Sub
@@ -1005,16 +1020,18 @@ ErrorHandler:
     End Sub
 
     Public Sub mnuOptions_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuOptions.Click
-        VB6.ShowForm(frmOptions, 1, Me)
+        frmOptions.Show()
+
         RefreshData()
     End Sub
 
     Public Sub mnuRadarPlot_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuRadarPlot.Click
-        Call btnPlot_Click(btnPlot.Item(1), New System.EventArgs())
+        Call btnPlot_1_Click(_btnPlot_1, New System.EventArgs())
     End Sub
 
     Public Sub mnuTransient_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuTransient.Click
-        VB6.ShowForm(frmTransient, 0, Me) ' can't show non-modal progressbar when modal is displayed
+        frmTransient.Show()
+
     End Sub
 
     Private Sub RefreshData()

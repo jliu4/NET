@@ -80,6 +80,9 @@
     <Compile Include="..\commonCode\AssemblyInfo.vb">
       <Link>AssemblyInfo.vb</Link>
     </Compile>
+    <Compile Include="..\commonCode\Constants.vb">
+      <Link>Constants.vb</Link>
+    </Compile>
     <Compile Include="..\commonCode\Current.vb">
       <Link>Current.vb</Link>
     </Compile>
@@ -88,6 +91,9 @@
     </Compile>
     <Compile Include="..\commonCode\CurrentPair.vb">
       <Link>CurrentPair.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\DODOIni.vb">
+      <Link>DODOIni.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\DrftFCbyFreq.vb">
       <Link>DrftFCbyFreq.vb</Link>
@@ -100,6 +106,9 @@
     </Compile>
     <Compile Include="..\commonCode\EnvLoad.vb">
       <Link>EnvLoad.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\ExcelReporter.vb">
+      <Link>ExcelReporter.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\FairLead.vb">
       <Link>FairLead.vb</Link>
@@ -143,6 +152,14 @@
     </Compile>
     <Compile Include="..\commonCode\frmProgress.vb">
       <Link>frmProgress.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\commonCode\frmTransient.designer.vb">
+      <Link>frmTransient.designer.vb</Link>
+      <DependentUpon>frmTransient.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\commonCode\frmTransient.vb">
+      <Link>frmTransient.vb</Link>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\commonCode\Metocean.vb">
@@ -217,17 +234,6 @@
     <Compile Include="..\commonCode\Wind.vb">
       <Link>Wind.vb</Link>
     </Compile>
-    <Compile Include="Constants.vb" />
-    <Compile Include="frmTransient.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmTransient.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmTransient.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MarsIni.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="modPlot.vb" />
     <EmbeddedResource Include="..\commonCode\frmAbout.resx">
       <Link>frmAbout.resx</Link>
@@ -244,10 +250,11 @@
     <EmbeddedResource Include="..\commonCode\frmProgress.resX">
       <Link>frmProgress.resX</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTransient.resX">
+    <Content Include="DODO.ico" />
+    <EmbeddedResource Include="..\commonCode\frmTransient.resx">
+      <Link>frmTransient.resx</Link>
       <DependentUpon>frmTransient.vb</DependentUpon>
     </EmbeddedResource>
-    <Content Include="DODO.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\" />

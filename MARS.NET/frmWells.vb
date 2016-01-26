@@ -83,28 +83,17 @@ Friend Class frmWells
 		Me.Close()
 		
 	End Sub
-	
-	Private Sub frmWells_FormClosing(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-		Dim Cancel As Boolean = eventArgs.Cancel
-		Dim UnloadMode As System.Windows.Forms.CloseReason = eventArgs.CloseReason
-		If Changed Then
-			If MsgBox("Data changed. Save?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Warning") = MsgBoxResult.Yes Then
-				SaveData()
-			End If
-		End If
-		eventArgs.Cancel = Cancel
-	End Sub
 
-    ' grid
-
-    'Private Sub grdWS_MouseDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As AxMSFlexGridLib.DMSFlexGridEvents_MouseDownEvent)
-
-    'If eventArgs.button = VB6.MouseButtonConstants.RightButton Then
-    'UPGRADE_ISSUE: Form method frmWells.PopupMenu was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-    'PopupMenu(mnuGridEdit)
-    ' End If
-
-    ' End Sub
+    Private Sub frmWells_FormClosing(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        Dim Cancel As Boolean = eventArgs.Cancel
+        Dim UnloadMode As System.Windows.Forms.CloseReason = eventArgs.CloseReason
+        If Changed Then
+            If MsgBox("Data changed. Save?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Warning") = MsgBoxResult.Yes Then
+                SaveData()
+            End If
+        End If
+        eventArgs.Cancel = Cancel
+    End Sub
 
     Public Sub mnuAddRow_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuAddRow.Click
 
@@ -118,12 +107,6 @@ Friend Class frmWells
 
     End Sub
 
-    Private Sub grdWS_DblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
-
-        ' MSFlexGridEdit(grdWS, txtEdit, System.Windows.Forms.Keys.F10)
-
-    End Sub
-
     Private Sub grdWS_EnterCell(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         ExistingTxt = grdWS.Text
@@ -131,11 +114,6 @@ Friend Class frmWells
 
     End Sub
 
-    '  Private Sub grdWS_KeyDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As AxMSFlexGridLib.DMSFlexGridEvents_KeyDownEvent)
-
-    ' KeyHandler(grdWS, txtEdit, eventArgs.keyCode, eventArgs.shift, JustEnterCell, ExistingTxt)
-
-    ' End Sub
 
     Private Sub grdWS_LeaveCell(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 

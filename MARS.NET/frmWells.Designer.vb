@@ -22,9 +22,6 @@
     Public WithEvents btnCancel As System.Windows.Forms.Button
     Public WithEvents btnOK As System.Windows.Forms.Button
     Public WithEvents _lblGenCmt_0 As System.Windows.Forms.Label
-    Public WithEvents lblForceUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblGenCmt As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-    Public WithEvents lblVelUnit As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
     Public WithEvents mnuFileOpen As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuFileSaveAs As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuLine As System.Windows.Forms.ToolStripSeparator
@@ -47,9 +44,6 @@
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me._lblGenCmt_0 = New System.Windows.Forms.Label()
-        Me.lblForceUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblGenCmt = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
-        Me.lblVelUnit = New Microsoft.VisualBasic.Compatibility.VB6.LabelArray(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
         Me.mnuFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFileOpen = New System.Windows.Forms.ToolStripMenuItem()
@@ -60,9 +54,6 @@
         Me.mnuAddRow = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDeleteRow = New System.Windows.Forms.ToolStripMenuItem()
         Me.grdWS = New System.Windows.Forms.DataGridView()
-        CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblGenCmt, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MainMenu1.SuspendLayout()
         CType(Me.grdWS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -97,7 +88,6 @@
         '
         Me._lblGenCmt_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblGenCmt_0.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblGenCmt.SetIndex(Me._lblGenCmt_0, CType(0, Short))
         Me._lblGenCmt_0.Location = New System.Drawing.Point(11, 228)
         Me._lblGenCmt_0.Name = "_lblGenCmt_0"
         Me._lblGenCmt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -203,9 +193,6 @@
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = " Well Site Locations"
-        CType(Me.lblForceUnit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblGenCmt, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblVelUnit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MainMenu1.ResumeLayout(False)
         Me.MainMenu1.PerformLayout()
         CType(Me.grdWS, System.ComponentModel.ISupportInitialize).EndInit()

@@ -57,3 +57,4 @@ C:\jinwork\NET\MARS.NET\obj\Debug\Mars.vbproj.GenerateResource.Cache
 C:\jinwork\NET\MARS.NET\bin\stdole.dll
 C:\jinwork\NET\MARS.NET\bin\Interop.AccessibilityCplAdminLib.dll
 C:\jinwork\NET\MARS.NET\bin\Interop.Microsoft.Office.Interop.Excel.dll
+C:\jinwork\NET\MARS.NET\obj\Debug\MARS.frmCurrent.resources

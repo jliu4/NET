@@ -1,35 +1,3 @@
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\Interop.MSFlexGridLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\Interop.SysInfoLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\AxInterop.MSFlexGridLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\AxInterop.SysInfoLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.vbproj.ResolveComReference.cache
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.vbprojResolveAssemblyReference.cache
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.frmAbout.resources
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.frmBrowseDir.resources
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.frmCurrProfile.resources
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.frmMain.resources
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.frmPostProc.resources
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.vbproj.GenerateResource.Cache
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.xml
-C:\AQWA\AqrunVB.NET\aqBatch.NET\bin\aqBatch.exe
-C:\AQWA\AqrunVB.NET\aqBatch.NET\bin\aqBatch.pdb
-C:\AQWA\AqrunVB.NET\aqBatch.NET\bin\aqBatch.xml
-C:\AQWA\AqrunVB.NET\aqBatch.NET\bin\Interop.MSFlexGridLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\bin\Interop.SysInfoLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\bin\AxInterop.MSFlexGridLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\bin\AxInterop.SysInfoLib.dll
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.exe
-C:\AQWA\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.pdb
-<<<<<<< HEAD
-=======
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\Interop.MSFlexGridLib.dll
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\Interop.SysInfoLib.dll
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\AxInterop.MSFlexGridLib.dll
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\AxInterop.SysInfoLib.dll
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.vbproj.ResolveComReference.cache
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.exe
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.xml
-D:\Work\AqrunVB.NET\aqBatch.NET\obj\Debug\aqBatch.pdb
 C:\jinwork\NET\aqBatch.NET\obj\Debug\Interop.MSFlexGridLib.dll
 C:\jinwork\NET\aqBatch.NET\obj\Debug\Interop.SysInfoLib.dll
 C:\jinwork\NET\aqBatch.NET\obj\Debug\AxInterop.MSFlexGridLib.dll
@@ -52,4 +20,3 @@ C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmCurrProfile.resources
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmMain.resources
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmPostProc.resources
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.vbproj.GenerateResource.Cache
->>>>>>> 90e7c49e59aae1564d91f5970881af74cff5a3d9

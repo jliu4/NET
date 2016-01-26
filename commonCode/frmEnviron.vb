@@ -204,7 +204,7 @@ ErrHandler:
         End With
 
         '   update picture
-        'DrawEnvPlot(WindDir, WaveDir, CurrDir, VslHead, picEnviron)
+        DrawEnvPlot(WindDir, WaveDir, CurrDir, VslHead, picEnviron)
 
     End Sub
 	
@@ -354,53 +354,10 @@ ErrHandler:
         End If
     End Sub
 
-    ' text boxes
+    ' operation subroutines
+    ' initiating
 
-    Private Sub txtWind_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWind.TextChanged
-        ' Dim Index As Short = txtWind.GetIndex(eventSender)
-
-        Updated = False
-    End Sub
-
-    Private Sub txtWind_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWind.Leave
-		Dim Index As Short = txtWind.GetIndex(eventSender)
-
-        txtWind(Index).Text = CheckData(txtWind(Index).Text, "0.00")
-
-    End Sub
-	
-	'UPGRADE_WARNING: Event txtWave.TextChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub txtWave_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWave.TextChanged
-		Dim Index As Short = txtWave.GetIndex(eventSender)
-		
-		Updated = False
-	End Sub
-	
-	Private Sub txtWave_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWave.Leave
-		Dim Index As Short = txtWave.GetIndex(eventSender)
-
-        txtWave(Index).Text = CheckData(txtWave(Index).Text, "0.00")
-
-    End Sub
-	
-	'UPGRADE_WARNING: Event txtCurr.TextChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub txtCurr_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtCurr.TextChanged
-		Dim Index As Short = txtCurr.GetIndex(eventSender)
-		
-		Updated = False
-	End Sub
-	
-	Private Sub txtCurr_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtCurr.Leave
-		Dim Index As Short = txtCurr.GetIndex(eventSender)
-
-        txtCurr(Index).Text = CheckData(txtCurr(Index).Text, "0.00")
-
-    End Sub
-	
-	' operation subroutines
-	' initiating
-	
-	Private Sub InitiateCombo()
+    Private Sub InitiateCombo()
 		
 		Dim i As Short
 		
@@ -453,8 +410,8 @@ ErrHandler:
 		FrcLabels(0) = "(" & FrcUnit & "-" & LUnit & ")"
 		FrcLabels(1) = "Wind"
 		FrcLabels(2) = "Wave"
-		FrcLabels(3) = "Current"
-		FrcLabels(4) = "Total"
+        FrcLabels(3) = "Curr."
+        FrcLabels(4) = "Total"
 		FrcLabels(5) = "Surge"
 		FrcLabels(6) = "Sway"
 		FrcLabels(7) = "Yaw"
@@ -487,30 +444,30 @@ ErrHandler:
 		End If
 		
 		With CurVessel.EnvLoad.EnvCur.Wind
-			txtWind(0).Text = Format(.Velocity * Ftps2Knots * VelFactor, "0.00")
-			txtWind(1).Text = Format(.Elevation * LFactor, "0.00")
-			txtWind(2).Text = Format(.Heading * Radians2Degrees, "0.00")
-			
-			Select Case .Duration
+            _txtWind_0.Text = Format(.Velocity * Ftps2Knots * VelFactor, "0.00")
+            _txtWind_1.Text = Format(.Elevation * LFactor, "0.00")
+            _txtWind_2.Text = Format(.Heading * Radians2Degrees, "0.00")
+
+            Select Case .Duration
 				Case 3600
-                    'btrDuration(0).Checked = True
+                    _btrDuration_0.Checked = True
                 Case 60
-                    'btrDuration(1).Checked = True
+                    _btrDuration_1.Checked = True
                 Case 3
-                    'btrDuration(2).Checked = True
+                    _btrDuration_2.Checked = True
             End Select
 		End With
 		
 		With CurVessel.EnvLoad.EnvCur.Wave
-			txtWave(0).Text = Format(.Height * LFactor, "0.00")
-			txtWave(1).Text = Format(.Period, "0.00")
-			txtWave(2).Text = Format(.Heading * Radians2Degrees, "0.00")
-		End With
+            _txtWave_0.Text = Format(.Height * LFactor, "0.00")
+            _txtWave_1.Text = Format(.Period, "0.00")
+            _txtWave_2.Text = Format(.Heading * Radians2Degrees, "0.00")
+        End With
 		
 		With CurVessel.EnvLoad.EnvCur.Current
-			txtCurr(0).Text = Format(.Profile(1).Velocity * Ftps2Knots * VelFactor, "0.00")
-			txtCurr(1).Text = Format(.Heading * Radians2Degrees, "0.00")
-		End With
+            _txtCurr_0.Text = Format(.Profile(1).Velocity * Ftps2Knots * VelFactor, "0.00")
+            _txtCurr_1.Text = Format(.Heading * Radians2Degrees, "0.00")
+        End With
 		
 		If cboCurEnv.SelectedIndex < 0 Then
 			If CurVessel.EnvLoad.EnvCur.Name = "" Then
@@ -528,10 +485,10 @@ ErrHandler:
 	Private Sub LoadVesselStation()
 		
 		VslHead = CurVessel.ShipCurGlob.Heading
-		txtVslSt(0).Text = Format(VslHead * Radians2Degrees, "0.00")
-		txtVslSt(1).Text = Format(CurVessel.ShipDraft * LFactor, "0.00")
-		
-	End Sub
+        _txtVslSt_0.Text = Format(VslHead * Radians2Degrees, "0.00")
+        _txtVslSt_1.Text = Format(CurVessel.ShipDraft * LFactor, "0.00")
+
+    End Sub
 	
 	Private Sub UpdateCurEnv()
 		If IsMetricUnit Then
@@ -559,11 +516,11 @@ ErrHandler:
 		CurVessel.EnvLoad.EnvCur.Name = cboCurEnv.Text
 		
 		With CurVessel.EnvLoad.EnvCur.Wind
-			.Velocity = CDbl(txtWind(0).Text) * Knots2Ftps / VelFactor
-			.Elevation = CDbl(txtWind(1).Text) / LFactor
-			.Heading = CDbl(txtWind(2).Text) * Degrees2Radians
-			
-			For i = 0 To 2
+            .Velocity = CSng(_txtWind_0.Text) * Knots2Ftps / VelFactor
+            .Elevation = CSng(_txtWind_1.Text) / LFactor
+            .Heading = CSng(_txtWind_2.Text) * Degrees2Radians
+
+            For i = 0 To 2
                 If 1 = 1 Then 'btrDuration(i).Checked Then
                     Select Case i
                         Case 0
@@ -579,15 +536,15 @@ ErrHandler:
 		End With
 		
 		With CurVessel.EnvLoad.EnvCur.Wave
-			.Height = CDbl(txtWave(0).Text) / LFactor
-			.Period = CDbl(txtWave(1).Text)
-			.Heading = CDbl(txtWave(2).Text) * Degrees2Radians
-		End With
+            .Height = CSng(_txtWave_0.Text) / LFactor
+            .Period = CSng(_txtWave_1.Text)
+            .Heading = CSng(_txtWave_2.Text) * Degrees2Radians
+        End With
 		
 		With CurVessel.EnvLoad.EnvCur.Current
-			.Profile(1).Velocity = CDbl(txtCurr(0).Text) * Knots2Ftps / VelFactor
-			.Heading = CDbl(txtCurr(1).Text) * Degrees2Radians
-		End With
+            .Profile(1).Velocity = CSng(_txtCurr_0.Text) * Knots2Ftps / VelFactor
+            .Heading = CSng(_txtCurr_1.Text) * Degrees2Radians
+        End With
 		
 		Updated = True
 		

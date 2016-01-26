@@ -24,15 +24,14 @@ Friend Class frmAnalysesB
 		InitPos.Surge = CDbl(txtInitSurge.Text)
 		InitPos.Sway = CDbl(txtInitSway.Text)
 		InitPos.Yaw = CDbl(txtInitYaw.Text)
-		
-		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-		Dim ox As New ExcelReporter
+
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+        Dim ox As New ExcelReporter
 		If NumRuns = 0 Then
-			HeadS = CDbl(txtHeadings(0).Text)
-			HeadE = CDbl(txtHeadings(1).Text)
-			NumHead = CShort(txtHeadings(2).Text)
-			If NumHead <= 1 Then
+            HeadS = CDbl(_txtHeadings_0.Text)
+            HeadE = CDbl(_txtHeadings_1.Text)
+            NumHead = CShort(_txtHeadings_2.Text)
+            If NumHead <= 1 Then
 				If HeadE <> HeadS Then
 					NumHead = 2
 				Else
@@ -48,14 +47,12 @@ Friend Class frmAnalysesB
 		End If
 		
 		Call ox.ReportBatchResults(txtReportTitle.Text, (txtSubTitle.Text), NumRuns, CurVessel, InitPos, txtFile.Text, IsMetricUnit)
-		'UPGRADE_WARNING: Screen property Screen.MousePointer has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-	End Sub
-	
-	
-	' form load and unload
-	
-	Private Sub frmAnalysesB_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    ' form load and unload
+
+    Private Sub frmAnalysesB_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 		
 		Dim i As Short
 		
@@ -121,11 +118,11 @@ Friend Class frmAnalysesB
 		
 		Cursor = System.Windows.Forms.Cursors.WaitCursor
 		Me.Enabled = False
-		
-		HeadS = CDbl(txtHeadings(0).Text)
-		HeadE = CDbl(txtHeadings(1).Text)
-		NumHead = CShort(txtHeadings(2).Text)
-		If NumHead <= 1 Then
+
+        HeadS = CDbl(_txtHeadings_0.Text)
+        HeadE = CDbl(_txtHeadings_1.Text)
+        NumHead = CShort(_txtHeadings_2.Text)
+        If NumHead <= 1 Then
 			If HeadE <> HeadS Then
 				NumHead = 2
 			Else
@@ -165,9 +162,8 @@ ErrorHandler:
 	End Sub
 	
 	Private Sub btnEnvironment_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnEnvironment.Click
-		
-		VB6.ShowForm(frmEnviron, 1, Me)
-		txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
+        frmEnviron.Show()
+        txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
 		
 	End Sub
 	
@@ -176,21 +172,11 @@ ErrorHandler:
 		'   should the user cancel the dialog box, exit
 		On Error GoTo ErrHandler
 
-        'UPGRADE_WARNING: CommonDialog variable was not upgraded Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="671167DC-EA81-475D-B690-7A40C7BF4A23"'
         With dlgFileOpen
-            '   get file name
-            'UPGRADE_WARNING: The CommonDialog CancelError property is not supported in Visual Basic .NET. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8B377936-3DF7-4745-AA26-DD00FA5B9BE1"'
-            ' .CancelError = True
-            'UPGRADE_WARNING: Filter has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
             .Filter = "All Files (*.*)|*.*|MARS Result Files (*.sta)|*.sta"
             .FilterIndex = 2
             .InitialDirectory = Directory
             .FileName = FileName
-            'UPGRADE_WARNING: FileOpenConstants constant FileOpenConstants.cdlOFNHideReadOnly was upgraded to OpenFileDialog.ShowReadOnly which has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"'
-            'UPGRADE_WARNING: MSComDlg.CommonDialog property dlgFile.Flags was upgraded to dlgFileSave.OverwritePrompt which has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"'
-            '.OverwritePrompt = True
-            'UPGRADE_WARNING: MSComDlg.CommonDialog property dlgFile.Flags was upgraded to dlgFileOpen.ShowReadOnly which has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"'
-            'UPGRADE_WARNING: FileOpenConstants constant FileOpenConstants.cdlOFNHideReadOnly was upgraded to OpenFileDialog.ShowReadOnly which has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="DFCDE711-9694-47D7-9C50-45A99CD8E91E"'
             .ShowReadOnly = False
             .ShowDialog()
 
@@ -204,25 +190,24 @@ ErrHandler:
 		Exit Sub
 		
 	End Sub
-	
-	'UPGRADE_WARNING: Event txtEnvironment.TextChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub txtEnvironment_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtEnvironment.TextChanged
-		txtSubTitle.Text = txtEnvironment.Text & ", " & CurVessel.DampingPercent.Surge & "% Damping"
-	End Sub
-	
-	' text boxes
-	
-	Private Sub txtHeadings_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtHeadings.Leave
-		Dim Index As Short = txtHeadings.GetIndex(eventSender)
-		
-		txtHeadings(Index).Text = CheckData(txtHeadings(Index).Text)
-		
-	End Sub
-	
-	' operation subroutines
-	' load to and update from form
-	
-	Private Sub LoadData()
+
+    Private Sub txtEnvironment_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtEnvironment.TextChanged
+        txtSubTitle.Text = txtEnvironment.Text & ", " & CurVessel.DampingPercent.Surge & "% Damping"
+    End Sub
+
+    ' text boxes
+
+    'Private Sub txtHeadings_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    'Dim Index As Short = txtHeadings.GetIndex(eventSender)
+
+    '   txtHeadings(Index).Text = CheckData(txtHeadings(Index).Text)
+
+    'End Sub
+
+    ' operation subroutines
+    ' load to and update from form
+
+    Private Sub LoadData()
 		
 		If IsMetricUnit Then
 			LFactor = 0.3048 ' ft -> m
@@ -234,12 +219,12 @@ ErrHandler:
 		
 		With CurVessel
 			With .ShipCurGlob
-				txtVslSt(0).Text = Format(.Xg * LFactor, "0.0")
-				txtVslSt(1).Text = Format(.Yg * LFactor, "0.0")
-				txtVslSt(2).Text = Format(.Heading * Radians2Degrees, "0.00")
-			End With
-			txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.00")
-		End With
+                _txtVslSt_0.Text = Format(.Xg * LFactor, "0.0")
+                _txtVslSt_1.Text = Format(.Yg * LFactor, "0.0")
+                _txtVslSt_2.Text = Format(.Heading * Radians2Degrees, "0.00")
+            End With
+            _txtVslSt_3.Text = Format(.ShipDraft * LFactor, "0.00")
+        End With
 		
 		txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
 		
@@ -279,9 +264,8 @@ ErrHandler:
 		Dim CurRun As Object
 		Dim j As Short
 		Dim i, NumLines As Short
-		'UPGRADE_NOTE: Move was upgraded to Move_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim ShipLoc As ShipGlobal
-		Dim WFM, LFM, Move_Renamed As Motion
+        Dim ShipLoc As ShipGlobal
+        Dim WFM, LFM, Move_Renamed As Motion
 		Dim FEv, FCr, FWd, FWv, Stiff As Force
 		Dim SgnY, SgnX, SgnZ As Single
 		Dim Tension(20) As Single
@@ -308,11 +292,10 @@ ErrHandler:
 		
 		'dchen 1/26/04
 		NumGL = CShort(txtNumLinesPerGroup.Text)
-		
-		'UPGRADE_WARNING: Couldn't resolve default property of object CurRun. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		CurRun = 1
-		
-		NumRuns = 3 * ((HeadE - HeadS) / HeadStep + 1)
+
+        CurRun = 1
+
+        NumRuns = 3 * ((HeadE - HeadS) / HeadStep + 1)
 		
 		FileNum = FreeFile
 		If Len(FileName) = 0 Then ' if user did not give name use default
@@ -351,9 +334,8 @@ ErrHandler:
 				
 				With frmProgress
 					.lblBatchStage.Text = Format(EnvHead, "0.0") & "Invalid_string_refer_to_original_code" & SID
-					'UPGRADE_WARNING: Couldn't resolve default property of object CurRun. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.ProgressBatch = CurRun / NumRuns * 99
-				End With
+                    .ProgressBatch = CurRun / NumRuns * 99
+                End With
 				If Cancelled Then GoTo UserCancelled
 				frmProgress.CurrentStage.Text = "Finding Equilibrium Position..."
 				frmProgress.Progress = 25
@@ -499,16 +481,15 @@ ErrHandler:
 						'  Find 2nd loaded line which is in the same group as the most loaded line
 						'dchen 1/26/04
 						NinGroup = NMaxTen Mod NumGL
-						
-						
-						If NMaxTen = 1 Then
-							BS1 = CurVessel.MoorSystem.MoorLines(NMaxTen + 1).Segments(1).BS
-							BS2 = CurVessel.MoorSystem.MoorLines(NumLines).Segments(1).BS
-						ElseIf NMaxTen = NumLines Then 
-							BS1 = CurVessel.MoorSystem.MoorLines(1).Segments(1).BS
-							BS2 = CurVessel.MoorSystem.MoorLines(NMaxTen - 1).Segments(1).BS
-						Else
-							BS1 = CurVessel.MoorSystem.MoorLines(NMaxTen + 1).Segments(1).BS
+
+                        If NMaxTen = 1 Then
+                            BS1 = CurVessel.MoorSystem.MoorLines(NMaxTen + 1).Segments(1).BS
+                            BS2 = CurVessel.MoorSystem.MoorLines(NumLines).Segments(1).BS
+                        ElseIf NMaxTen = NumLines Then
+                            BS1 = CurVessel.MoorSystem.MoorLines(1).Segments(1).BS
+                            BS2 = CurVessel.MoorSystem.MoorLines(NMaxTen - 1).Segments(1).BS
+                        Else
+                            BS1 = CurVessel.MoorSystem.MoorLines(NMaxTen + 1).Segments(1).BS
 							BS2 = CurVessel.MoorSystem.MoorLines(NMaxTen - 1).Segments(1).BS
 						End If
 						
@@ -561,9 +542,8 @@ ErrHandler:
 						CurVessel.MoorSystem.MoorLines(N2ndTen).Connected = True
 						
 				End Select
-				'UPGRADE_WARNING: Couldn't resolve default property of object CurRun. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				CurRun = CurRun + 1
-			Next NID
+                CurRun = CurRun + 1
+            Next NID
 			PrintLine(FileNum) '  add a blank line to separate results from different headings
 		Next j
 UserCancelled: 
@@ -581,16 +561,14 @@ UserCancelled:
 		End With
 		
 		FileClose(FileNum)
-		'UPGRADE_NOTE: Object Stiff may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-		Stiff = Nothing
-		' open the result file for user to view
-		'   hFile = Shell("notepad " & FileName, vbNormalFocus)
-		Exit Sub
+        Stiff = Nothing
+        ' open the result file for user to view
+        '   hFile = Shell("notepad " & FileName, vbNormalFocus)
+        Exit Sub
 ErrHandler: 
 		FileClose(FileNum)
-		'UPGRADE_NOTE: Object Stiff may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-		Stiff = Nothing
-		If Len(Err.Description) > 0 Then
+        Stiff = Nothing
+        If Len(Err.Description) > 0 Then
 			MsgBox("Error: " & Err.Description & " from " & Err.Source, MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
 		End If
 	End Sub

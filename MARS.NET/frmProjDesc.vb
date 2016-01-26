@@ -16,12 +16,10 @@ Friend Class frmProjDesc
 	End Sub
 	
 	Private Sub File1_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles File1.SelectedIndexChanged
-		'UPGRADE_WARNING: Couldn't resolve default property of object getNoExtFileName(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		txtVesselName.Text = UCase(getNoExtFileName(File1.FileName))
-	End Sub
+        txtVesselName.Text = UCase(getNoExtFileName(File1.FileName))
+    End Sub
 
     Private Sub File1_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles File1.DoubleClick
-        'UPGRADE_WARNING: Couldn't resolve default property of object getNoExtFileName(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         txtVesselName.Text = UCase(getNoExtFileName(File1.FileName))
         btnOK_Click(btnOK, New System.EventArgs())
     End Sub

@@ -55,11 +55,8 @@ Friend Class EnvLoad
     Private Const FreqE As Single = 2.4
     Private Const FreqD As Single = 0.02
 
-    ' initializing and terminating
-
-    'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-    Private Sub Class_Initialize_Renamed()
-
+    Public Sub New()
+        MyBase.New()
         mclsEnvCur = New Metocean
         mcolEnvironments = New Collection
         NoEnvironment()
@@ -79,55 +76,10 @@ Friend Class EnvLoad
         mclsFEnvLocl = New Force
 
         mblnWave2 = False
-
-    End Sub
-    Public Sub New()
-        MyBase.New()
-        Class_Initialize_Renamed()
     End Sub
 
-    'UPGRADE_NOTE: Class_Terminate was upgraded to Class_Terminate_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-    Private Sub Class_Terminate_Renamed()
-
-        'UPGRADE_NOTE: Object mclsEnvCur may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsEnvCur = Nothing
-        'UPGRADE_NOTE: Object mcolEnvironments may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mcolEnvironments = Nothing
-
-        'UPGRADE_NOTE: Object mcolWindFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mcolWindFC = Nothing
-        'UPGRADE_NOTE: Object mcolCurrentFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mcolCurrentFC = Nothing
-        'UPGRADE_NOTE: Object mcolWaveFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mcolWaveFC = Nothing
-        'UPGRADE_NOTE: Object mcolWave2FC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mcolWave2FC = Nothing
-
-        'UPGRADE_NOTE: Object mclsFWaveGlob may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFWaveGlob = Nothing
-        'UPGRADE_NOTE: Object mclsFWaveLocl may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFWaveLocl = Nothing
-        'UPGRADE_NOTE: Object mclsFCurrGlob may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFCurrGlob = Nothing
-        'UPGRADE_NOTE: Object mclsFCurrLocl may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFCurrLocl = Nothing
-        'UPGRADE_NOTE: Object mclsFWindGlob may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFWindGlob = Nothing
-        'UPGRADE_NOTE: Object mclsFWindLocl may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFWindLocl = Nothing
-        'UPGRADE_NOTE: Object mclsFEnvGlob may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFEnvGlob = Nothing
-        'UPGRADE_NOTE: Object mclsFEnvLocl may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        mclsFEnvLocl = Nothing
-
-    End Sub
-    Protected Overrides Sub Finalize()
-        Class_Terminate_Renamed()
-        MyBase.Finalize()
-    End Sub
 
     ' properties
-
 
     Public Property ShipDraft() As Single
         Get
@@ -197,7 +149,7 @@ Friend Class EnvLoad
             Dim DrftFC As Force
             'UPGRADE_NOTE: MY was upgraded to MY_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
             Dim FSw, FSg, MY_Renamed As Single
-            Dim EnvDir, MP As Single
+            Dim EnvDir As Single
             Dim Sw1, Freq1, Freq2, Sw2 As Single
 
             'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
@@ -436,7 +388,6 @@ Friend Class EnvLoad
                 FEnG = mclsFEnvGlob
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
             Else
                 FWdG = New Force
@@ -448,22 +399,14 @@ Friend Class EnvLoad
                 FEnG = New Force
                 FEnL = New Force
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
 
-                'UPGRADE_NOTE: Object FWdG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdG = Nothing
-                'UPGRADE_NOTE: Object FWdL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdL = Nothing
-                'UPGRADE_NOTE: Object FCrL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrL = Nothing
-                'UPGRADE_NOTE: Object FWvG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvG = Nothing
-                'UPGRADE_NOTE: Object FWvL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvL = Nothing
-                'UPGRADE_NOTE: Object FEnG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnG = Nothing
-                'UPGRADE_NOTE: Object FEnL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnL = Nothing
 
             End If
@@ -487,9 +430,7 @@ Friend Class EnvLoad
 
                 FCrL = mclsFCurrLocl
 
-                'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             ElseIf IsNothing(Heading) Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Heading = msngShipHead
                 FWdG = mclsFWindGlob
                 FWdL = mclsFWindLocl
@@ -500,7 +441,6 @@ Friend Class EnvLoad
                 FEnG = mclsFEnvGlob
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
             Else
                 FWdG = New Force
@@ -512,22 +452,14 @@ Friend Class EnvLoad
                 FEnG = New Force
                 FEnL = New Force
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
 
-                'UPGRADE_NOTE: Object FWdG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdG = Nothing
-                'UPGRADE_NOTE: Object FWdL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdL = Nothing
-                'UPGRADE_NOTE: Object FCrG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrG = Nothing
-                'UPGRADE_NOTE: Object FWvG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvG = Nothing
-                'UPGRADE_NOTE: Object FWvL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvL = Nothing
-                'UPGRADE_NOTE: Object FEnG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnG = Nothing
-                'UPGRADE_NOTE: Object FEnL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnL = Nothing
 
             End If
@@ -552,9 +484,7 @@ Friend Class EnvLoad
 
                 FWvG = mclsFWaveGlob
 
-                'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             ElseIf IsNothing(Heading) Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Heading = msngShipHead
                 FWdG = mclsFWindGlob
                 FWdL = mclsFWindLocl
@@ -565,7 +495,6 @@ Friend Class EnvLoad
                 FEnG = mclsFEnvGlob
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
             Else
                 FWdG = New Force
@@ -577,22 +506,14 @@ Friend Class EnvLoad
                 FEnG = New Force
                 FEnL = New Force
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
 
-                'UPGRADE_NOTE: Object FWdG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdG = Nothing
-                'UPGRADE_NOTE: Object FWdL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdL = Nothing
-                'UPGRADE_NOTE: Object FCrG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrG = Nothing
-                'UPGRADE_NOTE: Object FCrL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrL = Nothing
-                'UPGRADE_NOTE: Object FWvL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvL = Nothing
-                'UPGRADE_NOTE: Object FEnG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnG = Nothing
-                'UPGRADE_NOTE: Object FEnL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnL = Nothing
 
             End If
@@ -617,9 +538,7 @@ Friend Class EnvLoad
 
                 FWvL = mclsFWaveLocl
 
-                'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             ElseIf IsNothing(Heading) Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Heading = msngShipHead
                 FWdG = mclsFWindGlob
                 FWdL = mclsFWindLocl
@@ -630,7 +549,6 @@ Friend Class EnvLoad
                 FEnG = mclsFEnvGlob
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
             Else
                 FWdG = New Force
@@ -642,22 +560,14 @@ Friend Class EnvLoad
                 FEnG = New Force
                 FEnL = New Force
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
 
-                'UPGRADE_NOTE: Object FWdG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdG = Nothing
-                'UPGRADE_NOTE: Object FWdL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdL = Nothing
-                'UPGRADE_NOTE: Object FCrG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrG = Nothing
-                'UPGRADE_NOTE: Object FCrL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrL = Nothing
-                'UPGRADE_NOTE: Object FWvG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvG = Nothing
-                'UPGRADE_NOTE: Object FEnG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnG = Nothing
-                'UPGRADE_NOTE: Object FEnL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnL = Nothing
 
             End If
@@ -682,9 +592,7 @@ Friend Class EnvLoad
 
                 FEnG = mclsFEnvGlob
 
-                'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             ElseIf IsNothing(Heading) Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Heading = msngShipHead
                 FWdG = mclsFWindGlob
                 FWdL = mclsFWindLocl
@@ -695,7 +603,6 @@ Friend Class EnvLoad
                 FEnG = mclsFEnvGlob
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
             Else
                 FWdG = New Force
@@ -707,22 +614,14 @@ Friend Class EnvLoad
                 FEnG = New Force
                 FEnL = New Force
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
 
-                'UPGRADE_NOTE: Object FWdG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdG = Nothing
-                'UPGRADE_NOTE: Object FWdL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdL = Nothing
-                'UPGRADE_NOTE: Object FCrG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrG = Nothing
-                'UPGRADE_NOTE: Object FCrL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrL = Nothing
-                'UPGRADE_NOTE: Object FWvG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvG = Nothing
-                'UPGRADE_NOTE: Object FWvL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvL = Nothing
-                'UPGRADE_NOTE: Object FEnL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnL = Nothing
 
             End If
@@ -747,9 +646,7 @@ Friend Class EnvLoad
 
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             ElseIf IsNothing(Heading) Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Heading = msngShipHead
                 FWdG = mclsFWindGlob
                 FWdL = mclsFWindLocl
@@ -760,7 +657,6 @@ Friend Class EnvLoad
                 FEnG = mclsFEnvGlob
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading, Vsurge, Vsway)
             Else
                 FWdG = New Force
@@ -772,22 +668,14 @@ Friend Class EnvLoad
                 FEnG = New Force
                 FEnL = New Force
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading, Vsurge, Vsway)
 
-                'UPGRADE_NOTE: Object FWdG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdG = Nothing
-                'UPGRADE_NOTE: Object FWdL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWdL = Nothing
-                'UPGRADE_NOTE: Object FCrG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrG = Nothing
-                'UPGRADE_NOTE: Object FCrL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FCrL = Nothing
-                'UPGRADE_NOTE: Object FWvG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvG = Nothing
-                'UPGRADE_NOTE: Object FWvL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FWvL = Nothing
-                'UPGRADE_NOTE: Object FEnG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FEnG = Nothing
 
             End If
@@ -878,7 +766,6 @@ Friend Class EnvLoad
         For i = 1 To 2
             Input(FileNum, IdStr)
             Input(FileNum, NumDraft)
-            'UPGRADE_ISSUE: Constant Default was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"'
             Select Case IdStr
                 Case "WIND", "Wind", "wind"
                     NewCol = mcolWindFC
@@ -915,7 +802,6 @@ Friend Class EnvLoad
         Next i
 
         Input(FileNum, IdStr)
-        'UPGRADE_ISSUE: Constant Default was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"'
         Select Case IdStr
             Case "WAVE", "Wave", "wave"
                 mblnWave2 = False
@@ -963,7 +849,6 @@ Friend Class EnvLoad
                     For k = 1 To NumFreq
                         Input(FileNum, Freq)
 
-                        'UPGRADE_ISSUE: Constant Default was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"'
                         Select Case IdStr
                             Case "SURGE", "Surge", "surge"
                                 NewDrft.DrftFCAdd(Freq)
@@ -1009,7 +894,6 @@ ErrorHandler:
         Dim EnvAv As Boolean
         Dim WindVel, WindDir As Single
         Dim WaveTp, WaveHt, WaveDir As Single
-        'UPGRADE_NOTE: CurDir was upgraded to CurDir_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         Dim CurDepth, CurDir_Renamed, CurVel As Single
 
         Dim NewEnv As Metocean
@@ -1023,15 +907,15 @@ ErrorHandler:
             Input(FileNum, EnvName)
             Input(FileNum, TmpStr)
             Input(FileNum, TmpStr2)
-            WindDir = CDbl(TmpStr2)
-            WindVel = CDbl(TmpStr)
+            WindDir = CSng(TmpStr2)
+            WindVel = CSng(TmpStr)
             Input(FileNum, WaveHt)
             Input(FileNum, WaveTp)
             Input(FileNum, TmpStr)
-            WaveDir = CDbl(TmpStr)
+            WaveDir = CSng(TmpStr)
             Input(FileNum, NumCur)
             Input(FileNum, TmpStr)
-            CurDir_Renamed = CDbl(TmpStr)
+            CurDir_Renamed = CSng(TmpStr)
 
             '       determine whether the same criteria have been input
             NumEnvAv = mcolEnvironments.Count()
@@ -1048,8 +932,8 @@ ErrorHandler:
                 For j = 1 To NumCur
                     Input(FileNum, TmpStr2)
                     Input(FileNum, TmpStr)
-                    CurDepth = CDbl(TmpStr2)
-                    CurVel = CDbl(TmpStr)
+                    CurDepth = CSng(TmpStr2)
+                    CurVel = CSng(TmpStr)
                 Next j
             Else
                 NewEnv = New Metocean
@@ -1066,8 +950,8 @@ ErrorHandler:
                 For j = 1 To NumCur
                     Input(FileNum, TmpStr2)
                     Input(FileNum, TmpStr)
-                    CurDepth = CDbl(TmpStr2)
-                    CurVel = CDbl(TmpStr)
+                    CurDepth = CSng(TmpStr2)
+                    CurVel = CSng(TmpStr)
                     Call NewEnv.Current.ProfileAdd(CurDepth, CurVel * Knots2Ftps)
                 Next j
 
@@ -1093,24 +977,16 @@ ErrorHandler:
 
         For i = 1 To NumEnv
             With mcolEnvironments.Item(i)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments(i).Name. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, .Name)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Wind. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, Format(.Wind.VelCorr * Ftps2Knots, "0.000"), Format(.Wind.Heading * Radians2Degrees, "0.000"))
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Wave. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments(i).Wave. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, .Wave.Height, .Wave.Period, Format(.Wave.Heading * Radians2Degrees, "0.000"))
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 NumCur = .Current.ProfileCount
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WriteLine(FileNum, NumCur, Format(.Current.Heading * Radians2Degrees, "0.000"))
             End With
 
             For j = 1 To NumCur
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 With mcolEnvironments.Item(i).Current.Profile(j)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolEnvironments().Current. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WriteLine(FileNum, Format(.Depth, "0.000"), Format(.Velocity * Ftps2Knots, "0.000"))
                 End With
             Next j
@@ -1139,85 +1015,52 @@ ErrorHandler:
             End With
         ElseIf N = 1 Then
             With FC
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .Fx = FrCoef.Item(1).FCx.ForceCoef(Direction)
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .Fy = FrCoef.Item(1).FCy.ForceCoef(Direction)
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 .MYaw = FrCoef.Item(1).FCm.ForceCoef(Direction)
             End With
         Else
-            'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             If Draft <= FrCoef.Item(1).Draft Then
                 With FrCoef.Item(1)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fx1 = .FCx.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fy1 = .FCy.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fm1 = .FCm.ForceCoef(Direction)
                 End With
                 With FrCoef.Item(2)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fx2 = .FCx.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fy2 = .FCy.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fm2 = .FCm.ForceCoef(Direction)
                 End With
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(2).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Rd = (Draft - FrCoef.Item(1).Draft) / (FrCoef.Item(2).Draft - FrCoef.Item(1).Draft)
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             ElseIf Draft >= FrCoef.Item(N).Draft Then
                 With FrCoef.Item(N - 1)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fx1 = .FCx.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fy1 = .FCy.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fm1 = .FCm.ForceCoef(Direction)
                 End With
                 With FrCoef.Item(N)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fx2 = .FCx.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fy2 = .FCy.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fm2 = .FCm.ForceCoef(Direction)
                 End With
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(N - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Rd = (Draft - FrCoef.Item(N - 1).Draft) / (FrCoef.Item(N).Draft - FrCoef.Item(N - 1).Draft)
             Else
                 For i = 2 To N
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(i).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     If Draft < FrCoef.Item(i).Draft Then
                         Ns = i
                         Exit For
                     End If
                 Next
                 With FrCoef.Item(Ns - 1)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fx1 = .FCx.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fy1 = .FCy.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fm1 = .FCm.ForceCoef(Direction)
                 End With
                 With FrCoef.Item(Ns)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fx2 = .FCx.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fy2 = .FCy.ForceCoef(Direction)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Fm2 = .FCm.ForceCoef(Direction)
                 End With
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(Ns - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef(Ns).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object FrCoef().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Rd = (Draft - FrCoef.Item(Ns - 1).Draft) / (FrCoef.Item(Ns).Draft - FrCoef.Item(Ns - 1).Draft)
             End If
             With FC
@@ -1249,81 +1092,59 @@ ErrorHandler:
                 .MYaw = 0#
             End With
         ElseIf N = 1 Then
-            'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().DrftFC. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             FC = mcolWaveFC.Item(1).DrftFC(Frequency, Direction)
         Else
-            'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             If Draft <= mcolWaveFC.Item(1).Draft Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().DrftFC. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 FC = mcolWaveFC.Item(1).DrftFC(Frequency, Direction)
                 With FC
                     Fx1 = .Fx
                     Fy1 = .Fy
                     Fm1 = .MYaw
                 End With
-                'UPGRADE_NOTE: Object FC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FC = Nothing
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().DrftFC. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 FC = mcolWaveFC.Item(2).DrftFC(Frequency, Direction)
                 With FC
                     Fx2 = .Fx
                     Fy2 = .Fy
                     Fm2 = .MYaw
                 End With
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(2).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Rd = (Draft - mcolWaveFC.Item(1).Draft) / (mcolWaveFC.Item(2).Draft - mcolWaveFC.Item(1).Draft)
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
             ElseIf Draft >= mcolWaveFC.Item(N).Draft Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().DrftFC. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 FC = mcolWaveFC.Item(N - 1).DrftFC(Frequency, Direction)
                 With FC
                     Fx1 = .Fx
                     Fy1 = .Fy
                     Fm1 = .MYaw
                 End With
-                'UPGRADE_NOTE: Object FC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FC = Nothing
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().DrftFC. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 FC = mcolWaveFC.Item(N).DrftFC(Frequency, Direction)
                 With FC
                     Fx2 = .Fx
                     Fy2 = .Fy
                     Fm2 = .MYaw
                 End With
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(N - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Rd = (Draft - mcolWaveFC.Item(N - 1).Draft) / (mcolWaveFC.Item(N).Draft - mcolWaveFC.Item(N - 1).Draft)
             Else
                 For i = 2 To N
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(i).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     If Draft <= mcolWaveFC.Item(i).Draft Then
                         Ns = i
                         Exit For
                     End If
                 Next
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().DrftFC. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 FC = mcolWaveFC.Item(Ns - 1).DrftFC(Frequency, Direction)
                 With FC
                     Fx1 = .Fx
                     Fy1 = .Fy
                     Fm1 = .MYaw
                 End With
-                'UPGRADE_NOTE: Object FC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 FC = Nothing
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().DrftFC. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 FC = mcolWaveFC.Item(Ns).DrftFC(Frequency, Direction)
                 With FC
                     Fx2 = .Fx
                     Fy2 = .Fy
                     Fm2 = .MYaw
                 End With
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(Ns - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC(Ns).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolWaveFC().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Rd = (Draft - mcolWaveFC.Item(Ns - 1).Draft) / (mcolWaveFC.Item(Ns).Draft - mcolWaveFC.Item(Ns - 1).Draft)
             End If
             With FC
@@ -1339,9 +1160,7 @@ ErrorHandler:
 
     Private Sub FEnv(ByRef FWindLocl As Force, ByRef FWindGlob As Force, ByRef FCurrLocl As Force, ByRef FCurrGlob As Force, ByRef FWaveLocl As Force, ByRef FWaveGlob As Force, ByRef FEnvLocl As Force, ByRef FEnvGlob As Force, ByVal Heading As Single, Optional ByRef Vsurge As Single = 0#, Optional ByRef Vsway As Single = 0#)
 
-        Dim i As Short
         Dim EnvFC As Force
-        'UPGRADE_NOTE: MY was upgraded to MY_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
         Dim FSw, FSg, MY_Renamed As Single
         Dim SSw, SSg, SMY As Single
         Dim EnvDirCorr, EnvDir, MP As Single
@@ -1373,7 +1192,6 @@ ErrorHandler:
             SSw = SSw + FSw
             SMY = SMY + MY_Renamed
         End With
-        'UPGRADE_NOTE: Object EnvFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         EnvFC = Nothing
 
         With FWindLocl
@@ -1404,7 +1222,6 @@ ErrorHandler:
             SSw = SSw + FSw
             SMY = SMY + MY_Renamed
         End With
-        'UPGRADE_NOTE: Object EnvFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         EnvFC = Nothing
 
         With FCurrLocl
@@ -1431,7 +1248,6 @@ ErrorHandler:
                 FSw = .Fy * MP
                 MY_Renamed = .MYaw * MP
             End With
-            'UPGRADE_NOTE: Object EnvFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
             EnvFC = Nothing
 
         Else
@@ -1448,7 +1264,6 @@ ErrorHandler:
                     FSw = FSw + .Fy * Sw
                     MY_Renamed = MY_Renamed + .MYaw * Sw
                 End With
-                'UPGRADE_NOTE: Object EnvFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 EnvFC = Nothing
             Next
         End If

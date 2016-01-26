@@ -984,6 +984,55 @@ ErrHandler:
         MsgBox("Error Creating Mooring Layout Report: " & Err.Description, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Error")
     End Sub
 
+    Sub ReportDODO(ByRef CurVessel As Vessel)
+        Dim oxSheet As Microsoft.Office.Interop.Excel.Worksheet
+
+        If oxBook Is Nothing Then
+            oxBook = oxApp.Workbooks.Add(My.Application.Info.DirectoryPath & "\DODO2.xltx")
+        End If
+
+        oxBook.Sheets("dodo").Copy(After:=oxBook.Sheets(1))
+        oxBook.Sheets("dodo (2)").Activate()
+        oxBook.Sheets("dodo (2)").Name = CurVessel.EnvLoad.EnvCur.Name
+        oxSheet = DirectCast(oxApp.ActiveSheet, Microsoft.Office.Interop.Excel.Worksheet)
+        oxSheet.Range("$B$16").Value = oxBook.Sheets.Count - 5 'JLIU TODO
+        oxSheet.Range("$B$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Velocity
+        oxSheet.Range("$D$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Heading * Radians2Degrees
+        oxSheet.Range("$B$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Height
+        oxSheet.Range("$D$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Heading * Radians2Degrees
+        oxSheet.Range("$G$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Period
+
+        oxSheet.Range("$B$3").Value = CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity
+        oxSheet.Range("$D$3").Value = CurVessel.EnvLoad.EnvCur.Current.Heading * Radians2Degrees
+
+        With oxSheet.QueryTables.Add(Connection:="TEXT;" & CurProj.Directory & "appvel.out", Destination:=oxSheet.Range("$N$3"))
+            .PreserveFormatting = False
+            .RefreshStyle = Microsoft.Office.Interop.Excel.XlCellInsertionMode.xlOverwriteCells 'xlOverwriteCells
+            .AdjustColumnWidth = False
+            .TextFileParseType = Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited
+            .TextFileCommaDelimiter = True
+            .Refresh(BackgroundQuery:=False)
+        End With
+        With oxSheet.QueryTables.Add(Connection:="TEXT;" & CurProj.Directory & "offset.out", Destination:=oxSheet.Range("$N$27"))
+            .PreserveFormatting = False
+            .RefreshStyle = Microsoft.Office.Interop.Excel.XlCellInsertionMode.xlOverwriteCells 'xlOverwriteCells
+            .AdjustColumnWidth = False
+            .TextFileParseType = Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited
+            .TextFileCommaDelimiter = True
+            .Refresh(BackgroundQuery:=False)
+
+        End With
+        oxSheet.Columns("N:X").Font.Name = "Calibri"
+        oxSheet.Columns("N:X").Font.Size = 8
+        oxSheet.Columns("N:X").Font.Bold = False
+        'Return control of Excel to the user.
+        oxApp.Visible = True
+        oxApp.ScreenUpdating = True
+        oxApp.CutCopyMode = False
+        oxApp.UserControl = True
+
+    End Sub
+
     Function CleanupObjects() As Object
         On Error Resume Next ' ignore if window non-exist
         oxBook = Nothing
@@ -2350,7 +2399,7 @@ ErrHandler:
                 TmpVal2 = CurLine.Payout
                 RetVal = MoorLine.ScopeByTopTensionPOL(BS, OutTenh, TmpVal2)
                 If RetVal < 0 Then
-                    frmMain.Activate()
+                    'frmMain.Activate()
                     MsgBox("Catenary calculation did not converge for line " & i & ". You have to enter the Max Anchor Uplift Angles manually for the report Summary.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Error")
                 End If
                 Row = i + 6

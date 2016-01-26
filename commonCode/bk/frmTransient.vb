@@ -4,7 +4,6 @@ Imports VB = Microsoft.VisualBasic
 Imports System
 Imports System.Diagnostics
 Imports System.ComponentModel
-Imports Microsoft.Office.Interop
 
 Friend Class frmTransient
 	Inherits System.Windows.Forms.Form
@@ -42,14 +41,13 @@ Friend Class frmTransient
 	Dim TMColHead(3) As String
 	Dim TMRowHead() As String
 	Dim LCRowHead() As String
-    Dim oxApp As Excel.Application, oxBook As Excel.Workbook, oxSheet As Excel.Worksheet
+	
+	Dim TransientComputed As Boolean
 
-    Dim TransientComputed As Boolean
-
-    Private Sub setLabel()
+    Public Sub setLabel()
         On Error GoTo ErrHandler
         Dim i As Short
-           For i = 0 To lblLengthUnit.Count - 1
+        For i = 0 To lblLengthUnit.Count - 1
             If i <> 5 Then
                 If IsMetricUnit Then
                     lblLengthUnit(i).Text = "m"
@@ -60,12 +58,12 @@ Friend Class frmTransient
         Next i
         For i = 0 To lblForceUnit.Count - 1
             If IsMetricUnit Then
-                  lblForceUnit(i).Text = "KN"
+                lblForceUnit(i).Text = "KN"
             Else
-                 lblForceUnit(i).Text = "kips"
+                lblForceUnit(i).Text = "kips"
             End If
         Next i
-  
+
         For i = 0 To lblMassUnit.Count - 1
             If IsMetricUnit Then
                 lblMassUnit(i).Text = "MT"
@@ -89,7 +87,7 @@ ErrHandler:
         Exit Sub
     End Sub
 
-	Private Sub frmTransient_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmTransient_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
         On Error GoTo ErrHandler
 		IsMetricUnit = False
 		InitProject()
@@ -176,9 +174,6 @@ ErrHandler:
         Catch
             MsgBox("frmTransient.closing Error")
         End Try
-        oxBook = Nothing
-
-        oxApp = Nothing
     End Sub
 
 	' buttons
@@ -189,62 +184,21 @@ ErrHandler:
         txtEnvironment.Text = CurVessel.EnvLoad.EnvCur.Name
 		
 	End Sub
+	
+	Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
+        On Error GoTo ErrHandler
+		If Not TransientComputed Then
+			MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
+			Exit Sub
+		End If
 
-    Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
-        Try
-
-            If Not TransientComputed Then
-                MsgBox("Must perform analysis first.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
-                Exit Sub
-            End If
-
-            oxBook.Sheets("dodo").Copy(After:=oxBook.Sheets(1))
-            oxBook.Sheets("dodo (2)").Activate()
-            oxBook.Sheets("dodo (2)").Name = CurVessel.EnvLoad.EnvCur.Name
-            oxSheet = DirectCast(oxApp.ActiveSheet, Excel.Worksheet)
-            oxSheet.Range("$B$16").Value = oxBook.Sheets.Count - 5 'JLIU TODO
-            oxSheet.Range("$B$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Velocity
-            oxSheet.Range("$D$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Heading * Radians2Degrees
-            oxSheet.Range("$B$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Height
-            oxSheet.Range("$D$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Heading * Radians2Degrees
-            oxSheet.Range("$G$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Period
-
-            oxSheet.Range("$B$3").Value = CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity
-            oxSheet.Range("$D$3").Value = CurVessel.EnvLoad.EnvCur.Current.Heading * Radians2Degrees
-
-            With oxSheet.QueryTables.Add(Connection:="TEXT;" & CurProj.Directory & "appvel.out", Destination:=oxSheet.Range("$N$3"))
-                .PreserveFormatting = False
-                .RefreshStyle = Excel.XlCellInsertionMode.xlOverwriteCells 'xlOverwriteCells
-                .AdjustColumnWidth = False
-                .TextFileParseType = Excel.XlTextParsingType.xlDelimited
-                .TextFileCommaDelimiter = True
-                .Refresh(BackgroundQuery:=False)
-            End With
-            With oxSheet.QueryTables.Add(Connection:="TEXT;" & CurProj.Directory & "offset.out", Destination:=oxSheet.Range("$N$27"))
-                .PreserveFormatting = False
-                .RefreshStyle = Excel.XlCellInsertionMode.xlOverwriteCells 'xlOverwriteCells
-                .AdjustColumnWidth = False
-                .TextFileParseType = Excel.XlTextParsingType.xlDelimited
-                .TextFileCommaDelimiter = True
-                .Refresh(BackgroundQuery:=False)
-
-            End With
-            oxSheet.Columns("N:X").Font.Name = "Calibri"
-            oxSheet.Columns("N:X").Font.Size = 8
-            oxSheet.Columns("N:X").Font.Bold = False
-            'Return control of Excel to the user.
-            oxApp.Visible = True
-            oxApp.ScreenUpdating = True
-            oxApp.CutCopyMode = False
-            oxApp.UserControl = True
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub btnTransient_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnTransient.Click
+		Exit Sub
+ErrHandler: 
+		MsgBox("Err creating report...")
+		
+	End Sub
+	
+	Private Sub btnTransient_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnTransient.Click
         On Error GoTo ErrHandler
 
 		Dim LFactor, FrcFactor As Single
@@ -254,10 +208,9 @@ ErrHandler:
 		Dim Depth(MaxCurrentPair) As Single
 		Dim NumCurrent As Short
 		Dim WaveDir(8) As Single
-
-        Dim k, i, r, c, j, L As Short
-        Dim initialOffset As Boolean
-        Dim PWD, Dist, Dist0, DistFromWell As Single
+		
+		Dim k, i, r, c, j, L As Short
+		Dim PWD, Dist, Dist0 As Single
         Dim CurX, CurDir_Renamed, CurY As Single
         Dim Pos() As ShipGlobal
 		Dim Exx As Single
@@ -271,9 +224,8 @@ ErrHandler:
 		Dim FRiser As New Force
 		
 		Dim ZWD As Single
-        Dim actualZWD As Single
-        initialOffset = False
-        If IsMetricUnit Then
+		
+		If IsMetricUnit Then
 			LFactor = 0.3048 ' ft -> m
 			FrcFactor = 4.448222 ' kips -> KN
 		Else
@@ -323,9 +275,9 @@ ErrHandler:
 		End With
 		
 		SaveLC()
-
-        ZWD = CurVessel.Riser.Length
-        actualZWD = CurVessel.WaterDepth
+		
+		ZWD = CurVessel.WaterDepth
+		
         TransX(0) = CurVessel.ShipCurGlob.Xg
         TransY(0) = CurVessel.ShipCurGlob.Yg
         TransYaw(0) = CurVessel.ShipCurGlob.Heading
@@ -348,8 +300,8 @@ ErrHandler:
 		'   initializing
 		sMass = CurVessel.ShipMass(CurVessel.ShipDraft)
 		sDamp = CurVessel.ShipDamp(CurVessel.ShipDraft)
-		sYRD = CurVessel.ShipYawRateDrag(CurVessel.ShipDraft)
-		For i = 0 To 2
+        'sYRD = CurVessel.ShipYawRateDrag(CurVessel.ShipDraft)
+        For i = 0 To 2
 			Acc(i).Surge = 0
 			Vel(i).Surge = 0
 			Acc(i).Sway = 0
@@ -389,9 +341,9 @@ ErrHandler:
 			
 			With CurVessel
 				FEnv = .EnvLoad.FEnvLocl(Pos(1).Heading, (Vel(1).Surge), (Vel(1).Sway))
-				FRiser = .Riser.FhLocl(Pos(1), Vel(1), Acc(1), .EnvLoad.EnvCur.Current)
-				
-				Call .NextPosnVel(TimeStep, Acc, Vel, Pos)
+                'FRiser = .Riser.FhLocl(Pos(1), Vel(1), Acc(1), .EnvLoad.EnvCur.Current)
+
+                Call .NextPosnVel(TimeStep, Acc, Vel, Pos)
 				
 				Acc(2).Surge = (-sDamp.Surge * Vel(2).Surge + FEnv.Fx + FRiser.Fx) / sMass.Surge
 				Acc(2).Sway = (-sDamp.Sway * Vel(2).Sway + FEnv.Fy + FRiser.Fy) / sMass.Sway
@@ -409,11 +361,9 @@ ErrHandler:
             TransX(i) = Pos(2).Xg
             TransY(i) = Pos(2).Yg
             TransYaw(i) = Pos(2).Heading
-
+			
             Dist = System.Math.Sqrt((TransX(i) - TransX(0)) ^ 2 + (TransY(i) - TransY(0)) ^ 2)
-            DistFromWell = System.Math.Sqrt(TransX(i) ^ 2 + TransY(i) ^ 2)
-
-            If Dist > Dist0 Then
+			If Dist > Dist0 Then
 				k = 1
 				Do While Dist0 / ZWD * 100# - k * 2 > 0#
 					k = k + 1
@@ -432,9 +382,9 @@ ErrHandler:
 				End If
 			End If
             'offset
-            WriteLine(FileNum2, TimeStep * (i - 1), TransX(i), TransY(i), RadTo360(TransYaw(i)), Vel(2).Surge * Ftps2Knots, Vel(2).Sway * Ftps2Knots, Vel(2).Move * Ftps2Knots, Acc(2).Move, FEnv.Ft * 0.001, FRiser.Ft * 0.001, DistFromWell / actualZWD * 100.0#)
-
-            'debug
+            WriteLine(FileNum2, TimeStep * (i - 1), TransX(i), TransY(i), RadTo360(TransYaw(i)), Vel(2).Surge * Ftps2Knots, Vel(2).Sway * Ftps2Knots, Vel(2).Move * Ftps2Knots, Acc(2).Move, FEnv.Ft * 0.001, FRiser.Ft * 0.001, Dist / ZWD * 100.0#)
+			
+			'debug
             WriteLine(FileNum3, TimeStep * (i - 1), TransYaw(i), Vel(2).Yaw, Acc(2).Yaw, FEnv.MYaw, FRiser.MYaw, sMass.Yaw, Pos(1).Heading)
 			
 			Dist0 = Dist
@@ -535,8 +485,8 @@ ErrHandler:
         Me.Enabled = True
 		
 	End Sub
-	
-	Private Sub btnDisplayCurves_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnDisplayCurves.Click
+
+    Private Sub btnDisplayCurves_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         'If TransientComputed Then
         'frmTransientCurves.Show()
@@ -546,10 +496,10 @@ ErrHandler:
         'End If
 
     End Sub
-	
-	' menus
-	
-	Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
+
+    ' menus
+
+    Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
 		
 		If CurProj.Saved = False Then
 			If CurProj.Title = "" Then
@@ -575,10 +525,10 @@ ErrHandler:
 			End With
 		End If
 		UpdateFileMenu()
-
-        frmTransient_Load(Me, New System.EventArgs())
-
-    End Sub
+		
+			frmTransient_Load(Me, New System.EventArgs())
+		
+	End Sub
 	
 	
 	Public Sub mnuFileOpen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileOpen.Click
@@ -861,15 +811,15 @@ ErrHandler:
 		Me.Close()
 		
 	End Sub
-	
-	Public Sub mnuOption_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuOption.Click
-		
+
+    Public Sub mnuOption_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+
         frmOptions.Show()
-		RefreshData()
-		
-	End Sub
-	
-	Private Sub UpdateFileMenu()
+        RefreshData()
+
+    End Sub
+
+    Private Sub UpdateFileMenu()
 		
 		Dim i, NumPreFiles As Short
 		
@@ -920,12 +870,12 @@ ErrHandler:
             .ColumnCount = 4
             For i = 0 To .ColumnCount - 1
                 .Columns(i).HeaderText = TMColHead(i)
-                .Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+
             Next
-            .Columns(0).FillWeight = 70 / .ColumnCount
-            .Columns(1).FillWeight = 110 / .ColumnCount
-            .Columns(2).FillWeight = 110 / .ColumnCount
-            .Columns(3).FillWeight = 110 / .ColumnCount
+            .Columns(0).Width = 58
+            .Columns(1).Width = 88
+            .Columns(2).Width = 88
+            .Columns(3).Width = 88
         End With
 
         With grdTM
@@ -1059,7 +1009,7 @@ ErrHandler:
 
         With CurVessel
             txtWell.Text = Format(.WaterDepth * LFactor, "0.0")
-            txtRiserLen.Text = Format(.Riser.Length * LFactor, "0.0")
+
             With .ShipCurGlob
                 txtVslSt(0).Text = Format(.Xg * LFactor, "0.00")
                 txtVslSt(1).Text = Format(.Yg * LFactor, "0.00")
@@ -1068,15 +1018,12 @@ ErrHandler:
 
             txtVslSt(3).Text = Format(.ShipDraft * LFactor, "0.00")
 
-            With .Riser
-                txtRiser(0).Text = Format(.TopTen / 1000.0# * FrcFactor, "0.0")
-                txtRiser(1).Text = Format(.mass / 1000.0# * MassFactor, "0.0")
-                txtRiser(2).Text = Format(.Dia * 12.0# * DiaFactor, "0.0")
-            End With
+            'With .Riser
+            'txtRiser(0).Text = Format(.TopTen / 1000.0# * FrcFactor, "0.0")
+            'txtRiser(1).Text = Format(.mass / 1000.0# * MassFactor, "0.0")
+            'txtRiser(2).Text = Format(.Dia * 12.0# * DiaFactor, "0.0")
+            'End With
         End With
-        oxApp = New Excel.Application
-
-        oxBook = oxApp.Workbooks.Add(My.Application.Info.DirectoryPath & "\DODO2.xltx")
 
     End Sub
 
@@ -1102,14 +1049,13 @@ ErrHandler:
             End With
             .ShipDraft = CDbl(CheckData(txtVslSt(3).Text, , True)) / LFactor
             .WaterDepth = CDbl(CheckData(txtWell.Text, , True)) / LFactor
-            .Riser.Length = CDbl(CheckData(txtRiserLen.Text, , True)) / LFactor
-            .Riser.Length = .WaterDepth
+            ' .Riser.Length = .WaterDepth
 
-            With .Riser
-                .TopTen = CDbl(CheckData(txtRiser(0).Text, , True)) / FrcFactor * 1000.0#
-                .mass = CDbl(CheckData(txtRiser(1).Text, , True)) / MassFactor * 1000.0#
-                .Dia = CDbl(CheckData(txtRiser(2).Text, , True)) / DiaFactor / 12.0#
-            End With
+            '  With .Riser
+            ' .TopTen = CDbl(CheckData(txtRiser(0).Text, , True)) / FrcFactor * 1000.0#
+            ' .mass = CDbl(CheckData(txtRiser(1).Text, , True)) / MassFactor * 1000.0#
+            ' .Dia = CDbl(CheckData(txtRiser(2).Text, , True)) / DiaFactor / 12.0#
+            'End With
 
         End With
 
