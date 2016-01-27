@@ -21,15 +21,15 @@ Friend Class frmAnalysesB
 	Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
 		Dim InitPos As New Motion
 		
-		InitPos.Surge = CDbl(txtInitSurge.Text)
-		InitPos.Sway = CDbl(txtInitSway.Text)
-		InitPos.Yaw = CDbl(txtInitYaw.Text)
+		InitPos.Surge = CSng(txtInitSurge.Text)
+		InitPos.Sway = CSng(txtInitSway.Text)
+		InitPos.Yaw = CSng(txtInitYaw.Text)
 
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
         Dim ox As New ExcelReporter
 		If NumRuns = 0 Then
-            HeadS = CDbl(_txtHeadings_0.Text)
-            HeadE = CDbl(_txtHeadings_1.Text)
+            HeadS = CSng(_txtHeadings_0.Text)
+            HeadE = CSng(_txtHeadings_1.Text)
             NumHead = CShort(_txtHeadings_2.Text)
             If NumHead <= 1 Then
 				If HeadE <> HeadS Then
@@ -119,8 +119,8 @@ Friend Class frmAnalysesB
 		Cursor = System.Windows.Forms.Cursors.WaitCursor
 		Me.Enabled = False
 
-        HeadS = CDbl(_txtHeadings_0.Text)
-        HeadE = CDbl(_txtHeadings_1.Text)
+        HeadS = CSng(_txtHeadings_0.Text)
+        HeadE = CSng(_txtHeadings_1.Text)
         NumHead = CShort(_txtHeadings_2.Text)
         If NumHead <= 1 Then
 			If HeadE <> HeadS Then

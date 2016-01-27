@@ -82,7 +82,7 @@ Module MARSConstants
     Public CurVessel As Vessel
     Public CurField As Wells
     Public NumTimeSteps As Short
-    Public TimeStep As Short
+    Public TimeStep As Single
     Public MaxTimeSteps As Short
     Public TransX() As Object
     Public TransY() As Object

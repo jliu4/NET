@@ -117,11 +117,10 @@ ErrHandler:
 		
 	End Sub
 
-    'Private Sub btnProfile_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnProfile.Click
+    Private Sub btnProfile_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnProfile.Click
 
-    'VB6.ShowForm(frmCurrent, 1, Me)
-
-    'End Sub
+        frmCurrent.Show()
+    End Sub
 
     Private Sub btnCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnCancel.Click
 
@@ -210,8 +209,8 @@ ErrHandler:
 	
 	Private Sub btnOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnOK.Click
 
-        'If Not Updated Then UpdateCurEnv()
-        'CurProj.Saved = False
+        If Not Updated Then UpdateCurEnv()
+        CurProj.Saved = False
         Me.Close()
 		
 	End Sub
@@ -306,7 +305,7 @@ ErrHandler:
 		FileOpen(OutFile, dlgFileOpen.FileName, OpenMode.Output)
         isFileOpen = True
 
-        On Error GoTo 0
+        On Error GoTo ErrHandler
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 		WriteFile = CurVessel.EnvLoad.OutputEnv(OutFile)
 		'   Close the output file
@@ -345,13 +344,53 @@ ErrHandler:
 
     ' option button
 
-    Private Sub btrDuration_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    Private Sub _btrDuration_0_CheckedChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         If eventSender.Checked Then
+
             ' Dim Index As Short = btrDuration.GetIndex(eventSender)
 
             Updated = False
 
         End If
+    End Sub
+
+    Private Sub txtWind_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWind.TextChanged
+        Dim Index As Short = txtWind.GetIndex(eventSender)
+
+        Updated = False
+    End Sub
+
+    Private Sub txtWind_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWind.Leave
+        Dim Index As Short = txtWind.GetIndex(eventSender)
+
+        txtWind(Index).Text = CheckData(txtWind(Index).Text, "0.00")
+
+    End Sub
+
+    Private Sub txtWave_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWave.TextChanged
+        Dim Index As Short = txtWave.GetIndex(eventSender)
+
+        Updated = False
+    End Sub
+
+    Private Sub txtWave_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtWave.Leave
+        Dim Index As Short = txtWave.GetIndex(eventSender)
+
+        txtWave(Index).Text = CheckData(txtWave(Index).Text, "0.00")
+
+    End Sub
+
+    Private Sub txtCurr_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtCurr.TextChanged
+        Dim Index As Short = txtCurr.GetIndex(eventSender)
+
+        Updated = False
+    End Sub
+
+    Private Sub txtCurr_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtCurr.Leave
+        Dim Index As Short = txtCurr.GetIndex(eventSender)
+
+        txtCurr(Index).Text = CheckData(txtCurr(Index).Text, "0.00")
+
     End Sub
 
     ' operation subroutines
@@ -383,16 +422,17 @@ ErrHandler:
 
             For c = 0 To .ColumnCount - 1
                 .Columns(c).HeaderText = FrcLabels(c + 1)
+                .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
 
             Next
             For r = 0 To .RowCount - 1
                 .Rows(r).HeaderCell.Value = FrcLabels(r + .ColumnCount + 1)
 
             Next
-            .Columns(0).Width = 40
-            .Columns(1).Width = 40
-            .Columns(2).Width = 40
-            .Columns(3).Width = 40
+            .Columns(0).FillWeight = 100 / .ColumnCount
+            .Columns(1).Width = 100 / .ColumnCount
+            .Columns(2).Width = 100 / .ColumnCount
+            .Columns(3).Width = 100 / .ColumnCount
         End With
 		
 	End Sub
@@ -519,21 +559,15 @@ ErrHandler:
             .Velocity = CSng(_txtWind_0.Text) * Knots2Ftps / VelFactor
             .Elevation = CSng(_txtWind_1.Text) / LFactor
             .Heading = CSng(_txtWind_2.Text) * Degrees2Radians
+            If _btrDuration_0.Checked Then
+                .Duration = 3600
+            ElseIf _btrDuration_1.Checked Then
+                .Duration = 60
+            Else
+                .Duration = 3
+            End If
 
-            For i = 0 To 2
-                If 1 = 1 Then 'btrDuration(i).Checked Then
-                    Select Case i
-                        Case 0
-                            .Duration = 3600
-                        Case 1
-                            .Duration = 60
-                        Case 2
-                            .Duration = 3
-                    End Select
-                    Exit For
-                End If
-            Next 
-		End With
+        End With
 		
 		With CurVessel.EnvLoad.EnvCur.Wave
             .Height = CSng(_txtWave_0.Text) / LFactor

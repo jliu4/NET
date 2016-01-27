@@ -656,30 +656,28 @@ ErrHandler:
     End Sub
 	
 	Public Sub mnuFileSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSave.Click
-		
-        Dim isFileOpen As Boolean
-		Dim FileNum As Integer
+
+        Dim FileNum As Integer
 		
 		On Error GoTo ErrorHandler
 		
 		SaveLC()
-		
-        isFileOpen = False
-		FileNum = FreeFile
-		
-		With CurProj
-			If .FileName = "" Then
-				mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
-			Else
-				FileOpen(FileNum, .Directory & .FileName, OpenMode.Output)
-                isFileOpen = True
-				Cursor = System.Windows.Forms.Cursors.WaitCursor
-				If Not .ExportData(FileNum) Then
-				End If
-				Cursor = System.Windows.Forms.Cursors.Default
+
+        With CurProj
+            If .FileName = "" Then
+                mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
+            Else
+                FileNum = FreeFile()
+                FileOpen(FileNum, .Directory & .FileName, OpenMode.Output)
+
+                Cursor = System.Windows.Forms.Cursors.WaitCursor
+
+                .ExportData(FileNum)
+
+                Cursor = System.Windows.Forms.Cursors.Default
 				FileClose(FileNum)
-                isFileOpen = False
-				.Saved = True
+
+                .Saved = True
 			End If
 		End With
 		
@@ -693,66 +691,68 @@ ErrorHandler:
 	End Sub
 	
 	Public Sub mnuFileSaveAs_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSaveAs.Click
-		
-        Dim isFileOpen As Boolean
-		
-		'   should the user cancel the dialog box, exit
-		On Error GoTo ErrHandler
+
+        '   should the user cancel the dialog box, exit
+        On Error GoTo ErrHandler
 		
 		SaveLC()
-		
-        isFileOpen = False
-		
-		'   get file name
-		Dim fnum As Integer
 
-        With dlgFileOpen
+        '   get file name
+        '   get file name
+        dlgFileOpen.Filter = "All Files (*.*)|*.*|DODO Files (*.mrs)|*.mrs"
+        dlgFileSave.Filter = "All Files (*.*)|*.*|DODO Files (*.mrs)|*.mrs"
+        dlgFileOpen.FilterIndex = 2
+        dlgFileSave.FilterIndex = 2
 
-            .Filter = "All Files (*.*)|*.*|DODO Files (*.mrs)|*.mrs"
-            .FilterIndex = 2
-            If CurProj.Directory = "" Then
-                .InitialDirectory = DODODir
-            Else
-                .InitialDirectory = CurProj.Directory
+        Dim fnum As Integer
+
+
+        If CurProj.Directory = "" Then
+            dlgFileOpen.InitialDirectory = DODODir
+            dlgFileSave.InitialDirectory = DODODir
+        Else
+            dlgFileOpen.InitialDirectory = CurProj.Directory
+            dlgFileSave.InitialDirectory = CurProj.Directory
+        End If
+        If CurProj.FileName <> "" Then
+            dlgFileOpen.FileName = CurProj.FileName
+            dlgFileSave.FileName = CurProj.FileName
+        Else
+            dlgFileOpen.FileName = CurProj.Title & ".mrs"
+            dlgFileSave.FileName = CurProj.Title & ".mrs"
+        End If
+        dlgFileSave.OverwritePrompt = True
+        dlgFileOpen.ShowReadOnly = False
+        dlgFileSave.ShowDialog()
+        dlgFileOpen.FileName = dlgFileSave.FileName
+
+        '       save data
+        fnum = FreeFile()
+        FileOpen(fnum, dlgFileOpen.FileName, OpenMode.Output)
+
+
+        Cursor = System.Windows.Forms.Cursors.WaitCursor
+        With CurProj
+            If .FileName <> "" Then
+                Defaults.AddPreFile(.Directory & .FileName)
+                '                UpdateFileMenu
             End If
-            If CurProj.FileName <> "" Then
-                .FileName = CurProj.FileName
-            Else
-                .FileName = CurProj.Title & ".mrs"
-            End If
-            .ShowReadOnly = False
-            .ShowDialog()
 
-            '       save data
-            fnum = FreeFile()
-            FileOpen(fnum, .FileName, OpenMode.Output)
-            isFileOpen = True
+            .GetDirNFileName(dlgFileOpen.FileName)
+            Text = "DODO Console - " & .Title & " (" & .FileName & ")"
 
-            Cursor = System.Windows.Forms.Cursors.WaitCursor
-            With CurProj
-                If .FileName <> "" Then
-                    Defaults.AddPreFile(.Directory & .FileName)
-                    '                UpdateFileMenu
-                End If
-
-                .GetDirNFileName(dlgFileOpen.FileName)
-                Text = "DODO Console - " & .Title & " (" & .FileName & ")"
-
-                If Not .ExportData(fnum) Then
-                End If
-                Cursor = System.Windows.Forms.Cursors.Default
-                .Saved = True
-            End With
-            FileClose(fnum)
-            isFileOpen = False
+            .ExportData(fnum)
+            Cursor = System.Windows.Forms.Cursors.Default
+            .Saved = True
         End With
+        FileClose(fnum)
+
+        Exit Sub
 		
-		Exit Sub
-		
-ErrHandler: 
-		'   User pressed Cancel button
-        If isFileOpen Then FileClose(fnum)
-		Cursor = System.Windows.Forms.Cursors.Default
+ErrHandler:
+        '   User pressed Cancel button
+
+        Cursor = System.Windows.Forms.Cursors.Default
 		If Err.Number <> 32755 Then ' don't report cancel dialog error
 			MsgBox("Error " & Err.Description & ",  Source: " & Err.Source, MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Error")
 		End If

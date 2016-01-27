@@ -435,9 +435,9 @@ ErrorHandler:
 
 
         With ShipLoc
-            .Xg = CDbl(CheckData(_txtVslSt_0.Text,  , True)) / LFactor
-            .Yg = CDbl(CheckData(_txtVslSt_1.Text,  , True)) / LFactor
-            .Heading = CDbl(CheckData(_txtVslSt_2.Text,  , True)) * Degrees2Radians
+            .Xg = CSng(CheckData(_txtVslSt_0.Text,  , True)) / LFactor
+            .Yg = CSng(CheckData(_txtVslSt_1.Text,  , True)) / LFactor
+            .Heading = CSng(CheckData(_txtVslSt_2.Text,  , True)) * Degrees2Radians
         End With
 
         With CurVessel.DampingPercent

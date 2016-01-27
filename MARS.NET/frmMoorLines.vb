@@ -118,9 +118,9 @@ Friend Class frmMoorLines
         End If
 
         With ShipDesLoc
-            .Xg = CDbl(txtVslSt(0).Text) / LFactor
-            .Yg = CDbl(txtVslSt(1).Text) / LFactor
-            .Heading = CDbl(txtVslSt(2).Text) * Degrees2Radians
+            .Xg = CSng(_txtVslSt_0.Text) / LFactor
+            .Yg = CSng(_txtVslSt_1.Text) / LFactor
+            .Heading = CSng(_txtVslSt_2.Text) * Degrees2Radians
         End With
 
         With CurVessel.ShipDesGlob
@@ -209,10 +209,10 @@ Friend Class frmMoorLines
 
     Public Sub mnuOpen_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuOpen.Click
 
-        Dim ReadFile, FileOpen_Renamed As Boolean
+        Dim ReadFile, isFileOpen As Boolean
         Dim msg As String
 
-        FileOpen_Renamed = False
+        isFileOpen = False
 
         '   should the user cancel the dialog box, exit
         On Error GoTo Errhandler
@@ -232,14 +232,14 @@ Friend Class frmMoorLines
 
         '   open the file
         FileOpen(InFile, dlgFileOpen.FileName, OpenMode.Input, OpenAccess.Read)
-        FileOpen_Renamed = True
+        isFileOpen = True
 
         On Error GoTo 0
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
         ReadFile = MoorLines.InputML(InFile)
         '   close the input file and return
         FileClose(InFile)
-        FileOpen_Renamed = False
+        isFileOpen = False
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
 
         If Not ReadFile Then
@@ -253,7 +253,7 @@ Friend Class frmMoorLines
 
 Errhandler:
         '   User pressed Cancel button, or some tragedy occurred
-        If FileOpen_Renamed Then FileClose(InFile)
+        If isFileOpen Then FileClose(InFile)
         Exit Sub
 
     End Sub
@@ -345,17 +345,17 @@ Errhandler:
 
         If LocChanged Then
             With ShipDesLoc
-                .Xg = CDbl(txtVslSt(0).Text) / LFactor
-                .Yg = CDbl(txtVslSt(1).Text) / LFactor
-                .Heading = CDbl(txtVslSt(2).Text) * Degrees2Radians
+                .Xg = CSng(_txtVslSt_0.Text) / LFactor
+                .Yg = CSng(_txtVslSt_1.Text) / LFactor
+                .Heading = CSng(_txtVslSt_2.Text) * Degrees2Radians
             End With
         End If
 
-        SprdAngle = CDbl(-txtGeneral(0).Text) * Degrees2Radians
-        Scope = CDbl(txtGeneral(1).Text) / LFactor
+        SprdAngle = CSng(-_txtGeneral_0.Text) * Degrees2Radians
+        Scope = CSng(_txtGeneral_0.Text) / LFactor
 
-        FLXs = CDbl(txtFL(0).Text) / LFactor
-        FLYs = CDbl(txtFL(1).Text) / LFactor
+        FLXs = CSng(_txtFL_0.Text) / LFactor
+        FLYs = CSng(_txtFL_1.Text) / LFactor
 
         FL.Xs = FLXs
         FL.Ys = FLYs
@@ -367,8 +367,8 @@ Errhandler:
         AnchXg = System.Math.Cos(Alpha) * AnchXs - System.Math.Sin(Alpha) * AnchYs + ShipDesLoc.Xg
         AnchYg = System.Math.Sin(Alpha) * AnchXs + System.Math.Cos(Alpha) * AnchYs + ShipDesLoc.Yg
 
-        txtAnchor(0).Text = Format(AnchXg * LFactor, "0.00")
-        txtAnchor(1).Text = Format(AnchYg * LFactor, "0.00")
+        _txtAnchor_0.Text = Format(AnchXg * LFactor, "0.00")
+        _txtAnchor_1.Text = Format(AnchYg * LFactor, "0.00")
 
         btnAnchor.Enabled = False
         btnScope.Enabled = False
@@ -447,7 +447,7 @@ Errhandler:
             .FairLead.Xs = MoorLine_Renamed.FairLead.Xs
             .FairLead.Ys = MoorLine_Renamed.FairLead.Ys
             .FairLead.z = MoorLine_Renamed.FairLead.z
-            .FairLead.node = MoorLine_Renamed.FairLead.node
+            .FairLead.Node = MoorLine_Renamed.FairLead.Node
 
             .Anchor.Xg = MoorLine_Renamed.Anchor.Xg
             .Anchor.Yg = MoorLine_Renamed.Anchor.Yg
@@ -509,8 +509,8 @@ Errhandler:
             If Not UpdateMoorData() Then Exit Sub
         End If
 
-        Scope = CDbl(txtGeneral(1).Text) / LFactor
-        TopTension = CDbl(txtTopTen.Text) * 1000.0# / FrcFactor
+        Scope = CSng(txtGeneral(1).Text) / LFactor
+        TopTension = CSng(txtTopTen.Text) * 1000.0# / FrcFactor
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
         POL = MoorLines.MoorLines(CurLine).PayoutByScopeTopTension(Scope, TopTension)
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
@@ -556,8 +556,8 @@ Errhandler:
         With MoorLines.MoorLines(CurLine)
             Select Case cboDraft.SelectedIndex
                 Case 1
-                    .PretensionSur = CDbl(txtTopTen.Text) * 1000.0# / FrcFactor
-                    .PayoutSur = CDbl(txtGeneral(2).Text) / LFactor
+                    .PretensionSur = CSng(txtTopTen.Text) * 1000.0# / FrcFactor
+                    .PayoutSur = CSng(txtGeneral(2).Text) / LFactor
                     txtPreTen(0).Text = txtTopTen.Text
 
                     If chkBatch.CheckState Then
@@ -572,8 +572,8 @@ Errhandler:
                     End If
 
                 Case 2
-                    .PretensionOpr = CDbl(txtTopTen.Text) * 1000.0# / FrcFactor
-                    .PayoutOpr = CDbl(txtGeneral(2).Text) / LFactor
+                    .PretensionOpr = CSng(txtTopTen.Text) * 1000.0# / FrcFactor
+                    .PayoutOpr = CSng(txtGeneral(2).Text) / LFactor
                     txtPreTen(1).Text = txtTopTen.Text
 
                     If chkBatch.CheckState Then
@@ -624,16 +624,16 @@ Errhandler:
         End If
 
         With ShipDesLoc
-            .Xg = CDbl(txtVslSt(0).Text) / LFactor
-            .Yg = CDbl(txtVslSt(1).Text) / LFactor
-            .Heading = CDbl(txtVslSt(2).Text) * Degrees2Radians
+            .Xg = CSng(txtVslSt(0).Text) / LFactor
+            .Yg = CSng(txtVslSt(1).Text) / LFactor
+            .Heading = CSng(txtVslSt(2).Text) * Degrees2Radians
         End With
 
         With MoorLines.MoorLines(CurLine)
-            .Anchor.Xg = CDbl(txtAnchor(0).Text) / LFactor
-            .Anchor.Yg = CDbl(txtAnchor(1).Text) / LFactor
-            .FairLead.Xs = CDbl(txtFL(0).Text) / LFactor
-            .FairLead.Ys = CDbl(txtFL(1).Text) / LFactor
+            .Anchor.Xg = CSng(txtAnchor(0).Text) / LFactor
+            .Anchor.Yg = CSng(txtAnchor(1).Text) / LFactor
+            .FairLead.Xs = CSng(txtFL(0).Text) / LFactor
+            .FairLead.Ys = CSng(txtFL(1).Text) / LFactor
             .FairLead.Node = CInt(_txtFL_3.Text)
             .Anchor.Node = CInt(_txtFL_4.Text)
             txtGeneral(1).Text = Format(.ScopeByVesselLocation(ShipDesLoc, True) * LFactor, "0.000")
@@ -739,16 +739,16 @@ Errhandler:
 
     End Sub
 
-    Private Sub frm_MouseDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) _
-        Handles MyBase.MouseDown
+    '  Private Sub frm_MouseDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) _
+    '      Handles MyBase.MouseDown
 
-        If eventArgs.Button = System.Windows.Forms.MouseButtons.Right Then
+    '  If eventArgs.Button = System.Windows.Forms.MouseButtons.Right Then
+    '
+    '          ContextMenuStripGridEdit.Show(MousePosition)
 
-            ContextMenuStripGridEdit.Show(MousePosition)
+    '  End If
 
-        End If
-
-    End Sub
+    '  End Sub
 
     Private Function CheckEntries(ByVal Entry As String, ByVal Column As Short) As String
 
@@ -811,7 +811,7 @@ Errhandler:
             Case 2 ' Anchor WD
                 If Len(Trim(txtWD.Text)) > 0 And Val(txtWD.Text) <> 0 Then
                     ' calc average slope as default
-                    If Val(txtWD.Text) > CDbl(txtAnchor(2).Text) Then
+                    If Val(txtWD.Text) > CSng(txtAnchor(2).Text) Then
                         txtAnchor(3).Text = -Format(Atan(Val(txtGeneral(1).Text), Val(txtWD.Text) - Val(txtAnchor(2).Text), True) * 180 / PI, "#0.00")
                     Else
                         txtAnchor(3).Text = Format(Atan(Val(txtGeneral(1).Text), Val(txtAnchor(2).Text) - Val(txtWD.Text), True) * 180 / PI, "#0.00")
@@ -1262,9 +1262,9 @@ Errhandler:
 
         If LocChanged Then
             With ShipDesLoc
-                .Xg = CDbl(txtVslSt(0).Text) / LFactor
-                .Yg = CDbl(txtVslSt(1).Text) / LFactor
-                .Heading = CDbl(txtVslSt(2).Text) * Degrees2Radians
+                .Xg = CSng(txtVslSt(0).Text) / LFactor
+                .Yg = CSng(txtVslSt(1).Text) / LFactor
+                .Heading = CSng(txtVslSt(2).Text) * Degrees2Radians
             End With
         End If
 
@@ -1276,33 +1276,33 @@ Errhandler:
             '        HD, Dir are in reference to vessel center for scope and Spread Angle
             '        Dir = txtGeneral(0) * Degrees2Radians
             '        HD = txtGeneral(1)
-            SprdAng = CDbl(txtGeneral(0).Text) * Degrees2Radians
-            .DesScope = CDbl(txtGeneral(1).Text) / LFactor ' This assume scope is referenced from fairlead
-            .Payout = CDbl(txtGeneral(2).Text) / LFactor '       top tension
-            .TopTension = CDbl(txtTopTen.Text) * 1000.0# / FrcFactor
+            SprdAng = CSng(txtGeneral(0).Text) * Degrees2Radians
+            .DesScope = CSng(txtGeneral(1).Text) / LFactor ' This assume scope is referenced from fairlead
+            .Payout = CSng(txtGeneral(2).Text) / LFactor '       top tension
+            .TopTension = CSng(txtTopTen.Text) * 1000.0# / FrcFactor
 
             '       fairlead
-            .FairLead.Xs = CDbl(txtFL(0).Text) / LFactor
-            .FairLead.Ys = CDbl(txtFL(1).Text) / LFactor
-            .FairLead.z = CDbl(txtFL(2).Text) / LFactor
+            .FairLead.Xs = CSng(txtFL(0).Text) / LFactor
+            .FairLead.Ys = CSng(txtFL(1).Text) / LFactor
+            .FairLead.z = CSng(txtFL(2).Text) / LFactor
             .FairLead.Node = CInt(_txtFL_3.Text)
             .Anchor.Node = CInt(_txtFL_4.Text)
             '     GetScopeSprd Scope, SprdAng, HD, Dir, .FairLead.Xs, .FairLead.Ys
             .FairLead.SprdAngle = SprdAng
 
             '       anchor
-            .Anchor.Xg = CDbl(txtAnchor(0).Text) / LFactor
-            .Anchor.Yg = CDbl(txtAnchor(1).Text) / LFactor
-            .WaterDepth = CDbl(txtAnchor(2).Text) / LFactor
-            .BottomSlope = CDbl(txtAnchor(3).Text) * Degrees2Radians
+            .Anchor.Xg = CSng(txtAnchor(0).Text) / LFactor
+            .Anchor.Yg = CSng(txtAnchor(1).Text) / LFactor
+            .WaterDepth = CSng(txtAnchor(2).Text) / LFactor
+            .BottomSlope = CSng(txtAnchor(3).Text) * Degrees2Radians
 
             .Anchor.Model = grdAnchor.Rows(0).Cells(1).Value
 
-            .Anchor.HoldCap = CDbl(grdAnchor.Rows(0).Cells(4).Value) * 1000.0# / FrcFactor
+            .Anchor.HoldCap = CSng(grdAnchor.Rows(0).Cells(4).Value) * 1000.0# / FrcFactor
 
             .Anchor.Remark = grdAnchor.Rows(0).Cells(5).Value
 
-            .WinchCap = CDbl(grdAnchor.Rows(0).Cells(7).Value) * 1000.0# / FrcFactor
+            .WinchCap = CSng(grdAnchor.Rows(0).Cells(7).Value) * 1000.0# / FrcFactor
         End With
 
         '   segments
@@ -1331,28 +1331,28 @@ Errhandler:
                 SegTp = .Rows(r).Cells(0).Value
                 '           store the data from this row in the new segment
 
-                Lg = CDbl(.Rows(r).Cells(1).Value) / LFactor
+                Lg = CSng(.Rows(r).Cells(1).Value) / LFactor
 
-                TLg = CDbl(.Rows(r).Cells(2).Value) / LFactor
+                TLg = CSng(.Rows(r).Cells(2).Value) / LFactor
 
                 'UPGRADE_WARNING: Couldn't resolve default property of object DiameterFactor. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                dia = CDbl(.Rows(r).Cells(3).Value) / DiameterFactor
+                dia = CSng(.Rows(r).Cells(3).Value) / DiameterFactor
 
-                BS = CDbl(.Rows(r).Cells(4).Value) * 1000.0# / FrcFactor
+                BS = CSng(.Rows(r).Cells(4).Value) * 1000.0# / FrcFactor
 
-                E1 = CDbl(.Rows(r).Cells(5).Value) * 1000.0# / StressFactor
+                E1 = CSng(.Rows(r).Cells(5).Value) * 1000.0# / StressFactor
 
-                E2 = CDbl(.Rows(r).Cells(6).Value) * 1000.0# / StressFactor
+                E2 = CSng(.Rows(r).Cells(6).Value) * 1000.0# / StressFactor
 
-                DryWt = CDbl(.Rows(r).Cells(7).Value) / (FrcFactor / LFactor)
+                DryWt = CSng(.Rows(r).Cells(7).Value) / (FrcFactor / LFactor)
 
-                WetWt = CDbl(.Rows(r).Cells(8).Value) / (FrcFactor / LFactor)
+                WetWt = CSng(.Rows(r).Cells(8).Value) / (FrcFactor / LFactor)
 
-                FrCoef = CDbl(.Rows(r).Cells(9).Value)
+                FrCoef = CSng(.Rows(r).Cells(9).Value)
 
-                Buoy = CDbl(.Rows(r).Cells(10).Value) * 1000 / FrcFactor
+                Buoy = CSng(.Rows(r).Cells(10).Value) * 1000 / FrcFactor
 
-                BuoyL = CDbl(.Rows(r).Cells(11).Value) / LFactor
+                BuoyL = CSng(.Rows(r).Cells(11).Value) / LFactor
 
 
                 Call MoorLines.MoorLines(CurLine).SegmentAdd(SegTp, Lg, TLg, dia, BS, E1, E2, DryWt, WetWt, Buoy, BuoyL, FrCoef)

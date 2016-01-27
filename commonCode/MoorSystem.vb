@@ -188,7 +188,7 @@ Friend Class MoorSystem
         Dim E1, BS, E2 As Single
         Dim Buoy, DryWt, WetWt, BuoyL As Single
         Dim FrCoef As Single
-        Dim fairLeadNode, anchorNode As Integer
+        Dim fairLeadNode, anchorNode As Short
 
         Dim WinchCap As Single
 
@@ -221,20 +221,24 @@ Friend Class MoorSystem
             Input(FileNum, FLX)
             Input(FileNum, FLY)
             Input(FileNum, FLZ)
-
+            Input(FileNum, fairLeadNode)
             Input(FileNum, AnchorX)
             Input(FileNum, AnchorY)
             Input(FileNum, WaterDepth)
             Input(FileNum, BtmSlp)
+            Input(FileNum, anchorNode)
             Input(FileNum, AnchModel)
             Input(FileNum, HoldCap)
             Input(FileNum, AnchRemark)
-            ' If Input(FileNum, fairLeadNode) Is vbNull Then
-            'fairLeadNode = 9500 + i
-            ' End If
-            'If Input(FileNum, anchorNode) Is vbNull Then
-            'anchorNode = 9100 + i
-            ' End If
+
+            If fairLeadNode = 0 Then
+                fairLeadNode = 9500 + i
+            End If
+
+            If anchorNode = 0 Then
+                anchorNode = 9100 + i
+            End If
+
             With NewMoorLine
                 .Draft = msngShipDraft
                 .DesScope = Scope
@@ -244,10 +248,10 @@ Friend Class MoorSystem
                 .FairLead.Xs = FLX
                 .FairLead.Ys = FLY
                 .FairLead.z = FLZ
-                .FairLead.Node = 9100 + i 'default JLIU TODO
+                .FairLead.Node = fairLeadNode
                 .Anchor.Xg = AnchorX
                 .Anchor.Yg = AnchorY
-                .Anchor.Node = 9500 + i ' Jliu TODO
+                .Anchor.Node = anchorNode
                 .WaterDepth = WaterDepth
                 .BottomSlope = CSng(Val(BtmSlp)) * Degrees2Radians
 
@@ -304,8 +308,8 @@ ErrorHandler:
         For i = 1 To NumLine
             With mcolMoorLines.Item(i)
                 WriteLine(FileNum, .DesScope, .Payout, .TopTension, .PayoutSur, .PretensionSur, .PayoutOpr, .PretensionOpr, .WinchCap)
-                WriteLine(FileNum, .FairLead.SprdAngle * Radians2Degrees, .FairLead.Xs, .FairLead.Ys, .FairLead.z)
-                WriteLine(FileNum, .Anchor.Xg, .Anchor.Yg, .WaterDepth, .BottomSlope * Radians2Degrees)
+                WriteLine(FileNum, .FairLead.SprdAngle * Radians2Degrees, .FairLead.Xs, .FairLead.Ys, .FairLead.z, .Fairlead.NODE)
+                WriteLine(FileNum, .Anchor.Xg, .Anchor.Yg, .WaterDepth, .BottomSlope * Radians2Degrees, .Anchor.NODE)
                 With .Anchor
                     WriteLine(FileNum, .Model, .HoldCap, .Remark)
                 End With
