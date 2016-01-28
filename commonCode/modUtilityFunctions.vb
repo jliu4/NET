@@ -369,8 +369,8 @@ Module modUtilities
 	Public Function GetNumericString(ByRef St As String, ByRef StNum As Short) As Single
 		Dim i, j As Integer
 		Dim num, StLen, DLen, StartCh As Short
-		Dim Ch, TempSt As String
-		Dim EOL, DelimiterFound, EnoughNumbers As Boolean
+        Dim TempSt As String
+        Dim EOL, DelimiterFound, EnoughNumbers As Boolean
 		
 		' "DelimiterList" is a string containing all allowable delimiters
 		
@@ -477,67 +477,68 @@ Module modUtilities
 			GetFirstString = ""
 			Exit Function
 		End If
-		
-		' On the other hand, if something IS there, deal with it
-		
-		Do While Not EOL
-			
-			' See if we have found a delimiter by comparing every character in the input
-			' string to every one in the delimiter list; set the "found" flag if we find
-			' a match
-			
-			For i = StartCh To StLen
-				For j = 1 To DLen
-					If Mid(St, i, 1) = Mid(DelimiterList, j, 1) Then
-						DelimiterFound = True
-						Exit For
-					End If
-				Next j
-				
-				' If a match has been found, remember where to start looking again, and then
-				' temporarily leave the outer loop (the one working through the input string)
-				
-				If DelimiterFound Then
-					If i < StLen Then
-						StartCh = i + 1
-					Else
-						EOL = True
-					End If
-					Exit For
-					
-					' If no match was found, append this character to those found following the
-					' last delimiter.  In this way we build up the strings between the delimiters
-					
-				Else
-					TempSt = TempSt & Mid(St, i, 1)
-				End If
-				
-				' Make sure we recognize the end of the input string
-				
-				If i >= StLen Then
-					DelimiterFound = True
-					EOL = True
-					Exit For
-				End If
-			Next i
-			
-			' Once we find a string, return it if if is non-numeric, or return an empty
-			' string if it is numeric (no leading string)
-			
-			If Len(TempSt) > 0 Then
-				If IsNumeric(TempSt) Then
-					GetFirstString = ""
-				Else
-					GetFirstString = TempSt
-				End If
-				Exit Function
-			End If
-			
-			' Keep going until we find the end of the input string
-			
-		Loop 
-		
-	End Function
+
+        ' On the other hand, if something IS there, deal with it
+
+        Do While Not EOL
+
+            ' See if we have found a delimiter by comparing every character in the input
+            ' string to every one in the delimiter list; set the "found" flag if we find
+            ' a match
+
+            For i = StartCh To StLen
+                For j = 1 To DLen
+                    If Mid(St, i, 1) = Mid(DelimiterList, j, 1) Then
+                        DelimiterFound = True
+                        Exit For
+                    End If
+                Next j
+
+                ' If a match has been found, remember where to start looking again, and then
+                ' temporarily leave the outer loop (the one working through the input string)
+
+                If DelimiterFound Then
+                    If i < StLen Then
+                        StartCh = i + 1
+                    Else
+                        EOL = True
+                    End If
+                    Exit For
+
+                    ' If no match was found, append this character to those found following the
+                    ' last delimiter.  In this way we build up the strings between the delimiters
+
+                Else
+                    TempSt = TempSt & Mid(St, i, 1)
+                End If
+
+                ' Make sure we recognize the end of the input string
+
+                If i >= StLen Then
+                    DelimiterFound = True
+                    EOL = True
+                    Exit For
+                End If
+            Next i
+
+            ' Once we find a string, return it if if is non-numeric, or return an empty
+            ' string if it is numeric (no leading string)
+
+            If Len(TempSt) > 0 Then
+                If IsNumeric(TempSt) Then
+                    GetFirstString = ""
+                Else
+                    GetFirstString = TempSt
+                End If
+                Exit Function
+            End If
+
+            ' Keep going until we find the end of the input string
+
+        Loop
+        'JLIU TODO
+        GetFirstString = TempSt
+    End Function
 	
 	Public Function GetSecondString(ByRef St As String) As String
 		Dim RemSt As String
@@ -593,8 +594,8 @@ Module modUtilities
 	Public Function ParseNumericString(ByRef St As String, ByRef OutArray() As Single) As Short
 		Dim i, j As Integer
 		Dim num, StLen, DLen, StartCh As Short
-		Dim Ch, TempSt As String
-		Dim DelimiterFound, EOL As Boolean
+        Dim TempSt As String
+        Dim DelimiterFound, EOL As Boolean
 		
 		' "DelimiterList" is a string containing all allowable delimiters
 		

@@ -531,27 +531,25 @@ ErrHandler:
     End Sub
 	
 	Private Sub UpdateCurEnv()
-		If IsMetricUnit Then
-			LFactor = 0.3048 ' ft -> m
-			FrcFactor = 4.448222 ' kips -> KN
-			StressFactor = 6.894757 ' ksi -> MPa
-			DiaFactor = 25.4 ' in -> mm
-			VelFactor = 0.5144444 ' knots - > m/s
-			LUnit = "m"
-			FrcUnit = "KN"
-		Else
-			VelFactor = 1
-			LFactor = 1
-			FrcFactor = 1
-			StressFactor = 1
-			DiaFactor = 1
-			LUnit = "ft"
-			FrcUnit = "kips"
-		End If
-		
-		Dim i As Short
-		
-		If Updated Then Exit Sub
+        If IsMetricUnit Then
+            LFactor = 0.3048 ' ft -> m
+            FrcFactor = 4.448222 ' kips -> KN
+            StressFactor = 6.894757 ' ksi -> MPa
+            DiaFactor = 25.4 ' in -> mm
+            VelFactor = 0.5144444 ' knots - > m/s
+            LUnit = "m"
+            FrcUnit = "KN"
+        Else
+            VelFactor = 1
+            LFactor = 1
+            FrcFactor = 1
+            StressFactor = 1
+            DiaFactor = 1
+            LUnit = "ft"
+            FrcUnit = "kips"
+        End If
+
+        If Updated Then Exit Sub
 		
 		CurVessel.EnvLoad.EnvCur.Name = cboCurEnv.Text
 		

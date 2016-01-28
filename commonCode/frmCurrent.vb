@@ -54,6 +54,9 @@ Friend Class frmCurrent
             .ColumnCount = 3
             For i = 0 To .ColumnCount - 1
                 .Columns(i).HeaderText = CurrentLbls(i)
+                .Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                .Columns(i).FillWeight = 100 / .ColumnCount
+
             Next
 
             '       load data
@@ -61,7 +64,7 @@ Friend Class frmCurrent
                 .Text = "0"
             Else
                 LoadGridFromProject()
-                UpdatePlotFromGrid()
+                '  UpdatePlotFromGrid()
             End If
         End With
 
@@ -91,7 +94,7 @@ Friend Class frmCurrent
     Handles grdCurrent.CellValueChanged
         If Not CheckingGrid Then
             With grdCurrent
-                UpdatePlotFromGrid()
+                'UpdatePlotFromGrid()
                 'ReDrawing()
             End With
         End If
@@ -102,7 +105,7 @@ Friend Class frmCurrent
         ' If Not CheckingGrid Then
         With grdCurrent
 
-            UpdatePlotFromGrid()
+            'UpdatePlotFromGrid()
             'ReDrawing()
         End With
         ' End If

@@ -748,7 +748,7 @@ Friend Class EnvLoad
         Dim Freq, Draft, Coef As Single
         Dim TmpStr, TmpStr1 As String
         Dim Fields() As String
-
+        NewCol = New Collection
         InputFC = False
 
         On Error GoTo ErrorHandler

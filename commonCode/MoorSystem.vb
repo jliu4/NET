@@ -296,7 +296,7 @@ ErrorHandler:
 
     Public Function OutputML(ByVal FileNum As Short) As Boolean
 
-        Dim i, j As Short
+        Dim i As Short
         Dim Segment_Renamed As Segment
         Dim NumLine As Short
 

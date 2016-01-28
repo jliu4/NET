@@ -77,9 +77,8 @@ SysInfoErr:
 	Public Function GetKeyValue(ByRef KeyRoot As Integer, ByRef KeyName As String, ByRef SubKeyRef As String, ByRef KeyVal As String) As Boolean
 		Dim i As Integer ' Loop Counter
 		Dim rc As Integer ' Return Code
-		Dim hKey As Integer ' Handle To An Open Registry Key
-		Dim hDepth As Integer '
-		Dim KeyValType As Integer ' Data Type Of A Registry Key
+        Dim hKey As Integer ' Handle To An Open Registry Key
+        Dim KeyValType As Integer ' Data Type Of A Registry Key
 		Dim tmpVal As String ' Tempory Storage For A Registry Key Value
 		Dim KeyValSize As Integer ' Size Of Registry Key Variable
 		'------------------------------------------------------------

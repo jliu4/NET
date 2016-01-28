@@ -1709,7 +1709,7 @@ ErrHandler:
         Dim NumLines As Short
         Dim CaseNam As String
         Dim FrcHor As Single
-        Dim Row, Col As Short
+        Dim Row As Short
         'UPGRADE_WARNING: Lower bound of array MooringState was changed from 1 to 0. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"'
         Dim MooringState(NumCases) As String
 
@@ -1795,7 +1795,7 @@ ErrHandler:
         'UPGRADE_WARNING: Lower bound of array StiffRz was changed from 1 to 0. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"'
         Dim StiffRz(NumCases) As Single
 
-        Dim j, i, k As Short
+        Dim j, i As Short
         Dim minFS, t As Single
         NumLines = oVessel.MoorSystem.MoorLineCount
         Dim MaxVal, MinVal As Single
@@ -1885,7 +1885,7 @@ ErrHandler:
         Dim FileName, TmpStr As String
         FileName = Right(fname, Len(fname) - InStrRev(fname, "\"))
         Dim Pos As Short
-        Dim Field As Object
+
         With oxApp
 
             .Windows(FileName).Activate()
@@ -2367,8 +2367,8 @@ ErrHandler:
         Dim CurLine As MoorLine
         Dim MoorLine As New MoorLine
         Dim BS, RetVal As Single
-        Dim j As Short
-        Dim TmpVal1, TmpVal2 As Single
+
+        Dim TmpVal2 As Single
         ' send payout summary data to excel
         If MoorSystem Is Nothing Then
             NumLines = oVessel.MoorSystem.MoorLineCount

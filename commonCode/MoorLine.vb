@@ -735,7 +735,7 @@ Friend Class MoorLine
         '   FrcHor:     applied horizontal force
         '   return:     corresponding top tension (-1 - unsuccessfull calculation)
 
-        Dim i, j As Short
+        Dim i As Short
         Dim ScopeC, t0 As Single
         Dim CatenyCalc As Boolean
         Dim ThTB, MinBS, ThTS As Single
@@ -935,7 +935,7 @@ Friend Class MoorLine
         '   FrcHor:     applied horizontal force
         '   return:     corresponding scope
 
-        Dim i, j As Short
+        Dim i As Short
         Dim CatenyCalc As Boolean
         Dim ScopeC, t0 As Single
         Dim T1, T2 As Single
@@ -1002,7 +1002,7 @@ Friend Class MoorLine
         '   FrcHor:     applied horizontal force
         '   return:     corresponding scope
 
-        Dim i, j As Short
+        Dim i As Short
         Dim CatenyCalc As Boolean
         Dim ScopeC, t0 As Single
         Dim ThTB, ThTS As Single
@@ -1527,7 +1527,7 @@ Friend Class MoorLine
         '   return:     success
 
         Dim i, NumSeg As Short
-        Dim TotalLen, KTmp, SegLen0 As Single
+        Dim TotalLen, SegLen0 As Single
         Dim tmp2, tmp1, angle As Single
         Dim DepthFL As Single
 
@@ -2194,7 +2194,7 @@ Friend Class MoorLine
         '   return:     flag successful calculation
 
         Dim j, i, kk As Short
-        Dim icount, ICount1 As Short
+        Dim icount As Short
 
         Dim SegBuoy(MaxNumSeg) As Single
 
@@ -2234,8 +2234,8 @@ Friend Class MoorLine
         Dim jS2a, jS1a, jtmp As Short
 
         Dim xtmp, theta, ytmp As Single
-        Dim tmp, tmp1 As Single
-        Dim tmp3, tmp2, tmp4 As Single
+        Dim tmp1 As Single
+        Dim tmp3, tmp2 As Single
 
         '   initialize
         CatWBuoy = False
