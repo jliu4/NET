@@ -170,9 +170,9 @@ Friend Class frmCurrent
                 DepthText = .Rows(r).Cells(0).Value
                 VelU = .Rows(r).Cells(1).Value
                 VelV = .Rows(r).Cells(2).Value
-                VelA = CStr(System.Math.Sqrt(CSng(VelU) ^ 2 + CSng(VelV) ^ 2))
+                VelA = CStr(System.Math.Sqrt(CDbl(VelU) ^ 2 + CDbl(VelV) ^ 2))
 
-                CurVessel.EnvLoad.EnvCur.Current.ProfileAdd(Depth:=CSng(DepthText), Velocity:=CSng(VelA))
+                CurVessel.EnvLoad.EnvCur.Current.ProfileAdd(Depth:=CDbl(DepthText), Velocity:=CDbl(VelA))
 
             Next r
         End With
@@ -194,9 +194,9 @@ Friend Class frmCurrent
             If .RowCount > 1 Then
                 For r = 0 To .RowCount - 1
 
-                    Depth(r + 1) = CSng(.Rows(r).Cells(0).Value)
+                    Depth(r + 1) = CDbl(.Rows(r).Cells(0).Value)
 
-                    CurVelU(r + 1) = CSng(.Rows(r).Cells(1).Value)
+                    CurVelU(r + 1) = CDbl(.Rows(r).Cells(1).Value)
 
                     NumPoints = NumPoints + 1
                     CurVelA(r + 1) = System.Math.Sqrt(CurVelU(r + 1) ^ 2 + CurVelV(r + 1) ^ 2)
@@ -250,8 +250,11 @@ Friend Class frmCurrent
 
         With grdCurrent
             For r = 0 To NumPairs - 1
-                .Rows(r).Cells(0).Value = CStr(FormatNumber(CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Depth * LFactor, 1))
-                .Rows(r).Cells(1).Value = CStr(FormatNumber(CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Velocity * Ftps2Knots * VelFactor, 3))
+                ' .Rows(r).Cells(0).Value = CStr(FormatNumber(CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Depth * LFactor, 1))
+                ' .Rows(r).Cells(1).Value = CStr(FormatNumber(CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Velocity * Ftps2Knots * VelFactor, 3))
+                .Rows(r).Cells(0).Value = CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Depth * LFactor
+                .Rows(r).Cells(1).Value = CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Velocity * Ftps2Knots * VelFactor
+
             Next r
 
         End With

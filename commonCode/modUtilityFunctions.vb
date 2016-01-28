@@ -447,7 +447,7 @@ Module modUtilities
 		' Report our result
 		
 		If EnoughNumbers Then
-			GetNumericString = CSng(TempSt)
+			GetNumericString = CDbl(TempSt)
 		Else
 			GetNumericString = 0#
 		End If
@@ -653,7 +653,7 @@ Module modUtilities
 			If Len(TempSt) > 0 And IsNumeric(TempSt) Then
 				num = num + 1
 				If TempSt = "" Then TempSt = "0."
-				OutArray(num) = CSng(TempSt)
+				OutArray(num) = CDbl(TempSt)
 			End If
 			
 			' Reset the flag and temporary string

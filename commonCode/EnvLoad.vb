@@ -907,15 +907,15 @@ ErrorHandler:
             Input(FileNum, EnvName)
             Input(FileNum, TmpStr)
             Input(FileNum, TmpStr2)
-            WindDir = CSng(TmpStr2)
-            WindVel = CSng(TmpStr)
+            WindDir = CDbl(TmpStr2)
+            WindVel = CDbl(TmpStr)
             Input(FileNum, WaveHt)
             Input(FileNum, WaveTp)
             Input(FileNum, TmpStr)
-            WaveDir = CSng(TmpStr)
+            WaveDir = CDbl(TmpStr)
             Input(FileNum, NumCur)
             Input(FileNum, TmpStr)
-            CurDir_Renamed = CSng(TmpStr)
+            CurDir_Renamed = CDbl(TmpStr)
 
             '       determine whether the same criteria have been input
             NumEnvAv = mcolEnvironments.Count()
@@ -932,8 +932,8 @@ ErrorHandler:
                 For j = 1 To NumCur
                     Input(FileNum, TmpStr2)
                     Input(FileNum, TmpStr)
-                    CurDepth = CSng(TmpStr2)
-                    CurVel = CSng(TmpStr)
+                    CurDepth = CDbl(TmpStr2)
+                    CurVel = CDbl(TmpStr)
                 Next j
             Else
                 NewEnv = New Metocean
@@ -950,8 +950,8 @@ ErrorHandler:
                 For j = 1 To NumCur
                     Input(FileNum, TmpStr2)
                     Input(FileNum, TmpStr)
-                    CurDepth = CSng(TmpStr2)
-                    CurVel = CSng(TmpStr)
+                    CurDepth = CDbl(TmpStr2)
+                    CurVel = CDbl(TmpStr)
                     Call NewEnv.Current.ProfileAdd(CurDepth, CurVel * Knots2Ftps)
                 Next j
 

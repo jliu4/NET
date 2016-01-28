@@ -117,7 +117,7 @@
         Me._lblRiser_0 = New System.Windows.Forms.Label()
         Me.fraWell = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtRiserLen = New System.Windows.Forms.TextBox()
+        Me.txtRiserLFJDepth = New System.Windows.Forms.TextBox()
         Me.lblBottomFJ = New System.Windows.Forms.Label()
         Me._txtVslSt_3 = New System.Windows.Forms.TextBox()
         Me._txtVslSt_2 = New System.Windows.Forms.TextBox()
@@ -380,7 +380,7 @@
         '
         Me.fraWell.BackColor = System.Drawing.SystemColors.Control
         Me.fraWell.Controls.Add(Me.Label2)
-        Me.fraWell.Controls.Add(Me.txtRiserLen)
+        Me.fraWell.Controls.Add(Me.txtRiserLFJDepth)
         Me.fraWell.Controls.Add(Me.lblBottomFJ)
         Me.fraWell.Controls.Add(Me._txtVslSt_3)
         Me.fraWell.Controls.Add(Me._txtVslSt_2)
@@ -418,21 +418,21 @@
         Me.Label2.TabIndex = 48
         Me.Label2.Text = "ft"
         '
-        'txtRiserLen
+        'txtRiserLFJDepth
         '
-        Me.txtRiserLen.AcceptsReturn = True
-        Me.txtRiserLen.BackColor = System.Drawing.SystemColors.Window
-        Me.txtRiserLen.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRiserLen.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtRiserLen.Location = New System.Drawing.Point(76, 134)
-        Me.txtRiserLen.MaxLength = 0
-        Me.txtRiserLen.Name = "txtRiserLen"
-        Me.txtRiserLen.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtRiserLen.Size = New System.Drawing.Size(62, 20)
-        Me.txtRiserLen.TabIndex = 46
-        Me.txtRiserLen.TabStop = False
-        Me.txtRiserLen.Text = "0"
-        Me.txtRiserLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRiserLFJDepth.AcceptsReturn = True
+        Me.txtRiserLFJDepth.BackColor = System.Drawing.SystemColors.Window
+        Me.txtRiserLFJDepth.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtRiserLFJDepth.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtRiserLFJDepth.Location = New System.Drawing.Point(76, 134)
+        Me.txtRiserLFJDepth.MaxLength = 0
+        Me.txtRiserLFJDepth.Name = "txtRiserLFJDepth"
+        Me.txtRiserLFJDepth.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtRiserLFJDepth.Size = New System.Drawing.Size(62, 20)
+        Me.txtRiserLFJDepth.TabIndex = 46
+        Me.txtRiserLFJDepth.TabStop = False
+        Me.txtRiserLFJDepth.Text = "0"
+        Me.txtRiserLFJDepth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblBottomFJ
         '
@@ -444,7 +444,7 @@
         Me.lblBottomFJ.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lblBottomFJ.Size = New System.Drawing.Size(69, 19)
         Me.lblBottomFJ.TabIndex = 47
-        Me.lblBottomFJ.Text = "Riser Length"
+        Me.lblBottomFJ.Text = "LFJ Depth"
         '
         '_txtVslSt_3
         '
@@ -1081,28 +1081,28 @@
         '
         Me.mnuFilePre.SetIndex(Me._mnuFilePre_0, CType(0, Short))
         Me._mnuFilePre_0.Name = "_mnuFilePre_0"
-        Me._mnuFilePre_0.Size = New System.Drawing.Size(152, 22)
+        Me._mnuFilePre_0.Size = New System.Drawing.Size(114, 22)
         Me._mnuFilePre_0.Visible = False
         '
         '_mnuFilePre_1
         '
         Me.mnuFilePre.SetIndex(Me._mnuFilePre_1, CType(1, Short))
         Me._mnuFilePre_1.Name = "_mnuFilePre_1"
-        Me._mnuFilePre_1.Size = New System.Drawing.Size(152, 22)
+        Me._mnuFilePre_1.Size = New System.Drawing.Size(114, 22)
         Me._mnuFilePre_1.Visible = False
         '
         '_mnuFilePre_2
         '
         Me.mnuFilePre.SetIndex(Me._mnuFilePre_2, CType(2, Short))
         Me._mnuFilePre_2.Name = "_mnuFilePre_2"
-        Me._mnuFilePre_2.Size = New System.Drawing.Size(152, 22)
+        Me._mnuFilePre_2.Size = New System.Drawing.Size(114, 22)
         Me._mnuFilePre_2.Visible = False
         '
         '_mnuFilePre_3
         '
         Me.mnuFilePre.SetIndex(Me._mnuFilePre_3, CType(3, Short))
         Me._mnuFilePre_3.Name = "_mnuFilePre_3"
-        Me._mnuFilePre_3.Size = New System.Drawing.Size(152, 22)
+        Me._mnuFilePre_3.Size = New System.Drawing.Size(114, 22)
         Me._mnuFilePre_3.Visible = False
         '
         'MainMenu1
@@ -1123,47 +1123,47 @@
         'mnuFileNew
         '
         Me.mnuFileNew.Name = "mnuFileNew"
-        Me.mnuFileNew.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFileNew.Size = New System.Drawing.Size(114, 22)
         Me.mnuFileNew.Text = "&New"
         '
         'mnuFileOpen
         '
         Me.mnuFileOpen.Name = "mnuFileOpen"
-        Me.mnuFileOpen.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFileOpen.Size = New System.Drawing.Size(114, 22)
         Me.mnuFileOpen.Text = "&Open"
         '
         'mnuLine1
         '
         Me.mnuLine1.Name = "mnuLine1"
-        Me.mnuLine1.Size = New System.Drawing.Size(149, 6)
+        Me.mnuLine1.Size = New System.Drawing.Size(111, 6)
         '
         'mnuFileSave
         '
         Me.mnuFileSave.Name = "mnuFileSave"
-        Me.mnuFileSave.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFileSave.Size = New System.Drawing.Size(114, 22)
         Me.mnuFileSave.Text = "&Save"
         '
         'mnuFileSaveAs
         '
         Me.mnuFileSaveAs.Name = "mnuFileSaveAs"
-        Me.mnuFileSaveAs.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFileSaveAs.Size = New System.Drawing.Size(114, 22)
         Me.mnuFileSaveAs.Text = "Save &As"
         '
         'mnuLine2
         '
         Me.mnuLine2.Name = "mnuLine2"
-        Me.mnuLine2.Size = New System.Drawing.Size(149, 6)
+        Me.mnuLine2.Size = New System.Drawing.Size(111, 6)
         '
         'mnuLinePreFile
         '
         Me.mnuLinePreFile.Name = "mnuLinePreFile"
-        Me.mnuLinePreFile.Size = New System.Drawing.Size(149, 6)
+        Me.mnuLinePreFile.Size = New System.Drawing.Size(111, 6)
         Me.mnuLinePreFile.Visible = False
         '
         'mnuFileExit
         '
         Me.mnuFileExit.Name = "mnuFileExit"
-        Me.mnuFileExit.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFileExit.Size = New System.Drawing.Size(114, 22)
         Me.mnuFileExit.Text = "E&xit"
         '
         'frmTransient
@@ -1224,7 +1224,7 @@
     Friend WithEvents grdTM As DataGridView
     Friend WithEvents picPolar As PictureBox
     Public WithEvents Label2 As Label
-    Public WithEvents txtRiserLen As TextBox
+    Public WithEvents txtRiserLFJDepth As TextBox
     Public WithEvents lblBottomFJ As Label
 #End Region
 End Class

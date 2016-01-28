@@ -853,10 +853,10 @@ ErrorHandler:
 					
 					If FieldCount <> 14 Then GoTo ErrorHandler
 
-                    Freq = CSng(Fields(1))
-                    RAOx = CSng(Fields(2))
-                    RAOy = CSng(Fields(4))
-                    RAOr = CSng(Fields(12))
+                    Freq = CDbl(Fields(1))
+                    RAOx = CDbl(Fields(2))
+                    RAOy = CDbl(Fields(4))
+                    RAOr = CDbl(Fields(12))
 
                     '                Input #FileNum, Dummy, Freq, RAOx, Dummy, RAOy, Dummy, _
                     ''                    Dummy, Dummy, Dummy, Dummy, Dummy, Dummy, RAOr, Dummy
@@ -1006,10 +1006,10 @@ ErrorHandler:
             FieldCount = UBound(Fields) - LBound(Fields) + 1
             If FieldCount <> 4 Then GoTo ErrorHandler
             mclsMoorSystem.MoorLineAdd()
-            mclsMoorSystem.MoorLines(i).FairLead.Xs = CSng(Fields(0))
-            mclsMoorSystem.MoorLines(i).FairLead.Ys = CSng(Fields(1))
-            mclsMoorSystem.MoorLines(i).FairLead.z = CSng(Fields(2))
-            mclsMoorSystem.MoorLines(i).FairLead.SprdAngle = CSng(Fields(3)) * Degrees2Radians
+            mclsMoorSystem.MoorLines(i).FairLead.Xs = CDbl(Fields(0))
+            mclsMoorSystem.MoorLines(i).FairLead.Ys = CDbl(Fields(1))
+            mclsMoorSystem.MoorLines(i).FairLead.z = CDbl(Fields(2))
+            mclsMoorSystem.MoorLines(i).FairLead.SprdAngle = CDbl(Fields(3)) * Degrees2Radians
         Next i
 		Input(fnum, msngShipDraftSur)
 		Input(fnum, msngShipDraftOpr)

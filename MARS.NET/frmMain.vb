@@ -935,24 +935,24 @@ ErrHandler:
         With CurVessel
             If optInputSystem(0).Checked Then
                 With .ShipCurGlob
-                    .Xg = CSng(Format(CSng(CheckData(CStr(Val(_txtVslSt_0.Text)),  , True)) / LFactor, "0.00"))
-                    .Yg = CSng(Format(CSng(CheckData(CStr(Val(_txtVslSt_1.Text)),  , True)) / LFactor, "0.00"))
-                    .Heading = CSng(CheckData(CStr(Val(_txtVslSt_4.Text)),  , True)) * Degrees2Radians
+                    .Xg = CDbl(Format(CDbl(CheckData(CStr(Val(_txtVslSt_0.Text)),  , True)) / LFactor, "0.00"))
+                    .Yg = CDbl(Format(CDbl(CheckData(CStr(Val(_txtVslSt_1.Text)),  , True)) / LFactor, "0.00"))
+                    .Heading = CDbl(CheckData(CStr(Val(_txtVslSt_4.Text)),  , True)) * Degrees2Radians
                 End With
                 Coord2Bear(.ShipCurGlob, Distance, Bearing)
                 _txtVslSt_2.Text = Format(Distance * LFactor, "0.0")
                 _txtVslSt_3.Text = Format(Bearing * Radians2Degrees, "0.00")
             Else
-                Distance = CSng(CheckData(CStr(Val(_txtVslSt_2.Text) / LFactor),  , True))
-                Bearing = CSng(CheckData(CStr(Val(_txtVslSt_3.Text)),  , True)) * Degrees2Radians
+                Distance = CDbl(CheckData(CStr(Val(_txtVslSt_2.Text) / LFactor),  , True))
+                Bearing = CDbl(CheckData(CStr(Val(_txtVslSt_3.Text)),  , True)) * Degrees2Radians
                 Bear2Coord(.ShipCurGlob, Distance, Bearing)
                 With .ShipCurGlob
                     _txtVslSt_0.Text = Format(.Xg * LFactor, "0.0")
                     _txtVslSt_1.Text = Format(.Yg * LFactor, "0.0")
-                    .Heading = CSng(CheckData(_txtVslSt_4.Text,  , True)) * Degrees2Radians
+                    .Heading = CDbl(CheckData(_txtVslSt_4.Text,  , True)) * Degrees2Radians
                 End With
             End If
-            .ShipDraft = CSng(CheckData(CStr(Val(_txtVslSt_5.Text) / LFactor),  , True))
+            .ShipDraft = CDbl(CheckData(CStr(Val(_txtVslSt_5.Text) / LFactor),  , True))
         End With
 
     End Sub

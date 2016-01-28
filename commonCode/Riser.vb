@@ -20,9 +20,10 @@ Friend Class Riser
 	Private msngTopTen As Single
 	Private msngDia As Single
 	Private msngCd As Single
-	Private msngCm As Single
-	
-	Private mclsFhLocl As Force
+    Private msngCm As Single
+    Private msngLFJDepth As Single
+
+    Private mclsFhLocl As Force
 	
 	Public Sub New()
 		MyBase.New()
@@ -44,23 +45,36 @@ Friend Class Riser
 			
 		End Set
 	End Property
-	
-	
-	Public Property Length() As Single
-		Get
-			
-			Length = msngLength
-			
-		End Get
-		Set(ByVal Value As Single)
-			
-			msngLength = Value
-			
-		End Set
-	End Property
-	
-	
-	Public Property TopTen() As Single
+
+
+    Public Property Length() As Single
+        Get
+
+            Length = msngLength
+
+        End Get
+        Set(ByVal Value As Single)
+
+            msngLength = Value
+
+        End Set
+    End Property
+
+    Public Property LFJDepth() As Single
+        Get
+
+            LFJDepth = msngLFJDepth
+
+        End Get
+        Set(ByVal Value As Single)
+
+            msngLFJDepth = Value
+
+        End Set
+    End Property
+
+
+    Public Property TopTen() As Single
 		Get
 			
 			TopTen = msngTopTen
@@ -255,14 +269,14 @@ Friend Class Riser
     End Sub
     Public Function InputRiser(ByVal FileNum As Short) As Boolean
 
-        Dim length, mass, TopTen, Dia As Single
+        Dim LFJDepth, mass, TopTen, Dia As Single
 
         InputRiser = False
 
         On Error GoTo ErrorHandler
 
-        Input(FileNum, length)
-        msngLength = length
+        Input(FileNum, LFJDepth)
+        msngLFJDepth = LFJDepth
 
         Input(FileNum, mass)
         msngMass = mass
@@ -283,7 +297,7 @@ ErrorHandler:
 
         OutputRiser = False
 
-        WriteLine(FileNum, msngLength)
+        WriteLine(FileNum, msngLFJDepth)
 
         WriteLine(FileNum, msngMass, msngTopTen, msngDia)
 

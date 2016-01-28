@@ -229,16 +229,16 @@ ErrHandler:
 	Private Sub btnTransient_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnTransient.Click
         On Error GoTo ErrHandler
 
-		Dim LFactor, FrcFactor As Single
+        'Dim LFactor, FrcFactor As Single
         Dim FileOpen1, FileOpen2, FileOpen3 As Boolean
         Dim FileNum1, FileNum2, FileNum3 As Integer
-		Dim AppCur(MaxCurrentPair, 8) As Single
-		Dim Depth(MaxCurrentPair) As Single
-		Dim NumCurrent As Short
-		Dim WaveDir(8) As Single
-		
-		Dim k, i, r, c, j, L As Short
-		Dim PWD, Dist, Dist0 As Single
+        Dim AppCur(MaxCurrentPair, 8) As Double
+        Dim Depth(MaxCurrentPair) As Double
+        Dim NumCurrent As Short
+        Dim WaveDir(8) As Double
+
+        Dim k, i, r, c, j, L As Short
+        Dim PWD, Dist, Dist0 As Double
         Dim CurX, CurDir_Renamed, CurY As Single
         Dim Pos() As ShipGlobal
 		Dim Exx As Single
@@ -306,9 +306,10 @@ ErrHandler:
 		
 		SaveLC()
         'TODO Should use riser length or waterdepth?
-        ZWD = CurVessel.Riser.Length
+        ZWD = CurVessel.Riser.LFJDepth
 
         ActualWD = CurVessel.WaterDepth
+
         TransX(0) = CurVessel.ShipCurGlob.Xg
         TransY(0) = CurVessel.ShipCurGlob.Yg
         TransYaw(0) = CurVessel.ShipCurGlob.Heading
@@ -459,7 +460,7 @@ ErrHandler:
 		
 		Dist = System.Math.Sqrt(dx ^ 2 + dy ^ 2)
         'PWD = Dist / CurVessel.WaterDepth
-        PWD = Dist / CurVessel.Riser.Length
+        PWD = Dist / CurVessel.Riser.LFJDepth
         txtOffset.Text = Format(Dist * LFactor, "##,##0") '  final offset
 		txtOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' final offset percent WD
 		
@@ -473,7 +474,7 @@ ErrHandler:
 		txtOffsetBearing.Text = Format(RadTo360(Bearing), "#0") '  Bearing is the angle of final position measured clockwise from TN ???
 
         'PWD = MaxOffset / CurVessel.WaterDepth
-        PWD = MaxOffset / CurVessel.Riser.Length
+        PWD = MaxOffset / CurVessel.Riser.LFJDepth
         txtMaxOffset.Text = Format(MaxOffset * LFactor, "##,##0") ' Max Transient Offset
 		txtMaxOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' Max Transient Offset Percent WD
 		txtMaxOffsetTime.Text = CStr(MaxTransTime)
@@ -945,16 +946,16 @@ ErrHandler:
 		If txtInterval.Text = "" Then
 			Exit Sub
 		Else
-            TS = CSng(txtInterval.Text)
+            TS = CDbl(txtInterval.Text)
             If TS <= 0 Then
                 MsgBox("Time interval must be > 0!", MsgBoxStyle.OkOnly, "DODO - Invalid Value Entered")
                 Exit Sub
-            ElseIf Fix((CSng(txtDuration.Text) / TS) + 0.5) > MaxTimeSteps Then
+            ElseIf Fix((CDbl(txtDuration.Text) / TS) + 0.5) > MaxTimeSteps Then
                 MsgBox("Duration / Time Interval must be less than " & CStr(MaxTimeSteps), MsgBoxStyle.OkOnly, "DODO - Too Many Time Steps")
                 Exit Sub
             Else
                 TimeStep = TS
-                NumTimeSteps = Fix((CSng(txtDuration.Text) / TimeStep) + 0.5)
+                NumTimeSteps = Fix((CDbl(txtDuration.Text) / TimeStep) + 0.5)
             End If
         End If
     End Sub
@@ -967,7 +968,7 @@ ErrHandler:
         If txtDuration.Text = "" Then
             Exit Sub
         Else
-            Dur = CSng(txtDuration.Text)
+            Dur = CDbl(txtDuration.Text)
             If Dur <= 0 Then
                 MsgBox("Duration must be >0!", MsgBoxStyle.OkOnly, "DODO - Invalid Value Entered")
                 Exit Sub
@@ -1004,7 +1005,7 @@ ErrHandler:
 
         With CurVessel
             txtWell.Text = Format(.WaterDepth * LFactor, "0.0")
-            txtRiserLen.Text = Format(.Riser.Length * LFactor, "0.0")
+            txtRiserLFJDepth.Text = Format(.Riser.LFJDepth * LFactor, "0.0")
             With .ShipCurGlob
                 _txtVslSt_0.Text = Format(.Xg * LFactor, "0.00")
                 _txtVslSt_1.Text = Format(.Yg * LFactor, "0.00")
@@ -1039,19 +1040,19 @@ ErrHandler:
 
         With CurVessel
             With .ShipCurGlob
-                .Xg = CSng(CheckData(txtVslSt(0).Text, , True)) / LFactor
-                .Yg = CSng(CheckData(txtVslSt(1).Text, , True)) / LFactor
-                .Heading = CSng(CheckData(txtVslSt(2).Text, , True)) * Degrees2Radians
+                .Xg = CDbl(CheckData(txtVslSt(0).Text, , True)) / LFactor
+                .Yg = CDbl(CheckData(txtVslSt(1).Text, , True)) / LFactor
+                .Heading = CDbl(CheckData(txtVslSt(2).Text, , True)) * Degrees2Radians
             End With
-            .ShipDraft = CSng(CheckData(txtVslSt(3).Text, , True)) / LFactor
-            .WaterDepth = CSng(CheckData(txtWell.Text, , True)) / LFactor
-
+            .ShipDraft = CDbl(CheckData(txtVslSt(3).Text, , True)) / LFactor
+            .WaterDepth = CDbl(CheckData(txtWell.Text, , True)) / LFactor
+            .Riser.Length = .WaterDepth
             If .Riser IsNot Nothing Then
                 With .Riser
-                    .Length = CSng(CheckData(txtRiserLen.Text, , True)) / LFactor
-                    .TopTen = CSng(CheckData(_txtRiser_0.Text, , True)) / FrcFactor * 1000.0#
-                    .mass = CSng(CheckData(_txtRiser_1.Text, , True)) / MassFactor * 1000.0#
-                    .Dia = CSng(CheckData(_txtRiser_2.Text, , True)) / DiaFactor / 12.0#
+                    .LFJDepth = CDbl(CheckData(txtRiserLFJDepth.Text, , True)) / LFactor
+                    .TopTen = CDbl(CheckData(_txtRiser_0.Text, , True)) / FrcFactor * 1000.0#
+                    .mass = CDbl(CheckData(_txtRiser_1.Text, , True)) / MassFactor * 1000.0#
+                    .Dia = CDbl(CheckData(_txtRiser_2.Text, , True)) / DiaFactor / 12.0#
                 End With
             End If
         End With

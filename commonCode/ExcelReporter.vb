@@ -989,6 +989,18 @@ ErrHandler:
 
         If oxBook Is Nothing Then
             oxBook = oxApp.Workbooks.Add(My.Application.Info.DirectoryPath & "\DODO2.xltx")
+            oxBook.Sheets("input").activate()
+            oxSheet = DirectCast(oxApp.ActiveSheet, Microsoft.Office.Interop.Excel.Worksheet)
+            oxSheet.Range("$B$1").Value = CurVessel.Name
+            oxSheet.Range("$B$2").Value = CurVessel.ShipCurGlob.Xg
+            oxSheet.Range("$B$3").Value = CurVessel.ShipCurGlob.Yg
+            oxSheet.Range("$B$4").Value = RadTo360(CurVessel.ShipCurGlob.Heading)
+            oxSheet.Range("$B$5").Value = CurVessel.ShipDraftOpr
+            oxSheet.Range("$B$6").Value = CurVessel.ShipDraftSur
+            oxSheet.Range("$B$7").Value = CurVessel.Riser.mass / 1000 * MassFactor
+            oxSheet.Range("$B$8").Value = CurVessel.Riser.TopTen / 1000 * FrcFactor
+            oxSheet.Range("$B$9").Value = CurVessel.WaterDepth
+            oxSheet.Range("$B$10").Value = CurVessel.Riser.LFJDepth
         End If
 
         oxBook.Sheets("dodo").Copy(After:=oxBook.Sheets(1))
@@ -996,13 +1008,13 @@ ErrHandler:
         oxBook.Sheets("dodo (2)").Name = CurVessel.EnvLoad.EnvCur.Name
         oxSheet = DirectCast(oxApp.ActiveSheet, Microsoft.Office.Interop.Excel.Worksheet)
         oxSheet.Range("$B$16").Value = oxBook.Sheets.Count - 5 'JLIU TODO
-        oxSheet.Range("$B$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Velocity
+        oxSheet.Range("$B$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Velocity * Ftps2Knots
         oxSheet.Range("$D$1").Value = CurVessel.EnvLoad.EnvCur.Wind.Heading * Radians2Degrees
         oxSheet.Range("$B$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Height
         oxSheet.Range("$D$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Heading * Radians2Degrees
         oxSheet.Range("$G$2").Value = CurVessel.EnvLoad.EnvCur.Wave.Period
 
-        oxSheet.Range("$B$3").Value = CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity
+        oxSheet.Range("$B$3").Value = CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity * Ftps2Knots
         oxSheet.Range("$D$3").Value = CurVessel.EnvLoad.EnvCur.Current.Heading * Radians2Degrees
 
         With oxSheet.QueryTables.Add(Connection:="TEXT;" & CurProj.Directory & "appvel.out", Destination:=oxSheet.Range("$N$3"))
