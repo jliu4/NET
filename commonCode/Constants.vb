@@ -100,10 +100,9 @@ Module MARSConstants
     Public Const Ft2M As Single = 0.3048
 
     'angle
-    Public Const PI As Single = 3.14159265358979
-    Public Const Degrees2Radians As Single = PI / 180.0#
-    Public Const Radians2Degrees As Single = 180.0# / PI
-    Public Const Deg2Rad As Single = PI / 180.0#
+    Public Const PI As Single = System.Math.PI '3.14159265358979
+    Public Const Degrees2Radians As Double = System.Math.PI / 180.0#
+    Public Const Radians2Degrees As Double = 180.0# / System.Math.PI
 
     'mass
     '   english - metric

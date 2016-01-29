@@ -484,12 +484,10 @@ ErrHandler:
 		End If
 		
 		With CurVessel.EnvLoad.EnvCur.Wind
-            '_txtWind_0.Text = Format(.Velocity * Ftps2Knots * VelFactor, "0.00")
-            '_txtWind_1.Text = Format(.Elevation * LFactor, "0.00")
-            '_txtWind_2.Text = Format(.Heading * Radians2Degrees, "0.00")
-            _txtWind_0.Text = .Velocity * Ftps2Knots * VelFactor
-            _txtWind_1.Text = .Elevation * LFactor
-            _txtWind_2.Text = .Heading * Radians2Degrees
+            _txtWind_0.Text = Format(.Velocity * Ftps2Knots * VelFactor, "0.00")
+            _txtWind_1.Text = Format(.Elevation * LFactor, "0.00")
+            _txtWind_2.Text = Format(.Heading * Radians2Degrees, "0.00")
+
             Select Case .Duration
 				Case 3600
                     _btrDuration_0.Checked = True
@@ -501,20 +499,15 @@ ErrHandler:
 		End With
 		
 		With CurVessel.EnvLoad.EnvCur.Wave
-            ' _txtWave_0.Text = Format(.Height * LFactor, "0.00")
-            '_txtWave_1.Text = Format(.Period, "0.00")
-            '_txtWave_2.Text = Format(.Heading * Radians2Degrees, "0.00")
-            _txtWave_0.Text = .Height * LFactor
-            _txtWave_1.Text = .Period
-            _txtWave_2.Text = .Heading * Radians2Degrees
+            _txtWave_0.Text = Format(.Height * LFactor, "0.00")
+            _txtWave_1.Text = Format(.Period, "0.00")
+            _txtWave_2.Text = Format(.Heading * Radians2Degrees, "0.00")
 
         End With
 		
 		With CurVessel.EnvLoad.EnvCur.Current
-            ' _txtCurr_0.Text = Format(.Profile(1).Velocity * Ftps2Knots * VelFactor, "0.00")
-            ' _txtCurr_1.Text = Format(.Heading * Radians2Degrees, "0.00")
-            _txtCurr_0.Text = .Profile(1).Velocity * Ftps2Knots * VelFactor
-            _txtCurr_1.Text = .Heading * Radians2Degrees
+            _txtCurr_0.Text = Format(.Profile(1).Velocity * Ftps2Knots * VelFactor, "0.00")
+            _txtCurr_1.Text = Format(.Heading * Radians2Degrees, "0.00")
 
         End With
 		

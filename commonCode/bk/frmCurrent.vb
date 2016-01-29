@@ -54,6 +54,9 @@ Friend Class frmCurrent
             .ColumnCount = 3
             For i = 0 To .ColumnCount - 1
                 .Columns(i).HeaderText = CurrentLbls(i)
+                .Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                .Columns(i).FillWeight = 100 / .ColumnCount
+
             Next
 
             '       load data
@@ -61,7 +64,7 @@ Friend Class frmCurrent
                 .Text = "0"
             Else
                 LoadGridFromProject()
-                UpdatePlotFromGrid()
+                'UpdatePlotFromGrid()
             End If
         End With
 
@@ -81,33 +84,31 @@ Friend Class frmCurrent
         UpdateCurrentProfile()
         Cursor = System.Windows.Forms.Cursors.Default
 
-        frmEnviron.txtCurr(0).Text = CStr(CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity * Ftps2Knots * VelFactor)
+        frmEnviron._txtCurr_0.Text = CStr(CurVessel.EnvLoad.EnvCur.Current.Profile(1).Velocity * Ftps2Knots * VelFactor)
 
         Me.Close()
 
     End Sub
 
-
-
     Private Sub CellLeave(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) _
     Handles grdCurrent.CellValueChanged
         If Not CheckingGrid Then
             With grdCurrent
-                UpdatePlotFromGrid()
-                ReDrawing()
+                '  UpdatePlotFromGrid()
+                'ReDrawing()
             End With
         End If
     End Sub
 
     Private Sub RowsRemoved(ByVal eventSender As System.Object, ByVal e As DataGridViewRowsRemovedEventArgs) _
   Handles grdCurrent.RowsRemoved
-        ' If Not CheckingGrid Then
-        With grdCurrent
+        If Not CheckingGrid Then
+            With grdCurrent
 
-            UpdatePlotFromGrid()
-            ReDrawing()
-        End With
-        ' End If
+                ' UpdatePlotFromGrid()
+                'ReDrawing()
+            End With
+        End If
 
     End Sub
 
@@ -148,8 +149,8 @@ Friend Class frmCurrent
         Dim r, NumPairs As Short
         Dim DepthText As String
         Dim VelU As String
-        ' Dim VelV As String
-        ' Dim VelA As String
+        Dim VelV As String
+        Dim VelA As String
 
         '   avoid triggering the "Leave Cell" event
         CheckingGrid = True
@@ -165,16 +166,14 @@ Friend Class frmCurrent
         '   insert current input
         With grdCurrent
             For r = 0 To .RowCount - 1
-                If .Rows(r).Cells(0).Value IsNot Nothing Then
-                    ' .Rows(r).Cells(1).Value IsNot Nothing And
-                    ' .Rows(r).Cells(2).Value IsNot Nothing Then
-                    DepthText = .Rows(r).Cells(0).Value / LFactor
-                    VelU = .Rows(r).Cells(1).Value / Ftps2Knots / VelFactor
-                    '  VelV = .Rows(r).Cells(2).Value
-                    '  VelA = CStr(System.Math.Sqrt(CDbl(VelU) ^ 2 + CDbl(VelV) ^ 2))
 
-                    CurVessel.EnvLoad.EnvCur.Current.ProfileAdd(Depth:=CDbl(DepthText), Velocity:=CDbl(VelU))
-                End If
+                DepthText = .Rows(r).Cells(0).Value
+                VelU = .Rows(r).Cells(1).Value
+                VelV = .Rows(r).Cells(2).Value
+                VelA = CStr(System.Math.Sqrt(CDbl(VelU) ^ 2 + CDbl(VelV) ^ 2))
+
+                CurVessel.EnvLoad.EnvCur.Current.ProfileAdd(Depth:=CDbl(DepthText), Velocity:=CDbl(VelA))
+
             Next r
         End With
 
@@ -185,7 +184,6 @@ Friend Class frmCurrent
 
     End Sub
 
-
     Private Sub UpdatePlotFromGrid()
 
         Dim r As Short
@@ -194,26 +192,53 @@ Friend Class frmCurrent
         NumPoints = 0
         With grdCurrent
             If .RowCount > 1 Then
-                For r = 0 To .RowCount - 2
-                    If .Rows(r).Cells(0).Value IsNot Nothing Then
-                        '  .Rows(r).Cells(1).Value IsNot Nothing And
-                        '   .Rows(r).Cells(2).Value IsNot Nothing Then
-                        Depth(r + 1) = CSng(.Rows(r).Cells(0).Value) / LFactor
+                For r = 0 To .RowCount - 1
 
-                        CurVelU(r + 1) = CSng(.Rows(r).Cells(1).Value) / Ftps2Knots / VelFactor
+                    Depth(r + 1) = CDbl(.Rows(r).Cells(0).Value)
 
-                        NumPoints = NumPoints + 1
-                        CurVelA(r + 1) = System.Math.Sqrt(CurVelU(r + 1) ^ 2 + CurVelV(r + 1) ^ 2)
+                    CurVelU(r + 1) = CDbl(.Rows(r).Cells(1).Value)
 
-                    End If
+                    NumPoints = NumPoints + 1
+                    CurVelA(r + 1) = System.Math.Sqrt(CurVelU(r + 1) ^ 2 + CurVelV(r + 1) ^ 2)
+
                 Next
             End If
         End With
 
+        'ReDrawing()
+
         CheckingGrid = False
 
     End Sub
+    Private Sub ReDrawing()
+        Dim BoxWidth, BoxHeight, BoxSize As Integer
 
+        BoxWidth = picCurrent.ClientSize.Width
+        BoxHeight = picCurrent.ClientSize.Height
+        If BoxWidth < BoxHeight Then
+            BoxSize = BoxWidth
+        Else
+            BoxSize = BoxHeight
+        End If
+
+        Dim bm As Bitmap = New Bitmap(BoxWidth, BoxHeight)
+        Dim gr As Graphics = Graphics.FromImage(bm)
+        Dim pen As New System.Drawing.Pen(Color.Black, 1)
+        Dim i As Short
+
+        For i = 1 To CurVelA.Length - 1
+            'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+            gr.DrawLine(pen, CurVelA(i), Depth(i), CurVelA(i + 1), Depth(i + 1))
+        Next i
+        Dim dest_bounds As New RectangleF(0, 0, BoxWidth, BoxHeight)
+        Dim source_bounds As New RectangleF(0, 0, BoxWidth + 1, BoxHeight + 1)
+        gr.DrawImage(bm, dest_bounds, source_bounds, GraphicsUnit.Pixel)
+        picCurrent.SizeMode = PictureBoxSizeMode.AutoSize
+        picCurrent.Image = bm
+        pen.Dispose()
+        gr.Dispose()
+
+    End Sub
 
     Private Sub LoadGridFromProject()
         Dim NumPairs As Short
@@ -224,15 +249,12 @@ Friend Class frmCurrent
         NumPairs = CurVessel.EnvLoad.EnvCur.Current.ProfileCount
 
         With grdCurrent
-            .RowCount = NumPairs
-            .ColumnCount = 2
-            r = 0
+            For r = 0 To NumPairs - 1
+                ' .Rows(r).Cells(0).Value = CStr(FormatNumber(CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Depth * LFactor, 1))
+                ' .Rows(r).Cells(1).Value = CStr(FormatNumber(CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Velocity * Ftps2Knots * VelFactor, 3))
+                .Rows(r).Cells(0).Value = CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Depth * LFactor
+                .Rows(r).Cells(1).Value = CurVessel.EnvLoad.EnvCur.Current.Profile(r + 1).Velocity * Ftps2Knots * VelFactor
 
-            For r = 1 To NumPairs
-
-                If r > MaxCurrentPair Then Exit For
-                .Rows(r - 1).Cells(0).Value = Format(CurVessel.EnvLoad.EnvCur.Current.Profile(r).Depth * LFactor, "0.0")
-                .Rows(r - 1).Cells(1).Value = Format(CurVessel.EnvLoad.EnvCur.Current.Profile(r).Velocity * Ftps2Knots * VelFactor, "0.00")
             Next r
 
         End With
@@ -268,8 +290,8 @@ Friend Class frmCurrent
         'build the object from the input data
         Cursor = System.Windows.Forms.Cursors.WaitCursor
         InputCurrentProfile((tmpFileNum))
-        UpdatePlotFromGrid()
-        ReDrawing()
+        'UpdatePlotFromGrid()
+
         Cursor = System.Windows.Forms.Cursors.Default
 
         'close the input file and return
@@ -324,12 +346,9 @@ ErrHandler:
 
     End Sub
 
-
-
     Private Sub OutputCurrentProfile(ByRef FileNum As Short)
 
         Dim r, NumPairs As Short
-
         '   save the form data in the Project object
         With CurVessel.EnvLoad.EnvCur.Current
             NumPairs = .ProfileCount
@@ -341,39 +360,26 @@ ErrHandler:
 
     End Sub
 
-
     Private Sub InputCurrentProfile(ByRef FileNum As Short)
 
-        Dim r As Short
         Dim Depth, VelU As Single
 
         CheckingGrid = True
-        r = 1
 
         Do While Not EOF(FileNum)
             Input(FileNum, Depth)
             Input(FileNum, VelU)
             With grdCurrent
-                If r > MaxCurrentPair Then Exit Do
+
                 Dim tmp As String() = {CStr(Depth * LFactor),
                 CStr(VelU * Ftps2Knots * VelFactor)}
                 .Rows.Add(tmp)
-                r = r + 1
+
             End With
         Loop
 
         CheckingGrid = False
 
-    End Sub
-
-
-    Private Sub ReDrawing()
-
-
-    End Sub
-
-    Protected Overrides Sub Finalize()
-        MyBase.Finalize()
     End Sub
 
 End Class
