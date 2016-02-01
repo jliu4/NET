@@ -126,11 +126,14 @@ ErrHandler:
 			If Len(Dir(DODODir & IniFile)) > 0 Then
             FileOpen(10, DODODir & IniFile, OpenMode.Input, OpenAccess.Read)
 
-            If Defaults.InputData(10) Then
-                UpdateFileMenu()
-                CurProj.Directory = Defaults.WorkDir
+            If Defaults IsNot Nothing Then
+                Defaults = New DODOIni
             End If
-            FileClose(10)
+            If Defaults.InputData(10) Then
+                    UpdateFileMenu()
+                    CurProj.Directory = Defaults.WorkDir
+                End If
+                FileClose(10)
 
         End If
 

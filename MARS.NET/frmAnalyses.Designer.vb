@@ -717,7 +717,7 @@
         Me._txtMotion_6.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_6.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_6.ForeColor = System.Drawing.SystemColors.WindowText
-        Me._txtMotion_6.Location = New System.Drawing.Point(447, 192)
+        Me._txtMotion_6.Location = New System.Drawing.Point(446, 202)
         Me._txtMotion_6.Name = "_txtMotion_6"
         Me._txtMotion_6.ReadOnly = True
         Me._txtMotion_6.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -732,11 +732,11 @@
         Me._txtMotion_5.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_5.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_5.ForeColor = System.Drawing.SystemColors.WindowText
-        Me._txtMotion_5.Location = New System.Drawing.Point(272, 192)
+        Me._txtMotion_5.Location = New System.Drawing.Point(301, 202)
         Me._txtMotion_5.Name = "_txtMotion_5"
         Me._txtMotion_5.ReadOnly = True
         Me._txtMotion_5.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtMotion_5.Size = New System.Drawing.Size(86, 20)
+        Me._txtMotion_5.Size = New System.Drawing.Size(67, 20)
         Me._txtMotion_5.TabIndex = 34
         Me._txtMotion_5.Text = "0"
         Me._txtMotion_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -747,11 +747,11 @@
         Me._txtMotion_4.BackColor = System.Drawing.SystemColors.Control
         Me._txtMotion_4.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtMotion_4.ForeColor = System.Drawing.SystemColors.WindowText
-        Me._txtMotion_4.Location = New System.Drawing.Point(123, 192)
+        Me._txtMotion_4.Location = New System.Drawing.Point(165, 202)
         Me._txtMotion_4.Name = "_txtMotion_4"
         Me._txtMotion_4.ReadOnly = True
         Me._txtMotion_4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtMotion_4.Size = New System.Drawing.Size(86, 20)
+        Me._txtMotion_4.Size = New System.Drawing.Size(70, 20)
         Me._txtMotion_4.TabIndex = 32
         Me._txtMotion_4.Text = "0"
         Me._txtMotion_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -833,7 +833,7 @@
         Me._lblLengthUnit_6.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_6.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._lblLengthUnit_6.Location = New System.Drawing.Point(364, 195)
+        Me._lblLengthUnit_6.Location = New System.Drawing.Point(370, 202)
         Me._lblLengthUnit_6.Name = "_lblLengthUnit_6"
         Me._lblLengthUnit_6.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblLengthUnit_6.Size = New System.Drawing.Size(17, 17)
@@ -845,7 +845,7 @@
         Me._lblLengthUnit_5.BackColor = System.Drawing.SystemColors.Control
         Me._lblLengthUnit_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblLengthUnit_5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._lblLengthUnit_5.Location = New System.Drawing.Point(215, 195)
+        Me._lblLengthUnit_5.Location = New System.Drawing.Point(241, 202)
         Me._lblLengthUnit_5.Name = "_lblLengthUnit_5"
         Me._lblLengthUnit_5.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblLengthUnit_5.Size = New System.Drawing.Size(17, 17)
@@ -869,7 +869,7 @@
         Me._lblMotion_6.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_6.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._lblMotion_6.Location = New System.Drawing.Point(393, 195)
+        Me._lblMotion_6.Location = New System.Drawing.Point(392, 202)
         Me._lblMotion_6.Name = "_lblMotion_6"
         Me._lblMotion_6.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblMotion_6.Size = New System.Drawing.Size(49, 17)
@@ -881,7 +881,7 @@
         Me._lblMotion_5.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._lblMotion_5.Location = New System.Drawing.Point(233, 195)
+        Me._lblMotion_5.Location = New System.Drawing.Point(262, 205)
         Me._lblMotion_5.Name = "_lblMotion_5"
         Me._lblMotion_5.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblMotion_5.Size = New System.Drawing.Size(33, 17)
@@ -893,7 +893,7 @@
         Me._lblMotion_4.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_4.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._lblMotion_4.Location = New System.Drawing.Point(84, 195)
+        Me._lblMotion_4.Location = New System.Drawing.Point(126, 205)
         Me._lblMotion_4.Name = "_lblMotion_4"
         Me._lblMotion_4.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblMotion_4.Size = New System.Drawing.Size(33, 17)
@@ -905,10 +905,10 @@
         Me._lblMotion_3.BackColor = System.Drawing.SystemColors.Control
         Me._lblMotion_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblMotion_3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me._lblMotion_3.Location = New System.Drawing.Point(10, 208)
+        Me._lblMotion_3.Location = New System.Drawing.Point(6, 205)
         Me._lblMotion_3.Name = "_lblMotion_3"
         Me._lblMotion_3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._lblMotion_3.Size = New System.Drawing.Size(77, 17)
+        Me._lblMotion_3.Size = New System.Drawing.Size(89, 20)
         Me._lblMotion_3.TabIndex = 30
         Me._lblMotion_3.Text = "Mean Position:"
         '
@@ -1029,14 +1029,14 @@
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdTensions.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.grdTensions.RowHeadersVisible = False
-        Me.grdTensions.Size = New System.Drawing.Size(492, 150)
+        Me.grdTensions.Size = New System.Drawing.Size(492, 173)
         Me.grdTensions.TabIndex = 41
         '
         '_lblGenCmt_0
         '
         Me._lblGenCmt_0.BackColor = System.Drawing.SystemColors.Control
         Me._lblGenCmt_0.Cursor = System.Windows.Forms.Cursors.Default
-        Me._lblGenCmt_0.Location = New System.Drawing.Point(20, 191)
+        Me._lblGenCmt_0.Location = New System.Drawing.Point(31, 208)
         Me._lblGenCmt_0.Name = "_lblGenCmt_0"
         Me._lblGenCmt_0.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._lblGenCmt_0.Size = New System.Drawing.Size(361, 17)

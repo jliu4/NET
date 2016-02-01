@@ -340,7 +340,7 @@ Errhandler:
         Dim SprdAngle, Scope, Alpha As Single
         Dim FLXs, FLYs As Single
         Dim AnchXg, AnchXs, AnchYs, AnchYg As Single
-
+        Dim anchorNode As Integer
         Dim FL As New FairLead
 
         If LocChanged Then
@@ -357,6 +357,7 @@ Errhandler:
         FLXs = CSng(_txtFL_0.Text) / LFactor
         FLYs = CSng(_txtFL_1.Text) / LFactor
 
+        FL.Node = _txtFLNode.Text
         FL.Xs = FLXs
         FL.Ys = FLYs
 
@@ -634,8 +635,8 @@ Errhandler:
             .Anchor.Yg = CSng(txtAnchor(1).Text) / LFactor
             .FairLead.Xs = CSng(txtFL(0).Text) / LFactor
             .FairLead.Ys = CSng(txtFL(1).Text) / LFactor
-            .FairLead.Node = CInt(_txtFL_3.Text)
-            .Anchor.Node = CInt(_txtFL_4.Text)
+            .FairLead.Node = CInt(_txtFLNode.Text)
+            .Anchor.Node = CInt(_txtAnchorNode.Text)
             txtGeneral(1).Text = Format(.ScopeByVesselLocation(ShipDesLoc, True) * LFactor, "0.000")
             txtGeneral(0).Text = Format(.SprdAngle(ShipDesLoc, True) * Radians2Degrees, "0.000")
         End With
@@ -1083,8 +1084,8 @@ Errhandler:
             txtFL(0).Text = Format(.FairLead.Xs * LFactor, "0.000")
             txtFL(1).Text = Format(.FairLead.Ys * LFactor, "0.000")
             txtFL(2).Text = Format(.FairLead.z * LFactor, "0.000")
-            _txtFL_3.Text = Format(.FairLead.Node, "0")
-            _txtFL_4.Text = Format(.Anchor.Node, "0")
+            _txtFLNode.Text = Format(.FairLead.Node, "0")
+            _txtAnchorNode.Text = Format(.Anchor.Node, "0")
             '       general
             ' ????? .FairLead.SprdAngle = 0 will cause actual 0 deg angle to be changed to 180 deg ??????
             If .FairLead.SprdAngle = 0# Then
@@ -1285,8 +1286,8 @@ Errhandler:
             .FairLead.Xs = CSng(txtFL(0).Text) / LFactor
             .FairLead.Ys = CSng(txtFL(1).Text) / LFactor
             .FairLead.z = CSng(txtFL(2).Text) / LFactor
-            .FairLead.Node = CInt(_txtFL_3.Text)
-            .Anchor.Node = CInt(_txtFL_4.Text)
+            .FairLead.Node = CInt(_txtFLNode.Text)
+            .Anchor.Node = CInt(_txtAnchorNode.Text)
             '     GetScopeSprd Scope, SprdAng, HD, Dir, .FairLead.Xs, .FairLead.Ys
             .FairLead.SprdAngle = SprdAng
 
@@ -1422,9 +1423,11 @@ Errhandler:
                 .FairLead.Xs = MoorLine_Renamed.FairLead.Xs
                 .FairLead.Ys = MoorLine_Renamed.FairLead.Ys
                 .FairLead.z = MoorLine_Renamed.FairLead.z
-
+                .FairLead.Node = MoorLine_Renamed.FairLead.Node
                 .Anchor.Xg = MoorLine_Renamed.Anchor.Xg
                 .Anchor.Yg = MoorLine_Renamed.Anchor.Yg
+                .Anchor.Node = MoorLine_Renamed.Anchor.Node
+
                 .WaterDepth = MoorLine_Renamed.WaterDepth
 
                 .Anchor.HoldCap = MoorLine_Renamed.Anchor.HoldCap

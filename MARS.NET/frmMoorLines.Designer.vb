@@ -212,7 +212,11 @@
         Me._lblAnchor_1 = New System.Windows.Forms.Label()
         Me._lblAnchor_0 = New System.Windows.Forms.Label()
         Me.fraFairLead = New System.Windows.Forms.GroupBox()
+        Me._txtFLNode = New System.Windows.Forms.TextBox()
+        Me._txtAnchorNode = New System.Windows.Forms.TextBox()
         Me._txtFL_2 = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me._txtFL_1 = New System.Windows.Forms.TextBox()
         Me._txtFL_0 = New System.Windows.Forms.TextBox()
         Me._lblLengthUnit_7 = New System.Windows.Forms.Label()
@@ -259,10 +263,6 @@
         Me.tabMoorLines = New System.Windows.Forms.TabControl()
         Me.Tab1 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me._txtFL_4 = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me._txtFL_3 = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
         Me.Frame1.SuspendLayout()
         Me.fraVesselLoc.SuspendLayout()
         Me.fraSegments.SuspendLayout()
@@ -1321,8 +1321,8 @@
         'fraFairLead
         '
         Me.fraFairLead.BackColor = System.Drawing.SystemColors.Control
-        Me.fraFairLead.Controls.Add(Me._txtFL_3)
-        Me.fraFairLead.Controls.Add(Me._txtFL_4)
+        Me.fraFairLead.Controls.Add(Me._txtFLNode)
+        Me.fraFairLead.Controls.Add(Me._txtAnchorNode)
         Me.fraFairLead.Controls.Add(Me._txtFL_2)
         Me.fraFairLead.Controls.Add(Me.Label10)
         Me.fraFairLead.Controls.Add(Me.Label12)
@@ -1348,6 +1348,36 @@
         Me.fraFairLead.TabStop = False
         Me.fraFairLead.Text = "Fair Lead Location :"
         '
+        '_txtFLNode
+        '
+        Me._txtFLNode.AcceptsReturn = True
+        Me._txtFLNode.BackColor = System.Drawing.SystemColors.Window
+        Me._txtFLNode.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me._txtFLNode.ForeColor = System.Drawing.SystemColors.WindowText
+        Me._txtFLNode.ImeMode = System.Windows.Forms.ImeMode.Off
+        Me._txtFLNode.Location = New System.Drawing.Point(131, 156)
+        Me._txtFLNode.Name = "_txtFLNode"
+        Me._txtFLNode.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me._txtFLNode.Size = New System.Drawing.Size(49, 20)
+        Me._txtFLNode.TabIndex = 76
+        Me._txtFLNode.Text = "0"
+        Me._txtFLNode.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        '_txtAnchorNode
+        '
+        Me._txtAnchorNode.AcceptsReturn = True
+        Me._txtAnchorNode.BackColor = System.Drawing.SystemColors.Window
+        Me._txtAnchorNode.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me._txtAnchorNode.ForeColor = System.Drawing.SystemColors.WindowText
+        Me._txtAnchorNode.ImeMode = System.Windows.Forms.ImeMode.Off
+        Me._txtAnchorNode.Location = New System.Drawing.Point(131, 182)
+        Me._txtAnchorNode.Name = "_txtAnchorNode"
+        Me._txtAnchorNode.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me._txtAnchorNode.Size = New System.Drawing.Size(49, 20)
+        Me._txtAnchorNode.TabIndex = 76
+        Me._txtAnchorNode.Text = "0"
+        Me._txtAnchorNode.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         '_txtFL_2
         '
         Me._txtFL_2.AcceptsReturn = True
@@ -1362,6 +1392,30 @@
         Me._txtFL_2.TabIndex = 45
         Me._txtFL_2.Text = "0"
         Me._txtFL_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label10
+        '
+        Me.Label10.BackColor = System.Drawing.SystemColors.Control
+        Me.Label10.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label10.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label10.Location = New System.Drawing.Point(10, 185)
+        Me.Label10.Name = "Label10"
+        Me.Label10.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label10.Size = New System.Drawing.Size(115, 18)
+        Me.Label10.TabIndex = 41
+        Me.Label10.Text = "Anchor Aqwa Node"
+        '
+        'Label12
+        '
+        Me.Label12.BackColor = System.Drawing.SystemColors.Control
+        Me.Label12.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label12.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label12.Location = New System.Drawing.Point(10, 159)
+        Me.Label12.Name = "Label12"
+        Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label12.Size = New System.Drawing.Size(117, 20)
+        Me.Label12.TabIndex = 38
+        Me.Label12.Text = "Fair Lead Aqwa Node"
         '
         '_txtFL_1
         '
@@ -1643,60 +1697,6 @@
         Me.Panel1.Size = New System.Drawing.Size(795, 521)
         Me.Panel1.TabIndex = 83
         '
-        '_txtFL_4
-        '
-        Me._txtFL_4.AcceptsReturn = True
-        Me._txtFL_4.BackColor = System.Drawing.SystemColors.Window
-        Me._txtFL_4.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me._txtFL_4.ForeColor = System.Drawing.SystemColors.WindowText
-        Me._txtFL_4.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me._txtFL_4.Location = New System.Drawing.Point(131, 182)
-        Me._txtFL_4.Name = "_txtFL_4"
-        Me._txtFL_4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtFL_4.Size = New System.Drawing.Size(49, 20)
-        Me._txtFL_4.TabIndex = 76
-        Me._txtFL_4.Text = "0"
-        Me._txtFL_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label10
-        '
-        Me.Label10.BackColor = System.Drawing.SystemColors.Control
-        Me.Label10.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label10.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label10.Location = New System.Drawing.Point(10, 185)
-        Me.Label10.Name = "Label10"
-        Me.Label10.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label10.Size = New System.Drawing.Size(115, 18)
-        Me.Label10.TabIndex = 41
-        Me.Label10.Text = "Anchor Aqwa Node"
-        '
-        '_txtFL_3
-        '
-        Me._txtFL_3.AcceptsReturn = True
-        Me._txtFL_3.BackColor = System.Drawing.SystemColors.Window
-        Me._txtFL_3.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me._txtFL_3.ForeColor = System.Drawing.SystemColors.WindowText
-        Me._txtFL_3.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me._txtFL_3.Location = New System.Drawing.Point(131, 156)
-        Me._txtFL_3.Name = "_txtFL_3"
-        Me._txtFL_3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._txtFL_3.Size = New System.Drawing.Size(49, 20)
-        Me._txtFL_3.TabIndex = 76
-        Me._txtFL_3.Text = "0"
-        Me._txtFL_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label12
-        '
-        Me.Label12.BackColor = System.Drawing.SystemColors.Control
-        Me.Label12.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label12.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label12.Location = New System.Drawing.Point(10, 159)
-        Me.Label12.Name = "Label12"
-        Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label12.Size = New System.Drawing.Size(117, 20)
-        Me.Label12.TabIndex = 38
-        Me.Label12.Text = "Fair Lead Aqwa Node"
-        '
         'frmMoorLines
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1771,7 +1771,7 @@
     Friend WithEvents Panel1 As Panel
     Public WithEvents Label12 As Label
     Public WithEvents Label10 As Label
-    Public WithEvents _txtFL_4 As TextBox
-    Public WithEvents _txtFL_3 As TextBox
+    Public WithEvents _txtAnchorNode As TextBox
+    Public WithEvents _txtFLNode As TextBox
 #End Region
 End Class
