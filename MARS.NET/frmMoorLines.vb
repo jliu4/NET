@@ -35,8 +35,6 @@ Friend Class frmMoorLines
 	Private LUnit, FrcUnit As String
     Dim FrcFactor, LFactor, StressFactor As Single
     Dim DiameterFactor As Object
-    Dim cboSegType As New DataGridViewComboBoxCell()
-    Public Property ContextMenuStripGridEdit As Object
 
     Private Sub RefreshData()
 		If IsMetricUnit Then
@@ -101,6 +99,7 @@ Friend Class frmMoorLines
     End Sub
 
     Private Sub btnSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnSave.Click
+        Cursor = System.Windows.Forms.Cursors.WaitCursor
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
             FrcFactor = 4.448222 ' kips -> KN
@@ -118,9 +117,9 @@ Friend Class frmMoorLines
         End If
 
         With ShipDesLoc
-            .Xg = CSng(_txtVslSt_0.Text) / LFactor
-            .Yg = CSng(_txtVslSt_1.Text) / LFactor
-            .Heading = CSng(_txtVslSt_2.Text) * Degrees2Radians
+            .Xg = CSng(txtVslSt(0).Text) / LFactor
+            .Yg = CSng(txtVslSt(1).Text) / LFactor
+            .Heading = CSng(txtVslSt(2).Text) * Degrees2Radians
         End With
 
         With CurVessel.ShipDesGlob
@@ -137,7 +136,7 @@ Friend Class frmMoorLines
         fraSegments.Visible = False
         For i = MoorLines.MoorLineCount To 1 Step -1
             Updated = False
-            'tabMoorLines.TabPages(i) = True
+            tabMoorLines.SelectedIndex = i - 1 'JLIU TODO
         Next i
         Updated = True
         tabMoorLines.SelectedIndex = CurLine - 1
@@ -146,7 +145,93 @@ Friend Class frmMoorLines
         SaveMoorLines()
 
         CurProj.Saved = False
+        Cursor = System.Windows.Forms.Cursors.Default
         Me.Close()
+
+    End Sub
+
+    Private Sub grdAnchor_DblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles grdAnchor.DoubleClick
+
+        'If grdAnchor.Rowindex = 0 Then
+        'Select Case grdAnchor.Col
+        'Case 2, 4, 5, 7
+        'MSFlexGridEdit(grdAnchor, txtAnchEdit, System.Windows.Forms.Keys.F2)
+        'End Select
+        'End If
+
+    End Sub
+
+    Private Sub grdAnchor_EnterCell(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) Handles grdAnchor.CellEnter
+
+        If e.RowIndex = 0 Then
+            Select Case e.ColumnIndex
+                Case 2, 4, 5, 7
+                    ExistingTxt = Trim(grdAnchor.Text)
+                    JEC = True
+            End Select
+        End If
+
+    End Sub
+
+    'Private Sub grdAnchor_KeyDownEvent(ByVal eventSender As System.Object, ByVal e As KeyEventArgs) Handles grdAnchor.KeyDown
+
+    'If e.RowIndex = 0 Then
+    'Select Case grdAnchor.Col
+    'Case 2, 4, 5, 7
+    'AddHandler(grdAnchor, txtAnchEdit, e.KeyCode, e.Shift, JEC, ExistingTxt)
+    'End Select
+    'End If
+
+    'End Sub
+
+    Private Sub grdAnchor_LeaveCell(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) Handles grdAnchor.CellLeave
+
+        Dim Changed As Boolean
+
+        ' If txtAnchEdit.Visible = True Then
+        'grdAnchor.Text = txtAnchEdit.Text
+        'txtAnchEdit.Visible = False
+        'End If
+
+        Changed = False
+        If Not CheckingGrid Then
+            If e.RowIndex = 0 Then
+                Select Case e.ColumnIndex
+                    Case 2, 5
+                        If Trim(grdAnchor.Text) <> ExistingTxt Then Changed = True
+                    Case 4, 7
+                        If Trim(grdAnchor.Text) <> ExistingTxt Then
+                            grdAnchor.Text = CheckData(grdAnchor.Text)
+                            Changed = True
+                        End If
+                End Select
+            End If
+        End If
+
+        If Changed Then Updated = False
+
+    End Sub
+
+    Private Sub grdAnchor_Leave(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) Handles grdAnchor.Leave
+
+        Dim Changed As Boolean
+
+        Changed = False
+        If Not CheckingGrid Then
+            If e.RowIndex = 0 Then
+                Select Case e.ColumnIndex
+                    Case 2, 5
+                        If Trim(grdAnchor.Text) <> ExistingTxt Then Changed = True
+                    Case 4, 7
+                        If Trim(grdAnchor.Text) <> ExistingTxt Then
+                            grdAnchor.Text = CheckData(grdAnchor.Text)
+                            Changed = True
+                        End If
+                End Select
+            End If
+        End If
+
+        If Changed Then Updated = False
 
     End Sub
 
@@ -154,16 +239,35 @@ Friend Class frmMoorLines
 
         Dim i As Short
 
-        For i = 1 To cboSegType.Items.Count
-            'If SegType = VB6.GetItemString(cboSegType, i - 1) Then Exit For
-        Next
-        If i > cboSegType.Items.Count Then i = 1
+        ' For i = 1 To cboSegType.Items.Count
+        'If SegType = VB6.GetItemString(cboSegType, i - 1) Then Exit For
+        'Next
+        'If i > cboSegType.Items.Count Then i = 1
         'cboSegType.SelectedIndex = i - 1
 
     End Sub
 
-    Private Sub grdSegments_ClickEvent(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellEventArgs) Handles grdSegments.CellClick
-        If eventArgs.ColumnIndex = 1 Then
+    Private Sub grdSegments_CellValidating(
+      ByVal sender As Object,
+      ByVal e As DataGridViewCellValidatingEventArgs) _
+      Handles grdSegments.CellValidating
+
+        grdSegments.Rows(e.RowIndex).ErrorText = ""
+
+        If grdSegments.Rows(e.RowIndex).IsNewRow Then Return
+
+        If Not (e.ColumnIndex = 0) Then
+            If Not (IsNumeric(e.FormattedValue)) And Not String.IsNullOrEmpty(e.FormattedValue) Then
+                e.Cancel = True
+                grdSegments.Rows(e.RowIndex).ErrorText =
+                   "It must be a numeric value."
+            End If
+        End If
+
+    End Sub
+
+    Private Sub grdSegments_ClickEvent(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) Handles grdSegments.CellClick
+        If e.ColumnIndex = 0 Then
 
             Dim cell As New DataGridViewComboBoxCell()
             With cell
@@ -179,20 +283,11 @@ Friend Class frmMoorLines
             End With
 
             cell.Value = "WIRE"
-            grdSegments(eventArgs.ColumnIndex, eventArgs.RowIndex) = cell
+            grdSegments(e.ColumnIndex, e.RowIndex) = cell
 
         End If
     End Sub
 
-    Private Sub grdSegments_LeaveCell(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellEventArgs) _
-    Handles grdSegments.CellLeave
-        If eventArgs.ColumnIndex = 1 Then
-            Dim cell As New DataGridViewTextBoxCell()
-
-            cell.Value = grdSegments(eventArgs.ColumnIndex, eventArgs.RowIndex).Value
-            'grdSegments(eventArgs.ColumnIndex, eventArgs.RowIndex) = cell
-        End If
-    End Sub
 
     Private Sub grdSegments_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         'cboSegType.Visible = False
@@ -234,7 +329,7 @@ Friend Class frmMoorLines
         FileOpen(InFile, dlgFileOpen.FileName, OpenMode.Input, OpenAccess.Read)
         isFileOpen = True
 
-        On Error GoTo 0
+        On Error GoTo Errhandler
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
         ReadFile = MoorLines.InputML(InFile)
         '   close the input file and return
@@ -340,22 +435,22 @@ Errhandler:
         Dim SprdAngle, Scope, Alpha As Single
         Dim FLXs, FLYs As Single
         Dim AnchXg, AnchXs, AnchYs, AnchYg As Single
-        Dim anchorNode As Integer
+
         Dim FL As New FairLead
 
         If LocChanged Then
             With ShipDesLoc
-                .Xg = CSng(_txtVslSt_0.Text) / LFactor
-                .Yg = CSng(_txtVslSt_1.Text) / LFactor
-                .Heading = CSng(_txtVslSt_2.Text) * Degrees2Radians
+                .Xg = CSng(txtVslSt(0).Text) / LFactor
+                .Yg = CSng(txtVslSt(1).Text) / LFactor
+                .Heading = CSng(txtVslSt(2).Text) * Degrees2Radians
             End With
         End If
 
-        SprdAngle = CSng(-_txtGeneral_0.Text) * Degrees2Radians
-        Scope = CSng(_txtGeneral_0.Text) / LFactor
+        SprdAngle = CSng(-txtGeneral(0).Text) * Degrees2Radians
+        Scope = CSng(txtGeneral(1).Text) / LFactor
 
-        FLXs = CSng(_txtFL_0.Text) / LFactor
-        FLYs = CSng(_txtFL_1.Text) / LFactor
+        FLXs = CSng(txtFL(0).Text) / LFactor
+        FLYs = CSng(txtFL(1).Text) / LFactor
 
         FL.Node = _txtFLNode.Text
         FL.Xs = FLXs
@@ -368,8 +463,8 @@ Errhandler:
         AnchXg = System.Math.Cos(Alpha) * AnchXs - System.Math.Sin(Alpha) * AnchYs + ShipDesLoc.Xg
         AnchYg = System.Math.Sin(Alpha) * AnchXs + System.Math.Cos(Alpha) * AnchYs + ShipDesLoc.Yg
 
-        _txtAnchor_0.Text = Format(AnchXg * LFactor, "0.00")
-        _txtAnchor_1.Text = Format(AnchYg * LFactor, "0.00")
+        txtAnchor(0).Text = Format(AnchXg * LFactor, "0.00")
+        txtAnchor(1).Text = Format(AnchYg * LFactor, "0.00")
 
         btnAnchor.Enabled = False
         btnScope.Enabled = False
@@ -722,6 +817,49 @@ Errhandler:
 
     End Sub
 
+    'grid operation
+
+    ' Private Sub grdSegments_DblClick(ByVal eventSender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdSegments.DoubleClick
+    'If e.ColumnIndex = 0 Then '2.1.4
+    'If cboSegType.Visible = False Then '2.1.4
+    '           ExistingTxt = grdSegments.Text
+    '          SetSegTypeCbo((grdSegments.Text))
+    'GridCombo(grdSegments, cboSegType, True)
+    'End If
+    'Else
+    '' MSFlexGridEdit(grdSegments, txtSegEdit, System.Windows.Forms.Keys.F2)
+    'End If
+    'End Sub
+
+    'Private Sub grdSegments_EnterCell(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles grdSegments.EnterCell
+
+    '   ExistingTxt = grdSegments.Text
+    '  JEC = True
+
+    'End Sub
+
+    ' Private Sub grdSegments_KeyDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As AxMSFlexGridLib.DMSFlexGridEvents_KeyDownEvent) Handles grdSegments.KeyDownEvent
+
+    'KeyHandler(grdSegments, txtSegEdit, eventArgs.KeyCode, eventArgs.Shift, JEC, ExistingTxt)
+
+    'End Sub
+
+    Private Sub grdSegments_LeaveCell(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) Handles grdSegments.CellLeave
+
+        If e.ColumnIndex = 0 Then
+            Dim cell As New DataGridViewTextBoxCell()
+
+            cell.Value = grdSegments(e.ColumnIndex, e.RowIndex).Value
+        End If
+
+        Updated = False
+        TenCalc = False
+        btnPayout.Enabled = True
+        Changed = True
+
+    End Sub
+
+
     Public Sub mnuInsert_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuInsert.Click
 
         AddRow(grdSegments, CheckingGrid)
@@ -733,6 +871,7 @@ Errhandler:
 
     Public Sub mnuDelete_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuDelete.Click
 
+
         DeleteRow(grdSegments, CheckingGrid)
         Updated = False
         TenCalc = False
@@ -740,16 +879,15 @@ Errhandler:
 
     End Sub
 
-    '  Private Sub frm_MouseDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) _
-    '      Handles MyBase.MouseDown
+    Private Sub frm_MouseDownEvent(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
 
-    '  If eventArgs.Button = System.Windows.Forms.MouseButtons.Right Then
-    '
-    '          ContextMenuStripGridEdit.Show(MousePosition)
+        If eventArgs.Button = System.Windows.Forms.MouseButtons.Right Then
 
-    '  End If
+            ContextMenuStripGridEdit.Show(MousePosition)
 
-    '  End Sub
+        End If
+
+    End Sub
 
     Private Function CheckEntries(ByVal Entry As String, ByVal Column As Short) As String
 
@@ -905,27 +1043,31 @@ Errhandler:
 
         With grdSegments
             .RowCount = MaxNumSeg
-            .ColumnCount = 13
+            For c = 1 To .RowCount
+                .Rows(c - 1).HeaderCell.Value = c.ToString()
+
+            Next
+            .ColumnCount = 12
             For c = 0 To .ColumnCount - 1
                 .Columns(c).FillWeight = 100 / .ColumnCount
                 .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
                 .Columns(c).HeaderText = SegLabels(c)
             Next c
-            .Columns(0).FillWeight = 80 / .ColumnCount
-            .Columns(1).FillWeight = 120 / .ColumnCount
+            ' .Columns(0).FillWeight = 80 / .ColumnCount
+            '.Columns(1).FillWeight = 120 / .ColumnCount
         End With
 
         With grdAnchor
             .RowCount = 1
             .ColumnCount = 8
-            .Columns(0).FillWeight = 100 / 13
-            .Columns(1).FillWeight = 100 / 13
-            .Columns(2).FillWeight = 300 / 13
-            .Columns(3).FillWeight = 300 / 13
-            .Columns(4).FillWeight = 100 / 13
-            .Columns(5).FillWeight = 100 / 13
-            .Columns(6).FillWeight = 200 / 13
-            .Columns(7).FillWeight = 100 / 13
+            .Columns(0).FillWeight = 100 / 12
+            .Columns(1).FillWeight = 100 / 12
+            .Columns(2).FillWeight = 300 / 12
+            .Columns(3).FillWeight = 300 / 12
+            .Columns(4).FillWeight = 100 / 12
+            .Columns(5).FillWeight = 100 / 12
+            .Columns(6).FillWeight = 200 / 12
+            .Columns(7).FillWeight = 100 / 12
             .Rows(0).Cells(0).Value = "Ends"
             .Rows(0).Cells(1).Value = "Anchor"
             .Rows(0).Cells(3).Value = "Holding Capacity ( " & FrcUnit & "):"
@@ -936,17 +1078,17 @@ Errhandler:
         End With
 
         '   segment type
-        With cboSegType '2.1.4
-            .FlatStyle = FlatStyle.Flat
-            .MaxDropDownItems = 7
-            .Items.Add("WIRE")
-            .Items.Add("CHAIN")
-            .Items.Add("WIRE-P")
-            .Items.Add("CHAIN-P")
-            .Items.Add("POLY-P")
-            .Items.Add("BUOY-P")
-            .Items.Add("SPRING") '2.2.1
-        End With
+        'With cboSegType '2.1.4
+        '.FlatStyle = FlatStyle.Flat
+        '.MaxDropDownItems = 7
+        ' .Items.Add("WIRE")
+        '.Items.Add("CHAIN")
+        '.Items.Add("WIRE-P")
+        '.Items.Add("CHAIN-P")
+        '.Items.Add("POLY-P")
+        '.Items.Add("BUOY-P")
+        '.Items.Add("SPRING") '2.2.1
+        ' End With
 
         CheckingGrid = False
 
@@ -956,42 +1098,42 @@ Errhandler:
 
     Private Sub SetLblSegments()
 
-        SegLabels(0) = "No"
-        SegLabels(1) = "Type"
-        SegLabels(2) = "Deployed Length"
-        SegLabels(3) = "Total Length"
-        SegLabels(4) = "Diameter"
-        SegLabels(5) = "B.S."
-        SegLabels(6) = "E1"
-        SegLabels(7) = "E2"
-        SegLabels(8) = "Unit Dry Weight"
-        SegLabels(9) = "Unit Wet Weight"
-        SegLabels(10) = "Friction Coeff"
-        SegLabels(11) = "Buoy Net" ' Buoyancy"
-        SegLabels(12) = "Vertical Distance"
+        ' SegLabels(0) = "No"
+        SegLabels(0) = "Type"
+        SegLabels(1) = "Deployed Length"
+        SegLabels(2) = "Total Length"
+        SegLabels(3) = "Diameter"
+        SegLabels(4) = "B.S."
+        SegLabels(5) = "E1"
+        SegLabels(6) = "E2"
+        SegLabels(7) = "Unit Dry Weight"
+        SegLabels(8) = "Unit Wet Weight"
+        SegLabels(9) = "Friction Coeff"
+        SegLabels(10) = "Buoy Net" ' Buoyancy"
+        SegLabels(11) = "Vertical Distance"
 
         If IsMetricUnit Then
+            SegLabels(1) = SegLabels(1) & vbCrLf & "(m)"
             SegLabels(2) = SegLabels(2) & vbCrLf & "(m)"
-            SegLabels(3) = SegLabels(3) & vbCrLf & "(m)"
-            SegLabels(4) = SegLabels(4) & vbCrLf & "(cm)"
-            SegLabels(5) = SegLabels(5) & vbCrLf & "(KN)"
+            SegLabels(3) = SegLabels(3) & vbCrLf & "(cm)"
+            SegLabels(4) = SegLabels(4) & vbCrLf & "(KN)"
+            SegLabels(5) = SegLabels(5) & vbCrLf & "(MPa)"
             SegLabels(6) = SegLabels(6) & vbCrLf & "(MPa)"
-            SegLabels(7) = SegLabels(7) & vbCrLf & "(MPa)"
+            SegLabels(7) = SegLabels(7) & vbCrLf & "(N/m)"
             SegLabels(8) = SegLabels(8) & vbCrLf & "(N/m)"
-            SegLabels(9) = SegLabels(9) & vbCrLf & "(N/m)"
-            SegLabels(11) = SegLabels(11) & vbCrLf & "(KN)"
-            SegLabels(12) = SegLabels(12) & vbCrLf & "(m)"
+            SegLabels(10) = SegLabels(10) & vbCrLf & "(KN)"
+            SegLabels(11) = SegLabels(11) & vbCrLf & "(m)"
         Else
+            SegLabels(1) = SegLabels(1) & vbCrLf & "(ft)"
             SegLabels(2) = SegLabels(2) & vbCrLf & "(ft)"
-            SegLabels(3) = SegLabels(3) & vbCrLf & "(ft)"
-            SegLabels(4) = SegLabels(4) & vbCrLf & "(in)"
-            SegLabels(5) = SegLabels(5) & vbCrLf & "(kip)"
-            SegLabels(6) = SegLabels(6) & vbCrLf & "(ksi)"
-            SegLabels(7) = SegLabels(7) & vbCrLf & "(ksi)"
-            SegLabels(8) = SegLabels(8) & vbCrLf & "(lb/ft)"
-            SegLabels(9) = SegLabels(9) & vbCrLf & "(lb/ft)"
-            SegLabels(11) = SegLabels(11) & vbCrLf & "(kip)"
-            SegLabels(12) = SegLabels(12) & vbCrLf & "(ft)"
+            SegLabels(3) = SegLabels(4) & vbCrLf & "(in)"
+            SegLabels(4) = SegLabels(5) & vbCrLf & "(kip)"
+            SegLabels(5) = SegLabels(6) & vbCrLf & "(ksi)"
+            SegLabels(6) = SegLabels(7) & vbCrLf & "(ksi)"
+            SegLabels(7) = SegLabels(8) & vbCrLf & "(lb/ft)"
+            SegLabels(8) = SegLabels(9) & vbCrLf & "(lb/ft)"
+            SegLabels(10) = SegLabels(10) & vbCrLf & "(kip)"
+            SegLabels(11) = SegLabels(11) & vbCrLf & "(ft)"
         End If
     End Sub
 
@@ -1017,12 +1159,12 @@ Errhandler:
 
         Dim i As Short
 
-        If NumLines > 1 Then
+        If NumLines - 1 > 1 Then
 
-            tabMoorLines.TabPages.RemoveAt(CurLine)
-            'For i = CurLine To NumLines - 1
-            'tabMoorLines.TabPages(i).Text = "Line " & i
-            'Next
+            tabMoorLines.TabPages.RemoveAt(CurLine - 1)
+            For i = CurLine - 1 To NumLines - 2
+                tabMoorLines.TabPages(i).Text = "Line " & (i + 1)
+            Next
         End If
 
     End Sub
@@ -1048,7 +1190,7 @@ Errhandler:
             FrcUnit = "kips"
         End If
 
-        Dim r As Short
+        Dim r, c As Short
         Dim Scope, SprdAng As Single
         Dim NumSeg As Short
 
@@ -1070,7 +1212,11 @@ Errhandler:
 
         '   clear grid
         With grdSegments
-
+            For r = 0 To .RowCount - 1
+                For c = 0 To .ColumnCount - 1
+                    .Rows(r).Cells(c).Value = ""
+                Next
+            Next
         End With
 
         With MoorLines.MoorLines(CurLine)
@@ -1132,23 +1278,23 @@ Errhandler:
             NumSeg = .SegmentCount
 
             For r = 1 To NumSeg
-                grdSegments.Rows(r - 1).Cells(0).Value = r
-                grdSegments.Rows(r - 1).Cells(1).Value = .Segments(r).SegType
-                grdSegments.Rows(r - 1).Cells(2).Value = Format(.Segments(r).Length * LFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(3).Value = Format(.Segments(r).TotalLength * LFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(4).Value = Format(.Segments(r).Diameter * DiameterFactor, "0.000")
-                grdSegments.Rows(r - 1).Cells(5).Value = Format(.Segments(r).BS * 0.001 * FrcFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(6).Value = Format(.Segments(r).E1 * 0.001 * StressFactor, "0.0")
+                grdSegments.Rows(r - 1).HeaderCell.Value = r.ToString()
+                grdSegments.Rows(r - 1).Cells(0).Value = .Segments(r).SegType
+                grdSegments.Rows(r - 1).Cells(1).Value = Format(.Segments(r).Length * LFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(2).Value = Format(.Segments(r).TotalLength * LFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(3).Value = Format(.Segments(r).Diameter * DiameterFactor, "0.000")
+                grdSegments.Rows(r - 1).Cells(4).Value = Format(.Segments(r).BS * 0.001 * FrcFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(5).Value = Format(.Segments(r).E1 * 0.001 * StressFactor, "0.0")
 
-                grdSegments.Rows(r - 1).Cells(7).Value = Format(.Segments(r).E2 * 0.001 * StressFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(8).Value = Format(.Segments(r).UnitDryWeight * (FrcFactor / LFactor), "0.00")
-                grdSegments.Rows(r - 1).Cells(9).Value = Format(.Segments(r).UnitWetWeight * (FrcFactor / LFactor), "0.00")
+                grdSegments.Rows(r - 1).Cells(6).Value = Format(.Segments(r).E2 * 0.001 * StressFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(7).Value = Format(.Segments(r).UnitDryWeight * (FrcFactor / LFactor), "0.00")
+                grdSegments.Rows(r - 1).Cells(8).Value = Format(.Segments(r).UnitWetWeight * (FrcFactor / LFactor), "0.00")
 
-                grdSegments.Rows(r - 1).Cells(10).Value = Format(.Segments(r).FrictionCoef, "0.00")
-                grdSegments.Rows(r - 1).Cells(11).Value = Format(.Segments(r).Buoy / 1000 * FrcFactor, "0.0")
-                grdSegments.Rows(r - 1).Cells(12).Value = Format(.Segments(r).BuoyLength * LFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(9).Value = Format(.Segments(r).FrictionCoef, "0.00")
+                grdSegments.Rows(r - 1).Cells(10).Value = Format(.Segments(r).Buoy / 1000 * FrcFactor, "0.0")
+                grdSegments.Rows(r - 1).Cells(11).Value = Format(.Segments(r).BuoyLength * LFactor, "0.0")
             Next
-
+            'grdSegments.RowCount = NumSeg 'JLIU TODO 
             grdAnchor.Rows(0).Cells(2).Value = .Anchor.Model
             grdAnchor.Rows(0).Cells(4).Value = Format(.Anchor.HoldCap * 0.001 * FrcFactor, "0.0")
             grdAnchor.Rows(0).Cells(5).Value = .Anchor.Remark
@@ -1318,6 +1464,7 @@ Errhandler:
         CheckingGrid = True
 
         With grdSegments
+
             '       scan for a blank cell in this row; if one is found, bail out
             NumRows = .RowCount
 
@@ -1329,34 +1476,36 @@ Errhandler:
 
             '       insert the updated input
             For r = 0 To NumRows - 1
-                SegTp = .Rows(r).Cells(0).Value
-                '           store the data from this row in the new segment
+                If Len(.Rows(r).Cells(0).Value) > 0 Then
+                    SegTp = .Rows(r).Cells(0).Value
+                    '           store the data from this row in the new segment
 
-                Lg = CSng(.Rows(r).Cells(1).Value) / LFactor
+                    Lg = CSng(.Rows(r).Cells(1).Value) / LFactor
 
-                TLg = CSng(.Rows(r).Cells(2).Value) / LFactor
+                    TLg = CSng(.Rows(r).Cells(2).Value) / LFactor
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object DiameterFactor. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                dia = CSng(.Rows(r).Cells(3).Value) / DiameterFactor
+                    'UPGRADE_WARNING: Couldn't resolve default property of object DiameterFactor. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    dia = CSng(.Rows(r).Cells(3).Value) / DiameterFactor
 
-                BS = CSng(.Rows(r).Cells(4).Value) * 1000.0# / FrcFactor
+                    BS = CSng(.Rows(r).Cells(4).Value) * 1000.0# / FrcFactor
 
-                E1 = CSng(.Rows(r).Cells(5).Value) * 1000.0# / StressFactor
+                    E1 = CSng(.Rows(r).Cells(5).Value) * 1000.0# / StressFactor
 
-                E2 = CSng(.Rows(r).Cells(6).Value) * 1000.0# / StressFactor
+                    E2 = CSng(.Rows(r).Cells(6).Value) * 1000.0# / StressFactor
 
-                DryWt = CSng(.Rows(r).Cells(7).Value) / (FrcFactor / LFactor)
+                    DryWt = CSng(.Rows(r).Cells(7).Value) / (FrcFactor / LFactor)
 
-                WetWt = CSng(.Rows(r).Cells(8).Value) / (FrcFactor / LFactor)
+                    WetWt = CSng(.Rows(r).Cells(8).Value) / (FrcFactor / LFactor)
 
-                FrCoef = CSng(.Rows(r).Cells(9).Value)
+                    FrCoef = CSng(.Rows(r).Cells(9).Value)
 
-                Buoy = CSng(.Rows(r).Cells(10).Value) * 1000 / FrcFactor
+                    Buoy = CSng(.Rows(r).Cells(10).Value) * 1000 / FrcFactor
 
-                BuoyL = CSng(.Rows(r).Cells(11).Value) / LFactor
+                    BuoyL = CSng(.Rows(r).Cells(11).Value) / LFactor
 
 
-                Call MoorLines.MoorLines(CurLine).SegmentAdd(SegTp, Lg, TLg, dia, BS, E1, E2, DryWt, WetWt, Buoy, BuoyL, FrCoef)
+                    Call MoorLines.MoorLines(CurLine).SegmentAdd(SegTp, Lg, TLg, dia, BS, E1, E2, DryWt, WetWt, Buoy, BuoyL, FrCoef)
+                End If
             Next r
         End With
 

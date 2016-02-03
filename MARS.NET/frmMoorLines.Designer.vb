@@ -126,9 +126,6 @@
     Public WithEvents mnuDum As System.Windows.Forms.ToolStripSeparator
     Public WithEvents mnuClose As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuFile As System.Windows.Forms.ToolStripMenuItem
-    Public WithEvents mnuInsert As System.Windows.Forms.ToolStripMenuItem
-    Public WithEvents mnuDelete As System.Windows.Forms.ToolStripMenuItem
-    Public WithEvents mnuGridEdit As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
@@ -168,6 +165,9 @@
         Me.fraSegments = New System.Windows.Forms.GroupBox()
         Me.grdAnchor = New System.Windows.Forms.DataGridView()
         Me.grdSegments = New System.Windows.Forms.DataGridView()
+        Me.ContextMenuStripGridEdit = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuInsert = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me._lblSegCmt_0 = New System.Windows.Forms.Label()
         Me._lblSegCmt_1 = New System.Windows.Forms.Label()
         Me.fraGeneral = New System.Windows.Forms.GroupBox()
@@ -257,9 +257,6 @@
         Me.mnuSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDum = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuClose = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuGridEdit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuInsert = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.tabMoorLines = New System.Windows.Forms.TabControl()
         Me.Tab1 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -268,6 +265,7 @@
         Me.fraSegments.SuspendLayout()
         CType(Me.grdAnchor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdSegments, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStripGridEdit.SuspendLayout()
         Me.fraGeneral.SuspendLayout()
         Me.fraTopTen.SuspendLayout()
         Me.fraAnchor.SuspendLayout()
@@ -692,6 +690,8 @@
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdSegments.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdSegments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdSegments.ContextMenuStrip = Me.ContextMenuStripGridEdit
+        Me.grdSegments.Cursor = System.Windows.Forms.Cursors.Default
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
@@ -710,9 +710,27 @@
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdSegments.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.grdSegments.RowHeadersVisible = False
+        Me.grdSegments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Me.grdSegments.Size = New System.Drawing.Size(775, 117)
         Me.grdSegments.TabIndex = 68
+        '
+        'ContextMenuStripGridEdit
+        '
+        Me.ContextMenuStripGridEdit.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuInsert, Me.mnuDelete})
+        Me.ContextMenuStripGridEdit.Name = "ContextMenuStripGridEdit"
+        Me.ContextMenuStripGridEdit.Size = New System.Drawing.Size(158, 48)
+        '
+        'mnuInsert
+        '
+        Me.mnuInsert.Name = "mnuInsert"
+        Me.mnuInsert.Size = New System.Drawing.Size(157, 22)
+        Me.mnuInsert.Text = "Insert Segment"
+        '
+        'mnuDelete
+        '
+        Me.mnuDelete.Name = "mnuDelete"
+        Me.mnuDelete.Size = New System.Drawing.Size(157, 22)
+        Me.mnuDelete.Text = "Delete Segment"
         '
         '_lblSegCmt_0
         '
@@ -1604,7 +1622,7 @@
         '
         'MainMenu1
         '
-        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuGridEdit})
+        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile})
         Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
         Me.MainMenu1.Name = "MainMenu1"
         Me.MainMenu1.Size = New System.Drawing.Size(851, 24)
@@ -1641,25 +1659,6 @@
         Me.mnuClose.Name = "mnuClose"
         Me.mnuClose.Size = New System.Drawing.Size(119, 22)
         Me.mnuClose.Text = "&Close"
-        '
-        'mnuGridEdit
-        '
-        Me.mnuGridEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuInsert, Me.mnuDelete})
-        Me.mnuGridEdit.Name = "mnuGridEdit"
-        Me.mnuGridEdit.Size = New System.Drawing.Size(12, 20)
-        Me.mnuGridEdit.Visible = False
-        '
-        'mnuInsert
-        '
-        Me.mnuInsert.Name = "mnuInsert"
-        Me.mnuInsert.Size = New System.Drawing.Size(157, 22)
-        Me.mnuInsert.Text = "&Insert Segment"
-        '
-        'mnuDelete
-        '
-        Me.mnuDelete.Name = "mnuDelete"
-        Me.mnuDelete.Size = New System.Drawing.Size(157, 22)
-        Me.mnuDelete.Text = "&Delete Segment"
         '
         'tabMoorLines
         '
@@ -1727,6 +1726,7 @@
         Me.fraSegments.ResumeLayout(False)
         CType(Me.grdAnchor, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdSegments, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStripGridEdit.ResumeLayout(False)
         Me.fraGeneral.ResumeLayout(False)
         Me.fraGeneral.PerformLayout()
         Me.fraTopTen.ResumeLayout(False)
@@ -1773,5 +1773,8 @@
     Public WithEvents Label10 As Label
     Public WithEvents _txtAnchorNode As TextBox
     Public WithEvents _txtFLNode As TextBox
+    Friend WithEvents ContextMenuStripGridEdit As ContextMenuStrip
+    Friend WithEvents mnuDelete As ToolStripMenuItem
+    Friend WithEvents mnuInsert As ToolStripMenuItem
 #End Region
 End Class
