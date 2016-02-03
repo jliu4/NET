@@ -49,7 +49,9 @@ Friend Class frmWells
                 .Rows(i).HeaderCell.Value = (i + 1).ToString
             Next
             For i = 0 To .ColumnCount - 1
-                .Columns(i).Width = 70
+                .Columns(i).FillWeight = 100 / .ColumnCount
+                .Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+
                 .Columns(i).HeaderText = WSLabels(i + 1)
             Next
 
@@ -124,10 +126,10 @@ Friend Class frmWells
 
         If Not CheckingGrid Then
             With grdWS
-                'If Trim(.Text) <> ExistingTxt And .ColumnCount > 1 Then
-                'If Trim(.Text) <> "" Then .Text = CheckData(.Text)
-                '  Changed = True
-                'End If
+                If Trim(.Text) <> ExistingTxt And .ColumnCount > 1 Then
+                    If Trim(.Text) <> "" Then .Text = CheckData(.Text)
+                    Changed = True
+                End If
             End With
         End If
 
@@ -315,7 +317,7 @@ ErrHandler:
 
                 If .Rows(i).Cells(0).Value = "" Then Exit For
                 NameID = .Rows(i).Cells(0).Value
-
+                X = CDbl(.Rows(i).Cells(1).Value) / LFactor
                 Y = CDbl(.Rows(i).Cells(2).Value) / LFactor
 
                 Depth = CDbl(CDbl(.Rows(i).Cells(3).Value) / LFactor) / LFactor

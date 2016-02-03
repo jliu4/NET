@@ -49,7 +49,7 @@ Friend Class frmMain
         If CurProj Is Nothing Then
             CurProj = New Project
             Defaults = New MarsIni
-            DODODir = My.Application.Info.DirectoryPath & "\Data\"
+            MarsDir = My.Application.Info.DirectoryPath & "\Data\"
         End If
 
         Dim FS As Object
@@ -608,7 +608,50 @@ ErrHandler:
     End Sub
 
     Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
-        'frmAbout.Show()
+        frmAbout.Show()
+
+    End Sub
+
+    Private Sub cboWells_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboWells.SelectedIndexChanged
+
+        Dim Distance, Bearing As Double
+        Dim ShipLoc As New ShipGlobal
+
+        With CurField
+            .CurWellNo = cboWells.SelectedIndex + 1
+            With .Item(.CurWellNo)
+                _txtWell_0.Text = Format(.Xg * LFactor, "0.0")
+                _txtWell_1.Text = Format(.Yg * LFactor, "0.0")
+                If .Depth > 0# Then CurVessel.WaterDepth = .Depth
+                _txtWell_2.Text = Format(CurVessel.WaterDepth * LFactor, "0.0")
+            End With
+        End With
+
+        With CurVessel
+            If optInputSystem(0).Checked Then
+                With ShipLoc
+                    .Xg = CDbl(Format(CDbl(CheckData(CStr(Val(_txtVslSt_0.Text)),  , True)) / LFactor, "0.00"))
+                    .Yg = CDbl(VB6.Format(CDbl(CheckData(CStr(Val(_txtVslSt_1.Text)),  , True)) / LFactor, "0.00"))
+                    .Heading = CDbl(CheckData(CStr(Val(_txtVslSt_4.Text)),  , True)) * Degrees2Radians
+                End With
+                Coord2Bear(ShipLoc, Distance, Bearing)
+                _txtVslSt_2.Text = Format(Distance * LFactor, "0.0")
+                _txtVslSt_3.Text = Format(Bearing * Radians2Degrees, "0.00")
+            Else
+                Distance = CDbl(CheckData(CStr(Val(_txtVslSt_2.Text) / LFactor),  , True))
+                Bearing = CDbl(CheckData(CStr(Val(_txtVslSt_3.Text)),  , True)) * Degrees2Radians
+                Bear2Coord(ShipLoc, Distance, Bearing)
+                With ShipLoc
+                    _txtVslSt_0.Text = Format(.Xg * LFactor, "0.0")
+                    _txtVslSt_1.Text = Format(.Yg * LFactor, "0.0")
+                    .Heading = CDbl(CheckData(_txtVslSt_4.Text,  , True)) * Degrees2Radians
+                End With
+            End If
+        End With
+
+        txtLocationName.Text = cboWells.Text
+        ShipLoc = Nothing
+        If Not FirstLoad Then CurProj.Saved = False
 
     End Sub
 
@@ -1038,6 +1081,37 @@ ErrorHandler:
         RefreshUnitLabels(Me)
         LoadData(False)
     End Sub
+
+    '  Private Sub txtVslSt0_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _txtVslSt_0.TextChanged
+    ' Dim Index As Short = txtVslSt.GetIndex(eventSender)
+    '    cboWells_SelectedIndexChanged(cboWells, New System.EventArgs())
+    '  If Not FirstLoad Then CurProj.Saved = False
+    '  End Sub
+    '  Private Sub txtVslSt1_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _txtVslSt_1.TextChanged
+    ' Dim Index As Short = txtVslSt.GetIndex(eventSender)
+    '      cboWells_SelectedIndexChanged(cboWells, New System.EventArgs())
+    '   If Not FirstLoad Then CurProj.Saved = False
+    '   End Sub
+    '  Private Sub txtVslSt2_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _txtVslSt_2.TextChanged
+    ' Dim Index As Short = txtVslSt.GetIndex(eventSender)
+    '      cboWells_SelectedIndexChanged(cboWells, New System.EventArgs())
+    '   If Not FirstLoad Then CurProj.Saved = False
+    '   End Sub
+    '   Private Sub txtVslSt3_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _txtVslSt_3.TextChanged
+    ' Dim Index As Short = txtVslSt.GetIndex(eventSender)
+    '       cboWells_SelectedIndexChanged(cboWells, New System.EventArgs())
+    '   If Not FirstLoad Then CurProj.Saved = False
+    '   End Sub
+    '   Private Sub txtVslSt4_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _txtVslSt_4.TextChanged
+    ' Dim Index As Short = txtVslSt.GetIndex(eventSender)
+    '      cboWells_SelectedIndexChanged(cboWells, New System.EventArgs())
+    '   If Not FirstLoad Then CurProj.Saved = False
+    '   End Sub
+    '  Private Sub txtVslSt5_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles _txtVslSt_5.TextChanged
+    ' Dim Index As Short = txtVslSt.GetIndex(eventSender)
+    '       cboWells_SelectedIndexChanged(cboWells, New System.EventArgs())
+    '   If Not FirstLoad Then CurProj.Saved = False
+    '   End Sub
 
     Private Sub grdLD_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdLD.CellDoubleClick
         If e.ColumnIndex = 10 Then

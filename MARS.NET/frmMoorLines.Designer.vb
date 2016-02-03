@@ -1456,11 +1456,10 @@
         Me._txtFL_0.BackColor = System.Drawing.SystemColors.Window
         Me._txtFL_0.Cursor = System.Windows.Forms.Cursors.IBeam
         Me._txtFL_0.ForeColor = System.Drawing.SystemColors.WindowText
-        Me._txtFL_0.ImeMode = System.Windows.Forms.ImeMode.Off
+        Me._txtFL_0.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtFL.SetIndex(Me._txtFL_0, CType(0, Short))
         Me._txtFL_0.Location = New System.Drawing.Point(57, 25)
         Me._txtFL_0.Name = "_txtFL_0"
-        Me._txtFL_0.ReadOnly = True
         Me._txtFL_0.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._txtFL_0.Size = New System.Drawing.Size(49, 20)
         Me._txtFL_0.TabIndex = 39

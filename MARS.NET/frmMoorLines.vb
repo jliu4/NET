@@ -1126,12 +1126,12 @@ Errhandler:
         Else
             SegLabels(1) = SegLabels(1) & vbCrLf & "(ft)"
             SegLabels(2) = SegLabels(2) & vbCrLf & "(ft)"
-            SegLabels(3) = SegLabels(4) & vbCrLf & "(in)"
-            SegLabels(4) = SegLabels(5) & vbCrLf & "(kip)"
-            SegLabels(5) = SegLabels(6) & vbCrLf & "(ksi)"
-            SegLabels(6) = SegLabels(7) & vbCrLf & "(ksi)"
-            SegLabels(7) = SegLabels(8) & vbCrLf & "(lb/ft)"
-            SegLabels(8) = SegLabels(9) & vbCrLf & "(lb/ft)"
+            SegLabels(3) = SegLabels(3) & vbCrLf & "(in)"
+            SegLabels(4) = SegLabels(4) & vbCrLf & "(kip)"
+            SegLabels(5) = SegLabels(5) & vbCrLf & "(ksi)"
+            SegLabels(6) = SegLabels(6) & vbCrLf & "(ksi)"
+            SegLabels(7) = SegLabels(7) & vbCrLf & "(lb/ft)"
+            SegLabels(8) = SegLabels(8) & vbCrLf & "(lb/ft)"
             SegLabels(10) = SegLabels(10) & vbCrLf & "(kip)"
             SegLabels(11) = SegLabels(11) & vbCrLf & "(ft)"
         End If
