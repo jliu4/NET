@@ -76,8 +76,29 @@ ErrHandler:
         RefreshData()
     End Sub
 
+    Private Sub SetUnitLabels()
+        If IsMetricUnit Then
+            _lblLengthUnit_0.Text = "m"
+            _lblLengthUnit_1.Text = "m"
+            _lblLengthUnit_2.Text = "m"
+            _lblLengthUnit_3.Text = "m"
+            _lblLengthUnit_4.Text = "m"
+            _lblLengthUnit_5.Text = "m"
+            _lblLengthUnit_6.Text = "m"
+            _lblLengthUnit_7.Text = "m"
+        Else
+            _lblLengthUnit_0.Text = "ft"
+            _lblLengthUnit_1.Text = "ft"
+            _lblLengthUnit_2.Text = "ft"
+            _lblLengthUnit_3.Text = "ft"
+            _lblLengthUnit_4.Text = "ft"
+            _lblLengthUnit_5.Text = "ft"
+            _lblLengthUnit_6.Text = "ft"
+            _lblLengthUnit_7.Text = "ft"
+        End If
+    End Sub
     Private Sub RefreshData()
-        RefreshUnitLabels(Me)
+        SetUnitLabels()
         InitiateGrid()
         LoadData()
     End Sub

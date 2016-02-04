@@ -63,7 +63,7 @@
         Me.btnCancel.BackColor = System.Drawing.SystemColors.Control
         Me.btnCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.btnCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnCancel.Location = New System.Drawing.Point(212, 227)
+        Me.btnCancel.Location = New System.Drawing.Point(305, 228)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btnCancel.Size = New System.Drawing.Size(65, 25)
@@ -76,7 +76,7 @@
         Me.btnOK.BackColor = System.Drawing.SystemColors.Control
         Me.btnOK.Cursor = System.Windows.Forms.Cursors.Default
         Me.btnOK.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnOK.Location = New System.Drawing.Point(302, 227)
+        Me.btnOK.Location = New System.Drawing.Point(386, 227)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btnOK.Size = New System.Drawing.Size(65, 25)
@@ -100,7 +100,7 @@
         Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuGridEdit})
         Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
         Me.MainMenu1.Name = "MainMenu1"
-        Me.MainMenu1.Size = New System.Drawing.Size(376, 24)
+        Me.MainMenu1.Size = New System.Drawing.Size(463, 24)
         Me.MainMenu1.TabIndex = 7
         '
         'mnuFile
@@ -173,7 +173,7 @@
         Me.grdWS.DefaultCellStyle = DataGridViewCellStyle2
         Me.grdWS.Location = New System.Drawing.Point(12, 38)
         Me.grdWS.Name = "grdWS"
-        Me.grdWS.Size = New System.Drawing.Size(355, 168)
+        Me.grdWS.Size = New System.Drawing.Size(439, 168)
         Me.grdWS.TabIndex = 8
         '
         'frmWells
@@ -181,7 +181,7 @@
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(376, 264)
+        Me.ClientSize = New System.Drawing.Size(463, 278)
         Me.Controls.Add(Me.grdWS)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)

@@ -18,23 +18,21 @@
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
 	Public WithEvents chkUDEF As System.Windows.Forms.CheckBox
-	Public WithEvents chkVersion As System.Windows.Forms.CheckBox
-	Public WithEvents chkCollinear As System.Windows.Forms.CheckBox
-	Public WithEvents btnCopyAll As System.Windows.Forms.Button
-	Public WithEvents txtAQWAdir As System.Windows.Forms.TextBox
-	Public WithEvents btnIntactFile As System.Windows.Forms.Button
-	Public WithEvents _optDamageLineType_1 As System.Windows.Forms.RadioButton
-	Public WithEvents _optDamageLineType_0 As System.Windows.Forms.RadioButton
-	Public WithEvents fraDamageLineType As System.Windows.Forms.GroupBox
-	Public WithEvents _optWind_1 As System.Windows.Forms.RadioButton
-	Public WithEvents _optWind_0 As System.Windows.Forms.RadioButton
-	Public WithEvents fraWind As System.Windows.Forms.GroupBox
-	Public WithEvents chkPFLH As System.Windows.Forms.CheckBox
-	Public WithEvents btnSilentRun As System.Windows.Forms.Button
-	Public WithEvents btnCreateFiles As System.Windows.Forms.Button
-	Public WithEvents btnOldAQWA As System.Windows.Forms.Button
-	Public WithEvents btnNewAQWA As System.Windows.Forms.Button
-	Public WithEvents _optAQWAUnits_1 As System.Windows.Forms.RadioButton
+    Public WithEvents chkCollinear As System.Windows.Forms.CheckBox
+    Public WithEvents btnCopyAll As System.Windows.Forms.Button
+    Public WithEvents txtAQWAVersion As System.Windows.Forms.TextBox
+    Public WithEvents btnIntactFile As System.Windows.Forms.Button
+    Public WithEvents _optDamageLineType_1 As System.Windows.Forms.RadioButton
+    Public WithEvents _optDamageLineType_0 As System.Windows.Forms.RadioButton
+    Public WithEvents fraDamageLineType As System.Windows.Forms.GroupBox
+    Public WithEvents _optWind_1 As System.Windows.Forms.RadioButton
+    Public WithEvents _optWind_0 As System.Windows.Forms.RadioButton
+    Public WithEvents fraWind As System.Windows.Forms.GroupBox
+    Public WithEvents chkPFLH As System.Windows.Forms.CheckBox
+    Public WithEvents btnSilentRun As System.Windows.Forms.Button
+    Public WithEvents btnCreateFiles As System.Windows.Forms.Button
+    Public WithEvents btnNewAQWA As System.Windows.Forms.Button
+    Public WithEvents _optAQWAUnits_1 As System.Windows.Forms.RadioButton
 	Public WithEvents _optAQWAUnits_0 As System.Windows.Forms.RadioButton
 	Public WithEvents fraUnits As System.Windows.Forms.GroupBox
 	Public WithEvents btnPostProcess As System.Windows.Forms.Button
@@ -71,16 +69,14 @@
         Me.btnCopyAll = New System.Windows.Forms.Button()
         Me.btnSilentRun = New System.Windows.Forms.Button()
         Me.btnCreateFiles = New System.Windows.Forms.Button()
-        Me.btnOldAQWA = New System.Windows.Forms.Button()
         Me.btnNewAQWA = New System.Windows.Forms.Button()
         Me.btnPostProcess = New System.Windows.Forms.Button()
         Me.btnBrowseDir = New System.Windows.Forms.Button()
         Me.btnBrowseBaseDir = New System.Windows.Forms.Button()
         Me.btnRun = New System.Windows.Forms.Button()
         Me.chkUDEF = New System.Windows.Forms.CheckBox()
-        Me.chkVersion = New System.Windows.Forms.CheckBox()
         Me.chkCollinear = New System.Windows.Forms.CheckBox()
-        Me.txtAQWAdir = New System.Windows.Forms.TextBox()
+        Me.txtAQWAVersion = New System.Windows.Forms.TextBox()
         Me.btnIntactFile = New System.Windows.Forms.Button()
         Me.fraDamageLineType = New System.Windows.Forms.GroupBox()
         Me._optDamageLineType_1 = New System.Windows.Forms.RadioButton()
@@ -166,22 +162,6 @@
         Me.btnCreateFiles.Text = "&Create Case Files"
         Me.ToolTip1.SetToolTip(Me.btnCreateFiles, "Prepare AQWA input files for all environmental headings")
         Me.btnCreateFiles.UseVisualStyleBackColor = False
-        '
-        'btnOldAQWA
-        '
-        Me.btnOldAQWA.BackColor = System.Drawing.SystemColors.Control
-        Me.btnOldAQWA.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btnOldAQWA.Enabled = False
-        Me.btnOldAQWA.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnOldAQWA.Location = New System.Drawing.Point(133, 508)
-        Me.btnOldAQWA.Name = "btnOldAQWA"
-        Me.btnOldAQWA.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.btnOldAQWA.Size = New System.Drawing.Size(140, 25)
-        Me.btnOldAQWA.TabIndex = 24
-        Me.btnOldAQWA.Text = "Switch to Old AQWA"
-        Me.ToolTip1.SetToolTip(Me.btnOldAQWA, "Set your system ready to run OLD AQWA")
-        Me.btnOldAQWA.UseVisualStyleBackColor = False
-        Me.btnOldAQWA.Visible = False
         '
         'btnNewAQWA
         '
@@ -269,21 +249,6 @@
         Me.chkUDEF.Text = "Swell"
         Me.chkUDEF.UseVisualStyleBackColor = False
         '
-        'chkVersion
-        '
-        Me.chkVersion.BackColor = System.Drawing.SystemColors.Control
-        Me.chkVersion.Checked = True
-        Me.chkVersion.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkVersion.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkVersion.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkVersion.Location = New System.Drawing.Point(152, 512)
-        Me.chkVersion.Name = "chkVersion"
-        Me.chkVersion.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.chkVersion.Size = New System.Drawing.Size(121, 17)
-        Me.chkVersion.TabIndex = 39
-        Me.chkVersion.Text = "AQWA 15.0"
-        Me.chkVersion.UseVisualStyleBackColor = False
-        '
         'chkCollinear
         '
         Me.chkCollinear.BackColor = System.Drawing.SystemColors.Control
@@ -299,18 +264,18 @@
         Me.chkCollinear.Text = "Collinear"
         Me.chkCollinear.UseVisualStyleBackColor = False
         '
-        'txtAQWAdir
+        'txtAQWAVersion
         '
-        Me.txtAQWAdir.AcceptsReturn = True
-        Me.txtAQWAdir.BackColor = System.Drawing.SystemColors.Window
-        Me.txtAQWAdir.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtAQWAdir.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtAQWAdir.Location = New System.Drawing.Point(104, 232)
-        Me.txtAQWAdir.Name = "txtAQWAdir"
-        Me.txtAQWAdir.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAQWAdir.Size = New System.Drawing.Size(161, 20)
-        Me.txtAQWAdir.TabIndex = 35
-        Me.txtAQWAdir.Text = "aqwa /nowind"
+        Me.txtAQWAVersion.AcceptsReturn = True
+        Me.txtAQWAVersion.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAQWAVersion.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtAQWAVersion.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtAQWAVersion.Location = New System.Drawing.Point(122, 229)
+        Me.txtAQWAVersion.Name = "txtAQWAVersion"
+        Me.txtAQWAVersion.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtAQWAVersion.Size = New System.Drawing.Size(69, 20)
+        Me.txtAQWAVersion.TabIndex = 35
+        Me.txtAQWAVersion.Text = "V170"
         '
         'btnIntactFile
         '
@@ -320,7 +285,7 @@
         Me.btnIntactFile.Location = New System.Drawing.Point(520, 232)
         Me.btnIntactFile.Name = "btnIntactFile"
         Me.btnIntactFile.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.btnIntactFile.Size = New System.Drawing.Size(189, 26)
+        Me.btnIntactFile.Size = New System.Drawing.Size(230, 26)
         Me.btnIntactFile.TabIndex = 34
         Me.btnIntactFile.Text = "Get Critical Lines from Intact XLS file"
         Me.btnIntactFile.UseVisualStyleBackColor = False
@@ -582,7 +547,7 @@
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(89, 17)
         Me.Label1.TabIndex = 36
-        Me.Label1.Text = " AQWA path:"
+        Me.Label1.Text = " AQWA Version:"
         '
         'lblTargetDir
         '
@@ -667,10 +632,12 @@
         '
         'grdMatrix
         '
-        Me.grdMatrix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdMatrix.ColumnHeadersHeight = 44
+        Me.grdMatrix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.grdMatrix.Location = New System.Drawing.Point(18, 271)
         Me.grdMatrix.Name = "grdMatrix"
-        Me.grdMatrix.Size = New System.Drawing.Size(700, 229)
+        Me.grdMatrix.RowHeadersWidth = 48
+        Me.grdMatrix.Size = New System.Drawing.Size(964, 229)
         Me.grdMatrix.TabIndex = 42
         '
         'frmMain
@@ -681,17 +648,15 @@
         Me.ClientSize = New System.Drawing.Size(994, 544)
         Me.Controls.Add(Me.grdMatrix)
         Me.Controls.Add(Me.chkUDEF)
-        Me.Controls.Add(Me.chkVersion)
         Me.Controls.Add(Me.chkCollinear)
         Me.Controls.Add(Me.btnCopyAll)
-        Me.Controls.Add(Me.txtAQWAdir)
+        Me.Controls.Add(Me.txtAQWAVersion)
         Me.Controls.Add(Me.btnIntactFile)
         Me.Controls.Add(Me.fraDamageLineType)
         Me.Controls.Add(Me.fraWind)
         Me.Controls.Add(Me.chkPFLH)
         Me.Controls.Add(Me.btnSilentRun)
         Me.Controls.Add(Me.btnCreateFiles)
-        Me.Controls.Add(Me.btnOldAQWA)
         Me.Controls.Add(Me.btnNewAQWA)
         Me.Controls.Add(Me.fraUnits)
         Me.Controls.Add(Me.btnPostProcess)

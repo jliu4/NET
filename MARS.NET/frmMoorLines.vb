@@ -53,10 +53,48 @@ Friend Class frmMoorLines
 			FrcUnit = "kips"
 		End If
 		IniSegments()
-		RefreshUnitLabels(Me)
-		LoadMoorData(True)
+        SetUnitLabels()
+        LoadMoorData(True)
 	End Sub
 
+    Private Sub SetUnitLabels()
+        If IsMetricUnit Then
+            _lblLengthUnit_0.Text = "m"
+            _lblLengthUnit_1.Text = "m"
+            _lblLengthUnit_2.Text = "m"
+            _lblLengthUnit_3.Text = "m"
+            _lblLengthUnit_4.Text = "m"
+            _lblLengthUnit_5.Text = "m"
+            _lblLengthUnit_6.Text = "m"
+            _lblLengthUnit_7.Text = "m"
+            _lblLengthUnit_8.Text = "m"
+            _lblLengthUnit_9.Text = "m"
+            _lblLengthUnit_10.Text = "m"
+            _lblLengthUnit_11.Text = "m"
+            _lblForceUnit_0.Text = "KN"
+            _lblForceUnit_1.Text = "KN"
+            _lblForceUnit_2.Text = "KN"
+
+
+        Else
+            _lblLengthUnit_0.Text = "ft"
+            _lblLengthUnit_1.Text = "ft"
+            _lblLengthUnit_2.Text = "ft"
+            _lblLengthUnit_3.Text = "ft"
+            _lblLengthUnit_4.Text = "ft"
+            _lblLengthUnit_5.Text = "ft"
+            _lblLengthUnit_6.Text = "ft"
+            _lblLengthUnit_7.Text = "ft"
+            _lblLengthUnit_8.Text = "ft"
+            _lblLengthUnit_9.Text = "ft"
+            _lblLengthUnit_10.Text = "ft"
+            _lblLengthUnit_11.Text = "ft"
+            _lblForceUnit_0.Text = "kips"
+            _lblForceUnit_1.Text = "kips"
+            _lblForceUnit_2.Text = "kips"
+
+        End If
+    End Sub
     ' form load and unload
 
     Private Sub frmMoorLines_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load

@@ -4,6 +4,7 @@ Imports VB = Microsoft.VisualBasic
 Friend Class frmMain
 
     Inherits System.Windows.Forms.Form
+
     ' frmMain           form of main window
     ' Version 1.0
     ' 2015, Copyright Genesis, Jin Liu
@@ -95,7 +96,7 @@ Friend Class frmMain
         UpdateFileMenu()
         UpdateMenu()
         LoadData(True)
-        RefreshUnitLabels(Me)
+        SetUnitLabels()
         Exit Sub
 
 ErrorHandler:
@@ -217,11 +218,11 @@ ErrorHandler:
     Private Sub frmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         ' make sure all forms are unloaded first
         ' any referenced form would remain in memory even if invisible
-        Dim frm As System.Windows.Forms.Form
-        For Each frm In My.Application.OpenForms
-            If Not frm Is Me Then frm.Close()
-        Next frm
-        End
+        ' Dim frm As System.Windows.Forms.Form
+        'For Each frm In My.Application.OpenForms
+        'If Not frm Is Me Then frm.Close()
+        'Next frm
+        'End
     End Sub
 
     Public Sub mnu3DPlot_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnu3DPlot.Click
@@ -363,12 +364,12 @@ ErrHandler:
     Public Sub mnuFileSave_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSave.Click
         SaveLC()
 
-        Dim FileOpen_Renamed As Boolean
+        Dim isFileOpen As Boolean
         Dim FileNum As Integer
 
         On Error GoTo ErrorHandler
 
-        FileOpen_Renamed = False
+        isFileOpen = False
         FileNum = FreeFile()
 
         With CurProj
@@ -376,13 +377,13 @@ ErrHandler:
                 mnuFileSaveAs_Click(mnuFileSaveAs, New System.EventArgs())
             Else
                 FileOpen(FileNum, .Directory & .FileName, OpenMode.Output)
-                FileOpen_Renamed = True
+                isFileOpen = True
                 Cursor = System.Windows.Forms.Cursors.WaitCursor
                 If Not .ExportData(FileNum) Then
                 End If
                 Cursor = System.Windows.Forms.Cursors.Default
                 FileClose(FileNum)
-                FileOpen_Renamed = False
+                isFileOpen = False
                 .Saved = True
             End If
         End With
@@ -398,12 +399,12 @@ ErrorHandler:
 
     Public Sub mnuFileSaveAs_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileSaveAs.Click
         SaveLC()
-        Dim FileOpen_Renamed As Boolean
+        Dim isFileOpen As Boolean
 
         '   should the user cancel the dialog box, exit
         On Error GoTo ErrHandler
 
-        FileOpen_Renamed = False
+        isFileOpen = False
 
         '   get file name
         Dim fnum As Integer
@@ -426,7 +427,7 @@ ErrorHandler:
             '       save data
             fnum = FreeFile()
             FileOpen(fnum, .FileName, OpenMode.Output)
-            FileOpen_Renamed = True
+            isFileOpen = True
 
             Cursor = System.Windows.Forms.Cursors.WaitCursor
             With CurProj
@@ -444,14 +445,14 @@ ErrorHandler:
                 .Saved = True
             End With
             FileClose(fnum)
-            FileOpen_Renamed = False
+            isFileOpen = False
         End With
 
         Exit Sub
 
 ErrHandler:
         '   User pressed Cancel button
-        If FileOpen_Renamed Then FileClose(fnum)
+        If isFileOpen Then FileClose(fnum)
         Cursor = System.Windows.Forms.Cursors.Default
         If Err.Number <> 32755 Then ' don't report cancel dialog error
             MsgBox("Error " & Err.Description & ",  Source: " & Err.Source, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Error")
@@ -631,7 +632,7 @@ ErrHandler:
             If optInputSystem(0).Checked Then
                 With ShipLoc
                     .Xg = CDbl(Format(CDbl(CheckData(CStr(Val(_txtVslSt_0.Text)),  , True)) / LFactor, "0.00"))
-                    .Yg = CDbl(VB6.Format(CDbl(CheckData(CStr(Val(_txtVslSt_1.Text)),  , True)) / LFactor, "0.00"))
+                    .Yg = CDbl(Format(CDbl(CheckData(CStr(Val(_txtVslSt_1.Text)),  , True)) / LFactor, "0.00"))
                     .Heading = CDbl(CheckData(CStr(Val(_txtVslSt_4.Text)),  , True)) * Degrees2Radians
                 End With
                 Coord2Bear(ShipLoc, Distance, Bearing)
@@ -1077,8 +1078,28 @@ ErrorHandler:
 
     End Sub
 
+    Private Sub SetUnitLabels()
+        If IsMetricUnit Then
+            _lblLengthUnit_0.Text = "m"
+            _lblLengthUnit_1.Text = "m"
+            _lblLengthUnit_2.Text = "m"
+            _lblLengthUnit_3.Text = "m"
+            _lblLengthUnit_4.Text = "m"
+            _lblLengthUnit_5.Text = "m"
+            _lblLengthUnit_6.Text = "m"
+        Else
+            _lblLengthUnit_0.Text = "ft"
+            _lblLengthUnit_1.Text = "ft"
+            _lblLengthUnit_2.Text = "ft"
+            _lblLengthUnit_3.Text = "ft"
+            _lblLengthUnit_4.Text = "ft"
+            _lblLengthUnit_5.Text = "ft"
+            _lblLengthUnit_6.Text = "ft"
+        End If
+    End Sub
+
     Private Sub RefreshData()
-        RefreshUnitLabels(Me)
+        SetUnitLabels()
         LoadData(False)
     End Sub
 

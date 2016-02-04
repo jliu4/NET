@@ -143,38 +143,38 @@ Module MARSConstants
     Public VelFactor As Single
     Public FrcUnit, LUnit, VelUnit, DiameterUnit As String
 
-    Public Sub RefreshUnitLabels(ByRef frm As System.Windows.Forms.Form)
+    ' Public Sub RefreshUnitLabels(ByRef frm As System.Windows.Forms.Form)
 
-    End Sub
+    'End Sub
 
-    Public Sub InitProject()
-        On Error GoTo ErrHandler
-        CurProj = New Project
-        'Defaults = New DODOIni
-        'Defaults = New MarsIni
-        ' MarsDir = GetDirFromRegistry(RegistryName) & "\"
-        ' MarsDir = "c:\program files\mars\"
-
-
-        Dim FS As Object
-
-        FS = CreateObject("Scripting.FileSystemObject")
-        'UPGRADE_WARNING: Couldn't resolve default property of object FS.FolderExists. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        If Not FS.FolderExists(My.Application.Info.DirectoryPath & "\Data") Then
-            'UPGRADE_WARNING: Couldn't resolve default property of object FS.CreateFolder. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            Call FS.CreateFolder(My.Application.Info.DirectoryPath & "\Data")
-        End If
+    'Public Sub InitProject()
+    'On Error GoTo ErrHandler
+    '   CurProj = New Project
+    'Defaults = New DODOIni
+    'Defaults = New MarsIni
+    ' MarsDir = GetDirFromRegistry(RegistryName) & "\"
+    ' MarsDir = "c:\program files\mars\"
 
 
-        ' check if data subdir exist
-        MarsDir = My.Application.Info.DirectoryPath & "\Data\"
-        DODODir = My.Application.Info.DirectoryPath & "\Data\"
-        Exit Sub
+    'Dim FS As Object
 
-ErrHandler:
-        'User pressed Cancel button
-        MsgBox("InitProject")
-        Exit Sub
-    End Sub
+    '  FS = CreateObject("Scripting.FileSystemObject")
+    'UPGRADE_WARNING: Couldn't resolve default property of object FS.FolderExists. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+    'If Not FS.FolderExists(My.Application.Info.DirectoryPath & "\Data") Then
+    'UPGRADE_WARNING: Couldn't resolve default property of object FS.CreateFolder. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+    'Call FS.CreateFolder(My.Application.Info.DirectoryPath & "\Data")
+    'End If
+
+
+    ' check if data subdir exist
+    '  MarsDir = My.Application.Info.DirectoryPath & "\Data\"
+    '   DODODir = My.Application.Info.DirectoryPath & "\Data\"
+    'Exit Sub
+
+    'ErrHandler:
+    'User pressed Cancel button
+    '  MsgBox("InitProject")
+    'Exit Sub
+    'End Sub
     '------------------------------------------
 End Module

@@ -62,11 +62,28 @@ Friend Class frmAnalysesB
 		txtReportTitle.Text = CurVessel.Name & ", Draft " & Format(CurVessel.ShipDraft, CStr(0)) & " ft, " & CurProj.WellSites.Item(CurProj.WellSites.CurWellNo).NameID
 		txtSubTitle.Text = txtEnvironment.Text & ", " & CurVessel.DampingPercent.Surge & "% Damping"
 	End Sub
-	
-	Private Sub RefreshData()
+    Private Sub SetUnitLabels()
+        If IsMetricUnit Then
+            _lblLengthUnit_0.Text = "m"
+            _lblLengthUnit_1.Text = "m"
+            _lblLengthUnit_2.Text = "m"
+            _lblLengthUnit_3.Text = "m"
+            _lblLengthUnit_4.Text = "m"
+
+        Else
+            _lblLengthUnit_0.Text = "ft"
+            _lblLengthUnit_1.Text = "ft"
+            _lblLengthUnit_2.Text = "ft"
+            _lblLengthUnit_3.Text = "ft"
+            _lblLengthUnit_4.Text = "ft"
+
+        End If
+    End Sub
+
+    Private Sub RefreshData()
 		LoadData()
-		RefreshUnitLabels(Me)
-	End Sub
+        SetUnitLabels()
+    End Sub
 	
 	Private Sub frmAnalysesB_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 		

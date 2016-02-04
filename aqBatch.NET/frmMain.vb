@@ -7,9 +7,9 @@ Friend Class frmMain
 	
 	Private Const InFile As Short = 1
 	Private Const OutFile As Short = 2
-	Private Const AQWAVersion As Boolean = True
-    Private Const AQWA12Path As String = "c:\progra~1\ansysi~1\v160\aqwa\bin\winx64\"
 
+    Private Const AQWAPath1 As String = "c:\progra~1\ansysi~1\"
+    Private Const AQWAPath2 As String = "\aqwa\bin\winx64\"
     Private BaseDir, rBaseDir As String
 	
 	Private ABFile, AFFile As String
@@ -27,8 +27,8 @@ Friend Class frmMain
 	Private AQWAUnitsUS As Boolean
 	Private Collinear As Boolean
     Private UDEF As Boolean
-    Private seaType As New DataGridViewComboBoxColumn()
-    Private SwellType As New DataGridViewComboBoxColumn()
+    Private seaType As New DataGridViewComboBoxCell()
+    Private SwellType As New DataGridViewComboBoxCell()
 
     Private Sub btnBrowseBaseDir_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnBrowseBaseDir.Click
 
@@ -137,12 +137,12 @@ Errhandler:
 		
 		Me.Cursor = System.Windows.Forms.Cursors.WaitCursor
 		If CreateAqwaInputFiles Then
-			If CreateAqwaBatchFile((chkVersion.CheckState)) Then
-				If CreateSilentRunBatchFile Then
-					MsgBox("AQWA input Files have been successfully created.", MsgBoxStyle.Information + MsgBoxStyle.OKOnly, "Create Files")
-				End If
-			End If
-		End If
+            If CreateAqwaBatchFile() Then
+                If CreateSilentRunBatchFile() Then
+                    MsgBox("AQWA input Files have been successfully created.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Create Files")
+                End If
+            End If
+        End If
 		
 		Me.Cursor = System.Windows.Forms.Cursors.Default
 		Exit Sub
@@ -248,9 +248,9 @@ ErrHandler:
 			End If
 			
 			If .ReadBaseResults Then
-				
-				VB6.ShowForm(frmPostProc, 1, Me)
-			End If
+                frmPostProc.Show()
+                'VB6.ShowForm(frmPostProc, 1, Me)
+            End If
 		End With
 	End Sub
 	
@@ -543,47 +543,47 @@ ErrHandler:
 		End If
 		CreateMoorDeckWithBrokenLine = s
 	End Function
-	
-	Private Function CreateAqwaBatchFile(ByRef V12 As Boolean) As Boolean
-		CreateAqwaBatchFile = False
-		Dim Path1, subDir, Path2 As String
-		Dim nPos As Short
+
+    Private Function CreateAqwaBatchFile() As Boolean
+        CreateAqwaBatchFile = False
+        Dim Path1, subDir, Path2 As String
+        Dim nPos As Short
 
         If Len(BaseDir) = 0 Or Len(WorkDir) = 0 Then
-			MsgBox("Root Level not recommended to run batch jobs" & vbCrLf & "Please select a directory")
-			Exit Function
-		End If
-		' assume BaseDir is at same level as WorkDir (e.g. 25YH) where the AQWA runs
-		
-		nPos = InStrRev(BaseDir, "\", -1, CompareMethod.Text)
-		rBaseDir = ".." & "\" & VB.Right(BaseDir, Len(BaseDir) - nPos)
-		Path1 = VB.Left(BaseDir, nPos)
-		nPos = InStrRev(WorkDir, "\")
-		rWorkDir = ".." & "\" & VB.Right(WorkDir, Len(WorkDir) - nPos)
-		Path2 = VB.Left(WorkDir, nPos)
-		
-		If StrComp(Path1, Path2, CompareMethod.Text) <> 0 Then
-			MsgBox("Base and Working Directory should be on the same level for relative path to work", MsgBoxStyle.Information, "Warning")
-			Exit Function
-		End If
-		
-		Const ForReading As Short = 1
-		Const ForWriting As Short = 2
-		Const ForAppending As Short = 3
-		Const TristateUseDefault As Short = -2
-		Const TristateTrue As Short = -1
-		Const TristateFalse As Short = 0
-		Dim MyFile, s, f, fs, ts, ss, i As Object
-		
-		On Error GoTo ErrHandler
-		
-		fs = CreateObject("Scripting.FileSystemObject")
+            MsgBox("Root Level not recommended to run batch jobs" & vbCrLf & "Please select a directory")
+            Exit Function
+        End If
+        ' assume BaseDir is at same level as WorkDir (e.g. 25YH) where the AQWA runs
+
+        nPos = InStrRev(BaseDir, "\", -1, CompareMethod.Text)
+        rBaseDir = ".." & "\" & VB.Right(BaseDir, Len(BaseDir) - nPos)
+        Path1 = VB.Left(BaseDir, nPos)
+        nPos = InStrRev(WorkDir, "\")
+        rWorkDir = ".." & "\" & VB.Right(WorkDir, Len(WorkDir) - nPos)
+        Path2 = VB.Left(WorkDir, nPos)
+
+        If StrComp(Path1, Path2, CompareMethod.Text) <> 0 Then
+            MsgBox("Base and Working Directory should be on the same level for relative path to work", MsgBoxStyle.Information, "Warning")
+            Exit Function
+        End If
+
+        Const ForReading As Short = 1
+        Const ForWriting As Short = 2
+        Const ForAppending As Short = 3
+        Const TristateUseDefault As Short = -2
+        Const TristateTrue As Short = -1
+        Const TristateFalse As Short = 0
+        Dim MyFile, s, f, fs, ts, ss, i As Object
+
+        On Error GoTo ErrHandler
+
+        fs = CreateObject("Scripting.FileSystemObject")
 
         MyFile = fs.CreateTextFile(WorkDir & "\RunAqwaCases.bat", True)
 
         For i = 1 To NumCases
-			
-			If IsDamaged = 1 Then
+
+            If IsDamaged = 1 Then
                 subDir = "case" & i & "D1"
             ElseIf IsDamaged = 2 Then
                 subDir = "case" & i & "D2"
@@ -592,119 +592,83 @@ ErrHandler:
             End If
 
             MyFile.WriteLine("COPY " & rBaseDir & "\ABRUN.RES ABRUN.RES")
-            If AQWAVersion Then
-                MyFile.WriteLine("COPY " & rBaseDir & "\ABRUN.EQP ABRUN.EQP")
-            Else
-                MyFile.WriteLine("COPY " & rBaseDir & "\ABRUN.POS ABRUN.POS")
-                MyFile.WriteLine("COPY " & rBaseDir & "\ABRUN.HYD ABRUN.HYD")
-            End If
+            ' If AQWAVersion Then
+            MyFile.WriteLine("COPY " & rBaseDir & "\ABRUN.EQP ABRUN.EQP")
+            'Else
+            'MyFile.WriteLine("COPY " & rBaseDir & "\ABRUN.POS ABRUN.POS")
+            'MyFile.WriteLine("COPY " & rBaseDir & "\ABRUN.HYD ABRUN.HYD")
+            ' End If
             MyFile.WriteLine()
             ' copy data file to workdir to run
             MyFile.WriteLine("COPY " & rWorkDir & "\" & subDir & "\ABRUN.DAT ABRUN.DAT")
-            If AQWAVersion Then ' new AQWA
-				If Len(txtAQWAdir.Text) > 0 Then
-					If V12 Then
-                        MyFile.WriteLine(AQWA12Path & Trim(txtAQWAdir.Text) & " LIBRIUM RUN")
-                    Else
-                        MyFile.WriteLine(Trim(txtAQWAdir.Text) & " LIBRIUM RUN")
-                    End If
-				Else
-					If V12 Then
-                        MyFile.WriteLine(AQWA12Path & "AQWA LIBRIUM RUN")
-                    Else
-                        MyFile.WriteLine("AQWA LIBRIUM RUN")
-                    End If
-				End If
-			Else
-                MyFile.WriteLine("LIBRIUM RUN")
+            ' If AQWAVersion Then ' new AQWA
+            If Len(txtAQWAVersion.Text) > 0 Then
+                '     If V12 Then
+                MyFile.WriteLine(AQWAPath1 & Trim(txtAQWAVersion.Text) & AQWAPath2 & " LIBRIUM RUN")
+                'Else
+                'MyFile.WriteLine(Trim(txtAQWAVersion.Text) & " LIBRIUM RUN")
+
             End If
-            ' COPY SELECTED RESULTS BACK TO CASE DIRECTORY
+            '           If V12 Then
+            '   MyFile.WriteLine(AQWA12Path & "AQWA LIBRIUM RUN")
+            '     Else
+            '     MyFile.WriteLine("AQWA LIBRIUM RUN")
+            '             End If
+            '   End If
+            '   Else
+            '   MyFile.WriteLine("LIBRIUM RUN")
+            'End If
+            '  ' COPY SELECTED RESULTS BACK TO CASE DIRECTORY
             MyFile.WriteLine("COPY ABRUN.LIS " & rWorkDir & "\" & subDir & "\ABRUN.LIS" & vbCrLf)
 
             MyFile.WriteLine("COPY ABRUN.RES AFRUN.RES")
-            If AQWAVersion Then
-                MyFile.WriteLine("COPY ABRUN.EQP AFRUN.EQP")
-            Else
-                MyFile.WriteLine("COPY ABRUN.POS AFRUN.POS")
-                MyFile.WriteLine("COPY ABRUN.HYD AFRUN.HYD")
-            End If
-			' copy data file to workdir to run
-			
-			If chkPFLH.CheckState = System.Windows.Forms.CheckState.Unchecked Then
+
+            MyFile.WriteLine("COPY ABRUN.EQP AFRUN.EQP")
+
+            ' copy data file to workdir to run
+
+            If chkPFLH.CheckState = System.Windows.Forms.CheckState.Unchecked Then
                 MyFile.WriteLine("COPY " & rWorkDir & "\" & subDir & "\AFRUN1.DAT AFRUN.DAT")
             Else
                 MyFile.WriteLine("COPY " & rWorkDir & "\" & subDir & "\AFRUN.DAT AFRUN.DAT")
             End If
-			
-			If AQWAVersion Then
-				If Len(txtAQWAdir.Text) > 0 Then
-					If V12 Then
-                        MyFile.WriteLine(AQWA12Path & Trim(txtAQWAdir.Text) & " FER RUN")
-                    Else
-                        MyFile.WriteLine(Trim(txtAQWAdir.Text) & " FER RUN")
-                    End If
-				Else
-					If V12 Then
-                        MyFile.WriteLine(AQWA12Path & "AQWA FER RUN")
-                    Else
-                        MyFile.WriteLine("AQWA FER RUN")
-                    End If
-				End If
-			Else
-                MyFile.WriteLine("FER RUN")
+
+
+            If Len(txtAQWAVersion.Text) > 0 Then
+                MyFile.WriteLine(AQWAPath1 & Trim(txtAQWAVersion.Text) & AQWAPath2 & " FER RUN")
             End If
-			' COPY SELECTED RESULTS BACK TO CASE DIRECTORY
-			If chkPFLH.CheckState = System.Windows.Forms.CheckState.Checked Then
+            ' COPY SELECTED RESULTS BACK TO CASE DIRECTORY
+            If chkPFLH.CheckState = System.Windows.Forms.CheckState.Checked Then
                 MyFile.WriteLine("COPY AFRUN.LIS " & rWorkDir & "\" & subDir & "\AFRUN.LIS" & vbCrLf)
             Else
                 MyFile.WriteLine("COPY AFRUN.LIS " & rWorkDir & "\" & subDir & "\AFRUN1.LIS" & vbCrLf)
 
-                ' continue for AFRUN2
-                MyFile.WriteLine("COPY ABRUN.RES AFRUN.RES")
-                If AQWAVersion Then
-                    MyFile.WriteLine("COPY ABRUN.EQP AFRUN.EQP")
-                Else
-                    MyFile.WriteLine("COPY ABRUN.POS AFRUN.POS")
-                    MyFile.WriteLine("COPY ABRUN.HYD AFRUN.HYD")
-                End If
-                ' copy data file to workdir to run
-                MyFile.WriteLine("COPY " & rWorkDir & "\" & subDir & "\AFRUN2.DAT AFRUN.DAT")
-                If AQWAVersion Then
-					If Len(txtAQWAdir.Text) > 0 Then
-                        MyFile.WriteLine(Trim(txtAQWAdir.Text) & " FER RUN")
-                    Else
-                        MyFile.WriteLine("AQWA FER RUN")
-                    End If
-				Else
-                    MyFile.WriteLine("FER RUN")
-                End If
-                ' COPY SELECTED RESULTS BACK TO CASE DIRECTORY
                 MyFile.WriteLine("COPY AFRUN.LIS " & rWorkDir & "\" & subDir & "\AFRUN2.LIS" & vbCrLf)
                 MyFile.WriteLine()
             End If
-			
-		Next i
+
+        Next i
         MyFile.Close()
         CreateAqwaBatchFile = True
-		Exit Function
-ErrHandler: 
-		ReportError(err, "Error", "Error Creating AQWA Batch File")
+        Exit Function
+ErrHandler:
+        ReportError(Err, "Error", "Error Creating AQWA Batch File")
         If MyFile.Open Then MyFile.Close()
     End Function
-	
-	Function CreateSilentRunBatchFile() As Boolean
+
+    Function CreateSilentRunBatchFile() As Boolean
         CreateSilentRunBatchFile = False
         Const ForReading As Short = 1
-		Const ForWriting As Short = 2
-		Const ForAppending As Short = 3
-		Const TristateUseDefault As Short = -2
-		Const TristateTrue As Short = -1
-		Const TristateFalse As Short = 0
-		Dim MyFile, s, f, fs, ts, ss, i As Object
-		
-		On Error GoTo ErrHandler
-		
-		fs = CreateObject("Scripting.FileSystemObject")
+        Const ForWriting As Short = 2
+        Const ForAppending As Short = 3
+        Const TristateUseDefault As Short = -2
+        Const TristateTrue As Short = -1
+        Const TristateFalse As Short = 0
+        Dim MyFile, s, f, fs, ts, ss, i As Object
+
+        On Error GoTo ErrHandler
+
+        fs = CreateObject("Scripting.FileSystemObject")
 
         If fs.FileExists(WorkDir & "\stdtests.com") Then fs.DeleteFile(WorkDir & "\stdtests.com")
         If fs.FileExists(WorkDir & "\stdtests.com") Then fs.DeleteFile(WorkDir & "\stdtests.com")
@@ -717,8 +681,8 @@ ErrHandler:
         ts = f.OpenAsTextStream(ForReading, TristateFalse)
         s = ts.Readall
         ' replace content AQWA with RUN
-        If Len(txtAQWAdir.Text) > 0 Then
-            ss = Replace(s, Trim(txtAQWAdir.Text), "RUN")
+        If Len(txtAQWAVersion.Text) > 0 Then
+            ss = Replace(s, Trim(txtAQWAVersion.Text), "RUN")
         Else
             ss = Replace(s, "AQWA", "RUN")
         End If
@@ -741,8 +705,8 @@ ErrHandler:
 
         ' create new silent batch
         f = fs.CreateTextFile(WorkDir & "\RunSilent.bat", True)
-        If Len(txtAQWAdir.Text) > 0 Then
-            f.Write(Trim(txtAQWAdir.Text) & " std")
+        If Len(txtAQWAVersion.Text) > 0 Then
+            f.Write(Trim(txtAQWAVersion.Text) & " std")
         Else
             f.Write("aqwa std")
         End If
@@ -781,9 +745,9 @@ ErrHandler:
 			Fvel = 0.5144
 			Flen = 0.3048
 		End If
-		
-		If AQWAVersion Then
-			PrintLine(OutFile, "    11    ENVR")
+
+
+        PrintLine(OutFile, "    11    ENVR")
 			If optWind(1).Checked Then
 				PrintLine(OutFile, "    11WIND", TAB(13), CStr(VB6.Format(oMet(Index).Wind.Velocity.Value * Flen, "#0.00")), TAB(22), CStr(VB6.Format(oMet(Index).Wind.Heading.Value, "#0.00")))
 			End If
@@ -824,16 +788,8 @@ ErrHandler:
 				Print(OutFile, "    13SPDN")
 				PrintLine(OutFile, TAB(22), CStr(VB6.Format(Val(oMet(Index).Wave.Heading.Value), "#0.0")))
 			End If
-		Else
-			PrintLine(OutFile, "    11    NONE")
-			PrintLine(OutFile, "    12    NONE")
-			PrintLine(OutFile, "    13    SPEC")
-			PrintLine(OutFile, "    13WIND", TAB(22), CStr(VB6.Format(oMet(Index).Wind.Velocity.Value * Flen, "#0.00")), TAB(32), CStr(VB6.Format(oMet(Index).Wind.Heading.Value, "#0.00")))
-			' CONVERT FROM KNOTS TO FT/S FOR AQWA
-			PrintLine(OutFile, "    13CURR", TAB(22), CStr(VB6.Format(oMet(Index).Current.SurfaceVel * Flen, "#0.000")), TAB(32), CStr(VB6.Format(oMet(Index).Current.Heading.Value, "#0.00")))
-			PrintLine(OutFile, "    13SPDN", TAB(22), CStr(VB6.Format(oMet(Index).Wave.Heading.Value, "#0.0")))
-		End If
-		If UDEF And 1 = 0 Then
+
+        If UDEF And 1 = 0 Then
 			nOmg = (2# - 0.1) / 0.1 + 1
 			For iOmg = 1 To nOmg
 				Omg = 0.1 + (iOmg - 1) * 0.1
@@ -910,7 +866,7 @@ ErrHandler:
                     UDEF = True
             End Select
         End With
-
+        InitiateGrid()
     End Sub
 
 
@@ -922,16 +878,17 @@ ErrHandler:
 		CheckingGrid = True
 		AQWAUnitsUS = True
 		Collinear = True
-		UDEF = False
-		
-		chkCollinear.CheckState = System.Windows.Forms.CheckState.Checked
+        'UDEF = False
+
+        chkCollinear.CheckState = System.Windows.Forms.CheckState.Checked
 		optAQWAUnits(0).Checked = True
 		btnRun.Enabled = False
 		btnSilentRun.Enabled = False
 		
 		SetDefaults()
-		InitiateCombo()
-		InitiateGrid()
+        InitiateCombo()
+
+        InitiateGrid()
 		
 		SelectText(txtNumCases)
 		
@@ -1082,16 +1039,16 @@ ErrHandler:
 		Next i
 	End Sub
     ' menus
-    Private Sub grdMatrix_ClickEvent(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellEventArgs) _
+    Private Sub grdMatrix_ClickEvent(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) _
         Handles grdMatrix.CellClick
 
-        If eventArgs.ColumnIndex = 9 Then
+        If e.ColumnIndex = 9 Then
             With frmCurrProfile
                 .lblCaseNo.Text = grdMatrix.CurrentRow.HeaderCell.Value
                 .txtNumProfilePts.Text = (grdMatrix.CurrentRow.Cells(9).Value)
             End With
             VB6.ShowForm(frmCurrProfile, 1, Me)
-        ElseIf eventArgs.columnIndex = 2 And eventArgs.RowIndex > -1 Then
+        ElseIf (e.columnIndex = 2 Or e.ColumnIndex = 14) And e.RowIndex > -1 Then
             Dim cell As New DataGridViewComboBoxCell()
 
             cell.MaxDropDownItems = 3
@@ -1101,21 +1058,27 @@ ErrHandler:
             cell.Items.Add("GAUS")
 
             cell.Value = "PSMZ"
-            grdMatrix(eventArgs.ColumnIndex, eventArgs.RowIndex) = cell
-
+            grdMatrix(e.ColumnIndex, e.RowIndex) = cell
 
         End If
     End Sub
+
+
 
     Private Sub grdMatrix_EnterCell(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         ExistingTxt = grdMatrix.Text
         JustEnterCell = True
     End Sub
 
-    Private Sub grdMatrix_LeaveCell(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    Private Sub grdMatrix_LeaveCell(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) _
+        Handles grdMatrix.CellLeave
 
         If Not CheckingGrid Then
             With grdMatrix
+                If (e.ColumnIndex = 2 Or e.ColumnIndex = 14) Then
+
+                End If
+
                 If Trim(.Text) <> ExistingTxt And .ColumnCount > 1 Then
                     If Trim(.Text) <> "" Then .Text = CheckData(.Text)
                     Changed = True
@@ -1262,11 +1225,12 @@ ErrHandler:
         If e.RowIndex = -1 AndAlso e.ColumnIndex > -1 Then
             e.PaintBackground(e.CellBounds, False)
             Dim r2 As Rectangle = e.CellBounds
-            r2.Y += e.CellBounds.Height / 2
-            r2.Height = e.CellBounds.Height / 2
+
+            r2.Y += e.CellBounds.Height / 3
+            r2.Height = e.CellBounds.Height / 3
             e.PaintContent(r2)
             e.Handled = True
-        End If
+            End If
     End Sub
 
     'Handle the DataGridView.Paint event to draw "merged" header cells
@@ -1276,6 +1240,7 @@ ErrHandler:
         Dim j1 As Short
         With grdMatrix
             j1 = 0
+            'MsgBox(.ColumnCount & "-" & .ColumnHeadersHeight)
             For j As Integer = 0 To .ColumnCount - 1
                 If j = 0 Or j = 2 Or j = 7 Or j = 10 Or j = 11 Then
 
@@ -1284,56 +1249,56 @@ ErrHandler:
                     r1.X += 1
                     r1.Y += 1
                     r1.Width = r1.Width * HeaderLabelsIndex(j1) - 2
-                    r1.Height = r1.Height / 2 - 2
+                    r1.Height = r1.Height / 3 - 3
 
                     Using br As SolidBrush = New SolidBrush(.ColumnHeadersDefaultCellStyle.BackColor)
-                        e.Graphics.FillRectangle(br, r1)
-                    End Using
-
-                    Using p As Pen = New Pen(SystemColors.InactiveBorder)
-                        e.Graphics.DrawLine(p, r1.X, r1.Bottom, r1.Right, r1.Bottom)
-                    End Using
-
-                    Using format As StringFormat = New StringFormat()
-                        Using br As SolidBrush = New SolidBrush(.ColumnHeadersDefaultCellStyle.ForeColor)
-                            format.Alignment = StringAlignment.Center
-                            format.LineAlignment = StringAlignment.Center
-                            e.Graphics.DrawString(HeaderLabels(j1), .ColumnHeadersDefaultCellStyle.Font, Brushes.Black, r1, format)
+                            e.Graphics.FillRectangle(br, r1)
                         End Using
-                    End Using
-                    j1 += 1
-                End If
+
+                        Using p As Pen = New Pen(SystemColors.InactiveBorder)
+                            e.Graphics.DrawLine(p, r1.X, r1.Bottom, r1.Right, r1.Bottom)
+                        End Using
+
+                        Using format As StringFormat = New StringFormat()
+                            Using br As SolidBrush = New SolidBrush(.ColumnHeadersDefaultCellStyle.ForeColor)
+                                format.Alignment = StringAlignment.Center
+                                format.LineAlignment = StringAlignment.Center
+                                e.Graphics.DrawString(HeaderLabels(j1), .ColumnHeadersDefaultCellStyle.Font, Brushes.Black, r1, format)
+                            End Using
+                        End Using
+                        j1 += 1
+                    End If
 
             Next
         End With
     End Sub
 
-
-
     Private Sub InitiateGrid()
+        Dim c As Short
 
         Call SetLabels()
 
         With grdMatrix
-            ' If UDEF Then
-            '.ColumnCount = 17
-            ' 'Else
-            '.ColumnCount = 12
-            'End If
+            'MsgBox(.ColumnCount & .ColumnHeadersHeight)
 
-            .Columns.Add("Wind", "Velocity\[knots]")
-            .Columns.Add("Wind", "Heading\[deg]")
-            .Columns.Add("Wave", "Spectrum")
-            .Columns.Add("Wave", "Hs\[ft]")
-            .Columns.Add("Wave", "Tp\[sec]")
-            .Columns.Add("Wave", "Gamma")
-            .Columns.Add("Wave", "Heading\[deg]")
-            .Columns.Add("Current", "Heading\[deg]")
-            .Columns.Add("Current", "Surf Vel\[knots]")
-            .Columns.Add("Current", "Profile\[points]")
-            .Columns.Add("Break", "Mooring\Line")
-            .ColumnHeadersHeight = .ColumnHeadersHeight * 5
+            If UDEF Then
+                .ColumnCount = 16
+                ' .ColumnHeadersHeight = .ColumnHeadersHeight * 3
+            Else
+                .ColumnCount = 11
+                '.ColumnHeadersHeight = .ColumnHeadersHeight * 10
+            End If
+            '.ColumnCount = 16
+            For c = 0 To .ColumnCount - 1
+                .Columns(c).FillWeight = 100 / .ColumnCount
+                .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                .Columns(c).HeaderText = HeaderLabels1(c + 1) & vbCrLf & HeaderLabels2(c + 1)
+            Next
+            ' .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+
+            ' .ColumnHeadersHeight = 44 '.ColumnHeadersHeight * 3
             .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter
+
         End With
 
         fraDamageLineType.Enabled = False
@@ -1358,7 +1323,7 @@ ErrHandler:
         HeaderLabelsIndex(4) = 5
 
         HeaderLabels1(0) = ""
-		HeaderLabels1(1) = "Velocity"
+        HeaderLabels1(1) = "Velocity"
 		HeaderLabels1(2) = "Heading"
 		HeaderLabels1(3) = "Spectrum"
 		HeaderLabels1(4) = "Hs"
@@ -1376,23 +1341,23 @@ ErrHandler:
 		HeaderLabels1(16) = "Heading"
 		
 		HeaderLabels2(0) = ""
-		HeaderLabels2(1) = "(knots)"
-		HeaderLabels2(2) = "(deg)"
+        HeaderLabels2(1) = "(kts)"
+        HeaderLabels2(2) = "(deg)"
 		HeaderLabels2(3) = "Name"
 		HeaderLabels2(4) = "(ft)"
 		HeaderLabels2(5) = "(sec)"
 		HeaderLabels2(6) = ""
 		HeaderLabels2(7) = "(deg)"
 		HeaderLabels2(8) = "(deg)"
-		HeaderLabels2(9) = "(knots)"
-		HeaderLabels2(10) = "Points"
+        HeaderLabels2(9) = "(kts)"
+        HeaderLabels2(10) = "Points"
 		HeaderLabels2(11) = "Line"
 		HeaderLabels2(12) = "(ft)"
 		HeaderLabels2(13) = "(sec)"
 		HeaderLabels2(14) = ""
 		HeaderLabels2(15) = ""
-		HeaderLabels2(16) = ""
-	End Sub
+        HeaderLabels2(16) = "(deg)"
+    End Sub
 
 
     'Private Sub optAQWAVersion_Click(Index As Integer)
@@ -1525,11 +1490,11 @@ ErrHandler:
                 oMet(R + 1).Current.SurfaceVel = .Rows(R).Cells(8).Value * Knots2Ftps
 
                 If UDEF Then
-                    'oMet(R - .FixedRows + 1).Wave.SwellHeight.Value = Val(.get_TextMatrix(R, 12))
-                    'oMet(R - .FixedRows + 1).Wave.SwellPeriod.Value = Val(.get_TextMatrix(R, 13))
-                    'oMet(R - .FixedRows + 1).Wave.SwellSpectrumName.Value = .get_TextMatrix(R, 14)
-                    'oMet(R - .FixedRows + 1).Wave.SwellGamma.Value = Val(.get_TextMatrix(R, 15))
-                    'oMet(R - .FixedRows + 1).Wave.SwellHeading.Value = Val(.get_TextMatrix(R, 16))
+                    oMet(R + 1).Wave.SwellHeight.Value = .Rows(R).Cells(11).Value
+                    oMet(R + 1).Wave.SwellPeriod.Value = .Rows(R).Cells(12).Value
+                    oMet(R + 1).Wave.SwellSpectrumName.Value = .Rows(R).Cells(13).Value
+                    oMet(R + 1).Wave.SwellGamma.Value = .Rows(R).Cells(14).Value
+                    oMet(R + 1).Wave.SwellHeading.Value = .Rows(R).Cells(15).Value
 
                 End If
             Next R

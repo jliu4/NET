@@ -14,10 +14,10 @@ Friend Class frmWells
 	Private ExistingTxt As String
 	Private CheckingGrid As Boolean
 	Private JustEnterCell As Boolean
-	Dim LFactor, FrcFactor As Single
-	' load form
-	
-	Private Sub frmWells_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Dim LFactor, FrcFactor As Single
+    ' load form
+
+    Private Sub frmWells_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 		Dim LUnit, FrcUnit As String
 		If IsMetricUnit Then
 			LUnit = "(m)"
@@ -317,10 +317,10 @@ ErrHandler:
 
                 If .Rows(i).Cells(0).Value = "" Then Exit For
                 NameID = .Rows(i).Cells(0).Value
-                X = CDbl(.Rows(i).Cells(1).Value) / LFactor
-                Y = CDbl(.Rows(i).Cells(2).Value) / LFactor
+                X = .Rows(i).Cells(1).Value / LFactor
+                Y = .Rows(i).Cells(2).Value / LFactor
 
-                Depth = CDbl(CDbl(.Rows(i).Cells(3).Value) / LFactor) / LFactor
+                Depth = .Rows(i).Cells(3).Value / LFactor
                 CurField.Add(NameID, X, Y, Depth)
             Next i
         End With
@@ -357,11 +357,11 @@ ErrHandler:
 
                 .Rows(r).Cells(0).Value = NameID
 
-                .Rows(r).Cells(1).Value = CStr(X * LFactor)
+                .Rows(r).Cells(1).Value = X * LFactor
 
-                .Rows(r).Cells(2).Value = CStr(Y * LFactor)
+                .Rows(r).Cells(2).Value = Y * LFactor
 
-                .Rows(r).Cells(3).Value = CStr(Depth * LFactor)
+                .Rows(r).Cells(3).Value = Depth * LFactor
                 r = r + 1
             Loop
         End With
@@ -387,12 +387,12 @@ ErrHandler:
                 If .Rows(i).Cells(0).Value = "" Then Exit For
                 NameID = .Rows(i).Cells(0).Value
 
-                X = CDbl(.Rows(i).Cells(1).Value) / LFactor
+                X = .Rows(i).Cells(1).Value / LFactor
 
 
-                Y = CDbl(.Rows(i).Cells(2).Value) / LFactor
+                Y = .Rows(i).Cells(2).Value / LFactor
 
-                Depth = CDbl(.Rows(i).Cells(3).Value) / LFactor
+                Depth = .Rows(i).Cells(3).Value / LFactor
                 WriteLine(FileNum, NameID, X, Y, Depth)
             Next i
         End With

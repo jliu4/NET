@@ -45,12 +45,31 @@ Friend Class frmMove
 		txtClientName.Text = frmMain.txtClientName.Text
 		txtLocationName.Text = frmMain.txtLocationName.Text
 	End Sub
-	
-	Private Sub RefreshData()
+    Private Sub SetUnitLabels()
+        If IsMetricUnit Then
+            _lblLengthUnit_0.Text = "m"
+            _lblLengthUnit_1.Text = "m"
+            _lblLengthUnit_2.Text = "m"
+            _lblLengthUnit_3.Text = "m"
+            _lblLengthUnit_4.Text = "m"
+            _lblLengthUnit_5.Text = "m"
+            _lblLengthUnit_6.Text = "m"
+        Else
+            _lblLengthUnit_0.Text = "ft"
+            _lblLengthUnit_1.Text = "ft"
+            _lblLengthUnit_2.Text = "ft"
+            _lblLengthUnit_3.Text = "ft"
+            _lblLengthUnit_4.Text = "ft"
+            _lblLengthUnit_5.Text = "ft"
+            _lblLengthUnit_6.Text = "ft"
+        End If
+    End Sub
+
+    Private Sub RefreshData()
 		InitiateGrid()
 		LoadData((True))
-		RefreshUnitLabels(Me)
-	End Sub
+        SetUnitLabels()
+    End Sub
 	
 	Private Sub frmMove_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 		
