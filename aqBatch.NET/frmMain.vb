@@ -1048,7 +1048,7 @@ ErrHandler:
                 .txtNumProfilePts.Text = (grdMatrix.CurrentRow.Cells(9).Value)
             End With
             VB6.ShowForm(frmCurrProfile, 1, Me)
-        ElseIf (e.columnIndex = 2 Or e.ColumnIndex = 14) And e.RowIndex > -1 Then
+        ElseIf (e.columnIndex = 2 Or e.ColumnIndex = 13) And e.RowIndex > -1 Then
             Dim cell As New DataGridViewComboBoxCell()
 
             cell.MaxDropDownItems = 3
@@ -1075,7 +1075,7 @@ ErrHandler:
 
         If Not CheckingGrid Then
             With grdMatrix
-                If (e.ColumnIndex = 2 Or e.ColumnIndex = 14) Then
+                If (e.ColumnIndex = 2 Or e.ColumnIndex = 13) Then
 
                 End If
 
@@ -1279,24 +1279,18 @@ ErrHandler:
         Call SetLabels()
 
         With grdMatrix
-            'MsgBox(.ColumnCount & .ColumnHeadersHeight)
 
             If UDEF Then
                 .ColumnCount = 16
-                ' .ColumnHeadersHeight = .ColumnHeadersHeight * 3
             Else
                 .ColumnCount = 11
-                '.ColumnHeadersHeight = .ColumnHeadersHeight * 10
             End If
-            '.ColumnCount = 16
+
             For c = 0 To .ColumnCount - 1
                 .Columns(c).FillWeight = 100 / .ColumnCount
                 .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
                 .Columns(c).HeaderText = HeaderLabels1(c + 1) & vbCrLf & HeaderLabels2(c + 1)
             Next
-            ' .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
-
-            ' .ColumnHeadersHeight = 44 '.ColumnHeadersHeight * 3
             .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter
 
         End With
@@ -1467,8 +1461,8 @@ ErrHandler:
 	End Sub
 	
 	Private Function UpdateMetOceanObjects() As Boolean
-		grdMatrix_LeaveCell(grdMatrix, New System.EventArgs())
-		UpdateMetOceanObjects = False
+        'grdMatrix_LeaveCell(grdMatrix, New System.EventArgs())
+        UpdateMetOceanObjects = False
 		Dim R As Short
 		With grdMatrix
             ' all non-empty fields  - now update objects
@@ -1504,7 +1498,7 @@ ErrHandler:
 	End Function
 	
 	Private Sub UpdateBrokenLines()
-		grdMatrix_LeaveCell(grdMatrix, New System.EventArgs())
+        'grdMatrix_LeaveCell(grdMatrix, New System.EventArgs())
 
         ReDim BreakLine(NumCases)
         Dim R As Short

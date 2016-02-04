@@ -31,9 +31,8 @@
     Public WithEvents chkPFLH As System.Windows.Forms.CheckBox
     Public WithEvents btnSilentRun As System.Windows.Forms.Button
     Public WithEvents btnCreateFiles As System.Windows.Forms.Button
-    Public WithEvents btnNewAQWA As System.Windows.Forms.Button
     Public WithEvents _optAQWAUnits_1 As System.Windows.Forms.RadioButton
-	Public WithEvents _optAQWAUnits_0 As System.Windows.Forms.RadioButton
+    Public WithEvents _optAQWAUnits_0 As System.Windows.Forms.RadioButton
 	Public WithEvents fraUnits As System.Windows.Forms.GroupBox
 	Public WithEvents btnPostProcess As System.Windows.Forms.Button
 	Public WithEvents _optMoorState_0 As System.Windows.Forms.RadioButton
@@ -69,7 +68,6 @@
         Me.btnCopyAll = New System.Windows.Forms.Button()
         Me.btnSilentRun = New System.Windows.Forms.Button()
         Me.btnCreateFiles = New System.Windows.Forms.Button()
-        Me.btnNewAQWA = New System.Windows.Forms.Button()
         Me.btnPostProcess = New System.Windows.Forms.Button()
         Me.btnBrowseDir = New System.Windows.Forms.Button()
         Me.btnBrowseBaseDir = New System.Windows.Forms.Button()
@@ -139,7 +137,7 @@
         Me.btnSilentRun.BackColor = System.Drawing.SystemColors.Control
         Me.btnSilentRun.Cursor = System.Windows.Forms.Cursors.Default
         Me.btnSilentRun.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnSilentRun.Location = New System.Drawing.Point(514, 508)
+        Me.btnSilentRun.Location = New System.Drawing.Point(821, 506)
         Me.btnSilentRun.Name = "btnSilentRun"
         Me.btnSilentRun.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btnSilentRun.Size = New System.Drawing.Size(98, 25)
@@ -163,29 +161,13 @@
         Me.ToolTip1.SetToolTip(Me.btnCreateFiles, "Prepare AQWA input files for all environmental headings")
         Me.btnCreateFiles.UseVisualStyleBackColor = False
         '
-        'btnNewAQWA
-        '
-        Me.btnNewAQWA.BackColor = System.Drawing.SystemColors.Control
-        Me.btnNewAQWA.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btnNewAQWA.Enabled = False
-        Me.btnNewAQWA.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnNewAQWA.Location = New System.Drawing.Point(275, 508)
-        Me.btnNewAQWA.Name = "btnNewAQWA"
-        Me.btnNewAQWA.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.btnNewAQWA.Size = New System.Drawing.Size(141, 25)
-        Me.btnNewAQWA.TabIndex = 23
-        Me.btnNewAQWA.Text = "Restore to New AQWA"
-        Me.ToolTip1.SetToolTip(Me.btnNewAQWA, "Set your system ready to run NEW AQWA")
-        Me.btnNewAQWA.UseVisualStyleBackColor = False
-        Me.btnNewAQWA.Visible = False
-        '
         'btnPostProcess
         '
         Me.btnPostProcess.BackColor = System.Drawing.SystemColors.Control
         Me.btnPostProcess.Cursor = System.Windows.Forms.Cursors.Default
         Me.btnPostProcess.Enabled = False
         Me.btnPostProcess.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnPostProcess.Location = New System.Drawing.Point(614, 506)
+        Me.btnPostProcess.Location = New System.Drawing.Point(925, 506)
         Me.btnPostProcess.Name = "btnPostProcess"
         Me.btnPostProcess.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btnPostProcess.Size = New System.Drawing.Size(98, 25)
@@ -227,7 +209,7 @@
         Me.btnRun.BackColor = System.Drawing.SystemColors.Control
         Me.btnRun.Cursor = System.Windows.Forms.Cursors.Default
         Me.btnRun.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnRun.Location = New System.Drawing.Point(419, 508)
+        Me.btnRun.Location = New System.Drawing.Point(726, 508)
         Me.btnRun.Name = "btnRun"
         Me.btnRun.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btnRun.Size = New System.Drawing.Size(89, 25)
@@ -241,10 +223,10 @@
         Me.chkUDEF.BackColor = System.Drawing.SystemColors.Control
         Me.chkUDEF.Cursor = System.Windows.Forms.Cursors.Default
         Me.chkUDEF.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkUDEF.Location = New System.Drawing.Point(280, 512)
+        Me.chkUDEF.Location = New System.Drawing.Point(635, 515)
         Me.chkUDEF.Name = "chkUDEF"
         Me.chkUDEF.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.chkUDEF.Size = New System.Drawing.Size(121, 17)
+        Me.chkUDEF.Size = New System.Drawing.Size(83, 17)
         Me.chkUDEF.TabIndex = 40
         Me.chkUDEF.Text = "Swell"
         Me.chkUDEF.UseVisualStyleBackColor = False
@@ -637,7 +619,7 @@
         Me.grdMatrix.Location = New System.Drawing.Point(18, 271)
         Me.grdMatrix.Name = "grdMatrix"
         Me.grdMatrix.RowHeadersWidth = 48
-        Me.grdMatrix.Size = New System.Drawing.Size(964, 229)
+        Me.grdMatrix.Size = New System.Drawing.Size(1005, 229)
         Me.grdMatrix.TabIndex = 42
         '
         'frmMain
@@ -645,7 +627,7 @@
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(994, 544)
+        Me.ClientSize = New System.Drawing.Size(1031, 544)
         Me.Controls.Add(Me.grdMatrix)
         Me.Controls.Add(Me.chkUDEF)
         Me.Controls.Add(Me.chkCollinear)
@@ -657,7 +639,6 @@
         Me.Controls.Add(Me.chkPFLH)
         Me.Controls.Add(Me.btnSilentRun)
         Me.Controls.Add(Me.btnCreateFiles)
-        Me.Controls.Add(Me.btnNewAQWA)
         Me.Controls.Add(Me.fraUnits)
         Me.Controls.Add(Me.btnPostProcess)
         Me.Controls.Add(Me.Frame1)

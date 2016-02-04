@@ -86,8 +86,10 @@ Friend Class frmCurrProfile
         With grdProfile
             .ColumnCount = 2
             .RowCount = oMet(CaseNo).Current.Profile.Count
-            .Columns(0).Width = 120
-            .Columns(1).Width = 120
+            .Columns(0).FillWeight = 100 / .ColumnCount
+            .Columns(1).FillWeight = 100 / .ColumnCount
+            .Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            .Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             .Columns(0).HeaderText = "Water Depth (ft)"
             .Columns(1).HeaderText = "Velocity (knots)"
             ' load current profile data from object
