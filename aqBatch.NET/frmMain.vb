@@ -828,11 +828,6 @@ ErrHandler:
 		ReportError(err, "Error", "Create Env File Error " & msg)
 	End Function
 
-    '	Private Sub btnSaveMatrix_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnSaveMatrix.Click
-    '		mnuSave_Click(mnuSave, New System.EventArgs())
-    '    End Sub
-
-
     Private Sub btnSilentRun_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnSilentRun.Click
 		Dim s As String
 		ChDir(WorkDir)
@@ -1093,7 +1088,8 @@ ErrHandler:
         grdMatrix_LeaveCell(grdMatrix, New System.EventArgs())
     End Sub
 
-    Private Sub lblTargetDir_Change() 'TODO JLIU, never got called.
+    Private Sub lblTargetDir_Change(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblTargetDir.TextChanged
+        'TODO JLIU, never got called.
         WorkDir = lblTargetDir.Text
     End Sub
 
@@ -1139,8 +1135,8 @@ ErrHandler:
             '     ReadOldFile (fname)
             If Not ReadDataFromFile(fname) Then GoTo ErrHandler
             txtMetoceanName.Text = FileRootName(fname)
-            'WorkDir = dlgFileOpen.InitialDirectory
-            lblBaseDir.Text = dlgFileOpen.InitialDirectory
+            WorkDir = dlgFileOpen.InitialDirectory
+            '  lblBaseDir.Text = dlgFileOpen.InitialDirectory
         End If
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         CheckRunButtonState()
@@ -1626,7 +1622,14 @@ ReadError:
                 .Rows(R).Cells(8).Value = Format(oMet(R + 1).Current.SurfaceVel * Ftps2Knots, "0.00")
 
                 .Rows(R).Cells(9).Value = oMet(R + 1).Current.ProfileCount
+                If UDEF Then
+                    .Rows(R).Cells(11).Value = oMet(R + 1).Wave.SwellHeight
+                    .Rows(R).Cells(12).Value = oMet(R + 1).Wave.SwellPeriod
+                    .Rows(R).Cells(13).Value = oMet(R + 1).Wave.SwellSpectrumName
+                    .Rows(R).Cells(14).Value = oMet(R + 1).Wave.Swellgamma
+                    .Rows(R).Cells(15).Value = oMet(R + 1).Wave.SwellHeading
 
+                End If
             Next R
 
         End With

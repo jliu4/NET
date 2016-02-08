@@ -2,8 +2,7 @@ Option Strict Off
 Option Explicit On
 Friend Class MoorLine
 	Implements System.Collections.IEnumerable
-    Public Const MaxNumSeg As Short = 24
-    Public Const MaxNumSubSeg As Short = 24
+
     Private Const MinSubSegLen As Single = 50
 
     Private Const MaxIter As Short = 2000

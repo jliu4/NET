@@ -483,135 +483,137 @@ Friend Class ExcelReporter
         End With
         '-------------------------------------------------------------------------------------------
         ' paste catenary profile
-        If 1 = 0 Then
+        If 1 = 1 Then
             Dim NumSegment As Short
-        Dim IsConnected As Boolean
+            Dim IsConnected As Boolean
 
-        Dim CatX(MaxNumSubSeg * MaxNumSeg + 1) As Single
-        Dim CatY(MaxNumSubSeg * MaxNumSeg + 1) As Single
-        Dim Connector(MaxNumSeg + 1) As Short
+            Dim CatX(MaxNumSubSeg * MaxNumSeg + 1) As Single
+            Dim CatY(MaxNumSubSeg * MaxNumSeg + 1) As Single
+            Dim Connector(MaxNumSeg + 1) As Short
 
-        If MoorSystem Is Nothing Then
-            With oVessel.MoorSystem.MoorLines(CtrlLineNo)
-                NumSegment = .SegmentCount
-                IsConnected = .Connected
-                Call .CatenaryPoints(CatX, CatY, Connector)
-            End With
-        Else
-            With MoorSystem.MoorLines(CtrlLineNo)
-                NumSegment = .SegmentCount
-                IsConnected = .Connected
-                Call .CatenaryPoints(CatX, CatY, Connector)
-            End With
-        End If
-
-        For i = 1 To NumSegment
-            NumPoints = Connector(i) - Connector(i + 1) + 1
-            For j = 1 To NumPoints
-                oxApp.Sheets("catenary Input").Range("A" & (5 + Connector(i) - j + 1)).Value = CatX(Connector(i) - j + 1)
-                oxApp.Sheets("catenary Input").Range("B" & (5 + Connector(i) - j + 1)).Value = CatY(Connector(i) - j + 1)
-                oxApp.Sheets("catenary Input").Range("C" & (5 + Connector(i) - j + 1)).Value = ""
-                oxApp.Sheets("catenary Input").Range("C" & (5 + Connector(i))).Value = "<<<-Connect"
-            Next j
-        Next i
-
-        Dim NumSeries As Short
-        With oxApp.ActiveWorkbook
-
-            .ActiveSheet.ChartObjects(1).Activate() '  Catenary plot
-
-            With .ActiveChart
-                With .Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue)
-                    .MinimumScaleIsAuto = True
-                    .MaximumScaleIsAuto = True
-                    .MinorUnitIsAuto = True
-                    .MajorUnitIsAuto = True
-                    .Crosses = Microsoft.Office.Interop.Excel.Constants.xlAutomatic
-                    .ReversePlotOrder = True
-                    .ScaleType = Microsoft.Office.Interop.Excel.XlTrendlineType.xlLinear
-                    .DisplayUnit = Microsoft.Office.Interop.Excel.Constants.xlNone
+            If MoorSystem Is Nothing Then
+                With oVessel.MoorSystem.MoorLines(CtrlLineNo)
+                    NumSegment = .SegmentCount
+                    IsConnected = .Connected
+                    Call .CatenaryPoints(CatX, CatY, Connector)
                 End With
+            Else
+                With MoorSystem.MoorLines(CtrlLineNo)
+                    NumSegment = .SegmentCount
+                    IsConnected = .Connected
+                    Call .CatenaryPoints(CatX, CatY, Connector)
+                End With
+            End If
 
-                ' first remove all series
-                For i = .SeriesCollection.Count To 1 Step -1
-                    .SeriesCollection(i).Delete()
-                Next i
+            For i = 1 To NumSegment
+                NumPoints = Connector(i) - Connector(i + 1) + 1
+                For j = 1 To NumPoints
+                    oxApp.Sheets("catenary Input").Range("A" & (5 + Connector(i) - j + 1)).Value = CatX(Connector(i) - j + 1)
+                    oxApp.Sheets("catenary Input").Range("B" & (5 + Connector(i) - j + 1)).Value = CatY(Connector(i) - j + 1)
+                    oxApp.Sheets("catenary Input").Range("C" & (5 + Connector(i) - j + 1)).Value = ""
+                    oxApp.Sheets("catenary Input").Range("C" & (5 + Connector(i))).Value = "<<<-Connect"
+                Next j
+            Next i
 
-                If MoorSystem Is Nothing Then
-                    NumSeries = oVessel.MoorSystem.MoorLines(CtrlLineNo).SegmentCount
-                Else
-                    NumSeries = MoorSystem.MoorLines(CtrlLineNo).SegmentCount
-                End If
-                For i = 1 To NumSeries
-                    .SeriesCollection.NewSeries()
-                Next i
+            Dim NumSeries As Short
+            With oxApp.ActiveWorkbook
 
-                For i = 1 To NumSeries 'JLIU TODO
-                    With .SeriesCollection(i)
-                        If IsMetricUnit Then ' plot from bottom up on excel  catenary input sheet, i.e. fairlead down
-                            ' .XValues = oxApp.Sheets("catenary Input").Range("D" & (5 + Connector(i)) & ":D" & (5 + Connector(i + 1)))
-                            '  .Values = oxApp.Sheets("catenary Input").Range("E" & (5 + Connector(i)) & ":E" & (5 + Connector(i + 1)))
-                        Else
-                            'JLIU TODO
-                            ' .XValues = oxApp.Sheets("catenary Input").Range("A" & (5 + Connector(i)) & ":A" & (5 + Connector(i + 1)))
-                            '  .Values = oxApp.Sheets("catenary Input").Range("B" & (5 + Connector(i)) & ":B" & (5 + Connector(i + 1)))
-                        End If
-                        With .Border
-                            If IsConnected Then
-                                '                   .ColorIndex = xlAutomatic
-                                '                   .Color = vbBlack
-                            Else
-                                .LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlLineStyleNone
-                                '                            .Color = xlTransparent
+                .ActiveSheet.ChartObjects(1).Activate() '  Catenary plot
+
+                With .ActiveChart
+                    With .Axes(Microsoft.Office.Interop.Excel.XlAxisType.xlValue)
+                        .MinimumScaleIsAuto = True
+                        .MaximumScaleIsAuto = True
+                        .MinorUnitIsAuto = True
+                        .MajorUnitIsAuto = True
+                        .Crosses = Microsoft.Office.Interop.Excel.Constants.xlAutomatic
+                        .ReversePlotOrder = True
+                        .ScaleType = Microsoft.Office.Interop.Excel.XlTrendlineType.xlLinear
+                        .DisplayUnit = Microsoft.Office.Interop.Excel.Constants.xlNone
+                    End With
+
+                    ' first remove all series
+                    For i = .SeriesCollection.Count To 1 Step -1
+                        .SeriesCollection(i).Delete()
+                    Next i
+
+                    If MoorSystem Is Nothing Then
+                        NumSeries = oVessel.MoorSystem.MoorLines(CtrlLineNo).SegmentCount
+                    Else
+                        NumSeries = MoorSystem.MoorLines(CtrlLineNo).SegmentCount
+                    End If
+                    For i = 1 To NumSeries
+                        .SeriesCollection.NewSeries()
+                    Next i
+
+                    For i = 1 To NumSeries 'JLIU TODO
+                        With .SeriesCollection(i)
+                            If oxApp.Sheets("catenary Input") IsNot Nothing Then
+                                If IsMetricUnit Then ' plot from bottom up on excel  catenary input sheet, i.e. fairlead down
+                                    .XValues = oxApp.Sheets("catenary Input").Range("D" & (5 + Connector(i)) & ":D" & (5 + Connector(i + 1)))
+                                    .Values = oxApp.Sheets("catenary Input").Range("E" & (5 + Connector(i)) & ":E" & (5 + Connector(i + 1)))
+                                Else
+                                    'JLIU TODO
+                                    .XValues = oxApp.Sheets("catenary Input").Range("A" & (5 + Connector(i)) & ":A" & (5 + Connector(i + 1)))
+                                    .Values = oxApp.Sheets("catenary Input").Range("B" & (5 + Connector(i)) & ":B" & (5 + Connector(i + 1)))
+                                End If
                             End If
-                            If InStr(oVessel.MoorSystem.MoorLines(CtrlLineNo).Segments(i).SegType, "CHAIN") > 0 Then
-                                .Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlThick
-                            Else
-                                .Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlThin
-                            End If
-                            .LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous
+                            With .Border
+                                If IsConnected Then
+                                    '                   .ColorIndex = xlAutomatic
+                                    '                   .Color = vbBlack
+                                Else
+                                    .LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlLineStyleNone
+                                    '                            .Color = xlTransparent
+                                End If
+                                If InStr(oVessel.MoorSystem.MoorLines(CtrlLineNo).Segments(i).SegType, "CHAIN") > 0 Then
+                                    .Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlThick
+                                Else
+                                    .Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlThin
+                                End If
+                                .LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous
+                            End With
+                            .MarkerStyle = Microsoft.Office.Interop.Excel.Constants.xlNone
+                            .ApplyDataLabels(AutoText:=False, LegendKey:=False, ShowSeriesName:=False, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
                         End With
-                        .MarkerStyle = Microsoft.Office.Interop.Excel.Constants.xlNone
-                        .ApplyDataLabels(AutoText:=False, LegendKey:=False, ShowSeriesName:=False, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
-                    End With
-                Next i
+                    Next i
 
-                .SeriesCollection(1).points(1).ApplyDataLabels(AutoText:=False, LegendKey:=False, ShowSeriesName:=True, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
-                With .SeriesCollection(1).Points(1).DataLabel
-                    .HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
-                    .VerticalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
-                    .ReadingOrder = Microsoft.Office.Interop.Excel.Constants.xlContext
-                    .Position = Microsoft.Office.Interop.Excel.XlDataLabelPosition.xlLabelPositionAbove
-                    .Orientation = Microsoft.Office.Interop.Excel.XlOrientation.xlHorizontal
-                    .Characters.Text = "Line " & CtrlLineNo
-                    With .Characters.Font
-                        .Name = "Arial"
-                        .FontStyle = "Bold"
-                        .Size = 14
-                        .Strikethrough = False
-                        .Superscript = False
-                        .Subscript = False
-                        .OutlineFont = False
-                        .Shadow = False
-                        .Underline = Microsoft.Office.Interop.Excel.XlUnderlineStyle.xlUnderlineStyleNone
-                        .ColorIndex = Microsoft.Office.Interop.Excel.Constants.xlAutomatic
+                    .SeriesCollection(1).Ponits(1).ApplyDataLabels(AutoText:=False, LegendKey:=False, ShowSeriesName:=True, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
+                    With .SeriesCollection(1).Points(1).DataLabel
+                        .HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
+                        .VerticalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
+                        .ReadingOrder = Microsoft.Office.Interop.Excel.Constants.xlContext
+                        .Position = Microsoft.Office.Interop.Excel.XlDataLabelPosition.xlLabelPositionAbove
+                        .Orientation = Microsoft.Office.Interop.Excel.XlOrientation.xlHorizontal
+                        .Characters.Text = "Line " & CtrlLineNo
+                        With .Characters.Font
+                            .Name = "Arial"
+                            .FontStyle = "Bold"
+                            .Size = 14
+                            .Strikethrough = False
+                            .Superscript = False
+                            .Subscript = False
+                            .OutlineFont = False
+                            .Shadow = False
+                            .Underline = Microsoft.Office.Interop.Excel.XlUnderlineStyle.xlUnderlineStyleNone
+                            .ColorIndex = Microsoft.Office.Interop.Excel.Constants.xlAutomatic
+                        End With
                     End With
+
                 End With
+                .ActiveSheet.Range("A1").Activate() ' de-select chart
+                .ActiveSheet.PageSetup.PrintArea = "$A$1:$R$38"
+                With .ActiveSheet.PageSetup
+                    .FitToPagesWide = 1
+                    .FitToPagesTall = 1
+                    .PrintErrors = Microsoft.Office.Interop.Excel.XlPrintErrors.xlPrintErrorsDisplayed
+                End With
+                '        ' hide template sheets
+                ' .Sheets("calculations").Visible = False
+                '.Sheets("User Input").Visible = False
+                '.Sheets("catenary Input").Visible = False
 
             End With
-            .ActiveSheet.Range("A1").Activate() ' de-select chart
-            .ActiveSheet.PageSetup.PrintArea = "$A$1:$R$38"
-            With .ActiveSheet.PageSetup
-                .FitToPagesWide = 1
-                .FitToPagesTall = 1
-                .PrintErrors = Microsoft.Office.Interop.Excel.XlPrintErrors.xlPrintErrorsDisplayed
-            End With
-            '        ' hide template sheets
-            ' .Sheets("calculations").Visible = False
-            '.Sheets("User Input").Visible = False
-            '.Sheets("catenary Input").Visible = False
-
-        End With
         End If
         OutputSummaryTab(oxApp, oVessel, oVessel.WaterDepth, MoorSystem, ShipLoc)
         OutputLinePropertiesTab(oxApp, oVessel, MoorSystem)

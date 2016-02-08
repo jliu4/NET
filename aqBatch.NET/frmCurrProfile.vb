@@ -86,12 +86,13 @@ Friend Class frmCurrProfile
     End Sub
 	
 	Private Sub btnCopyAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnCopyAll.Click
-		If Len(txtSameAsCase.Text) = 0 Then
-			MsgBox("Must specify case number to copy from.")
-			Exit Sub
-		End If
-		Call CopyCase(CShort(VB.Right(lblCaseNo.Text, Len(lblCaseNo.Text) - 4)), CShort(txtSameAsCase.Text), True)
-	End Sub
+        If Len(txtSameAsCase.Text) = 0 Then
+            MsgBox("Must specify case number to copy from.")
+            Exit Sub
+        End If
+        Call CopyCase(CShort(lblCaseNo.Text), CShort(txtSameAsCase.Text), True)
+
+    End Sub
 
     Private Sub frmCurrProfile_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
         Dim i As Short
