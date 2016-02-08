@@ -120,7 +120,7 @@
         Me.txtNumProfilePts.BackColor = System.Drawing.SystemColors.Window
         Me.txtNumProfilePts.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtNumProfilePts.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtNumProfilePts.Location = New System.Drawing.Point(158, 69)
+        Me.txtNumProfilePts.Location = New System.Drawing.Point(214, 69)
         Me.txtNumProfilePts.Name = "txtNumProfilePts"
         Me.txtNumProfilePts.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtNumProfilePts.Size = New System.Drawing.Size(43, 20)
@@ -157,10 +157,10 @@
         Me._lblCurr_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._lblCurr_2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCurr.SetIndex(Me._lblCurr_2, CType(2, Short))
-        Me._lblCurr_2.Location = New System.Drawing.Point(24, 72)
+        Me._lblCurr_2.Location = New System.Drawing.Point(24, 69)
         Me._lblCurr_2.Name = "_lblCurr_2"
         Me._lblCurr_2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._lblCurr_2.Size = New System.Drawing.Size(133, 17)
+        Me._lblCurr_2.Size = New System.Drawing.Size(155, 20)
         Me._lblCurr_2.TabIndex = 1
         Me._lblCurr_2.Text = "Sub-surface Profile Points:"
         '

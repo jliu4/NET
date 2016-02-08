@@ -17,38 +17,9 @@ Friend Class frmAnalysesB
 	Private msgInputWarning As String
 	Dim FrcFactor, LFactor, VelFactor As Single
 	Dim LUnit, VelUnit As String
-	
-	Private Sub btnReport_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnReport.Click
-		Dim InitPos As New Motion
-		
-		InitPos.Surge = CSng(txtInitSurge.Text)
-		InitPos.Sway = CSng(txtInitSway.Text)
-		InitPos.Yaw = CSng(txtInitYaw.Text)
 
-        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-        Dim ox As New ExcelReporter
-		If NumRuns = 0 Then
-            HeadS = CSng(_txtHeadings_0.Text)
-            HeadE = CSng(_txtHeadings_1.Text)
-            NumHead = CShort(_txtHeadings_2.Text)
-            If NumHead <= 1 Then
-				If HeadE <> HeadS Then
-					NumHead = 2
-				Else
-					NumHead = 1
-				End If
-			End If
-			If NumHead > 1 Then
-				HeadStep = (HeadE - HeadS) / (NumHead - 1)
-			Else
-				HeadStep = 1
-			End If
-			NumRuns = 3 * ((HeadE - HeadS) / HeadStep + 1)
-		End If
-		
-		Call ox.ReportBatchResults(txtReportTitle.Text, (txtSubTitle.Text), NumRuns, CurVessel, InitPos, txtFile.Text, IsMetricUnit)
-        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-    End Sub
+
+
 
     ' form load and unload
 

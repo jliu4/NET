@@ -49,6 +49,10 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.Microsoft.Office.Interop.Excel">
+      <HintPath>..\DODO.NET\obj\Debug\Interop.Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic.Compatibility">
       <Name>Microsoft.VisualBasic.Compatibility</Name>
     </Reference>
@@ -67,55 +71,6 @@
     <Reference Include="System.XML">
       <Name>System.XML</Name>
     </Reference>
-    <COMReference Include="AxMSFlexGridLib">
-      <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="AxSysInfoLib">
-      <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>7</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
-    <COMReference Include="Microsoft.Vbe.Interop">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
-    <COMReference Include="MSFlexGridLib">
-      <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="office">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>5</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
-    <COMReference Include="SysInfoLib">
-      <Guid>{6FBA474E-43AC-11CE-9A0E-00AA0062BB4C}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -128,19 +83,22 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\commonCode\Current.vb">
+      <Link>Current.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\CurrentData.vb">
+      <Link>CurrentData.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Metocean.vb">
+      <Link>Metocean.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wave.vb">
+      <Link>Wave.vb</Link>
+    </Compile>
+    <Compile Include="..\commonCode\Wind.vb">
+      <Link>Wind.vb</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.vb" />
-    <Compile Include="CData.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Current.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CurrentPair.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CurrentProfile.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ExcelRunner.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -179,9 +137,6 @@
     <Compile Include="frmPostProc.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Metocean.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="modCtrlUtilities.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -189,12 +144,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UpgradeSupport.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wave.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="wind.vb">
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="frmAbout.resX">

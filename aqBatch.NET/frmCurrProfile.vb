@@ -9,24 +9,35 @@ Friend Class frmCurrProfile
 	Dim ExistingText As String
 	
 	Private Sub CopyCase(ByVal toCaseNo As Short, ByVal fromCaseNo As Short, Optional ByRef blnCopyAll As Boolean = False)
-		Dim i, k As Short
+        Dim i, k, NumPairs As Short
 
         If blnCopyAll = False Or IsNothing(blnCopyAll) Then
             With oMet(toCaseNo)
-                .Current.Profile.Clear()
-                For i = 1 To oMet(fromCaseNo).Current.Profile.Count
-                    Call .Current.Profile.Add(oMet(fromCaseNo).Current.Profile.Item(i).Depth.Value, oMet(fromCaseNo).Current.Profile.Item(i).Velocity.Value)
+                '   delete previous input
+                NumPairs = .Current.ProfileCount
+                '    Debug.Print "NumPairs= " & NumPairs
+                For i = NumPairs To 1 Step -1
+                    .Current.ProfileDelete((1)) 'After deleting first element, second one will become the "first" one
+                Next i
+
+
+                For i = 1 To oMet(fromCaseNo).Current.ProfileCount
+                    Call .Current.ProfileAdd(oMet(fromCaseNo).Current.Profile(i).Depth, oMet(fromCaseNo).Current.Profile(i).Velocity)
                 Next i
             End With
         Else ' copy to all
             For k = 1 To NumCases
 				If k <> fromCaseNo Then
 					With oMet(k)
-						.Current.Profile.Clear()
-						For i = 1 To oMet(fromCaseNo).Current.Profile.Count
-							Call .Current.Profile.Add(oMet(fromCaseNo).Current.Profile.Item(i).Depth.Value, oMet(fromCaseNo).Current.Profile.Item(i).Velocity.Value)
-						Next i
-					End With
+                        NumPairs = .Current.ProfileCount
+
+                        For i = NumPairs To 1 Step -1
+                            .Current.ProfileDelete((1)) 'After deleting first element, second one will become the "first" one
+                        Next i
+                        For i = 1 To oMet(fromCaseNo).Current.ProfileCount
+                            Call .Current.ProfileAdd(oMet(fromCaseNo).Current.Profile(i).Depth, oMet(fromCaseNo).Current.Profile(i).Velocity)
+                        Next i
+                    End With
 				End If
 			Next k
 			frmMain.LoadGrid()
@@ -41,11 +52,17 @@ Friend Class frmCurrProfile
         ' must include seabed point
 
         ' save data to objects
-        Dim R As Short
-		oMet(CaseNo).Current.Profile.Clear()
+        Dim R, NumPairs As Short
+        NumPairs = oMet(CaseNo).Current.ProfileCount
+
+        For R = NumPairs To 1 Step -1
+            oMet(CaseNo).Current.ProfileDelete((1)) 'After deleting first element, second one will become the "first" one
+        Next R
+
+
         For R = 1 To grdProfile.RowCount - 1
 
-            Call oMet(CaseNo).Current.Profile.Add(CSng(grdProfile.Rows(R).Cells(0).Value), CDbl(grdProfile.Rows(R).Cells(1).Value) * Knots2Ftps)
+            Call oMet(CaseNo).Current.ProfileAdd(CSng(grdProfile.Rows(R).Cells(0).Value), CDbl(grdProfile.Rows(R).Cells(1).Value) * Knots2Ftps)
         Next R
 
         With frmMain.grdMatrix
@@ -82,10 +99,10 @@ Friend Class frmCurrProfile
 
         If Len(lblCaseNo.Text) = 0 Then Exit Sub
         CaseNo = CShort(lblCaseNo.Text)
-        txtNumProfilePts.Text = CStr(oMet(CaseNo).Current.Profile.Count)
+        txtNumProfilePts.Text = CStr(oMet(CaseNo).Current.ProfileCount)
         With grdProfile
             .ColumnCount = 2
-            .RowCount = oMet(CaseNo).Current.Profile.Count
+            .RowCount = oMet(CaseNo).Current.ProfileCount
             .Columns(0).FillWeight = 100 / .ColumnCount
             .Columns(1).FillWeight = 100 / .ColumnCount
             .Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
@@ -93,9 +110,9 @@ Friend Class frmCurrProfile
             .Columns(0).HeaderText = "Water Depth (ft)"
             .Columns(1).HeaderText = "Velocity (knots)"
             ' load current profile data from object
-            For i = 1 To oMet(CaseNo).Current.Profile.Count
-                .Rows(i - 1).Cells(0).Value = oMet(CaseNo).Current.Profile.Item(i).Depth.Value
-                .Rows(i - 1).Cells(1).Value = CStr(Format(Convert.ToDouble(oMet(CaseNo).Current.Profile.Item(i).Velocity.Value) * Ftps2Knots, "0.000"))
+            For i = 1 To oMet(CaseNo).Current.ProfileCount
+                .Rows(i - 1).Cells(0).Value = oMet(CaseNo).Current.Profile(i).Depth
+                .Rows(i - 1).Cells(1).Value = CStr(Format(Convert.ToDouble(oMet(CaseNo).Current.Profile(i).Velocity) * Ftps2Knots, "0.000"))
 
             Next i
         End With

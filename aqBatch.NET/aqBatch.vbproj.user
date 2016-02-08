@@ -8,7 +8,7 @@
     <CopyProjectUncPath>
     </CopyProjectUncPath>
     <CopyProjectOption>0</CopyProjectOption>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <EnableASPDebugging>false</EnableASPDebugging>

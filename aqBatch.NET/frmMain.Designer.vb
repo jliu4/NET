@@ -223,7 +223,7 @@
         Me.chkUDEF.BackColor = System.Drawing.SystemColors.Control
         Me.chkUDEF.Cursor = System.Windows.Forms.Cursors.Default
         Me.chkUDEF.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkUDEF.Location = New System.Drawing.Point(635, 515)
+        Me.chkUDEF.Location = New System.Drawing.Point(637, 511)
         Me.chkUDEF.Name = "chkUDEF"
         Me.chkUDEF.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.chkUDEF.Size = New System.Drawing.Size(83, 17)
@@ -398,10 +398,10 @@
         Me._optAQWAUnits_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._optAQWAUnits_1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optAQWAUnits.SetIndex(Me._optAQWAUnits_1, CType(1, Short))
-        Me._optAQWAUnits_1.Location = New System.Drawing.Point(23, 43)
+        Me._optAQWAUnits_1.Location = New System.Drawing.Point(6, 43)
         Me._optAQWAUnits_1.Name = "_optAQWAUnits_1"
         Me._optAQWAUnits_1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me._optAQWAUnits_1.Size = New System.Drawing.Size(51, 18)
+        Me._optAQWAUnits_1.Size = New System.Drawing.Size(64, 18)
         Me._optAQWAUnits_1.TabIndex = 22
         Me._optAQWAUnits_1.TabStop = True
         Me._optAQWAUnits_1.Text = "Metric"
@@ -414,7 +414,7 @@
         Me._optAQWAUnits_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._optAQWAUnits_0.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optAQWAUnits.SetIndex(Me._optAQWAUnits_0, CType(0, Short))
-        Me._optAQWAUnits_0.Location = New System.Drawing.Point(23, 21)
+        Me._optAQWAUnits_0.Location = New System.Drawing.Point(6, 18)
         Me._optAQWAUnits_0.Name = "_optAQWAUnits_0"
         Me._optAQWAUnits_0.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me._optAQWAUnits_0.Size = New System.Drawing.Size(54, 18)
@@ -599,7 +599,7 @@
         Me.lblNumCases.Location = New System.Drawing.Point(9, 192)
         Me.lblNumCases.Name = "lblNumCases"
         Me.lblNumCases.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblNumCases.Size = New System.Drawing.Size(92, 17)
+        Me.lblNumCases.Size = New System.Drawing.Size(107, 17)
         Me.lblNumCases.TabIndex = 1
         Me.lblNumCases.Text = "Number of Cases:"
         '

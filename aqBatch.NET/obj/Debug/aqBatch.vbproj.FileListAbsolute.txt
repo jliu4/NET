@@ -1,18 +1,9 @@
-C:\jinwork\NET\aqBatch.NET\obj\Debug\Interop.MSFlexGridLib.dll
-C:\jinwork\NET\aqBatch.NET\obj\Debug\Interop.SysInfoLib.dll
-C:\jinwork\NET\aqBatch.NET\obj\Debug\AxInterop.MSFlexGridLib.dll
-C:\jinwork\NET\aqBatch.NET\obj\Debug\AxInterop.SysInfoLib.dll
-C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.vbproj.ResolveComReference.cache
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.exe
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.xml
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.pdb
 C:\jinwork\NET\aqBatch.NET\bin\aqBatch.exe
 C:\jinwork\NET\aqBatch.NET\bin\aqBatch.pdb
 C:\jinwork\NET\aqBatch.NET\bin\aqBatch.xml
-C:\jinwork\NET\aqBatch.NET\bin\Interop.MSFlexGridLib.dll
-C:\jinwork\NET\aqBatch.NET\bin\Interop.SysInfoLib.dll
-C:\jinwork\NET\aqBatch.NET\bin\AxInterop.MSFlexGridLib.dll
-C:\jinwork\NET\aqBatch.NET\bin\AxInterop.SysInfoLib.dll
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.vbprojResolveAssemblyReference.cache
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmAbout.resources
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmBrowseDir.resources
@@ -20,3 +11,5 @@ C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmCurrProfile.resources
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmMain.resources
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.frmPostProc.resources
 C:\jinwork\NET\aqBatch.NET\obj\Debug\aqBatch.vbproj.GenerateResource.Cache
+C:\jinwork\NET\aqBatch.NET\bin\Interop.Microsoft.Office.Interop.Excel.dll
+C:\jinwork\NET\aqBatch.NET\bin\stdole.dll

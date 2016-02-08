@@ -18,22 +18,31 @@ Friend Class Current
 	
 	Private msngHeading As Single
 	Private msngWaterDepth As Single
-	
-	Private mcolProfile As Collection
+    Private mclsSurfVel As Single
+    Private mcolProfile As Collection
 	
 	' initializing and terminating
 	
 	Public Sub New()
         MyBase.New()
         mcolProfile = New Collection
-        msngHeading = -PI
-	End Sub
-	
+        msngHeading = -Math.PI
+    End Sub
 
-	' properties
-	
-	
-	Public Property Heading() As Single
+    ' properties
+    Public Property SurfaceVel() As Single
+        Get
+
+            SurfaceVel = mclsSurfVel
+
+        End Get
+        Set(ByVal Value As Single)
+
+            mclsSurfVel = Value
+        End Set
+    End Property
+
+    Public Property Heading() As Single
 		Get
 			
 			Heading = msngHeading
@@ -67,15 +76,6 @@ Friend Class Current
 			
 		End Get
 	End Property
-	
-	'UPGRADE_NOTE: NewEnum property was commented out. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="B3FC1610-34F3-43F5-86B7-16C984F0E88E"'
-    'Public ReadOnly Property NewEnum() As stdole.IUnknown
-    'Get
-    '
-    'NewEnum = mcolProfile._NewEnum
-    '
-    'End Get
-    'End Property
 
     Public Function GetEnumerator() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
         GetEnumerator = mcolProfile.GetEnumerator

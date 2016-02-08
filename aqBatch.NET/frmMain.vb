@@ -97,24 +97,28 @@ Errhandler:
     End Sub
 	
 	Private Sub btnCopyAll_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnCopyAll.Click
-		Dim i, k As Short
-		' copy case 1 to all cases
-		For k = 2 To NumCases
-            oMet(k).Wind.Velocity.Value = oMet(1).Wind.Velocity.Value
-            oMet(k).Wave.Height.Value = oMet(1).Wave.Height.Value
-            oMet(k).Wave.Period.Value = oMet(1).Wave.Period.Value
-            oMet(k).Wave.gamma.Value = oMet(1).Wave.gamma.Value
-            oMet(k).Wave.SpectrumName.Value = oMet(1).Wave.SpectrumName.Value
+        Dim i, k, NumPairs As Short
+        ' copy case 1 to all cases
+        For k = 2 To NumCases
+            oMet(k).Wind.Velocity = oMet(1).Wind.Velocity
+            oMet(k).Wave.Height = oMet(1).Wave.Height
+            oMet(k).Wave.Period = oMet(1).Wave.Period
+            oMet(k).Wave.gamma = oMet(1).Wave.gamma
+            oMet(k).Wave.SpectrumName = oMet(1).Wave.SpectrumName
             oMet(k).Current.SurfaceVel = oMet(1).Current.SurfaceVel
-			oMet(k).Current.Profile.Clear()
-			For i = 1 To oMet(1).Current.Profile.Count
-				oMet(k).Current.Profile.Add(oMet(1).Current.Profile.Item(i).Depth.Value, oMet(1).Current.Profile.Item(i).Velocity.Value)
-			Next i
+            NumPairs = oMet(k).Current.ProfileCount
+
+            For i = NumPairs To 1 Step -1
+                oMet(k).Current.ProfileDelete((1)) 'After deleting first element, second one will become the "first" one
+            Next
+            For i = 1 To oMet(1).Current.ProfileCount
+                oMet(k).Current.ProfileAdd(oMet(1).Current.Profile(i).Depth, oMet(1).Current.Profile(i).Velocity)
+            Next i
             If UDEF Then
-                oMet(k).Wave.SwellHeight.Value = oMet(1).Wave.SwellHeight.Value
-                oMet(k).Wave.SwellPeriod.Value = oMet(1).Wave.SwellPeriod.Value
-                oMet(k).Wave.SwellSpectrumName.Value = oMet(1).Wave.SwellSpectrumName.Value
-                oMet(k).Wave.SwellGamma.Value = oMet(1).Wave.SwellGamma.Value
+                oMet(k).Wave.SwellHeight = oMet(1).Wave.SwellHeight
+                oMet(k).Wave.SwellPeriod = oMet(1).Wave.SwellPeriod
+                oMet(k).Wave.SwellSpectrumName = oMet(1).Wave.SwellSpectrumName
+                oMet(k).Wave.Swellgamma = oMet(1).Wave.Swellgamma
             End If
         Next k
 		LoadGrid()
@@ -222,6 +226,7 @@ ErrHandler:
     Private Sub btnOpenMatrix_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnOpenMatrix.Click
         mnuOpen_Click()
     End Sub
+
     Private Sub btnsaveMatrix_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnSaveMatrix.Click
         mnuSave_Click()
     End Sub
@@ -275,16 +280,16 @@ ErrHandler:
 		Dim tmpVal As Double
 		
 		If WaterDepth = 0 Then frmPostProc.ReadBaseResults()
-        tmpVal = oMet(1).Current.Profile.Item(oMet(1).Current.Profile.Count).Depth.Value
+        tmpVal = oMet(1).Current.Profile(oMet(1).Current.ProfileCount).Depth
 
-        If oMet(1).Current.Profile.Count > 1 Then
-			If WaterDepth - tmpVal > 0 Then
-				msg = "Current Profile Depth must be greater than or equal to the deepest anchor water depth. " & vbCrLf & "water depth is " & WaterDepth & vbCrLf & "Profile Depth is " & tmpVal
-				GoTo ErrHandler
-			End If
-		End If
-		
-		If optMoorState(0).Checked Then
+        If oMet(1).Current.ProfileCount > 1 Then
+            If WaterDepth - tmpVal > 0 Then
+                msg = "Current Profile Depth must be greater than or equal to the deepest anchor water depth. " & vbCrLf & "water depth is " & WaterDepth & vbCrLf & "Profile Depth is " & tmpVal
+                GoTo ErrHandler
+            End If
+        End If
+
+        If optMoorState(0).Checked Then
 			IsDamaged = 0
 		Else
 			If optDamageLineType(0).Checked Then ' damage most Critical
@@ -749,20 +754,20 @@ ErrHandler:
 
         PrintLine(OutFile, "    11    ENVR")
 			If optWind(1).Checked Then
-				PrintLine(OutFile, "    11WIND", TAB(13), CStr(VB6.Format(oMet(Index).Wind.Velocity.Value * Flen, "#0.00")), TAB(22), CStr(VB6.Format(oMet(Index).Wind.Heading.Value, "#0.00")))
-			End If
-			' CONVERT FROM KNOTS TO FT/S FOR AQWA
-			PrintLine(OutFile, "    11CURR", TAB(13), CStr(VB6.Format(oMet(Index).Current.SurfaceVel * Flen, "#0.00")), TAB(22), CStr(VB6.Format(oMet(Index).Current.Heading.Value, "#0.00")))
-			
-			NumPts = oMet(Index).Current.Profile.Count
-			
-			If NumPts > 1 Then
+            PrintLine(OutFile, "    11WIND", TAB(13), CStr(Format(oMet(Index).Wind.Velocity * Flen, "#0.00")), TAB(22), CStr(VB6.Format(oMet(Index).Wind.Heading, "#0.00")))
+        End If
+        ' CONVERT FROM KNOTS TO FT/S FOR AQWA
+        PrintLine(OutFile, "    11CURR", TAB(13), CStr(Format(oMet(Index).Current.SurfaceVel * Flen, "#0.00")), TAB(22), CStr(VB6.Format(oMet(Index).Current.Heading, "#0.00")))
+
+        NumPts = oMet(Index).Current.ProfileCount
+
+        If NumPts > 1 Then
 				For i = NumPts To 1 Step -1
-					PrintLine(OutFile, "    11CPRF", TAB(13), VB6.Format(oMet(Index).Current.Profile.Item(i).Depth.Value * (-1) * Flen, "#0"), TAB(22), VB6.Format((oMet(Index).Current.SurfaceVel - oMet(Index).Current.Profile.Item(i).Velocity.Value) * Flen, "#0.00"))
-				Next i
+                PrintLine(OutFile, "    11CPRF", TAB(13), Format(oMet(Index).Current.Profile(i).Depth * (-1) * Flen, "#0"), TAB(22), Format((oMet(Index).Current.SurfaceVel - oMet(Index).Current.Profile(i).Velocity) * Flen, "#0.00"))
+            Next i
 			End If
-			PrintLine(OutFile, " END11CDRN", TAB(13), CStr(VB6.Format(Val(oMet(Index).Current.Heading.Value - 180#), "#0.00"))) ' assume deg used
-			PrintLine(OutFile, "    12    NONE")
+        PrintLine(OutFile, " END11CDRN", TAB(13), CStr(Format(Val(oMet(Index).Current.Heading - 180.0#), "#0.00"))) ' assume deg used
+        PrintLine(OutFile, "    12    NONE")
 			PrintLine(OutFile, "    13    SPEC")
 			If optWind(0).Checked Then ' 1-hr wind using spectrum
 				If Len(UDWS) > 0 Then ' if user-defined spectrum
@@ -770,24 +775,24 @@ ErrHandler:
 				ElseIf Len(WSPEC) > 0 Then 
 					PrintLine(OutFile, WSPEC)
 				End If
-				PrintLine(OutFile, "    13WIND", TAB(22), CStr(VB6.Format(oMet(Index).Wind.Velocity.Value * Flen, "#0.00")), TAB(32), CStr(oMet(Index).Wind.Heading.Value), TAB(42), VB6.Format(32.8 * Flen, "#0.0")) ' assume 10m ref height, i.e. 33 ft
-			End If
+            PrintLine(OutFile, "    13WIND", TAB(22), CStr(VB6.Format(oMet(Index).Wind.Velocity * Flen, "#0.00")), TAB(32), CStr(oMet(Index).Wind.Heading), TAB(42), VB6.Format(32.8 * Flen, "#0.0")) ' assume 10m ref height, i.e. 33 ft
+        End If
 			If UDEF Then
 				Print(OutFile, "    13SPDN")
-				PrintLine(OutFile, TAB(22), CStr(VB6.Format(Val(oMet(Index).Wave.Heading.Value), "#0.0")))
-				s = Trim(oMet(Index).Wave.SwellSpectrumName.Value)
-				If InStr(s, "GAUS") > 0 Then
-					PrintLine(OutFile, "    13XSWL GAUS", TAB(42), CStr(VB6.Format(Val(oMet(Index).Wave.SwellGamma.Value), "#0.0000")), TAB(52), CStr(VB6.Format(Val(CStr(oMet(Index).Wave.SwellHeight.Value * Flen)), "#0.0")), TAB(62), CStr(VB6.Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod.Value)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading.Value), "#0.0")))
-				ElseIf InStr(s, "JONH") Then 
-					PrintLine(OutFile, "    13XSWL JONH", TAB(42), CStr(VB6.Format(Val(oMet(Index).Wave.SwellGamma.Value), "#0.0000")), TAB(52), CStr(VB6.Format(Val(CStr(oMet(Index).Wave.SwellHeight.Value * Flen)), "#0.0")), TAB(62), CStr(VB6.Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod.Value)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading.Value), "#0.0")))
-				Else ' PSMZ
-					PrintLine(OutFile, "    13XSWL PSMZ", TAB(42), CStr(VB6.Format(Val(oMet(Index).Wave.SwellGamma.Value), "#0.0000")), TAB(52), CStr(VB6.Format(Val(CStr(oMet(Index).Wave.SwellHeight.Value * Flen)), "#0.0")), TAB(62), CStr(VB6.Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod.Value)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading.Value), "#0.0")))
-				End If
+            PrintLine(OutFile, TAB(22), CStr(VB6.Format(Val(oMet(Index).Wave.Heading), "#0.0")))
+            s = Trim(oMet(Index).Wave.SwellSpectrumName)
+            If InStr(s, "GAUS") > 0 Then
+                PrintLine(OutFile, "    13XSWL GAUS", TAB(42), CStr(Format(Val(oMet(Index).Wave.Swellgamma), "#0.0000")), TAB(52), CStr(Format(Val(CStr(oMet(Index).Wave.SwellHeight * Flen)), "#0.0")), TAB(62), CStr(Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading), "#0.0")))
+            ElseIf InStr(s, "JONH") Then
+                PrintLine(OutFile, "    13XSWL JONH", TAB(42), CStr(Format(Val(oMet(Index).Wave.Swellgamma), "#0.0000")), TAB(52), CStr(Format(Val(CStr(oMet(Index).Wave.SwellHeight * Flen)), "#0.0")), TAB(62), CStr(Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading), "#0.0")))
+            Else ' PSMZ
+                PrintLine(OutFile, "    13XSWL PSMZ", TAB(42), CStr(Format(Val(oMet(Index).Wave.Swellgamma), "#0.0000")), TAB(52), CStr(Format(Val(CStr(oMet(Index).Wave.SwellHeight * Flen)), "#0.0")), TAB(62), CStr(Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading), "#0.0")))
+            End If
 			Else
 				PrintLine(OutFile, "    13RADS")
 				Print(OutFile, "    13SPDN")
-				PrintLine(OutFile, TAB(22), CStr(VB6.Format(Val(oMet(Index).Wave.Heading.Value), "#0.0")))
-			End If
+            PrintLine(OutFile, TAB(22), CStr(Format(Val(oMet(Index).Wave.Heading), "#0.0")))
+        End If
 
         If UDEF And 1 = 0 Then
 			nOmg = (2# - 0.1) / 0.1 + 1
@@ -808,12 +813,12 @@ ErrHandler:
 			Next iOmg
 			PrintLine(OutFile, " END13")
 		Else
-			s = Trim(oMet(Index).Wave.SpectrumName.Value)
-			If InStr(s, "JONH") > 0 Then
-				PrintLine(OutFile, " END13" & s, TAB(22), "0.200", TAB(32), " 1.500", TAB(42), CStr(oMet(Index).Wave.gamma.Value), TAB(52), CStr(VB6.Format(oMet(Index).Wave.Height.Value * Flen, "#0.000")), TAB(62), CStr(VB6.Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.Period.Value)), "#0.000")))
-			Else ' PSMZ
-				PrintLine(OutFile, " END13" & s, TAB(22), "0.200", TAB(32), " 1.500", TAB(42), CStr(VB6.Format(oMet(Index).Wave.Height.Value * Flen, "#0.000")), TAB(52), CStr(VB6.Format(oMet(Index).Wave.Period.Value / 1.4, "#0.000")))
-			End If
+            s = Trim(oMet(Index).Wave.SpectrumName)
+            If InStr(s, "JONH") > 0 Then
+                PrintLine(OutFile, " END13" & s, TAB(22), "0.200", TAB(32), " 1.500", TAB(42), CStr(oMet(Index).Wave.gamma), TAB(52), CStr(Format(oMet(Index).Wave.Height * Flen, "#0.000")), TAB(62), CStr(Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.Period)), "#0.000")))
+            Else ' PSMZ
+                PrintLine(OutFile, " END13" & s, TAB(22), "0.200", TAB(32), " 1.500", TAB(42), CStr(VB6.Format(oMet(Index).Wave.Height * Flen, "#0.000")), TAB(52), CStr(Format(oMet(Index).Wave.Period / 1.4, "#0.000")))
+            End If
 		End If
 		FileClose(OutFile)
 		CreateEnvFile = True
@@ -869,7 +874,6 @@ ErrHandler:
         InitiateGrid()
     End Sub
 
-
     ' form load and unload
 
     Private Sub frmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
@@ -898,13 +902,13 @@ ErrHandler:
 		btnRun.Enabled = False
 		btnSilentRun.Enabled = False
 		If NumCases > 0 Then
-			If Not oMet(NumCases).Wind.Heading.IsEmpty Then
-				If lblBaseDir.Text <> "" And lblTargetDir.Text <> "" Then
-					btnRun.Enabled = True
-					btnSilentRun.Enabled = True
-				End If
-			End If
-		End If
+
+            If lblBaseDir.Text <> "" And lblTargetDir.Text <> "" Then
+                    btnRun.Enabled = True
+                    btnSilentRun.Enabled = True
+                End If
+
+        End If
 		RefreshBackColor()
 		btnCreateFiles.Enabled = btnRun.Enabled
 		
@@ -1062,8 +1066,6 @@ ErrHandler:
 
         End If
     End Sub
-
-
 
     Private Sub grdMatrix_EnterCell(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
         ExistingTxt = grdMatrix.Text
@@ -1240,7 +1242,6 @@ ErrHandler:
         Dim j1 As Short
         With grdMatrix
             j1 = 0
-            'MsgBox(.ColumnCount & "-" & .ColumnHeadersHeight)
             For j As Integer = 0 To .ColumnCount - 1
                 If j = 0 Or j = 2 Or j = 7 Or j = 10 Or j = 11 Then
 
@@ -1252,22 +1253,22 @@ ErrHandler:
                     r1.Height = r1.Height / 3 - 3
 
                     Using br As SolidBrush = New SolidBrush(.ColumnHeadersDefaultCellStyle.BackColor)
-                            e.Graphics.FillRectangle(br, r1)
-                        End Using
+                        e.Graphics.FillRectangle(br, r1)
+                    End Using
 
-                        Using p As Pen = New Pen(SystemColors.InactiveBorder)
-                            e.Graphics.DrawLine(p, r1.X, r1.Bottom, r1.Right, r1.Bottom)
-                        End Using
+                    Using p As Pen = New Pen(SystemColors.InactiveBorder)
+                        e.Graphics.DrawLine(p, r1.X, r1.Bottom, r1.Right, r1.Bottom)
+                    End Using
 
-                        Using format As StringFormat = New StringFormat()
-                            Using br As SolidBrush = New SolidBrush(.ColumnHeadersDefaultCellStyle.ForeColor)
-                                format.Alignment = StringAlignment.Center
-                                format.LineAlignment = StringAlignment.Center
-                                e.Graphics.DrawString(HeaderLabels(j1), .ColumnHeadersDefaultCellStyle.Font, Brushes.Black, r1, format)
-                            End Using
+                    Using format As StringFormat = New StringFormat()
+                        Using br As SolidBrush = New SolidBrush(.ColumnHeadersDefaultCellStyle.ForeColor)
+                            format.Alignment = StringAlignment.Center
+                            format.LineAlignment = StringAlignment.Center
+                            e.Graphics.DrawString(HeaderLabels(j1), .ColumnHeadersDefaultCellStyle.Font, Brushes.Black, r1, format)
                         End Using
-                        j1 += 1
-                    End If
+                    End Using
+                    j1 += 1
+                End If
 
             Next
         End With
@@ -1468,27 +1469,27 @@ ErrHandler:
             ' all non-empty fields  - now update objects
             ' ASSUME .FixedCols=1
             For R = 0 To .RowCount - 1
-                oMet(R + 1).Wind.Velocity.Value = .Rows(R).Cells(0).Value * Knots2Ftps
-                oMet(R + 1).Wind.Heading.Value = .Rows(R).Cells(1).Value
-                oMet(R + 1).Wave.SpectrumName.Value = .Rows(R).Cells(2).Value
-                oMet(R + 1).Wave.Height.Value = .Rows(R).Cells(3).Value
-                oMet(R + 1).Wave.Period.Value = .Rows(R).Cells(4).Value
-                oMet(R + 1).Wave.gamma.Value = .Rows(R).Cells(5).Value
+                oMet(R + 1).Wind.Velocity = .Rows(R).Cells(0).Value * Knots2Ftps
+                oMet(R + 1).Wind.Heading = .Rows(R).Cells(1).Value
+                oMet(R + 1).Wave.SpectrumName = .Rows(R).Cells(2).Value
+                oMet(R + 1).Wave.Height = .Rows(R).Cells(3).Value
+                oMet(R + 1).Wave.Period = .Rows(R).Cells(4).Value
+                oMet(R + 1).Wave.gamma = .Rows(R).Cells(5).Value
                 If Collinear Then
-                    oMet(R + 1).Wave.Heading.Value = .Rows(R).Cells(1).Value
-                    oMet(R + 1).Current.Heading.Value = .Rows(R).Cells(1).Value
+                    oMet(R + 1).Wave.Heading = .Rows(R).Cells(1).Value
+                    oMet(R + 1).Current.Heading = .Rows(R).Cells(1).Value
                 Else
-                    oMet(R + 1).Wave.Heading.Value = .Rows(R).Cells(6).Value
-                    oMet(R + 1).Current.Heading.Value = .Rows(R).Cells(7).Value
+                    oMet(R + 1).Wave.Heading = .Rows(R).Cells(6).Value
+                    oMet(R + 1).Current.Heading = .Rows(R).Cells(7).Value
                 End If
                 oMet(R + 1).Current.SurfaceVel = .Rows(R).Cells(8).Value * Knots2Ftps
 
                 If UDEF Then
-                    oMet(R + 1).Wave.SwellHeight.Value = .Rows(R).Cells(11).Value
-                    oMet(R + 1).Wave.SwellPeriod.Value = .Rows(R).Cells(12).Value
-                    oMet(R + 1).Wave.SwellSpectrumName.Value = .Rows(R).Cells(13).Value
-                    oMet(R + 1).Wave.SwellGamma.Value = .Rows(R).Cells(14).Value
-                    oMet(R + 1).Wave.SwellHeading.Value = .Rows(R).Cells(15).Value
+                    oMet(R + 1).Wave.SwellHeight = .Rows(R).Cells(11).Value
+                    oMet(R + 1).Wave.SwellPeriod = .Rows(R).Cells(12).Value
+                    oMet(R + 1).Wave.SwellSpectrumName = .Rows(R).Cells(13).Value
+                    oMet(R + 1).Wave.Swellgamma = .Rows(R).Cells(14).Value
+                    oMet(R + 1).Wave.SwellHeading = .Rows(R).Cells(15).Value
 
                 End If
             Next R
@@ -1557,7 +1558,7 @@ ErrHandler:
 		Dim Fields() As String
 		On Error GoTo ReadError
         '   open the file
-        MsgBox(dlgFileOpen.InitialDirectory)
+
         FileOpen(InFile, dlgFileOpen.FileName, OpenMode.Input, OpenAccess.Read)
 
         aline = LineInput(InFile) ' read numCases
@@ -1609,22 +1610,22 @@ ReadError:
                 ' load data
 
                 .Rows(R).HeaderCell.Value = (R + 1).ToString
-                .Rows(R).Cells(0).Value = VB6.Format(oMet(R + 1).Wind.Velocity.Value * Ftps2Knots, "0.00")
-                .Rows(R).Cells(1).Value = oMet(R + 1).Wind.Heading.Value
-                .Rows(R).Cells(2).Value = oMet(R + 1).Wave.SpectrumName.Value
-                .Rows(R).Cells(3).Value = oMet(R + 1).Wave.Height.Value
+                .Rows(R).Cells(0).Value = Format(oMet(R + 1).Wind.Velocity * Ftps2Knots, "0.00")
+                .Rows(R).Cells(1).Value = oMet(R + 1).Wind.Heading
+                .Rows(R).Cells(2).Value = oMet(R + 1).Wave.SpectrumName
+                .Rows(R).Cells(3).Value = oMet(R + 1).Wave.Height
 
-                .Rows(R).Cells(4).Value = oMet(R + 1).Wave.Period.Value
+                .Rows(R).Cells(4).Value = oMet(R + 1).Wave.Period
 
-                .Rows(R).Cells(5).Value = oMet(R + 1).Wave.gamma.Value
+                .Rows(R).Cells(5).Value = oMet(R + 1).Wave.gamma
 
-                .Rows(R).Cells(6).Value = oMet(R + 1).Wave.Heading.Value
+                .Rows(R).Cells(6).Value = oMet(R + 1).Wave.Heading
 
-                .Rows(R).Cells(7).Value = oMet(R + 1).Current.Heading.Value
+                .Rows(R).Cells(7).Value = oMet(R + 1).Current.Heading
 
-                .Rows(R).Cells(8).Value = VB6.Format(oMet(R + 1).Current.SurfaceVel * Ftps2Knots, "0.00")
+                .Rows(R).Cells(8).Value = Format(oMet(R + 1).Current.SurfaceVel * Ftps2Knots, "0.00")
 
-                .Rows(R).Cells(9).Value = oMet(R + 1).Current.Profile.Count
+                .Rows(R).Cells(9).Value = oMet(R + 1).Current.ProfileCount
 
             Next R
 
@@ -1632,6 +1633,18 @@ ReadError:
 
     End Sub
 
+    ' Public Sub mnuAddRow_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuAddrow.Click
+
+    '  AddRow(grdMatrix, CheckingGrid)
+    '  End Sub
+
+
+
+    ' Public Sub mnuDeleteRow_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuDeleteRow.Click
+
+    '   DeleteRow(grdMatrix, CheckingGrid)
+
+    'End Sub
     Private Sub txtNumCases_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtNumCases.TextChanged
         If Val(txtNumCases.Text) > 0 Then
             ReDim Preserve L1Tmax(Val(txtNumCases.Text))

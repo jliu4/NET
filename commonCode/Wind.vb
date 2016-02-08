@@ -19,8 +19,10 @@ Friend Class Wind
 	Private msngHeading As Single
 	Private msngVelocity As Single
 	Private msngVelCorr As Single
-	
-	Private mblnUpdated As Boolean
+    Private mstrSpecName As String
+    Private mstrSpecDataString As String
+
+    Private mblnUpdated As Boolean
 	
 	Private Const RefElev As Single = 32.80839295
 	
@@ -30,11 +32,28 @@ Friend Class Wind
         msngElevation = RefElev
         mintDuration = 60
 	End Sub
-	
-	' properties
-	
-	
-	Public Property Duration() As Short
+
+    ' properties
+    Public Property SpecName() As String
+        Get
+            SpecName = mstrSpecName
+        End Get
+        Set(ByVal Value As String)
+            mstrSpecName = Value
+        End Set
+    End Property
+
+
+    Public Property SpecDataString() As String
+        Get
+            SpecDataString = mstrSpecDataString
+        End Get
+        Set(ByVal Value As String)
+            mstrSpecDataString = Value
+        End Set
+    End Property
+
+    Public Property Duration() As Short
 		Get
 			
 			Duration = mintDuration
