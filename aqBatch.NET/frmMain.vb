@@ -9,7 +9,7 @@ Friend Class frmMain
 	Private Const OutFile As Short = 2
 
     Private Const AQWAPath1 As String = "c:\progra~1\ansysi~1\"
-    Private Const AQWAPath2 As String = "\aqwa\bin\winx64\"
+    Private Const AQWAPath2 As String = "\aqwa\bin\winx64\aqwa /nowind"
     Private BaseDir, rBaseDir As String
 	
 	Private ABFile, AFFile As String

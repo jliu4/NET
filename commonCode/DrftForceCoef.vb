@@ -51,69 +51,46 @@ Friend Class DrftForceCoef
 			FC = New Force
 			
 			N = mcolDrftFC.Count()
-			
-			If N = 1 Then
-				With FC
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.Fx = mcolDrftFC.Item(1).FCx.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.Fy = mcolDrftFC.Item(1).FCy.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.MYaw = mcolDrftFC.Item(1).FCm.ForceCoef(Direction)
-				End With
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC(1).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			ElseIf Frequency <= mcolDrftFC.Item(1).Freq Then 
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Rf = Frequency / mcolDrftFC.Item(1).Freq
-				With mcolDrftFC.Item(1)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					FC.Fx = .FCx.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					FC.Fy = .FCy.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					FC.MYaw = .FCm.ForceCoef(Direction) * Rf
-				End With
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC(N).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			ElseIf Frequency >= mcolDrftFC.Item(N).Freq Then 
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Rf = mcolDrftFC.Item(N).Freq / Frequency
-				With mcolDrftFC.Item(N)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					FC.Fx = .FCx.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					FC.Fy = .FCy.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					FC.MYaw = .FCm.ForceCoef(Direction) * Rf
-				End With
+
+            If N = 1 Then
+                With FC
+                    .Fx = mcolDrftFC.Item(1).FCx.ForceCoef(Direction)
+                    .Fy = mcolDrftFC.Item(1).FCy.ForceCoef(Direction)
+                    .MYaw = mcolDrftFC.Item(1).FCm.ForceCoef(Direction)
+                End With
+            ElseIf Frequency <= mcolDrftFC.Item(1).Freq Then
+                Rf = Frequency / mcolDrftFC.Item(1).Freq
+                With mcolDrftFC.Item(1)
+                    FC.Fx = .FCx.ForceCoef(Direction) * Rf
+                    FC.Fy = .FCy.ForceCoef(Direction) * Rf
+                    FC.MYaw = .FCm.ForceCoef(Direction) * Rf
+                End With
+            ElseIf Frequency >= mcolDrftFC.Item(N).Freq Then
+                Rf = mcolDrftFC.Item(N).Freq / Frequency
+                With mcolDrftFC.Item(N)
+                    FC.Fx = .FCx.ForceCoef(Direction) * Rf
+                    FC.Fy = .FCy.ForceCoef(Direction) * Rf
+                    FC.MYaw = .FCm.ForceCoef(Direction) * Rf
+                End With
 			Else
 				For i = 2 To N
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC(i).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If Frequency < mcolDrftFC.Item(i).Freq Then
-						Ns = i
-						Exit For
-					End If
-				Next 
+                    If Frequency < mcolDrftFC.Item(i).Freq Then
+                        Ns = i
+                        Exit For
+                    End If
+                Next 
 				With mcolDrftFC.Item(Ns - 1)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Fx1 = .FCx.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Fy1 = .FCy.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Fm1 = .FCm.ForceCoef(Direction)
-				End With
+                    Fx1 = .FCx.ForceCoef(Direction)
+                    Fy1 = .FCy.ForceCoef(Direction)
+                    Fm1 = .FCm.ForceCoef(Direction)
+                End With
 				With mcolDrftFC.Item(Ns)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Fx2 = .FCx.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Fy2 = .FCy.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().FCm. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Fm2 = .FCm.ForceCoef(Direction)
-				End With
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC(Ns - 1).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC(Ns).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolDrftFC().Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Rf = (Frequency - mcolDrftFC.Item(Ns - 1).Freq) / (mcolDrftFC.Item(Ns).Freq - mcolDrftFC.Item(Ns - 1).Freq)
-				With FC
+                    Fx2 = .FCx.ForceCoef(Direction)
+                    Fy2 = .FCy.ForceCoef(Direction)
+                    Fm2 = .FCm.ForceCoef(Direction)
+                End With
+                Rf = (Frequency - mcolDrftFC.Item(Ns - 1).Freq) / (mcolDrftFC.Item(Ns).Freq - mcolDrftFC.Item(Ns - 1).Freq)
+                With FC
 					.Fx = Fx1 + (Fx2 - Fx1) * Rf
 					.Fy = Fy1 + (Fy2 - Fy1) * Rf
 					.MYaw = Fm1 + (Fm2 - Fm1) * Rf

@@ -131,7 +131,6 @@ Friend Class EnvLoad
             '   Direction:  current direction (local) (rad)
             '   Draft:      vessel draft (ft)
 
-            'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             If IsNothing(Draft) Then Draft = msngShipDraft
 
             CurrentFC = ForceCoef(Draft, Direction, mcolCurrentFC)
@@ -147,12 +146,10 @@ Friend Class EnvLoad
             '   Heading:    vessel heading (global) (rad)
 
             Dim DrftFC As Force
-            'UPGRADE_NOTE: MY was upgraded to MY_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
             Dim FSw, FSg, MY_Renamed As Single
             Dim EnvDir As Single
             Dim Sw1, Freq1, Freq2, Sw2 As Single
 
-            'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             If IsNothing(Heading) Then Heading = msngShipHead
 
             EnvDir = Heading - mclsEnvCur.Wave.Heading
@@ -171,7 +168,6 @@ Friend Class EnvLoad
                     FSw = FSw + .Fy ^ 2 * Sw1 * Sw2 * FreqD
                     MY_Renamed = MY_Renamed + .MYaw ^ 2 * Sw1 * Sw2 * FreqD
                 End With
-                'UPGRADE_NOTE: Object DrftFC may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
                 DrftFC = Nothing
             Next
 
@@ -194,7 +190,6 @@ Friend Class EnvLoad
             '   Direction:  wave direction (local) (rad)
             '   Draft:      vessel draft (ft)
 
-            'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             If IsNothing(Draft) Then Draft = msngShipDraft
 
             WaveFC = DrftCoef(Draft, Frequency, Direction)
@@ -209,7 +204,6 @@ Friend Class EnvLoad
             '   Direction:  wave direction (local) (rad)
             '   Draft:      vessel draft (ft)
 
-            'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             If IsNothing(Draft) Then Draft = msngShipDraft
 
             Wave2FC = ForceCoef(Draft, Direction, mcolWave2FC)
@@ -224,7 +218,6 @@ Friend Class EnvLoad
             '   Direction:  wind direction (local) (rad)
             '   Draft:      vessel draft (ft)
 
-            'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             If IsNothing(Draft) Then Draft = msngShipDraft
 
             WindFC = ForceCoef(Draft, Direction, mcolWindFC)
@@ -246,9 +239,7 @@ Friend Class EnvLoad
 
                 FWdG = mclsFWindGlob
 
-                'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
             ElseIf IsNothing(Heading) Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Heading = msngShipHead
                 FWdG = mclsFWindGlob
                 FWdL = mclsFWindLocl
@@ -259,7 +250,6 @@ Friend Class EnvLoad
                 FEnG = mclsFEnvGlob
                 FEnL = mclsFEnvLocl
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
             Else
                 FWdG = New Force
@@ -271,23 +261,8 @@ Friend Class EnvLoad
                 FEnG = New Force
                 FEnL = New Force
 
-                'UPGRADE_WARNING: Couldn't resolve default property of object Heading. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 Call FEnv(FWdL, FWdG, FCrL, FCrG, FWvL, FWvG, FEnL, FEnG, Heading)
 
-                'UPGRADE_NOTE: Object FWdL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-                FWdL = Nothing
-                'UPGRADE_NOTE: Object FCrG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-                FCrG = Nothing
-                'UPGRADE_NOTE: Object FCrL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-                FCrL = Nothing
-                'UPGRADE_NOTE: Object FWvG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-                FWvG = Nothing
-                'UPGRADE_NOTE: Object FWvL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-                FWvL = Nothing
-                'UPGRADE_NOTE: Object FEnG may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-                FEnG = Nothing
-                'UPGRADE_NOTE: Object FEnL may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-                FEnL = Nothing
 
             End If
 

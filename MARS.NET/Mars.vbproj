@@ -268,12 +268,6 @@
     <Compile Include="Columns.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CurrentPairs.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CurrentProfile.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Deck3d.vb">
       <SubType>Code</SubType>
     </Compile>

@@ -20,36 +20,19 @@ Friend Class PltDeck3d
 	Private Bottom As threeDRect
 	Private HeliDeck As PltOctagon3d
 	Private theRig As PltDrillRig
-	'Private deckShading(10) As PltBox3d
-	
-	' the class constructor.  It sets up instances of the four
-	' member variables and also creates the rectangles which
-	' will make up the deck
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		side1 = New threeDRect
-		side2 = New threeDRect
-		Top = New threeDRect
-		Bottom = New threeDRect
-		theRig = New PltDrillRig
-		HeliDeck = New PltOctagon3d
-		'Dim x As Integer
-		'x = 1
-		'Do While x <= 10
-		'    Set deckShading(x) = New PltBox3d
-		'    x = x + 1
-		'Loop
-		
-		createdeck()
-		createHelideck()
-		
-		
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        side1 = New threeDRect
+        side2 = New threeDRect
+        Top = New threeDRect
+        Bottom = New threeDRect
+        theRig = New PltDrillRig
+        HeliDeck = New PltOctagon3d
+        createdeck()
+        createHelideck()
+
+    End Sub
 	
 	Private Sub createHelideck()
 		Dim X As Single
@@ -96,13 +79,11 @@ Friend Class PltDeck3d
 		Y = 0
 		z = DeckElev + DeckHeight
 		Top.createHorizontalRect(DeckWidth, DeckLength, X, Y, z, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
-		
-		' create the shading
-		'UPGRADE_NOTE: step was upgraded to step_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim step_Renamed As Single
-		'UPGRADE_NOTE: Current was upgraded to Current_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim Current_Renamed As Single
-		step_Renamed = DeckLength / 10
+
+        ' create the shading
+        Dim step_Renamed As Single
+        Dim Current_Renamed As Single
+        step_Renamed = DeckLength / 10
 		X = 0
 		Y = 0
 		z = DeckElev + DeckHeight / 2
