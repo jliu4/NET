@@ -49,7 +49,7 @@ Friend Class frmCurrProfile
 	Private Sub bntOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles bntOK.Click
         ' check empty fields
         'If HasEmptyFields(grdProfile) Then Exit Sub
-        ' must include seabed point
+        'must include seabed point
 
         ' save data to objects
         Dim R, NumPairs As Short
@@ -60,14 +60,16 @@ Friend Class frmCurrProfile
         Next R
 
 
-        For R = 1 To grdProfile.RowCount - 1
+        For R = 0 To grdProfile.RowCount - 1
 
             Call oMet(CaseNo).Current.ProfileAdd(CSng(grdProfile.Rows(R).Cells(0).Value), CDbl(grdProfile.Rows(R).Cells(1).Value) * Knots2Ftps)
         Next R
 
         With frmMain.grdMatrix
-            '   .TextMatrix(frmMain.grdMatrix.Row, 9) = grdProfile.TextMatrix(1, 1)
-            ' .set_TextMatrix(frmMain.grdMatrix.Row, frmMain.grdMatrix.Col, txtNumProfilePts.Text)
+            .Rows(CaseNo - 1).Cells(8).Value = grdProfile.Rows(0).Cells(1).Value
+            .Rows(CaseNo - 1).Cells(9).Value = txtNumProfilePts.Text
+            '.TextMatrix(frmMain.grdMatrix.Rows, 9) = grdProfile.TextMatrix(1, 1)
+            '.set_TextMatrix(frmMain.grdMatrix.Rowindex, frmMain.grdMatrix.Columns, txtNumProfilePts.Text)
         End With
         Me.Close()
 	End Sub

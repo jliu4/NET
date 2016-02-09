@@ -37,16 +37,20 @@ Friend Class frmMain
             .Text = "Set Base Directory"
             .InitPath = lblBaseDir.Text
             .ControlToUpdate = lblBaseDir
-            frmBrowseDir.Show()
+            VB6.ShowForm(frmBrowseDir, 1, Me)
+            'frmBrowseDir.Show()
 
         End With
-        If Trim(lblTargetDir.Text) = Trim(lblBaseDir.Text) Then
+        If lblBaseDir.Text <> "" And Trim(lblTargetDir.Text) = Trim(lblBaseDir.Text) Then
             MsgBox("Target directory should be different from Base directory.", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Target Dierctory")
             lblTargetDir.Text = ""
             WorkDir = ""
         End If
-        frmPostProc.ReadBaseResults()
-        CheckRunButtonState()
+        If lblBaseDir.Text <> "" Then
+
+            frmPostProc.ReadBaseResults()
+            CheckRunButtonState()
+        End If
         Exit Sub
 Errhandler:
         MsgBox("Error encountered when pick up base directory:" & lblBaseDir.Text)
