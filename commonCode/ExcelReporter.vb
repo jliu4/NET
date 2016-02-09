@@ -542,18 +542,19 @@ Friend Class ExcelReporter
                     Else
                         NumSeries = MoorSystem.MoorLines(CtrlLineNo).SegmentCount
                     End If
-                    For i = 1 To NumSeries
-                        .SeriesCollection.NewSeries()
-                    Next i
 
-                    For i = 1 To NumSeries 'JLIU TODO
-                        With .SeriesCollection(i)
+                    Dim s(NumSeries) As Microsoft.Office.Interop.Excel.Series
+
+                    For i = 1 To NumSeries
+                        s(i) = .SeriesCollection.NewSeries()
+
+                        With s(i)
                             If oxApp.Sheets("catenary Input") IsNot Nothing Then
                                 If IsMetricUnit Then ' plot from bottom up on excel  catenary input sheet, i.e. fairlead down
                                     .XValues = oxApp.Sheets("catenary Input").Range("D" & (5 + Connector(i)) & ":D" & (5 + Connector(i + 1)))
                                     .Values = oxApp.Sheets("catenary Input").Range("E" & (5 + Connector(i)) & ":E" & (5 + Connector(i + 1)))
                                 Else
-                                    'JLIU TODO
+
                                     .XValues = oxApp.Sheets("catenary Input").Range("A" & (5 + Connector(i)) & ":A" & (5 + Connector(i + 1)))
                                     .Values = oxApp.Sheets("catenary Input").Range("B" & (5 + Connector(i)) & ":B" & (5 + Connector(i + 1)))
                                 End If
@@ -577,29 +578,29 @@ Friend Class ExcelReporter
                             .ApplyDataLabels(AutoText:=False, LegendKey:=False, ShowSeriesName:=False, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
                         End With
                     Next i
-
-                    .SeriesCollection(1).Ponits(1).ApplyDataLabels(AutoText:=False, LegendKey:=False, ShowSeriesName:=True, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
-                    With .SeriesCollection(1).Points(1).DataLabel
-                        .HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
-                        .VerticalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
-                        .ReadingOrder = Microsoft.Office.Interop.Excel.Constants.xlContext
-                        .Position = Microsoft.Office.Interop.Excel.XlDataLabelPosition.xlLabelPositionAbove
-                        .Orientation = Microsoft.Office.Interop.Excel.XlOrientation.xlHorizontal
-                        .Characters.Text = "Line " & CtrlLineNo
-                        With .Characters.Font
-                            .Name = "Arial"
-                            .FontStyle = "Bold"
-                            .Size = 14
-                            .Strikethrough = False
-                            .Superscript = False
-                            .Subscript = False
-                            .OutlineFont = False
-                            .Shadow = False
-                            .Underline = Microsoft.Office.Interop.Excel.XlUnderlineStyle.xlUnderlineStyleNone
-                            .ColorIndex = Microsoft.Office.Interop.Excel.Constants.xlAutomatic
+                    If 1 = 0 Then
+                        .s(1).Ponits(1).ApplyDataLabels(AutoText:=False, LegendKey:=False, ShowSeriesName:=True, ShowCategoryName:=False, ShowValue:=False, ShowPercentage:=False, ShowBubbleSize:=False)
+                        With .SeriesCollection(1).Points(1).DataLabel
+                            .HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
+                            .VerticalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter
+                            .ReadingOrder = Microsoft.Office.Interop.Excel.Constants.xlContext
+                            .Position = Microsoft.Office.Interop.Excel.XlDataLabelPosition.xlLabelPositionAbove
+                            .Orientation = Microsoft.Office.Interop.Excel.XlOrientation.xlHorizontal
+                            .Characters.Text = "Line " & CtrlLineNo
+                            With .Characters.Font
+                                .Name = "Arial"
+                                .FontStyle = "Bold"
+                                .Size = 14
+                                .Strikethrough = False
+                                .Superscript = False
+                                .Subscript = False
+                                .OutlineFont = False
+                                .Shadow = False
+                                .Underline = Microsoft.Office.Interop.Excel.XlUnderlineStyle.xlUnderlineStyleNone
+                                .ColorIndex = Microsoft.Office.Interop.Excel.Constants.xlAutomatic
+                            End With
                         End With
-                    End With
-
+                    End If
                 End With
                 .ActiveSheet.Range("A1").Activate() ' de-select chart
                 .ActiveSheet.PageSetup.PrintArea = "$A$1:$R$38"

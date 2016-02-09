@@ -609,7 +609,7 @@ ErrHandler:
     End Sub
 
     Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
-        frmAbout.Show()
+        VB6.ShowForm(frmAbout, 1, Me)
 
     End Sub
 
