@@ -29,8 +29,8 @@ Friend Class PltBraces
 		Dim z0 As Single
 		Dim temp1 As Single
 		Dim temp2 As Single
-		Dim vAngle As Single
-		Dim hAngle As Single
+
+        Dim hAngle As Single
 		Dim aWidth As Single
 		Dim alength As Single
 		
@@ -68,16 +68,12 @@ Friend Class PltBraces
 		Top.createVerticalRect(alength, aWidth, X0, Y0, z0, hAngle, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 		
 	End Sub
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		Bottom = New threeDRect
-		Top = New threeDRect
-		side1 = New threeDRect
-		side2 = New threeDRect
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        Bottom = New threeDRect
+        Top = New threeDRect
+        side1 = New threeDRect
+        side2 = New threeDRect
+    End Sub
 End Class

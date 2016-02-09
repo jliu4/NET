@@ -7,36 +7,28 @@ Friend Class PltAnchorLines
 		Dim Y As Single
 		Dim z As Single
 	End Structure
-	Private Lines() As threeDLine
-	Private anchors(12) As PltAnchor
+
+    Private Lines() As threeDLine
+    Private anchors(12) As PltAnchor
 	Private starting(12) As Points
 	
 	Private numAnchors As Short
 	Private numberLines As Short
 	Private sizeOfArray As Short
-	
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		
-		numberLines = 0
-		sizeOfArray = 10
-		ReDim Lines(sizeOfArray)
-		
-		numAnchors = 0
-		
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        numberLines = 0
+        sizeOfArray = 10
+        ReDim Lines(sizeOfArray)
+
+        numAnchors = 0
+    End Sub
 	
 	Private Sub CreateStartingPoints()
-		' create line 1 and line 2 starting points (they are same)
-		
-		Dim counter As Short
-		
-		starting(0).X = -PDistance / 2 - PontWidth
+        ' create line 1 and line 2 starting points (they are same)
+
+        starting(0).X = -PDistance / 2 - PontWidth
 		starting(0).Y = PontLength / 2 - PLength
 		starting(0).z = 63
 		
@@ -67,9 +59,8 @@ Friend Class PltAnchorLines
 		starting(7).X = starting(6).X
 		starting(7).Y = starting(6).Y
 		starting(7).z = 63
-		
-		
-	End Sub
+
+    End Sub
 	
 	Public Sub ReadFile(ByVal FileName As String)
 		
@@ -101,9 +92,9 @@ Friend Class PltAnchorLines
 		
 		Dim lineNumber As Short
 		lineNumber = 0
-		
-		Dim tester As Object
-		Do While Not EOF(fNum)
+
+        Dim tester As Single 'Object
+        Do While Not EOF(fNum)
 			Input(fNum, tester)
 			If Not IsNumeric(tester) Then
 				'Input #fNum, tester
@@ -121,13 +112,11 @@ Friend Class PltAnchorLines
 				Input(fNum, x1)
 				Input(fNum, z1)
 				x1 = -x1
-				lineNumber = lineNumber + 1
-				
-				
-			Else
-				'UPGRADE_WARNING: Couldn't resolve default property of object tester. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				y2 = tester
-				Input(fNum, x2)
+                lineNumber = lineNumber + 1
+
+            Else
+                y2 = tester
+                Input(fNum, x2)
 				Input(fNum, z2)
 				x2 = -x2
 				If Index >= sizeOfArray Then
@@ -178,8 +167,7 @@ ExitErr:
 		Do While counter < numAnchors
 			anchors(counter).drawAnchor(aGrapher)
 			counter = counter + 1
-		Loop 
-		
-		
-	End Sub
+		Loop
+
+    End Sub
 End Class

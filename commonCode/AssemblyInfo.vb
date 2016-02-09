@@ -12,10 +12,10 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("DTCEL")>
+<Assembly: AssemblyCompany("Genesis Engineering")>
 <Assembly: AssemblyProduct("")>
 <Assembly: AssemblyCopyright("")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyTrademark("1998, 2016")>
 <Assembly: AssemblyCulture("")>
 
 ' Version information for an assembly consists of the following four values:
@@ -28,6 +28,6 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers
 ' by using the '*' as shown below:
 
-<Assembly:  AssemblyVersion("2.2.*")>
+<Assembly: AssemblyVersion("5.1.0")>
 
 

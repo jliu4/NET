@@ -36,40 +36,35 @@ Friend Class PltColumns
 	Private RFrontCol3 As PltBox3d
 	Private LFrontCol4 As PltOctagon3d
 	Private RFrontCol4 As PltOctagon3d
-	
-	
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		LBackCol1 = New PltBox3d
-		RBackCol1 = New PltBox3d
-		LBackCol2 = New PltOctagon3d
-		RBackCol2 = New PltOctagon3d
-		RFrontCol1 = New PltBox3d
-		LFrontCol1 = New PltBox3d
-		RFrontCol2 = New PltOctagon3d
-		LFrontCol2 = New PltOctagon3d
-		LFrontSmall = New PltOctagon3d
-		RFrontSmall = New PltOctagon3d
-		LBackSmall = New PltOctagon3d
-		RBackSmall = New PltOctagon3d
-		'...modify by neil
-		LBackCol3 = New PltBox3d
-		RBackCol3 = New PltBox3d
-		LBackCol4 = New PltOctagon3d
-		RBackCol4 = New PltOctagon3d
-		RFrontCol3 = New PltBox3d
-		LFrontCol3 = New PltBox3d
-		RFrontCol4 = New PltOctagon3d
-		LFrontCol4 = New PltOctagon3d
-		'Set RMiddle = New PltOctagon3d
-		'Set LMiddle = New PltOctagon3d
-		createColumns()
-	End Sub
-	Public Sub New()
+
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        LBackCol1 = New PltBox3d
+        RBackCol1 = New PltBox3d
+        LBackCol2 = New PltOctagon3d
+        RBackCol2 = New PltOctagon3d
+        RFrontCol1 = New PltBox3d
+        LFrontCol1 = New PltBox3d
+        RFrontCol2 = New PltOctagon3d
+        LFrontCol2 = New PltOctagon3d
+        LFrontSmall = New PltOctagon3d
+        RFrontSmall = New PltOctagon3d
+        LBackSmall = New PltOctagon3d
+        RBackSmall = New PltOctagon3d
+        '...modify by neil
+        LBackCol3 = New PltBox3d
+        RBackCol3 = New PltBox3d
+        LBackCol4 = New PltOctagon3d
+        RBackCol4 = New PltOctagon3d
+        RFrontCol3 = New PltBox3d
+        LFrontCol3 = New PltBox3d
+        RFrontCol4 = New PltOctagon3d
+        LFrontCol4 = New PltOctagon3d
+        'Set RMiddle = New PltOctagon3d
+        'Set LMiddle = New PltOctagon3d
+        createColumns()
+    End Sub
 	
 	Private Sub createColumns()
 		' create the back left and right columns

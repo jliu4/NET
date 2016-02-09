@@ -25,15 +25,15 @@ Friend Class frmOptions
 
     End Sub
 
-    ' Private Sub btnEnglish_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnglish.Click
-    ' If sender.Checked Then
-    '          IsMetricUnit = False
-    ' End If
-    '  End Sub
+    Private Sub btnEnglish_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnglish.Click
+        If sender.Checked Then
+            IsMetricUnit = False
+        End If
+    End Sub
 
-    '  Private Sub btnMetric_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnMetric.Click
-    ' If sender.Checked Then
-    '         IsMetricUnit = True
-    ' End If
-    '  End Sub
+    Private Sub btnMetric_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnMetric.Click
+        If sender.Checked Then
+            IsMetricUnit = True
+        End If
+    End Sub
 End Class

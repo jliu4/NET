@@ -212,7 +212,10 @@ ErrorHandler:
     Private Sub btnUpdate_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnUpdate.Click
         SaveLC()
         InitSummary()
+        SetUnitLabels()
         LoadData(False)
+
+
     End Sub
 
     Private Sub frmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -608,10 +611,10 @@ ErrHandler:
 
     End Sub
 
-    Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
-        VB6.ShowForm(frmAbout, 1, Me)
+    '   Public Sub mnuHelpAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuHelpAbout.Click
+    '     VB6.ShowForm(frmAbout, 1, Me)
 
-    End Sub
+    '    End Sub
 
     Private Sub cboWells_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboWells.SelectedIndexChanged
 
@@ -996,7 +999,7 @@ ErrHandler:
                     .Heading = CDbl(CheckData(_txtVslSt_4.Text,  , True)) * Degrees2Radians
                 End With
             End If
-            .ShipDraft = CDbl(CheckData(CStr(Val(_txtVslSt_5.Text) / LFactor),  , True))
+            '.ShipDraft = CDbl(CheckData(CStr(Val(_txtVslSt_5.Text) / LFactor),  , True))
         End With
 
     End Sub
@@ -1068,6 +1071,18 @@ ErrorHandler:
 
         RefreshData()
     End Sub
+    ' Private Sub frmOptions.btnEnglish_Click1(ByVal sender As Object, ByVal e As System.EventArgs) Handles frmOptions.btnEnglish.Click
+
+    '     RefreshData()
+    'End Sub
+
+    'Private Sub frmOptions.btnMetric_Click1(ByVal sender As Object, ByVal e As System.EventArgs) Handles frmOptions.btnMetric.Click
+
+    '    RefreshData()
+
+    'End Sub
+
+
 
     Public Sub mnuRadarPlot_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuRadarPlot.Click
         Call btnPlot_1_Click(_btnPlot_1, New System.EventArgs())

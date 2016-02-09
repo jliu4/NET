@@ -57,19 +57,17 @@ Friend Class PltAnchor
 				angle = 180
 			End If
 		End If
-		
-		If Not calc = True Then
-			angle = System.Math.Atan(Y / X) * 180 / PI
-			If (X < 0) Then
-				angle = angle + 180
-			End If
-		End If
-		
-		
-		
-		' first let's calculate the top of the base
-		
-		radAngle = PI / 180 * angle
+
+        If Not calc = True Then
+            angle = System.Math.Atan(Y / X) * 180 / PI
+            If (X < 0) Then
+                angle = angle + 180
+            End If
+        End If
+
+        ' first let's calculate the top of the base
+
+        radAngle = PI / 180 * angle
 		
 		Dim xBase As Single
 		Dim yBase As Single
@@ -78,19 +76,10 @@ Friend Class PltAnchor
 		xBase = X + anchorLength * System.Math.Cos(radAngle)
 		yBase = Y + anchorLength * System.Math.Sin(radAngle)
 		zBase = z
-		
-		'xBase = xBase + 0.2 / 6 * anchorLength * Cos(radAngle) * _
-		'Cos(PI / 180 * BaseFinAngle)
-		
-		'yBase = yBase + 0.2 / 6 * anchorLength * Sin(radAngle) * _
-		'Cos(PI / 180 * BaseFinAngle)
-		
-		'zBase = zBase + 0.2 / 6 * anchorLength * _
-		'Sin(PI / 180 * BaseFinAngle)
-		
-		' draw the back of the base.
-		' z will be the same for the two points
-		Dim X0 As Single
+
+        ' draw the back of the base.
+        ' z will be the same for the two points
+        Dim X0 As Single
 		Dim Y0 As Single
 		Dim z0 As Single
 		Dim x1 As Single
@@ -173,11 +162,9 @@ Friend Class PltAnchor
 		y1 = y1 + 1 / 4 * anchorWidth * System.Math.Cos(radAngle)
 		
 		rFinTop.setCoords(X0, Y0, z0, x1, y1, z1)
-		
-		Dim XTemp As Single
-		Dim YTemp As Single
-		' do the bottom right fin
-		x1 = X + System.Math.Cos(radAngle) * anchorLength
+
+        ' do the bottom right fin
+        x1 = X + System.Math.Cos(radAngle) * anchorLength
 		y1 = Y + System.Math.Sin(radAngle) * anchorLength
 		x1 = x1 - (BaseLength / 2 * System.Math.Cos(BaseFinAngle) * System.Math.Cos(radAngle))
 		y1 = y1 - (BaseLength / 2 * System.Math.Cos(BaseFinAngle) * System.Math.Sin(radAngle))
@@ -210,24 +197,22 @@ Friend Class PltAnchor
 		
 		
 	End Sub
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		backBase = New threeDLine
-		rSideBase = New threeDLine
-		rInsideBase = New threeDLine
-		lInsideBase = New threeDLine
-		lSideBase = New threeDLine
-		lFinTop = New threeDLine
-		lFinBottom = New threeDLine
-		rFinTop = New threeDLine
-		rFinBottom = New threeDLine
-		notch = New threeDRect
-	End Sub
-	Public Sub New()
-		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+
+    Public Sub New()
+        MyBase.New()
+        backBase = New threeDLine
+        rSideBase = New threeDLine
+        rInsideBase = New threeDLine
+        lInsideBase = New threeDLine
+        lSideBase = New threeDLine
+        lFinTop = New threeDLine
+        lFinBottom = New threeDLine
+        rFinTop = New threeDLine
+        rFinBottom = New threeDLine
+        notch = New threeDRect
+
+
+    End Sub
 	
 	Public Sub drawAnchor(ByRef gIn As threeDGrapher)
 		gIn.drawTheLine(backBase)

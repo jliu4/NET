@@ -98,8 +98,6 @@
     Public WithEvents mnuLinTools As System.Windows.Forms.ToolStripSeparator
     Public WithEvents mnuTools As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents mnuOptions As System.Windows.Forms.ToolStripMenuItem
-    Public WithEvents mnuHelpAbout As System.Windows.Forms.ToolStripMenuItem
-    Public WithEvents mnuHelp As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents MainMenu1 As System.Windows.Forms.MenuStrip
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
@@ -201,8 +199,6 @@
         Me.mnuAnalysesB = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLinTools = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuOptions = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuHelp = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuHelpAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.fraReport.SuspendLayout()
         Me.fraMooring.SuspendLayout()
         CType(Me.grdLD, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -940,7 +936,7 @@
         '
         'MainMenu1
         '
-        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuInput, Me.mnuPlots, Me.mnuTools, Me.mnuOptions, Me.mnuHelp})
+        Me.MainMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuInput, Me.mnuPlots, Me.mnuTools, Me.mnuOptions})
         Me.MainMenu1.Location = New System.Drawing.Point(0, 0)
         Me.MainMenu1.Name = "MainMenu1"
         Me.MainMenu1.Size = New System.Drawing.Size(828, 24)
@@ -1119,19 +1115,6 @@
         Me.mnuOptions.Name = "mnuOptions"
         Me.mnuOptions.Size = New System.Drawing.Size(61, 20)
         Me.mnuOptions.Text = "&Options"
-        '
-        'mnuHelp
-        '
-        Me.mnuHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuHelpAbout})
-        Me.mnuHelp.Name = "mnuHelp"
-        Me.mnuHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mnuHelp.Text = "&Help"
-        '
-        'mnuHelpAbout
-        '
-        Me.mnuHelpAbout.Name = "mnuHelpAbout"
-        Me.mnuHelpAbout.Size = New System.Drawing.Size(151, 22)
-        Me.mnuHelpAbout.Text = "&About MARS..."
         '
         'frmMain
         '

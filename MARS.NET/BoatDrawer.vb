@@ -12,30 +12,21 @@ Friend Class PltVessel
 	Private anAxis As PltAxes
 	Private theAnchor As PltAnchor
 	Private theLines As PltAnchorLines
-	
-	
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		
-		theLines = New PltAnchorLines
-		thePontoon = New PltPontoon3d
-		aGrapher = New threeDGrapher
-		anAxis = New PltAxes
-		hBrace1 = New PltBraces
-		hBrace2 = New PltBraces
-		hBrace3 = New PltBraces
-		hbrace4 = New PltBraces
-		theDeck = New PltDeck3d
-		theAnchor = New PltAnchor
-		initHBraces()
-		'initAnchor
-		
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        theLines = New PltAnchorLines
+        thePontoon = New PltPontoon3d
+        aGrapher = New threeDGrapher
+        anAxis = New PltAxes
+        hBrace1 = New PltBraces
+        hBrace2 = New PltBraces
+        hBrace3 = New PltBraces
+        hbrace4 = New PltBraces
+        theDeck = New PltDeck3d
+        theAnchor = New PltAnchor
+        initHBraces()
+    End Sub
 	
 	Private Sub initAnchor()
 		theAnchor.createAnchor(200, 200, -500)
@@ -99,7 +90,7 @@ Friend Class PltVessel
         anAxis.drawAxis(aGrapher)
 
         If VesselPointsFromFile Then
-
+            'TODO JLIU
             'For Each Component In CurProj.Vessel
             'For Each aline In Component
             'aGrapher.drawTheLine(aline)

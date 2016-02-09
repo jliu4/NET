@@ -40,7 +40,7 @@ Module MARSConstants
 
     Public Const RegistryName As String = "\App Paths\mars.exe"
     Public Const MarsDirDefault As String = "C:\Program Files\MARS"
-    Public Const DODOsDirDefault As String = "C:\Program Files\MARS"
+    Public Const DODOsDirDefault As String = "C:\Program Files\DODO"
     Public Const msgTitle As String = "MARS"
     Public Const IniFile As String = "mars.ini"
     Public Const OnBoardFile As String = "onboard.dat"
