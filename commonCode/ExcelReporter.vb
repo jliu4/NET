@@ -107,60 +107,6 @@ Friend Class ExcelReporter
         CopyMoorLine = oMoorLine
     End Function
 
-
-    Function FindMax(ByVal LineNo As Short, ByRef CaseNo As Short) As Object
-        Dim oxSheet As Microsoft.Office.Interop.Excel.Worksheet
-        Dim MaxVal As Single
-        Dim i As Short
-        MaxVal = -1000000
-        CaseNo = -10
-        With oxApp.ActiveWorkbook
-            For i = 1 To .Sheets.Count
-                oxSheet = .Sheets(i)
-                If InStr(oxSheet.Name, "Case") > 0 Then
-                    If oxSheet.Range("V" & (44 + LineNo))._Default <> "DAMAGED" Then
-                        If oxSheet.Range("V" & (44 + LineNo)).Value > MaxVal Then
-                            MaxVal = oxSheet.Range("V" & (44 + LineNo)).Value
-                            CaseNo = i - 2
-                        End If
-                    End If
-                End If
-            Next i
-        End With
-        FindMax = Format(MaxVal, "0.00")
-    End Function
-
-    Function FindMin(ByVal LineNo As Short, ByRef CaseNo As Short) As Object
-        Dim oxSheet As Microsoft.Office.Interop.Excel.Worksheet
-        Dim MinVal As Single
-        Dim i As Short
-        MinVal = 1000000
-        With oxApp.ActiveWorkbook
-            For i = 1 To .Sheets.Count
-                oxSheet = .Sheets(i)
-                If InStr(oxSheet.Name, "Case") > 0 Then
-                    If oxSheet.Range("V" & (44 + LineNo))._Default <> "DAMAGED" Then
-                        If oxSheet.Range("V" & (44 + LineNo)).Value < MinVal Then
-                            MinVal = oxSheet.Range("V" & (44 + LineNo)).Value
-                            CaseNo = i - 2
-                        End If
-                    End If
-                End If
-            Next i
-        End With
-        FindMin = Format(MinVal, "0.00")
-    End Function
-
-    Function GetDamagedLineNo(ByRef oxSheet As Microsoft.Office.Interop.Excel.Worksheet, ByRef NumLines As Short) As String
-        Dim i As Short
-        GetDamagedLineNo = "Intact"
-        For i = 1 To NumLines
-            If InStr(oxSheet.Range("V" & (44 + i)).Formula, "DAMAGED") > 0 Then
-                GetDamagedLineNo = CStr(i)
-            End If
-        Next i
-    End Function
-
     Sub ReportMooringLayout(ByVal sClient As String, ByVal sLocationName As String, ByVal oVessel As Vessel, Optional ByRef MoorSystem As MoorSystem = Nothing, Optional ByRef ShipLoc As ShipGlobal = Nothing)
         Dim NumPoints As Object
         Dim TmpVal2 As Object
@@ -1340,7 +1286,6 @@ ErrHandler:
         ' cleanup
     End Sub
 
-
     Sub FormatSpreadChart(ByRef oChart As Microsoft.Office.Interop.Excel.Chart)
         Dim i As Short
 
@@ -1707,7 +1652,5 @@ ErrHandler:
         End With
 
     End Sub
-
-
 
 End Class
