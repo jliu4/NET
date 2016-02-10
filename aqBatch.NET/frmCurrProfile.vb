@@ -83,7 +83,7 @@ Friend Class frmCurrProfile
 			MsgBox("Must specify case number to copy from.")
 			Exit Sub
 		End If
-		Call CopyCase(CShort(VB.Right(lblCaseNo.Text, Len(lblCaseNo.Text) - 4)), CShort(txtSameAsCase.Text))
+        Call CopyCase(CShort(lblCaseNo.Text), CShort(txtSameAsCase.Text))
         frmCurrProfile_Activated(Me, New System.EventArgs())
     End Sub
 	
