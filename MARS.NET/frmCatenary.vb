@@ -237,7 +237,7 @@ Friend Class frmCatenary
 
     End Sub
 
-    Private Sub cboSegment_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellMouseEventArgs) Handles cboSegment.SelectedIndexChanged
+    Private Sub cboSegment_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellMouseEventArgs)
 
 
         If IsMetricUnit Then

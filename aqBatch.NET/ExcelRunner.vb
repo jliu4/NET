@@ -1041,8 +1041,8 @@ Friend Class ExcelRunner
 		Dim MaxT, MaxGL, MeanT, MinT As Double
 		Dim TmpCaseName As String
 		Dim Payout, HorizT, Scope As Double
-		Dim TmpStr As String
-		Dim NCase As Short
+        Dim TmpStr As Single
+        Dim NCase As Short
 		With oxApp.ActiveWorkbook
 			oSummarySheet = .Sheets.Add(After:=.Worksheets(.Worksheets.Count))
 			oSummarySheet.Name = "Summary"
@@ -1112,7 +1112,7 @@ Friend Class ExcelRunner
                         .Cells(9, i).Formula = VB6.Format(oxSheet.Range("R21").Value, "#0.0")
                         'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells(10, i).Formula. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         .Cells(10, i).Formula = Format(oxSheet.Range("T21").Value, "#0.0")
-                        TmpStr = CStr(System.Math.Sqrt((oxSheet.Range("Q32").Value) ^ 2 + (oxSheet.Range("S32").Value) ^ 2))
+                        TmpStr = System.Math.Sqrt((oxSheet.Range("Q32").Value) ^ 2 + (oxSheet.Range("S32").Value) ^ 2)
                         'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells(12, i).FormulaR1C1. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         .Cells(12, i).FormulaR1C1 = Format(TmpStr, "0.0")
                         'UPGRADE_WARNING: Couldn't resolve default property of object oSummarySheet.Cells(13, i).Formula. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
