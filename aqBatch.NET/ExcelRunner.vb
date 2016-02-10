@@ -90,11 +90,10 @@ Friend Class ExcelRunner
 		NameDir = "Case" ' assume subdir name "case"
 		
 		oxBook = oxApp.Workbooks.Add(My.Application.Info.DirectoryPath & "\MooringResults.xlt")
-		' set intro-input values
-		
-		'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.Sheets().Activate. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		oxBook.Sheets("Intro-Input").Activate()
-		oxApp.Range("MainTitle").Formula = sTitle
+        ' set intro-input values
+
+        oxBook.Sheets("Intro-Input").Activate()
+        oxApp.Range("MainTitle").Formula = sTitle
 		oxApp.Range("SubTitle").Formula = SubTitle
 		oxApp.Range("OperTension").Formula = preT(1)
 		oxApp.Range("BreakStrength").Formula = BS(1)
@@ -125,104 +124,73 @@ Friend Class ExcelRunner
 			Else
 				NumLineA = NumLines
 			End If
-			
-			'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.Sheets().Copy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			oxBook.Sheets("MOORING1").Copy(After:=oxBook.Sheets(NCase + 1))
-			'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.Sheets().Name. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			oxBook.Sheets("MOORING1 (2)").Name = CaseNam
-			'UPGRADE_WARNING: Couldn't resolve default property of object oxBook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			oxBook.ActiveSheet.Cells(72, 16) = CaseNam
-			
-			'--------------------------------------------------------------------------------------
-			'UPGRADE_WARNING: Array has a new behavior. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-			oxApp.Workbooks.OpenText(FileName:=WorkDir & "\" & CaseNam & "\" & ABfname, StartRow:=1, DataType:=Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited, TextQualifier:=Microsoft.Office.Interop.Excel.Constants.xlDoubleQuote, ConsecutiveDelimiter:=False, Tab:=True, Semicolon:=False, Comma:=False, Space:=False, Other:=False, FieldInfo:=New Object(){1, 1})
-			
-			With oxApp
-				
-				
-				'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Not .ActiveSheet.Cells.Find("11curr") Is Nothing Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.ActiveSheet.Cells.Find("11curr").Activate()
+
+            oxBook.Sheets("MOORING1").Copy(After:=oxBook.Sheets(NCase + 1))
+            oxBook.Sheets("MOORING1 (2)").Name = CaseNam
+            oxBook.ActiveSheet.Cells(72, 16) = CaseNam
+
+            '--------------------------------------------------------------------------------------
+            oxApp.Workbooks.OpenText(Filename:=WorkDir & "\" & CaseNam & "\" & ABfname, StartRow:=1, DataType:=Microsoft.Office.Interop.Excel.XlTextParsingType.xlDelimited, TextQualifier:=Microsoft.Office.Interop.Excel.Constants.xlDoubleQuote, ConsecutiveDelimiter:=False, Tab:=True, Semicolon:=False, Comma:=False, Space:=False, Other:=False, FieldInfo:=New Object() {1, 1})
+
+            With oxApp
+
+                If Not .ActiveSheet.Cells.Find("11curr") Is Nothing Then
+                    .ActiveSheet.Cells.Find("11curr").Activate()
                     .ActiveCell.Parse("[         11CURR][    3.38][   -112.50][    0.00   ][   0.00   ][   0.00   ][   0.00]")
 
                     Row = .ActiveCell.Row
                     ' MsgBox(.ActiveSheet.Cells(Row, 2).value)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     CurrVel = .Cells(Row, 2).value
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     CurrDir = .Cells(Row, 3).value
                 End If
-				'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Not .ActiveSheet.Cells.Find("11wind") Is Nothing Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.ActiveSheet.Cells.Find("11wind").Activate()
-					.ActiveCell.Parse("[         11WIND][    1.30][    245.00][      0.00][      0.00][      0.00][      0.00]")
-					Row = .ActiveCell.Row
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                If Not .ActiveSheet.Cells.Find("11wind") Is Nothing Then
+                    .ActiveSheet.Cells.Find("11wind").Activate()
+                    .ActiveCell.Parse("[         11WIND][    1.30][    245.00][      0.00][      0.00][      0.00][      0.00]")
+                    Row = .ActiveCell.Row
                     WindVel = .Cells(Row, 2).value
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WindDir = .Cells(Row, 3).value
                 End If
-				'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Not .ActiveSheet.Cells.Find("13curr") Is Nothing Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.ActiveSheet.Cells.Find("13curr").Activate()
-					.ActiveCell.Parse("[         13CURR][   0][   0][     0.570][    90.000][     0.000][     0.000][     0.000][     0.000]")
-					Row = .ActiveCell.Row
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                If Not .ActiveSheet.Cells.Find("13curr") Is Nothing Then
+                    .ActiveSheet.Cells.Find("13curr").Activate()
+                    .ActiveCell.Parse("[         13CURR][   0][   0][     0.570][    90.000][     0.000][     0.000][     0.000][     0.000]")
+                    Row = .ActiveCell.Row
                     CurrVel = .Cells(Row, 4).value
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     CurrDir = .Cells(Row, 5).value
                 End If
-				
-				'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				If Not .ActiveSheet.Cells.Find("13wind") Is Nothing Then
-					
-					'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.ActiveSheet.Cells.Find("13wind").Activate()
-					.ActiveCell.Parse("[         13WIND][   0][   0][     0.570][    90.000][     0.000][     0.000][     0.000][     0.000]")
-					Row = .ActiveCell.Row
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+
+                If Not .ActiveSheet.Cells.Find("13wind") Is Nothing Then
+
+                    .ActiveSheet.Cells.Find("13wind").Activate()
+                    .ActiveCell.Parse("[         13WIND][   0][   0][     0.570][    90.000][     0.000][     0.000][     0.000][     0.000]")
+                    Row = .ActiveCell.Row
                     WindVel = .Cells(Row, 4).value
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WindDir = .Cells(Row, 5).value
                 End If
-				
-				
-				If Not .Cells.Find("xswl") Is Nothing Then
+
+
+                If Not .Cells.Find("xswl") Is Nothing Then
 					.Cells.Find("xswl").Activate()
 					If InStr(1, .ActiveCell.Formula, "JONH") > 0 Then
 						.ActiveCell.Parse("[     13XSWL][ JONH][          0.000 ][    0.000 ][    3.300 ][   33.700 ][    0.388 ][    2.000][    2.000]")
 						Row = .ActiveCell.Row
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellHs = .Cells(Row, 6).value
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellTp = 2 * Math.PI / .Cells(Row, 7).value
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellDir = .Cells(Row, 8).value
                     ElseIf InStr(1, .ActiveCell.Formula, "GAUS") > 0 Then 
 						.ActiveCell.Parse("[     13XSWL][ JONH][          0.000 ][    0.000 ][    3.300 ][   33.700 ][    0.388 ][    2.000][    2.000]")
 						Row = .ActiveCell.Row
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellHs = .Cells(Row, 6).value
                         If .Cells.Find("GATP") Is Nothing Then
-                            'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                             SwellTp = 2 * Math.PI / .Cells(Row, 7).value
                         Else
-                            'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                             SwellTp = .Cells(Row, 7).value
                         End If
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellDir = .Cells(Row, 8).value
                     Else
 						.ActiveCell.Parse("[     13XSWL][ JONH][          0.000 ][    0.000 ][    3.300 ][   33.700 ][    0.388 ][    2.000][    2.000]")
 						Row = .ActiveCell.Row
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellHs = .Cells(Row, 6).value
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellTp = 2 * Math.PI / .Cells(Row, 7).value
-                        'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SwellDir = .Cells(Row, 8).value
                     End If
 				End If
@@ -230,95 +198,52 @@ Friend Class ExcelRunner
 				.Cells.Find("spdn").Activate()
 				.ActiveCell.Parse("[         13SPDN][   0][   0][    63.900][     0.000][     0.000][     0.000][     0.000][     0.000]")
 				Row = .ActiveCell.Row
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WaveDir = .Cells(Row, 4).value
 
                 If Not .Cells.Find(What:="13psmz") Is Nothing Then
 					.Cells.Find(What:=("13psmz")).Activate()
 					.ActiveCell.Parse("[         13CURR][   0][   0][     0.570][    90.000][     0.000][     0.000][     0.000][     0.000]")
 					Row = .ActiveCell.Row
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WaveHs = .Cells(Row, 6).value
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WaveTp = .Cells(Row, 7).value * 1.4
                 End If
 				If Not .Cells.Find(What:="13jonh") Is Nothing Then
 					.Cells.Find(What:=("13jonh")).Activate()
 					.ActiveCell.Parse("[         13CURR][  0][  0][     0.570][    90.000][     0.000][     0.000][     0.000][     0.000]")
 					Row = .ActiveCell.Row
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WaveHs = .Cells(Row, 7).value
-                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     WaveTp = 2 * Math.PI / .Cells(Row, 8).value '  Jonswap peak freq
                 End If
 				
 				.Cells.Find("G L O B A L   S Y S T E M   S T I F F N E S S   M A T R I X").Activate()
 				Row = .ActiveCell.Row + 11
                 .Range(.Cells(Row, 1), .Cells(Row + 10, 1)).Parse("[                               X          ][   9.997E+03][   8.166E+01][  -1.613E+00][   7.336E+02][   2.999E+05][  -1.596E+05]")
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object stiffx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 stiffx = .Cells(Row, 2).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object StiffY. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 StiffY = .Cells(Row + 2, 3).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object StiffRz. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 StiffRz = .Cells(Row + 10, 7).value
 
                 .Cells.Find("ITER NO.              CENTRE OF GRAVITY", SearchDirection:=Microsoft.Office.Interop.Excel.XlSearchDirection.xlPrevious).Activate()
 				Row = .ActiveCell.Row + 3
                 .Range(.Cells(Row, 1), .Cells(Row + 8, 1)).Parse("[                      DRIFT                   ][   1.5612E+02][   2.7210E+04][   0.0000E+00][     0.0000E+00][   0.0000E+00][  -1.8411E+05]")
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object VslX. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 VslX = .Cells(Row, 2).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object VslY. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 VslY = .Cells(Row, 3).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object VslZ. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 VslZ = .Cells(Row, 4).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object VslRx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 VslRx = .Cells(Row, 5).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object VslRy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 VslRy = .Cells(Row, 6).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object VslRz. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 VslRz = .Cells(Row, 7).value
                 Row = Row + 3
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object CurrX. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 CurrX = .Cells(Row, 2).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object CurrY. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 CurrY = .Cells(Row, 3).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object CurrRz. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 CurrRz = .Cells(Row, 7).value
                 Row = Row + 1
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object WindX. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WindX = .Cells(Row, 2).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object WindY. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WindY = .Cells(Row, 3).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object WindRz. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WindRz = .Cells(Row, 7).value
                 Row = Row + 1
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object WaveX. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WaveX = .Cells(Row, 2).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object WaveY. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WaveY = .Cells(Row, 3).value
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object WaveRz. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 WaveRz = .Cells(Row, 7).value
                 Row = Row + 2
-                'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                'UPGRADE_WARNING: Couldn't resolve default property of object ThruX. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 ThruX = .Cells(Row, 2).value
                 'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Cells(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 'UPGRADE_WARNING: Couldn't resolve default property of object ThruY. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
@@ -1323,8 +1248,8 @@ Friend Class ExcelRunner
 						'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.ActiveWorkbook.ActiveSheet.Cells. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 						TmpCaseName = "case" & VB6.Format(.Cells(29 + i, Col + 4).Value, "0")
 					End If
-					'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					MaxT = IIf(oxApp.Sheets(TmpCaseName).Range("S" & 44 + i).Value > oxApp.Sheets(TmpCaseName).Range("T" & 44 + i).Value, oxApp.Sheets(TmpCaseName).Range("S" & 44 + i), oxApp.Sheets(TmpCaseName).Range("T" & 44 + i))
+                    'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    MaxT = IIf(oxApp.Sheets(TmpCaseName).Range("S" & 44 + i).Value > oxApp.Sheets(TmpCaseName).Range("T" & 44 + i).Value, oxApp.Sheets(TmpCaseName).Range("S" & 44 + i).value, oxApp.Sheets(TmpCaseName).Range("T" & 44 + i).value)
 
                     'UPGRADE_WARNING: Couldn't resolve default property of object oxApp.Sheets().Range. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     MeanT = oxApp.Sheets(TmpCaseName).Range("P" & 44 + i).value
