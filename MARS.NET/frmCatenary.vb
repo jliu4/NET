@@ -208,12 +208,16 @@ Friend Class frmCatenary
 
         Select Case LastChanged
             Case 1
+                '.Rows(1).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
+                'txtTopTen.Text = VB6.Format(CheckData(txtTopTen.Text), "0.00")
+                TopTension = grdDetails.Rows(1).Cells(cboSegmentColIndex).Value * 1000.0# / FrcFactor
 
                 Call frmMoorLines.UpdateCat(TopTension)
                 frmMoorLines.ChangeInCat = True
             Case 2
 
                 TopTension = 0#
+                HorForce = grdDetails.Rows(2).Cells(cboSegmentColIndex).Value * 1000.0# / FrcFactor
 
                 Call frmMoorLines.UpdateCat(TopTension, HorForce)
                 frmMoorLines.ChangeInCat = True
@@ -227,12 +231,14 @@ Friend Class frmCatenary
         If InitiateCbo Then Exit Sub
         With frmMoorLines
             .tabMoorLines.SelectedIndex = cboLines.SelectedIndex
+            Call .UpdateCat()
         End With
-        cboSegment.SelectedIndex = 0
+        'cboSegment.SelectedIndex = 0
 
     End Sub
 
-    Private Sub cboSegment_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellMouseEventArgs)
+    Private Sub cboSegment_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellMouseEventArgs) Handles cboSegment.SelectedIndexChanged
+
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -271,8 +277,8 @@ Friend Class frmCatenary
 
         If JustEnter Then
             JustEnter = False
-            'ExistingTxt = txtTopTen.Text
-            'VB6.SetCancel(btnOK, False)
+            ExistingTxt = grdDetails.Rows(1).Cells(cboSegmentColIndex).Value
+            VB6.SetCancel(btnOK, False)
         End If
 
         Select Case KeyCode
@@ -282,7 +288,7 @@ Friend Class frmCatenary
                 btnRefresh_Click()
 
             Case System.Windows.Forms.Keys.Escape
-                'txtTopTen.Text = ExistingTxt
+                grdDetails.Rows(1).Cells(cboSegmentColIndex).Value = ExistingTxt
 
         End Select
 
@@ -291,7 +297,7 @@ Friend Class frmCatenary
     Private Sub txtTopTen_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         JustEnter = True
-        'VB6.SetCancel(btnOK, True)
+        VB6.SetCancel(btnOK, True)
         LastChanged = 1
 
     End Sub
@@ -302,8 +308,8 @@ Friend Class frmCatenary
 
         If JustEnter Then
             JustEnter = False
-            ' ExistingTxt = txtTopTen.Text
-            ' VB6.SetCancel(btnOK, False)
+            ExistingTxt = grdDetails.Rows(1).Cells(cboSegmentColIndex).Value
+            VB6.SetCancel(btnOK, False)
         End If
 
         Select Case KeyCode
@@ -313,7 +319,7 @@ Friend Class frmCatenary
                 btnRefresh_Click()
 
             Case System.Windows.Forms.Keys.Escape
-                'txtHorFrc.Text = ExistingTxt
+                grdDetails.Rows(2).Cells(cboSegmentColIndex).Value = ExistingTxt
 
         End Select
 
@@ -322,7 +328,7 @@ Friend Class frmCatenary
     Private Sub txtHorFrc_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
 
         JustEnter = True
-        'VB6.SetCancel(btnOK, True)
+        VB6.SetCancel(btnOK, True)
         LastChanged = 2
 
     End Sub

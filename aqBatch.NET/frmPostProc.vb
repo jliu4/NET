@@ -42,8 +42,8 @@ Friend Class frmPostProc
 
         With grdLinepreTBS
             For i = 1 To NLines
-                preT(i) = CDbl(.Rows(i - 1).Cells(0).Value)
-                BS(i) = CDbl(.Rows(i - 1).Cells(1).Value) / FrcFactor2
+                'preT(i) = CDbl(.Rows(i - 1).Cells(0).Value)
+                'BS(i) = CDbl(.Rows(i - 1).Cells(1).Value) / FrcFactor2
             Next i
         End With
 
@@ -299,6 +299,7 @@ ErrHandler:
         txtNumLines.Text = CStr(NLines)
 
         ReadBaseResults = True
+
         Exit Function
 ErrHandler:
         MsgBox("Error: " & Err.Description, MsgBoxStyle.Critical + MsgBoxStyle.OKOnly, "Error")
