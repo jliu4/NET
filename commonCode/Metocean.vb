@@ -76,12 +76,13 @@ Friend Class Metocean
         Dim i As Short
 
         If InStr(mclsWave.SpectrumName, "PSMZ") > 0 Then
-            mclsWave.gamma = ""
+            mclsWave.gamma = 0
         End If
-        If InStr(mclsWave.SwellSpectrumName, "PSMZ") > 0 Then
-            mclsWave.Swellgamma = ""
-        End If
+
         If UDEF Then
+            If InStr(mclsWave.SwellSpectrumName, "PSMZ") > 0 Then
+                mclsWave.Swellgamma = 0
+            End If
             PrintLine(fnum, Format(mclsWind.Velocity, "#0.0000"), mclsWind.Heading, mclsWave.SpectrumName, mclsWave.Height, mclsWave.Period, mclsWave.gamma, mclsWave.Heading, mclsCurrent.Heading, Format(mclsCurrent.SurfaceVel, "#0.0000"), mclsCurrent.ProfileCount, mclsWave.SwellHeight, mclsWave.SwellPeriod, mclsWave.SwellSpectrumName, mclsWave.Swellgamma, mclsWave.SwellHeading)
         Else
             PrintLine(fnum, Format(mclsWind.Velocity, "#0.0000"), mclsWind.Heading, mclsWave.SpectrumName, mclsWave.Height, mclsWave.Period, mclsWave.gamma, mclsWave.Heading, mclsCurrent.Heading, Format(mclsCurrent.SurfaceVel, "#0.0000"), mclsCurrent.ProfileCount)
