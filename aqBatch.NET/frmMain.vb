@@ -171,9 +171,9 @@ ErrHandler:
         '   should the user cancel the dialog box, exit
         On Error GoTo ErrHandler
 
-        dlgFileOpen.Filter = "All Files (*.*)|*.*|Intact (*.xls)|*.xls"
-        dlgFileSave.Filter = "All Files (*.*)|*.*|Intact (*.xls)|*.xls"
-		dlgFileOpen.FilterIndex = 2
+        dlgFileOpen.Filter = "All Files (*.*)|*.*|Intact (*.xlsx)|*.xlsx"
+        dlgFileSave.Filter = "All Files (*.*)|*.*|Intact (*.xlsx)|*.xlsx"
+        dlgFileOpen.FilterIndex = 2
 		dlgFileSave.FilterIndex = 2
 		dlgFileOpen.InitialDirectory = WorkDir
 		dlgFileSave.InitialDirectory = WorkDir
@@ -211,18 +211,18 @@ ErrHandler:
 
         With oxApp.ActiveWorkbook.Sheets("Summary")
             ' determine NumLines from xls
-            NumLines = .Range("D30").End(Microsoft.Office.Interop.Excel.XlDirection.xlDown).Row - 29
+            NumLines = .Range("B30").End(Microsoft.Office.Interop.Excel.XlDirection.xlDown).Row - 29
 
-            NCase = oxApp.Sheets.Count - 2
+            NCase = oxApp.Sheets.Count - 3
             If NCase > 0 Then
                 ReDim Preserve L1Tmax(NCase)
                 ReDim Preserve L2Tmax(NCase)
             End If
 
-            For i = 3 To oxApp.Sheets.Count - 1
+            For i = 1 To NCase
 
-                L1Tmax(i - 2) = .Cells(29 + NumLines + 2, i)
-                L2Tmax(i - 2) = .Cells(29 + NumLines + 3, i)
+                L1Tmax(i) = .Cells(29 + NumLines + 2, i + 2).value
+                L2Tmax(i) = .Cells(29 + NumLines + 3, i + 2).value
             Next i
         End With
     End Function

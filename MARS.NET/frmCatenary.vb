@@ -239,7 +239,6 @@ Friend Class frmCatenary
 
     Private Sub cboSegment_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellMouseEventArgs)
 
-
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
             FrcFactor = 4.448222 ' kips -> KN
@@ -269,7 +268,53 @@ Friend Class frmCatenary
 
     End Sub
 
-    ' text box
+    'Private Sub grdDetails_EditingControlShowing(ByVal sender As System.Object, ByVal e As DataGridViewEditingControlShowingEventArgs) Handles grdDetails.EditingControlShowing
+    'Dim curRow, curCol As Short
+    '   curRow = grdDetails.CurrentCell.RowIndex
+    '  curCol = grdDetails.CurrentCell.ColumnIndex
+    'If (curRow = 1 Or curRow = 2) And curCol = 1 Then
+
+    'AddHandler() e.Control.KeyDown, AddressOf cell_KeyDown
+    'End If
+    'End Sub
+    Private Sub grddetail_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdDetails.KeyDown
+
+        Dim curCol As Integer = grdDetails.CurrentCell.ColumnIndex
+        Dim curRow As Integer = grdDetails.CurrentCell.RowIndex
+        If (curRow = 1 Or curRow = 2) And curCol = 1 Then
+            Select Case e.KeyCode
+                'Case Keys.Enter
+            '    ExistingTxt = grdDetails.CurrentCell.Value
+            'VB6.SetCancel(btnOK, False)
+                Case Keys.Return
+                    LastChanged = grdDetails.CurrentCell.RowIndex
+                    btnRefresh_Click()
+
+                Case Keys.Escape
+                    grdDetails.CurrentCell.Value = ExistingTxt
+
+            End Select
+
+        End If
+
+    End Sub
+
+    Private Sub cell_KeyDown(sender As Object, e As KeyEventArgs)
+        ExistingTxt = grdDetails.CurrentCell.Value
+        Select Case e.KeyCode
+                'Case Keys.Enter
+            '    ExistingTxt = grdDetails.CurrentCell.Value
+            'VB6.SetCancel(btnOK, False)
+            Case Keys.Return
+                LastChanged = grdDetails.CurrentCell.RowIndex
+                btnRefresh_Click()
+
+                Case Keys.Escape
+                    grdDetails.CurrentCell.Value = ExistingTxt
+
+            End Select
+
+    End Sub
 
     Private Sub txtTopTen_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs)
         Dim KeyCode As Short = eventArgs.KeyCode
@@ -457,16 +502,7 @@ Friend Class frmCatenary
         FileClose(FileNumRes)
 
     End Sub
-    Private Sub grdDetails_CellValueChanged(ByVal sender As Object,
-    ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles grdDetails.CellValueChanged
 
-        If e.ColumnIndex = 2 And e.RowIndex = 2 Then
-            UpdateCellEI()
-        End If
-
-
-    End Sub
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         ' Call the base class
