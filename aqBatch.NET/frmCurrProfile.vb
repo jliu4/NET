@@ -20,7 +20,6 @@ Friend Class frmCurrProfile
                     .Current.ProfileDelete((1)) 'After deleting first element, second one will become the "first" one
                 Next i
 
-
                 For i = 1 To oMet(fromCaseNo).Current.ProfileCount
                     Call .Current.ProfileAdd(oMet(fromCaseNo).Current.Profile(i).Depth, oMet(fromCaseNo).Current.Profile(i).Velocity)
                 Next i
@@ -60,7 +59,7 @@ Friend Class frmCurrProfile
         Next R
 
 
-        For R = 0 To grdProfile.RowCount - 1
+        For R = 0 To grdProfile.RowCount - 2
 
             Call oMet(CaseNo).Current.ProfileAdd(CSng(grdProfile.Rows(R).Cells(0).Value), CDbl(grdProfile.Rows(R).Cells(1).Value) * Knots2Ftps)
         Next R
@@ -105,7 +104,7 @@ Friend Class frmCurrProfile
         txtNumProfilePts.Text = CStr(oMet(CaseNo).Current.ProfileCount)
         With grdProfile
             .ColumnCount = 2
-            .RowCount = oMet(CaseNo).Current.ProfileCount
+            .RowCount = oMet(CaseNo).Current.ProfileCount + 1
             .Columns(0).FillWeight = 100 / .ColumnCount
             .Columns(1).FillWeight = 100 / .ColumnCount
             .Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
@@ -133,6 +132,6 @@ ErrHandler:
     Private Sub txtNumProfilePts_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtNumProfilePts.TextChanged
         If Val(txtNumProfilePts.Text) <= 0 Then txtNumProfilePts.Text = "1"
         NumPoints = Val(txtNumProfilePts.Text)
-        grdProfile.RowCount = NumPoints
+        grdProfile.RowCount = NumPoints + 1
     End Sub
 End Class

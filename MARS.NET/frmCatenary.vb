@@ -233,7 +233,7 @@ Friend Class frmCatenary
             .tabMoorLines.SelectedIndex = cboLines.SelectedIndex
             Call .UpdateCat()
         End With
-        'cboSegment.SelectedIndex = 0
+        cboSegment.SelectedIndex = 0
 
     End Sub
 
@@ -308,7 +308,7 @@ Friend Class frmCatenary
 
         If JustEnter Then
             JustEnter = False
-            ExistingTxt = grdDetails.Rows(1).Cells(cboSegmentColIndex).Value
+            ExistingTxt = grdDetails.Rows(2).Cells(cboSegmentColIndex).Value
             VB6.SetCancel(btnOK, False)
         End If
 
@@ -457,7 +457,16 @@ Friend Class frmCatenary
         FileClose(FileNumRes)
 
     End Sub
+    Private Sub grdDetails_CellValueChanged(ByVal sender As Object,
+    ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles grdDetails.CellValueChanged
 
+        If e.ColumnIndex = 2 And e.RowIndex = 2 Then
+            UpdateCellEI()
+        End If
+
+
+    End Sub
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         ' Call the base class

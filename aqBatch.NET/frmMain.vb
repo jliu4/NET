@@ -1386,13 +1386,13 @@ ErrHandler:
 
             If Index = 0 Then ' damage Most Critical lines
                 With grdMatrix
-                    For R = 0 To .RowCount - 1
+                    For R = 0 To .RowCount - 2
                         .Rows(R).Cells(10).Value = CStr(L1Tmax(R + 1))
                     Next
                 End With
             Else ' damage 2nd loaded lines
                 With grdMatrix
-                    For R = 0 To .RowCount - 1
+                    For R = 0 To .RowCount - 2
                         .Rows(R).Cells(10).Value = CStr(L2Tmax(R + 1))
                     Next
 
@@ -1468,7 +1468,7 @@ ErrHandler:
 		With grdMatrix
             ' all non-empty fields  - now update objects
             ' ASSUME .FixedCols=1
-            For R = 0 To .RowCount - 1
+            For R = 0 To .RowCount - 2
                 oMet(R + 1).Wind.Velocity = .Rows(R).Cells(0).Value * Knots2Ftps
                 oMet(R + 1).Wind.Heading = .Rows(R).Cells(1).Value
                 oMet(R + 1).Wave.SpectrumName = .Rows(R).Cells(2).Value
@@ -1505,7 +1505,7 @@ ErrHandler:
         Dim R As Short
 		With grdMatrix
             ' all non-empty fields  - now update objects
-            For R = 0 To .RowCount - 1
+            For R = 0 To .RowCount - 2
                 BreakLine(R + 1) = CShort(.Rows(R).Cells(10).Value)
             Next R
         End With
@@ -1604,9 +1604,9 @@ ReadError:
         Dim R As Short
 
         With grdMatrix
-            .RowCount = NumCases
+            .RowCount = NumCases + 1
 
-            For R = 0 To NumCases - 1
+            For R = 0 To .RowCount - 2
                 ' load data
 
                 .Rows(R).HeaderCell.Value = (R + 1).ToString
