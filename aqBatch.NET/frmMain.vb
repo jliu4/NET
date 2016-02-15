@@ -1051,17 +1051,17 @@ ErrHandler:
                 .txtNumProfilePts.Text = (grdMatrix.CurrentRow.Cells(9).Value)
             End With
             VB6.ShowForm(frmCurrProfile, 1, Me)
-        ElseIf (e.columnIndex = 2 Or e.ColumnIndex = 13) And e.RowIndex > -1 Then
-            Dim cell As New DataGridViewComboBoxCell()
+        ElseIf e.columnIndex = 2 And e.RowIndex > -1 Then
+            If grdMatrix(e.ColumnIndex, e.RowIndex) IsNot seaType Then
+                grdMatrix(e.ColumnIndex, e.RowIndex) = seaType
+                seaType.Value = "PSMZ"
+            End If
 
-            cell.MaxDropDownItems = 3
-            cell.FlatStyle = FlatStyle.Flat
-            cell.Items.Add("PSMZ")
-            cell.Items.Add("JOHN")
-            cell.Items.Add("GAUS")
-
-            cell.Value = "PSMZ"
-            grdMatrix(e.ColumnIndex, e.RowIndex) = cell
+        ElseIf e.ColumnIndex = 13 And e.RowIndex > -1 Then
+            If grdMatrix(e.ColumnIndex, e.RowIndex) IsNot SwellType Then
+                grdMatrix(e.ColumnIndex, e.RowIndex) = SwellType
+                SwellType.Value = "PSMZ"
+            End If
 
         End If
     End Sub

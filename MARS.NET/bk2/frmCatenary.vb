@@ -14,35 +14,34 @@ Friend Class frmCatenary
 
     Private LUnit, FrcUnit As String
     Private LFactor, FrcFactor As Single
-    Private cboSegment As New DataGridViewComboBoxCell
-    Private txtCell As New TextBox
+    Private cboSegment As New ComboBox()
     Private cboSegmentColIndex As Short = 2
     Private drawingX As Short
     Private drawingY As Short
-    Private curRow As Short
-    Private curCol As Short
-
 
     ' form load and unload
-    '  Private Sub grdDetails_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles grdDetails.KeyPress
+    Private Sub grdDetails_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles grdDetails.KeyDown
 
-    'If e.KeyChar = ChrW(Keys.Return) Then
+        If e.KeyCode = Keys.Enter Then
 
-    'Dim curRow As Short = grdDetails.CurrentCell.RowIndex
-    'Dim curCol As Short = grdDetails.CurrentCell.ColumnIndex
-    'If (curRow = 2 + 1 Or curRow = 3 + 1) And curCol = 1 Then
-    '           LastChanged = curRow - 2
-    '           btnRefresh_Click()
-    'End If
-    '       e.Handled = True
-    'End If
+            Dim curRow As Short = grdDetails.CurrentCell.RowIndex
+            Dim curCol As Short = grdDetails.CurrentCell.ColumnIndex
+            If (curRow = 1 Or curRow = 2) And curCol = 1 Then
 
-    'If e.KeyChar = ChrW(Keys.Escape) Then
-    '      MsgBox(grdDetails.CurrentCell.ColumnIndex & "-" & grdDetails.CurrentCell.RowIndex)
-    'End If
-    '  End Sub
-
+                LastChanged = curRow
+                btnRefresh_Click()
+            End If
+            e.Handled = True
+        End If
+    End Sub
     Private Sub frmCatenary_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+
+        cboSegment.Visible = False
+
+        grdDetails.Controls.Add(cboSegment)
+
+        AddHandler grdDetails.ColumnHeaderMouseClick, AddressOf grdDetails_ColumnHeaderMouseClick
+        '     AddHandler grdDetails.CurrentCellChanged, AddressOf grdDetails_CurrentCellChanged
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -88,34 +87,36 @@ Friend Class frmCatenary
                 .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
                 .Columns(c).HeaderText = LengthLabel(c)
             Next
+
         End With
 
         With grdDetails
             .ColumnCount = 4
-            .RowCount = 6
+            .RowCount = 5
 
             For c = 0 To .ColumnCount - 1
                 .Columns(c).FillWeight = 100 / .ColumnCount
                 .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-                If c = 2 Then
-                    If .Rows(0).Cells(2) IsNot cboSegment Then
-                        .Rows(0).Cells(2) = cboSegment
-                    End If
-                Else
-                    .Rows(0).Cells(c).Value = DetailLabelC(c)
-                End If
+                .Columns(c).HeaderText = DetailLabelC(c)
+
             Next c
 
-            For r = 1 To .RowCount - 1
-                .Rows(r).Cells(0).Value = DetailLabelR(r)
+            For r = 0 To .RowCount - 1
+                .Rows(r).Cells(0).Value = DetailLabelR(r + 1)
             Next
-            .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegLength(1) * LFactor, "0.0")
-            .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(1) * 0.001 * FrcFactor, "0.00")
-            .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegTension(1) * 0.001 * System.Math.Cos(SegAngle(1)) * FrcFactor, "0.00")
-            .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegAngle(1) * Radians2Degrees, "0.00")
-            .Rows(5).Cells(cboSegmentColIndex).Value = Format(SegPosition(1) * LFactor, "0.0")
+            .Rows(0).Cells(cboSegmentColIndex).Value = Format(SegLength(1) * LFactor, "0.0")
+
+            .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegTension(1) * 0.001 * FrcFactor, "0.00")
+
+            .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(1) * 0.001 * System.Math.Cos(SegAngle(1)) * FrcFactor, "0.00")
+
+            .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegAngle(1) * Radians2Degrees, "0.00")
+
+            .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegPosition(1) * LFactor, "0.0")
         End With
+
         JustEnter = True
+
     End Sub
 
     ' buttons
@@ -144,13 +145,13 @@ Friend Class frmCatenary
 
         Select Case LastChanged
             Case 1
-                TopTension = grdDetails.Rows(2).Cells(1).Value * 1000.0# / FrcFactor
+                TopTension = grdDetails.Rows(1).Cells(1).Value * 1000.0# / FrcFactor
 
                 Call frmMoorLines.UpdateCat(TopTension)
                 frmMoorLines.ChangeInCat = True
             Case 2
                 TopTension = 0#
-                HorForce = grdDetails.Rows(3).Cells(1).Value * 1000.0# / FrcFactor
+                HorForce = grdDetails.Rows(2).Cells(1).Value * 1000.0# / FrcFactor
 
                 Call frmMoorLines.UpdateCat(TopTension, HorForce)
                 frmMoorLines.ChangeInCat = True
@@ -167,10 +168,88 @@ Friend Class frmCatenary
             Call .UpdateCat()
         End With
 
+        cboSegment.SelectedIndex = 0
+
+    End Sub
+
+    Private Sub grdDetails_ColumnHeaderMouseClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs)
+
+        If e.ColumnIndex = cboSegmentColIndex Then
+
+            ' get the dispaly area
+
+            Dim rec As Rectangle = grdDetails.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
+
+            cboSegment.Location = rec.Location
+            cboSegment.Width = rec.Width
+            cboSegment.Height = rec.Height
+            cboSegment.Visible = True
+
+            ' set the ComboBox selected item when it showed
+
+            cboSegment.SelectedItem = grdDetails.Columns(e.ColumnIndex).HeaderText
+
+            AddHandler cboSegment.SelectedIndexChanged, AddressOf cmb_SelectedIndexChanged
+        End If
+    End Sub
+
+    Private Sub cboSegment_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+        If cboSegment.SelectedItem.ToString() <> "" Then
+
+            Dim colName As String = cboSegment.SelectedItem.ToString()
+
+            grdDetails.Columns.RemoveAt(cboSegmentColIndex)
+
+            Dim dgvtxt As New DataGridViewTextBoxColumn()
+
+            dgvtxt.HeaderText = colName
+            dgvtxt.Name = colName
+            dgvtxt.DataPropertyName = colName
+            dgvtxt.SortMode = DataGridViewColumnSortMode.NotSortable
+
+            grdDetails.Columns.Insert(cboSegmentColIndex, dgvtxt)
+
+            If IsMetricUnit Then
+                LFactor = 0.3048 ' ft -> m
+                FrcFactor = 4.448222 ' kips -> KN
+                LUnit = " (m)"
+                FrcUnit = " (KN)"
+            Else
+                LFactor = 1
+                FrcFactor = 1
+                LUnit = " (ft)"
+                FrcUnit = " (kips)"
+            End If
+
+            Dim ID As Short
+            ID = cboSegment.SelectedIndex
+            With grdDetails
+                .Rows(0).Cells(cboSegmentColIndex).Value = Format(SegLength(ID + 1) * LFactor, "0.0")
+                .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
+                .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * System.Math.Cos(SegAngle(ID + 1)) * FrcFactor, "0.00")
+                .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegAngle(ID + 1) * Radians2Degrees, "0.00")
+                .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegPosition(ID + 1) * LFactor, "0.0")
+            End With
+
+        End If
+    End Sub
+
+    Private Sub grdDetails_CurrentCellChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+        cboSegment.Visible = False
+
+        If cboSegment IsNot Nothing Then
+
+            RemoveHandler cboSegment.SelectedIndexChanged, AddressOf cmb_SelectedIndexChanged
+
+        End If
+
     End Sub
 
 
-    Private Sub cboSegment_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+    Private Sub cboSegment_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As DataGridViewCellMouseEventArgs)
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -183,16 +262,24 @@ Friend Class frmCatenary
             LUnit = " (ft)"
             FrcUnit = " (kips)"
         End If
+        Dim ID As Short
 
-        Dim ID As Short = DirectCast(sender, ComboBox).SelectedIndex
+        ID = cboSegment.SelectedIndex
         With grdDetails
-            .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegLength(ID + 1) * LFactor, "0.0")
-            .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
-            .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * System.Math.Cos(SegAngle(ID + 1)) * FrcFactor, "0.00")
-            .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegAngle(ID + 1) * Radians2Degrees, "0.00")
-            .Rows(5).Cells(cboSegmentColIndex).Value = Format(SegPosition(ID + 1) * LFactor, "0.0")
+
+            .Rows(0).Cells(cboSegmentColIndex).Value = Format(SegLength(ID + 1) * LFactor, "0.0")
+
+            .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * FrcFactor, "0.00")
+
+            .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(ID + 1) * 0.001 * System.Math.Cos(SegAngle(ID + 1)) * FrcFactor, "0.00")
+
+            .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegAngle(ID + 1) * Radians2Degrees, "0.00")
+
+            .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegPosition(ID + 1) * LFactor, "0.0")
         End With
+
     End Sub
+
 
     ' update data
 
@@ -205,6 +292,9 @@ Friend Class frmCatenary
         Dim Color(3) As Integer
         Dim X(MaxNumSubSeg + 1) As Single
         Dim Y(MaxNumSubSeg + 1) As Single
+        'Me.AutoScaleBaseSize = New System.Drawing.Size(16, 10)
+        'Me.ClientSize = New System.Drawing.Size(drawingX, drawingY)
+        'Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -245,9 +335,10 @@ Friend Class frmCatenary
         With cboSegment
             .Items.Clear()
             For i = 1 To NumSegment
+                If i > MaxNumSeg Then Exit For
                 .Items.Add("Segment " & i)
-            Next i
-            .Value = .Items(SegMaxTen - 1).ToString
+            Next
+            .SelectedIndex = SegMaxTen - 1
         End With
 
         With grdLength
@@ -261,25 +352,23 @@ Friend Class frmCatenary
         End With
 
         With grdDetails
+            .RowCount = 5
             .ColumnCount = 4
-            .RowCount = 6
-            .Rows(1).Cells(1).Value = Format(TopLength * LFactor, "0.0")
-            .Rows(2).Cells(1).Value = Format(TopTension * 0.001 * FrcFactor, "0.00")
-            .Rows(3).Cells(1).Value = Format(TopTension * 0.001 * System.Math.Cos(TopAngle) * FrcFactor, "0.00")
-            .Rows(4).Cells(1).Value = Format(TopAngle * Radians2Degrees, "0.00")
-            .Rows(5).Cells(1).Value = Format(TopPosition * LFactor, "0.0")
-            .Rows(2).Cells(3).Value = Format(BottomTension * 0.001 * FrcFactor, "0.00")
-            .Rows(3).Cells(3).Value = Format(BottomTension * 0.001 * System.Math.Cos(BottomAngle) * FrcFactor, "0.00")
-            .Rows(4).Cells(3).Value = Format(BottomAngle * Radians2Degrees, "0.00")
+            .Rows(0).Cells(1).Value = Format(TopLength * LFactor, "0.0")
 
-            'JLIU TODO sould trig the select index call
-            With grdDetails
-                .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegLength(SegMaxTen) * LFactor, "0.0")
-                .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(SegMaxTen) * 0.001 * FrcFactor, "0.00")
-                .Rows(3).Cells(cboSegmentColIndex).Value = Format(SegTension(SegMaxTen) * 0.001 * System.Math.Cos(SegAngle(SegMaxTen)) * FrcFactor, "0.00")
-                .Rows(4).Cells(cboSegmentColIndex).Value = Format(SegAngle(SegMaxTen) * Radians2Degrees, "0.00")
-                .Rows(5).Cells(cboSegmentColIndex).Value = Format(SegPosition(SegMaxTen) * LFactor, "0.0")
-            End With
+            .Rows(1).Cells(1).Value = Format(TopTension * 0.001 * FrcFactor, "0.00")
+
+            .Rows(2).Cells(1).Value = Format(TopTension * 0.001 * System.Math.Cos(TopAngle) * FrcFactor, "0.00")
+
+            .Rows(3).Cells(1).Value = Format(TopAngle * Radians2Degrees, "0.00")
+
+            .Rows(4).Cells(1).Value = Format(TopPosition * LFactor, "0.0")
+
+            .Rows(1).Cells(3).Value = Format(BottomTension * 0.001 * FrcFactor, "0.00")
+
+            .Rows(2).Cells(3).Value = Format(BottomTension * 0.001 * System.Math.Cos(BottomAngle) * FrcFactor, "0.00")
+
+            .Rows(3).Cells(3).Value = Format(BottomAngle * Radians2Degrees, "0.00")
 
         End With
 
@@ -316,70 +405,5 @@ Friend Class frmCatenary
         FileClose(FileNumRes)
 
     End Sub
-
-    Private Sub grdDetails_EditingControlShowing(ByVal sender As System.Object, ByVal e As DataGridViewEditingControlShowingEventArgs) _
-        Handles grdDetails.EditingControlShowing
-        Dim curRow, curCol As Short
-        curRow = grdDetails.CurrentCell.RowIndex
-        curCol = grdDetails.CurrentCell.ColumnIndex
-        If curRow = 0 And curCol = 2 Then
-            Dim comboBox As ComboBox = TryCast(e.Control, ComboBox)
-            AddHandler comboBox.SelectedIndexChanged, AddressOf cboSegment_SelectedIndexChanged
-        End If
-
-    End Sub
-
-    Private Sub grdDetails_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdDetails.CurrentCellChanged
-
-        Try
-            curCol = grdDetails.CurrentCell.ColumnIndex
-            curRow = grdDetails.CurrentCell.RowIndex
-            If curCol = 1 And (curRow = 2 Or curRow = 3) Then
-                If JustEnter Then
-                    JustEnter = False
-                    ExistingTxt = grdDetails.CurrentCell.Value
-                    VB6.SetCancel(btnOK, False)
-                End If
-            End If
-        Catch ex As Exception
-            ' curcol = 0
-            ' curRow = 0
-        End Try
-    End Sub
-
-    Private Sub grdDetails_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdDetails.KeyDown
-        If curCol = 1 And (curRow = 2 Or curRow = 3) Then
-
-            Select Case e.KeyCode
-
-                Case Keys.Enter
-                    grdDetails.ClearSelection()
-                    Try
-
-                        grdDetails.CurrentCell = grdDetails(curCol, curRow)
-
-                        LastChanged = curRow - 1
-                        btnRefresh_Click()
-
-                    Catch ex As Exception
-                        Exit Try
-                    End Try
-                Case Keys.Escape
-                    grdDetails.ClearSelection()
-                    Try
-
-                        grdDetails.CurrentCell = grdDetails(curCol, curRow)
-
-                        grdDetails.CurrentCell.Value = ExistingTxt
-
-                    Catch ex As Exception
-                        Exit Try
-                    End Try
-
-
-            End Select
-        End If
-    End Sub
-
 
 End Class

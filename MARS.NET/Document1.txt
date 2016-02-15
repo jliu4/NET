@@ -1,0 +1,144 @@
+
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        ' Call the base class
+        MyBase.OnPaint(e)
+
+        ' Do your painting
+        ' e.Graphics.DrawLine(Pens.Black, 16, 16, drawingX, drawingY)
+    End Sub
+
+ Protected Overrides Function ProcessDialogKey(keyData As Keys) As Boolean
+ 
+         Dim Key As Keys = keyData And Keys.KeyCode
+         Dim curRow, curCol As Short
+         curRow = grdDetails.CurrentCell.RowIndex
+         curCol = grdDetails.CurrentCell.ColumnIndex
+         If (curRow = 1 Or curRow = 2) And curCol = 1 Then
+             Select Case Keys.KeyCode
+                 'Case Keys.Enter
+             '    ExistingTxt = grdDetails.CurrentCell.Value
+             'VB6.SetCancel(btnOK, False)
+                 Case Keys.Return
+                     LastChanged = grdDetails.CurrentCell.RowIndex
+                     btnRefresh_Click()
+ 
+                 Case Keys.Escape
+                     grdDetails.CurrentCell.Value = ExistingTxt
+ 
+             End Select
+         End If
+         Return MyBase.ProcessDialogKey(keyData)
+     End Function
+ 
+ 
+ 
+ 
+     Private Sub txtTopTen_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs)
+         Dim KeyCode As Short = eventArgs.KeyCode
+         Dim Shift As Short = eventArgs.KeyData \ &H10000
+ 
+         If JustEnter Then
+             JustEnter = False
+             ExistingTxt = grdDetails.Rows(1).Cells(cboSegmentColIndex).Value
+             VB6.SetCancel(btnOK, False)
+         End If
+ 
+         Select Case KeyCode
+ 
+             Case System.Windows.Forms.Keys.Return
+                 LastChanged = 1
+                 btnRefresh_Click()
+ 
+             Case System.Windows.Forms.Keys.Escape
+                 grdDetails.Rows(1).Cells(cboSegmentColIndex).Value = ExistingTxt
+ 
+         End Select
+ 
+     End Sub
+ 
+     Private Sub txtTopTen_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+ 
+         JustEnter = True
+         VB6.SetCancel(btnOK, True)
+         LastChanged = 1
+ 
+     End Sub
+ 
+     Private Sub txtHorFrc_KeyDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyEventArgs)
+         Dim KeyCode As Short = eventArgs.KeyCode
+         Dim Shift As Short = eventArgs.KeyData \ &H10000
+ 
+         If JustEnter Then
+             JustEnter = False
+             ExistingTxt = grdDetails.Rows(2).Cells(cboSegmentColIndex).Value
+             VB6.SetCancel(btnOK, False)
+         End If
+ 
+         Select Case KeyCode
+ 
+             Case System.Windows.Forms.Keys.Return
+                 LastChanged = 2
+                 btnRefresh_Click()
+ 
+             Case System.Windows.Forms.Keys.Escape
+                 grdDetails.Rows(2).Cells(cboSegmentColIndex).Value = ExistingTxt
+ 
+         End Select
+ 
+     End Sub
+ 
+     Private Sub txtHorFrc_Leave(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+ 
+         JustEnter = True
+         VB6.SetCancel(btnOK, True)
+         LastChanged = 2
+ 
+    End Sub
+ 
+ Private Sub grdDetails_EditingControlShowing(ByVal sender As System.Object, ByVal e As DataGridViewEditingControlShowingEventArgs) Handles grdDetails.EditingControlShowing
+        Dim curRow, curCol As Short
+        curRow = grdDetails.CurrentCell.RowIndex
+        curCol = grdDetails.CurrentCell.ColumnIndex
+        If (curRow = 1 Or curRow = 2) And curCol = 1 Then
+
+            'AddHandler() e.Control.KeyDown, AddressOf cell_KeyDown
+        End If
+    End Sub
+    Private Sub grddetail_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdDetails.KeyDown
+
+        Dim curCol As Integer = grdDetails.CurrentCell.ColumnIndex
+        Dim curRow As Integer = grdDetails.CurrentCell.RowIndex
+        If (curRow = 1 Or curRow = 2) And curCol = 1 Then
+            Select Case e.KeyCode
+                'Case Keys.Enter
+            '    ExistingTxt = grdDetails.CurrentCell.Value
+            'VB6.SetCancel(btnOK, False)
+                Case Keys.Return
+                    LastChanged = grdDetails.CurrentCell.RowIndex
+                    btnRefresh_Click()
+
+                Case Keys.Escape
+                    grdDetails.CurrentCell.Value = ExistingTxt
+
+            End Select
+
+        End If
+
+    End Sub
+
+    Private Sub cell_KeyDown(sender As Object, e As KeyEventArgs)
+        ExistingTxt = grdDetails.CurrentCell.Value
+        Select Case e.KeyCode
+                'Case Keys.Enter
+            '    ExistingTxt = grdDetails.CurrentCell.Value
+            'VB6.SetCancel(btnOK, False)
+            Case Keys.Return
+                LastChanged = grdDetails.CurrentCell.RowIndex
+                btnRefresh_Click()
+
+                Case Keys.Escape
+                    grdDetails.CurrentCell.Value = ExistingTxt
+
+            End Select
+
+    End Sub

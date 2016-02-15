@@ -113,8 +113,8 @@ Friend Class Metocean
         mclsWave.SpectrumName = Fields(3)
         mclsWave.Height = Fields(4)
         mclsWave.Period = Fields(5)
-        If InStr(mclsWave.SpectrumName, "JONH") > 0 Then
-            mclsWave.gamma = Fields(6)
+        ' If InStr(mclsWave.SpectrumName, "JONH") > 0 Then
+        mclsWave.gamma = Fields(6)
             mclsWave.Heading = Fields(7)
             mclsCurrent.Heading = Fields(8)
             mclsCurrent.SurfaceVel = CDbl(Fields(9))
@@ -126,22 +126,22 @@ Friend Class Metocean
                 mclsWave.SwellGamma = Fields(14)
                 mclsWave.SwellHeading = Fields(15)
             End If
-        Else
-            mclsWave.gamma = 0
-            mclsWave.Heading = Fields(6)
-            mclsCurrent.Heading = Fields(7)
-            mclsCurrent.SurfaceVel = CDbl(Fields(8))
-            TmpCount = CShort(Fields(9))
+        '  Else
+        'mclsWave.gamma = 0
+        'mclsWave.Heading = Fields(6)
+        'mclsCurrent.Heading = Fields(7)
+        'mclsCurrent.SurfaceVel = CDbl(Fields(8))
+        'TmpCount = CShort(Fields(9))
 
-            If UDEF Then
-                mclsWave.SwellHeight = Fields(10)
-                mclsWave.SwellPeriod = Fields(11)
-                mclsWave.SwellSpectrumName = Fields(12)
-                mclsWave.SwellGamma = Fields(13)
-                mclsWave.SwellHeading = Fields(14)
+        'If UDEF Then
+        'mclsWave.SwellHeight = Fields(10)
+        'mclsWave.SwellPeriod = Fields(11)
+        'mclsWave.SwellSpectrumName = Fields(12)
+        'mclsWave.SwellGamma = Fields(13)
+        'mclsWave.SwellHeading = Fields(14)
 
-            End If
-        End If
+        'End If
+        'End If
 
         If TmpCount > 1 Then
             aline = LineInput(fnum) ' discard header WD Vel
