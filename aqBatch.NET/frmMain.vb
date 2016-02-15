@@ -790,7 +790,7 @@ ErrHandler:
             ElseIf InStr(s, "JONH") Then
                 PrintLine(OutFile, "    13XSWL JONH", TAB(42), CStr(Format(Val(oMet(Index).Wave.Swellgamma), "#0.0000")), TAB(52), CStr(Format(Val(CStr(oMet(Index).Wave.SwellHeight * Flen)), "#0.0")), TAB(62), CStr(Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading), "#0.0")))
             Else ' PSMZ
-                PrintLine(OutFile, "    13XSWL PSMZ", TAB(42), CStr(Format(Val(oMet(Index).Wave.Swellgamma), "#0.0000")), TAB(52), CStr(Format(Val(CStr(oMet(Index).Wave.SwellHeight * Flen)), "#0.0")), TAB(62), CStr(Format(Val(CStr(2 * 3.1415926 / oMet(Index).Wave.SwellPeriod)), "#0.000")), TAB(72), CStr(VB6.Format(Val(oMet(Index).Wave.SwellHeading), "#0.0")))
+                PrintLine(OutFile, "    13XSWL PSMZ", TAB(42), CStr(Format(Val(CStr(oMet(Index).Wave.SwellHeight * Flen)), "#0.0")), TAB(52), CStr(Format(oMet(Index).Wave.SwellPeriod / 1.4, "#0.000")))
             End If
 			Else
 				PrintLine(OutFile, "    13RADS")
