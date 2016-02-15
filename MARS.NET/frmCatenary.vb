@@ -24,23 +24,6 @@ Friend Class frmCatenary
 
 
     ' form load and unload
-    '  Private Sub grdDetails_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles grdDetails.KeyPress
-
-    'If e.KeyChar = ChrW(Keys.Return) Then
-
-    'Dim curRow As Short = grdDetails.CurrentCell.RowIndex
-    'Dim curCol As Short = grdDetails.CurrentCell.ColumnIndex
-    'If (curRow = 2 + 1 Or curRow = 3 + 1) And curCol = 1 Then
-    '           LastChanged = curRow - 2
-    '           btnRefresh_Click()
-    'End If
-    '       e.Handled = True
-    'End If
-
-    'If e.KeyChar = ChrW(Keys.Escape) Then
-    '      MsgBox(grdDetails.CurrentCell.ColumnIndex & "-" & grdDetails.CurrentCell.RowIndex)
-    'End If
-    '  End Sub
 
     Private Sub frmCatenary_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 
@@ -168,7 +151,6 @@ Friend Class frmCatenary
         End With
 
     End Sub
-
 
     Private Sub cboSegment_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -328,13 +310,13 @@ Friend Class frmCatenary
         End If
 
     End Sub
-
-    Private Sub grdDetails_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdDetails.CurrentCellChanged
+    Private Sub grdDetails_CellbeginEdit(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdDetails.CellBeginEdit
 
         Try
             curCol = grdDetails.CurrentCell.ColumnIndex
             curRow = grdDetails.CurrentCell.RowIndex
             If curCol = 1 And (curRow = 2 Or curRow = 3) Then
+
                 If JustEnter Then
                     JustEnter = False
                     ExistingTxt = grdDetails.CurrentCell.Value
@@ -342,44 +324,24 @@ Friend Class frmCatenary
                 End If
             End If
         Catch ex As Exception
-            ' curcol = 0
-            ' curRow = 0
+
         End Try
     End Sub
+    Private Sub grdDetails_CellEndEdit(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdDetails.CellEndEdit
 
-    Private Sub grdDetails_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grdDetails.KeyDown
-        If curCol = 1 And (curRow = 2 Or curRow = 3) Then
+        Try
+            curCol = grdDetails.CurrentCell.ColumnIndex
+            curRow = grdDetails.CurrentCell.RowIndex
 
-            Select Case e.KeyCode
+            If curCol = 1 And (curRow = 2 Or curRow = 3) Then
 
-                Case Keys.Enter
-                    grdDetails.ClearSelection()
-                    Try
+                LastChanged = curRow - 1
+                btnRefresh_Click()
 
-                        grdDetails.CurrentCell = grdDetails(curCol, curRow)
+            End If
+        Catch ex As Exception
 
-                        LastChanged = curRow - 1
-                        btnRefresh_Click()
-
-                    Catch ex As Exception
-                        Exit Try
-                    End Try
-                Case Keys.Escape
-                    grdDetails.ClearSelection()
-                    Try
-
-                        grdDetails.CurrentCell = grdDetails(curCol, curRow)
-
-                        grdDetails.CurrentCell.Value = ExistingTxt
-
-                    Catch ex As Exception
-                        Exit Try
-                    End Try
-
-
-            End Select
-        End If
+        End Try
     End Sub
-
 
 End Class
