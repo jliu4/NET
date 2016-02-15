@@ -15,13 +15,12 @@ Friend Class frmCatenary
     Private LUnit, FrcUnit As String
     Private LFactor, FrcFactor As Single
     Private cboSegment As New DataGridViewComboBoxCell
-    Private txtCell As New TextBox
+
     Private cboSegmentColIndex As Short = 2
     Private drawingX As Short
     Private drawingY As Short
     Private curRow As Short
     Private curCol As Short
-
 
     ' form load and unload
 
@@ -254,7 +253,7 @@ Friend Class frmCatenary
             .Rows(3).Cells(3).Value = Format(BottomTension * 0.001 * System.Math.Cos(BottomAngle) * FrcFactor, "0.00")
             .Rows(4).Cells(3).Value = Format(BottomAngle * Radians2Degrees, "0.00")
 
-            'JLIU TODO sould trig the select index call
+            'JLIU TODO should trig the select index call
             With grdDetails
                 .Rows(1).Cells(cboSegmentColIndex).Value = Format(SegLength(SegMaxTen) * LFactor, "0.0")
                 .Rows(2).Cells(cboSegmentColIndex).Value = Format(SegTension(SegMaxTen) * 0.001 * FrcFactor, "0.00")
@@ -301,15 +300,17 @@ Friend Class frmCatenary
 
     Private Sub grdDetails_EditingControlShowing(ByVal sender As System.Object, ByVal e As DataGridViewEditingControlShowingEventArgs) _
         Handles grdDetails.EditingControlShowing
-        Dim curRow, curCol As Short
+
         curRow = grdDetails.CurrentCell.RowIndex
         curCol = grdDetails.CurrentCell.ColumnIndex
+
         If curRow = 0 And curCol = 2 Then
             Dim comboBox As ComboBox = TryCast(e.Control, ComboBox)
             AddHandler comboBox.SelectedIndexChanged, AddressOf cboSegment_SelectedIndexChanged
         End If
 
     End Sub
+
     Private Sub grdDetails_CellbeginEdit(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdDetails.CellBeginEdit
 
         Try
@@ -319,7 +320,7 @@ Friend Class frmCatenary
 
                 If JustEnter Then
                     JustEnter = False
-                    ExistingTxt = grdDetails.CurrentCell.Value
+                    'ExistingTxt = grdDetails.CurrentCell.Value
                     VB6.SetCancel(btnOK, False)
                 End If
             End If
@@ -327,6 +328,7 @@ Friend Class frmCatenary
 
         End Try
     End Sub
+
     Private Sub grdDetails_CellEndEdit(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdDetails.CellEndEdit
 
         Try

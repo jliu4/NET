@@ -889,7 +889,7 @@ ErrHandler:
 		btnSilentRun.Enabled = False
 		
 		SetDefaults()
-        InitiateCombo()
+        '   InitiateCombo()
 
         InitiateGrid()
 		
@@ -1051,18 +1051,17 @@ ErrHandler:
                 .txtNumProfilePts.Text = (grdMatrix.CurrentRow.Cells(9).Value)
             End With
             VB6.ShowForm(frmCurrProfile, 1, Me)
-        ElseIf e.columnIndex = 2 And e.RowIndex > -1 Then
-            If grdMatrix(e.ColumnIndex, e.RowIndex) IsNot seaType Then
-                grdMatrix(e.ColumnIndex, e.RowIndex) = seaType
-                seaType.Value = "PSMZ"
-            End If
+        ElseIf (e.columnIndex = 2 Or e.ColumnIndex = 13) And e.RowIndex > -1 Then
+            Dim cell As New DataGridViewComboBoxCell()
 
-        ElseIf e.ColumnIndex = 13 And e.RowIndex > -1 Then
-            If grdMatrix(e.ColumnIndex, e.RowIndex) IsNot SwellType Then
-                grdMatrix(e.ColumnIndex, e.RowIndex) = SwellType
-                SwellType.Value = "PSMZ"
-            End If
+            cell.Items.Clear()
+            cell.MaxDropDownItems = 3
 
+            cell.Items.Add("PSMZ")
+            cell.Items.Add("JONH")
+            cell.Items.Add("GAUS")
+            grdMatrix(e.ColumnIndex, e.RowIndex) = cell
+            cell.Value = "PSMZ"
         End If
     End Sub
 
@@ -1071,26 +1070,31 @@ ErrHandler:
         JustEnterCell = True
     End Sub
 
-    Private Sub grdMatrix_LeaveCell(ByVal eventSender As System.Object, ByVal e As DataGridViewCellEventArgs) _
-        Handles grdMatrix.CellLeave
+    Private Sub grdMatrix_CellEndEdit(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdMatrix.CellEndEdit
 
-        If Not CheckingGrid Then
-            With grdMatrix
-                If (e.ColumnIndex = 2 Or e.ColumnIndex = 13) Then
-
+        Try
+            Dim curCol As Short
+            curCol = grdMatrix.CurrentCell.ColumnIndex
+            If curCol = 2 Or curCol = 13 Then
+                If grdMatrix.CurrentCell.Value = "PSMZ" Then
+                    If curCol = 2 Then
+                        grdMatrix.Rows(grdMatrix.CurrentCell.RowIndex).Cells(5).Value = 0.0
+                    Else
+                        grdMatrix.Rows(grdMatrix.CurrentCell.RowIndex).Cells(14).Value = 0.0
+                    End If
                 End If
+            End If
 
-                If Trim(.Text) <> ExistingTxt And .ColumnCount > 1 Then
-                    If Trim(.Text) <> "" Then .Text = CheckData(.Text)
-                    Changed = True
-                End If
-            End With
-        End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 
-    Private Sub grdMatrix_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
-        grdMatrix_LeaveCell(grdMatrix, New System.EventArgs())
-    End Sub
+
+
+    ' Private Sub grdMatrix_Scroll(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
+    '    grdMatrix_LeaveCell(grdMatrix, New System.EventArgs())
+    'End Sub
 
     Private Sub lblTargetDir_Change(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblTargetDir.TextChanged
         'TODO JLIU, never got called.
@@ -1198,32 +1202,10 @@ ErrHandler:
         CheckRunButtonState()
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
-    ' operation subroutines
-    ' initiating
-
-    Private Sub InitiateCombo()
-
-        seaType.Items.Clear()
-        seaType.MaxDropDownItems = 3
-
-        seaType.Items.Add("PSMZ")
-        seaType.Items.Add("JONH")
-        seaType.Items.Add("GAUS")
-
-        'seaType.v = "PSMZ"
-        SwellType.Items.Clear()
-        SwellType.MaxDropDownItems = 3
-        SwellType.Items.Add("PSMZ")
-        SwellType.Items.Add("JONH")
-        SwellType.Items.Add("GAUS")
-
-        'SwellType.Value = "PSMZ"
-    End Sub
-
     '
     'Handle the DataGridView.CellPainting event to draw text for each header cell
 
-    Private Sub DataGridView1_CellPainting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles grdMatrix.CellPainting
+    Private Sub grdMatrix_CellPainting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles grdMatrix.CellPainting
         If e.RowIndex = -1 AndAlso e.ColumnIndex > -1 Then
             e.PaintBackground(e.CellBounds, False)
             Dim r2 As Rectangle = e.CellBounds
@@ -1232,7 +1214,7 @@ ErrHandler:
             r2.Height = e.CellBounds.Height / 3
             e.PaintContent(r2)
             e.Handled = True
-            End If
+        End If
     End Sub
 
     'Handle the DataGridView.Paint event to draw "merged" header cells

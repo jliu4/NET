@@ -619,7 +619,7 @@
         Me.grdMatrix.Location = New System.Drawing.Point(18, 271)
         Me.grdMatrix.Name = "grdMatrix"
         Me.grdMatrix.RowHeadersWidth = 48
-        Me.grdMatrix.Size = New System.Drawing.Size(1005, 229)
+        Me.grdMatrix.Size = New System.Drawing.Size(1027, 229)
         Me.grdMatrix.TabIndex = 42
         '
         'frmMain
@@ -627,7 +627,7 @@
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1031, 544)
+        Me.ClientSize = New System.Drawing.Size(1069, 544)
         Me.Controls.Add(Me.grdMatrix)
         Me.Controls.Add(Me.chkUDEF)
         Me.Controls.Add(Me.chkCollinear)
