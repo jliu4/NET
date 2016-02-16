@@ -14,7 +14,6 @@ Friend Class frmCatenary
 
     Private LUnit, FrcUnit As String
     Private LFactor, FrcFactor As Single
-    Private cboSegment As New DataGridViewComboBoxCell
 
     Private cboSegmentColIndex As Short = 2
     Private drawingX As Short
@@ -79,11 +78,8 @@ Friend Class frmCatenary
             For c = 0 To .ColumnCount - 1
                 .Columns(c).FillWeight = 100 / .ColumnCount
                 .Columns(c).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-                If c = 2 Then
-                    If .Rows(0).Cells(2) IsNot cboSegment Then
-                        .Rows(0).Cells(2) = cboSegment
-                    End If
-                Else
+                If c <> 2 Then
+
                     .Rows(0).Cells(c).Value = DetailLabelC(c)
                 End If
             Next c
@@ -223,13 +219,6 @@ Friend Class frmCatenary
         End With
         InitiateCbo = False
 
-        With cboSegment
-            .Items.Clear()
-            For i = 1 To NumSegment
-                .Items.Add("Segment " & i)
-            Next i
-            .Value = .Items(SegMaxTen - 1).ToString
-        End With
 
         With grdLength
             .RowCount = 1
@@ -263,6 +252,17 @@ Friend Class frmCatenary
             End With
 
         End With
+        Dim cell As New DataGridViewComboBoxCell()
+
+        cell.Items.Clear()
+        cell.MaxDropDownItems = NumSegment
+
+
+        For i = 1 To NumSegment
+            cell.Items.Add("Segment " & i)
+        Next i
+        grdDetails(cboSegmentColIndex, 0) = cell
+        cell.Value = cell.Items(SegMaxTen - 1).ToString
 
         Xmax = CatX(1) * LFactor
         Xmin = 0#
@@ -300,9 +300,6 @@ Friend Class frmCatenary
 
     Private Sub grdDetails_EditingControlShowing(ByVal sender As System.Object, ByVal e As DataGridViewEditingControlShowingEventArgs) _
         Handles grdDetails.EditingControlShowing
-
-        curRow = grdDetails.CurrentCell.RowIndex
-        curCol = grdDetails.CurrentCell.ColumnIndex
 
         If curRow = 0 And curCol = 2 Then
             Dim comboBox As ComboBox = TryCast(e.Control, ComboBox)
@@ -345,5 +342,6 @@ Friend Class frmCatenary
 
         End Try
     End Sub
+
 
 End Class
