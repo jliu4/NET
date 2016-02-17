@@ -452,7 +452,7 @@ Friend Class frmCatenary
 
     End Sub
 
-    'Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+    'Call drawAxis0(Xmax, Xmin, Ymax, Ymin, "Distance" & LUnit, "Depth" & LUnit, picCatenary, False)
     'Dim g As Graphics = e.Graphics
     'Dim pn As New Pen(Color.Blue)
     ''' Rectangle rect = new Rectangle(50, 50, 200, 100); 

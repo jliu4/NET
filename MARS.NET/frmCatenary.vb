@@ -8,16 +8,16 @@ Friend Class frmCatenary
     Private SegAngle(MaxNumSeg) As Single
     Private SegPosition(MaxNumSeg) As Single
     Private JustEnter As Boolean
-	Private ExistingTxt As String
-	Private LastChanged As Short '1 - topten; 2 - horfrc
+    'Private ExistingTxt As String
+    Private LastChanged As Short '1 - topten; 2 - horfrc
 	Private InitiateCbo As Boolean
 
     Private LUnit, FrcUnit As String
     Private LFactor, FrcFactor As Single
 
     Private cboSegmentColIndex As Short = 2
-    Private drawingX As Short
-    Private drawingY As Short
+    Private Xmin, Xmax, Ymax, Ymin As Single 'TODO JLIU moved here
+
     Private curRow As Short
     Private curCol As Short
 
@@ -57,9 +57,6 @@ Friend Class frmCatenary
         DetailLabelR(3) = "Hor. Force" & FrcUnit
         DetailLabelR(4) = "Angle (deg)"
         DetailLabelR(5) = "Depth at Top" & LUnit
-        'set drawing area for the form
-        drawingX = Me.Size.Width
-        drawingY = grdLength.Location.Y - 10
 
         With grdLength
             .RowCount = 1
@@ -178,10 +175,10 @@ Friend Class frmCatenary
         Dim SegMaxTen, i, j, NumPoints As Short
         Dim MaxTen As Single
 
-        Dim Xmin, Xmax, Ymax, Ymin As Single
         Dim Color(3) As Integer
         Dim X(MaxNumSubSeg + 1) As Single
         Dim Y(MaxNumSubSeg + 1) As Single
+        'set drawing area for the form
 
         If IsMetricUnit Then
             LFactor = 0.3048 ' ft -> m
@@ -218,7 +215,6 @@ Friend Class frmCatenary
             .SelectedIndex = CurLine - 1
         End With
         InitiateCbo = False
-
 
         With grdLength
             .RowCount = 1
@@ -257,7 +253,6 @@ Friend Class frmCatenary
         cell.Items.Clear()
         cell.MaxDropDownItems = NumSegment
 
-
         For i = 1 To NumSegment
             cell.Items.Add("Segment " & i)
         Next i
@@ -268,13 +263,16 @@ Friend Class frmCatenary
         Xmin = 0#
         Ymax = Max(CatY(1) * LFactor, 0#)
         Ymin = 0#
-        Color(1) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue)
-        Color(2) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
-        Color(3) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Lime)
-        Color(0) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow)
+        'Color(1) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue)
+        'Color(2) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
+        'Color(3) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Lime)
+        'Color(0) = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow)
         'find drawing scales
 
-        'Call drawAxis0(Xmax, Xmin, Ymax, Ymin, "Distance" & LUnit, "Depth" & LUnit, picCatenary, False)
+        Dim bm As Bitmap = New Bitmap(picCatenary.ClientSize.Width, picCatenary.ClientSize.Height)
+        Dim gr As Graphics = Graphics.FromImage(bm)
+
+        Call drawAxis(picCatenary.ClientSize.Width, picCatenary.ClientSize.Height, Xmax, Xmin, Ymax, Ymin, "Distance" & LUnit, "Depth" & LUnit, gr, False)
 
         FileClose(FileNumRes)
         '    Open MarsDir & "catenary.dat" For Output Access Write As #FileNumRes
@@ -291,8 +289,10 @@ Friend Class frmCatenary
                     WriteLine(FileNumRes, X(j), Y(j))
                 End If
             Next j
-            'Call DrawLine(X, Y, NumPoints, 0, picCatenary)
+            Call DrawLine(X, Y, NumPoints, (i Mod 4), gr)
+
         Next i
+        picCatenary.Image = bm
 
         FileClose(FileNumRes)
 
@@ -342,6 +342,5 @@ Friend Class frmCatenary
 
         End Try
     End Sub
-
 
 End Class

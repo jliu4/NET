@@ -35,8 +35,10 @@
         Me.btnOK = New System.Windows.Forms.Button()
         Me.grdLength = New System.Windows.Forms.DataGridView()
         Me.grdDetails = New System.Windows.Forms.DataGridView()
+        Me.picCatenary = New System.Windows.Forms.PictureBox()
         CType(Me.grdLength, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdDetails, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picCatenary, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cboLines
@@ -132,6 +134,14 @@
         Me.grdDetails.Size = New System.Drawing.Size(369, 145)
         Me.grdDetails.TabIndex = 9
         '
+        'picCatenary
+        '
+        Me.picCatenary.Location = New System.Drawing.Point(16, 12)
+        Me.picCatenary.Name = "picCatenary"
+        Me.picCatenary.Size = New System.Drawing.Size(369, 181)
+        Me.picCatenary.TabIndex = 10
+        Me.picCatenary.TabStop = False
+        '
         'frmCatenary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -139,6 +149,7 @@
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.CancelButton = Me.btnOK
         Me.ClientSize = New System.Drawing.Size(401, 469)
+        Me.Controls.Add(Me.picCatenary)
         Me.Controls.Add(Me.grdDetails)
         Me.Controls.Add(Me.grdLength)
         Me.Controls.Add(Me.cboLines)
@@ -154,11 +165,13 @@
         Me.Text = " Catenary"
         CType(Me.grdLength, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdDetails, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picCatenary, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents grdLength As DataGridView
     Friend WithEvents grdDetails As DataGridView
+    Friend WithEvents picCatenary As PictureBox
 #End Region
 End Class

@@ -19,6 +19,136 @@ Module modPlot
     Private NorthLetter(NumNorthLetterPoints, 2) As Single
     Private CurrentX As Single, CurrentY As Single
 
+    'variables used in graph construction and scaling -
+    'scaleFactorX- scale multiplying coefficient used to draw new value diapason on X-axis:
+    Public scaleFactorX As Single
+    'scaleFactorY - scale multiplying coefficient used to draw new value diapason on Y-axis:
+    Public scaleFactorY As Single
+
+    'Distance from the borders of the graph in twips:
+    Public BORDER_SPACE As Single
+
+    'Variables to be used in calculations drawing the coordinates and graph:
+    Public Xmin As Single
+    Public Ymin As Single
+    Public Xmax As Single
+    Public Ymax As Single
+
+    Public betweenMarkersX As Single
+    Public betweenMarkersY As Single
+
+
+    Function XinPoints(ByRef x As Single) As Single
+
+        'Get "XinPoints" value of a given X coordinate:
+        XinPoints = BORDER_SPACE + (-Xmin * betweenMarkersX) + (x * betweenMarkersX)
+
+    End Function
+
+    Function YinPoints(ByRef y As Single) As Single
+
+        'Get "YinPoints" value of a given Y coordinate:
+        YinPoints = BORDER_SPACE + (-Ymin * betweenMarkersY) + (y * betweenMarkersY)
+
+    End Function
+
+
+    Public Sub drawAxis0(ByVal Xmax As Single, ByVal Xmin As Single, ByVal Ymax As Single, ByVal Ymin As Single, ByVal XLabel As String, ByVal YLabel As String, ByRef pic As System.Windows.Forms.PictureBox, Optional ByRef ReverseY As Boolean = True)
+        Dim I As Single 'Loop variable
+        Dim x As Single 'x value
+        Dim y As Single 'x value
+
+        Dim PictureWidth As Single 'Width of coordinate system field
+        Dim PictureHeight As Single 'Height of coordinate system field
+
+        ' Create font and brush for digits on coordinates.
+        Dim drawFont As New Font("Arial", 7)
+        Dim drawBrush As New SolidBrush(Color.Black)
+        ' Create pen.
+        Dim blackPen As New Pen(Color.Black, 0.1)
+        Dim bluePen As New Pen(Color.Blue, 1.5)
+        Dim gr As Graphics = pic.CreateGraphics
+
+        BORDER_SPACE = 300 / 20 'Distance from the Picture Box borders (can be selected)
+        gr.PageUnit = GraphicsUnit.Point
+        PictureWidth = pic.Width
+        PictureHeight = pic.Height
+        'The space between markers Width = width of the PictureBox (from Properties)/X scale selected :
+        betweenMarkersX = PictureWidth / (Xmax - Xmin)
+        'The space between markers Height = height of the PictureBox (from Properties)/Y scale selected :
+        betweenMarkersY = PictureHeight / (Ymax - Ymin)
+
+        For I = Xmin To Xmax ' X-axis
+
+            'that change depending on the scale. This is done to show X-axis labels for any XY-scale:
+
+            gr.DrawString(Trim(Str(I)), drawFont, drawBrush, XinPoints(I) - 2 * Len(Trim(Str(I))), YinPoints(0) + 100)
+
+        Next
+
+        'Draw labels and markers at at Y-axis:
+        For I = Ymin To Ymax ' Y-Axis
+
+            'Labels at Y-axis(1,2,..n):
+            '
+            'Print labels on Y-axis -
+            '(different from VB 6.0)
+            '   In normal situation we would print simply "scaleFactorY * I" scaled values, but initial plane of coordinate system
+            '   is reversed (mirrored) with line drawn in II quadrant(along negative Y-axis). 
+            '   If i place this code after the coordinates returned to standard I quadrant, the labels on the X/Y axes will be shown reversed.
+            '   Thus, to have a normaly positioned labels (numbers, time stamps),
+            '   we print labels on initial coordinates but reverse the way they are output on Y-axis "(-scaleFactorY * I + Ymax + Ymin)"
+            '   where the number on Y-axis increases/decreases with the value calculated (changing scale): 
+            gr.DrawString(Trim(Str(-scaleFactorY * I + Ymax + Ymin)), drawFont, drawBrush, XinPoints(scaleFactorX) - 10 - 2 * Len(Trim(Str(scaleFactorY * I))), YinPoints(scaleFactorY * I) - 12)
+
+        Next
+
+
+        'Construct X-axis and Y-axis:
+        'X axis:
+
+        ' use DrawLine(Pen, Single, Single, Single, Single) Draws a line connecting the two points specified by the coordinate pairs. 
+        gr.DrawLine(blackPen, XinPoints(Xmin) - 100, YinPoints(0), XinPoints(Xmax) + 5, YinPoints(0))
+
+        'Add arrow to X+ axis:
+        gr.DrawLine(blackPen, XinPoints(Xmax) + 5, YinPoints(0), XinPoints(Xmax), YinPoints(0) - 5)
+        gr.DrawLine(blackPen, XinPoints(Xmax) + 5, YinPoints(0), XinPoints(Xmax), YinPoints(0) + 5)
+
+        'Y axis:
+        gr.DrawLine(blackPen, XinPoints(scaleFactorX), YinPoints(Ymin), XinPoints(scaleFactorX), YinPoints(Ymax))
+
+        'Add arrow to Y+ axis:
+        gr.DrawLine(blackPen, XinPoints(scaleFactorX), YinPoints(Ymax), XinPoints(scaleFactorX) - 5, YinPoints(Ymax) - 5)
+        gr.DrawLine(blackPen, XinPoints(scaleFactorX), YinPoints(Ymax), XinPoints(scaleFactorX) + 5, YinPoints(Ymax) - 5)
+
+        'Gridlines at X-axis:
+        For I = Xmin To Xmax ' X-axis
+            'Create a dashed line:
+            blackPen.DashStyle = Drawing2D.DashStyle.Dash
+
+            If I <> 0 Then
+                ' Gridlines vertical:
+                gr.DrawLine(blackPen, XinPoints(I), YinPoints(Ymin), XinPoints(I), YinPoints(Ymax))
+
+            End If
+        Next
+
+        'Draw gridlines, labels and markers at Y-axis:
+        For I = Ymin To Ymax ' Y-Axis
+
+            'Create a dashed line:
+            blackPen.DashStyle = Drawing2D.DashStyle.Dash
+
+            If I <> 0 Then
+                ' Gridlines horizontal:
+                gr.DrawLine(blackPen, XinPoints(Xmin), YinPoints(scaleFactorY * I), XinPoints(Xmax), YinPoints(scaleFactorY * I))
+
+            End If
+
+        Next
+
+    End Sub
+
     Public Structure DrawScale
         Dim Left, Top, Width, Height As Single
     End Structure
@@ -169,9 +299,7 @@ Module modPlot
         gr.TranslateTransform(-left_x, -top_y)
     End Sub
 
-
-
-    Public Sub drawAxis(ByVal Xmax As Single, ByVal Xmin As Single, ByVal Ymax As Single, ByVal Ymin As Single, ByVal XLabel As String, ByVal YLabel As String, ByRef pic As System.Windows.Forms.PictureBox, Optional ByRef ReverseY As Boolean = True)
+    Public Sub drawAxis(ByVal pictureWidth As Integer, ByVal pictureHeight As Integer, ByVal Xmax As Single, ByVal Xmin As Single, ByVal Ymax As Single, ByVal Ymin As Single, ByVal XLabel As String, ByVal YLabel As String, ByRef gr As Graphics, Optional ByRef ReverseY As Boolean = True)
         Dim deltaX, deltaY As Single
         Dim LabelX, LabelY As Single
         Dim NumTix As Short
@@ -179,34 +307,15 @@ Module modPlot
         Dim TicLab As String
         Dim TicY As Single
         Dim i As Short
-        Dim BoxWidth, BoxHeight As Integer
+        'Dim pictureWidth, pictureHeight As Integer
         Dim CurrentX, CurrentY As Single
 
-        BoxWidth = pic.ClientSize.Width
-        BoxHeight = pic.ClientSize.Height
-
-        Dim bm As Bitmap = New Bitmap(BoxWidth, BoxHeight)
-        Dim gr As Graphics = Graphics.FromImage(bm)
-        'Dim pen As New System.Drawing.Pen(Color.Black, 2)
         Dim pen As New Pen(Brushes.Black, 2)
 
-        ' Coordinate system is reversed:  Bottom-Left-Hand corner is (0,0);
-        ' Positive X is to the right, Positive Y is up
-        '
-        ' Initialize (in case this is a replot)
-        ' Set the font
-        'pic.Font = VB6.FontChangeName(pic.Font, "Arial")
-        'pic.Font = VB6.FontChangeSize(pic.Font, 8)
+        Dim f As New Font("Microsoft Sans Serif", 8.25 * Xmax / pictureWidth)
 
-        'pic.Font = VB6.FontChangeBold(pic.Font, True)
-        Dim strF As SizeF
-        Dim f As New System.Drawing.Font("Arial", 10)
+        gr.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAliasGridFit
 
-        strF = gr.MeasureString(XLabel, f)
-        CurrentX = LabelX - strF.Width / 2
-        'f = New System.Drawing.Font(f, FontStyle.Bold)
-        ' Set the line weight
-        ' Establish the scale
         deltaX = Xmax - Xmin
 
         If deltaX < 0.01 Then deltaX = 0.01
@@ -215,71 +324,45 @@ Module modPlot
 
         If deltaY < 0.01 Then deltaY = 0.01
 
-        SetScale(gr, BoxWidth, BoxHeight, -MarginPercent * deltaX + Xmin, deltaX * (1 + 2 * MarginPercent), -MarginPercent * deltaY + Ymin, deltaY * (1 + 2 * MarginPercent))
-        'pic.Width = deltaX * (1 + 2 * MarginPercent)
+        SetScale(gr, pictureWidth, pictureHeight, -MarginPercent * deltaX + Xmin, deltaX * (1 + 2 * MarginPercent), -2 * MarginPercent * deltaY + Ymin, deltaY * (1 + 2 * MarginPercent))
+        'Dim f As New Font("Arial", 8 * Xmax / pictureWidth)
 
-        'pic.Height = deltaY * (1 + 2 * MarginPercent)
-        ' Establish the origin
-        'UPGRADE_ISSUE: PictureBox property picGraph.ScaleLeft was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        'pic.Left = -MarginPercent * deltaX + Xmin
-        'UPGRADE_ISSUE: PictureBox property picGraph.ScaleTop was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        'pic.Top = -MarginPercent * deltaY + Ymin
-        ' Draw the axes
-        'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-
+        'Dim f As New Font("Arial", 8)
         gr.DrawLine(pen, Xmin, Ymax, Xmax, Ymax)
-        'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         gr.DrawLine(pen, Xmin, Ymin, Xmin, Ymax)
+
         ' Label them; X-label goes below the axis
         LabelX = Xmin + deltaX / 2
         LabelY = Ymax
-        'UPGRADE_ISSUE: PictureBox method picGraph.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        'UPGRADE_ISSUE: PictureBox property picGraph.CurrentX was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         CurrentX = LabelX - gr.MeasureString(XLabel, f).Width / 2
-        'UPGRADE_ISSUE: PictureBox method picGraph.TextHeight was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        'UPGRADE_ISSUE: PictureBox property picGraph.CurrentY was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         CurrentY = LabelY + gr.MeasureString(XLabel, f).Height * 1.1
-        gr.DrawString(XLabel, pic.Font, pen.Brush, CurrentX, CurrentY)
-        'UPGRADE_ISSUE: PictureBox method picGraph.Print was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        gr.DrawString(XLabel, f, pen.Brush, CurrentX, CurrentY)
 
         ' Y-label goes at the top of the y-axis
         LabelX = Xmin
         LabelY = Ymin
-        'UPGRADE_ISSUE: PictureBox method picGraph.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        'UPGRADE_ISSUE: PictureBox property picGraph.CurrentX was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         CurrentX = LabelX - gr.MeasureString(YLabel, f).Width / 2
-        'UPGRADE_ISSUE: PictureBox method picGraph.TextHeight was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        'UPGRADE_ISSUE: PictureBox property picGraph.CurrentY was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        CurrentY = LabelY - gr.MeasureString(YLabel, f).Height * 1.8
-        'UPGRADE_ISSUE: PictureBox method picGraph.Print was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+        CurrentY = LabelY - gr.MeasureString(YLabel, f).Height * 2.1
         gr.DrawString(YLabel, f, pen.Brush, CurrentX, CurrentY)
-        ' Set parameters
-        'UPGRADE_ISSUE: PictureBox property picGraph.DrawWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-        pen = New System.Drawing.Pen(Color.Black, 1)
-        ' pic.Font = VB6.FontChangeBold(pic.Font, False)
+        pen = New Pen(Color.Black, 1)
 
         ' Establish tick marks and label them; X-axis first
-        'UPGRADE_ISSUE: PictureBox method picGraph.TextHeight was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         TicY = Ymax + gr.MeasureString("0.123456789", f).Height * 0.1
         NumTix = Divisions(Xmin, Xmax)
         TicInt = deltaX / NumTix
         ' Close "the box"
+        pen.DashStyle = Drawing2D.DashStyle.Dash
         For i = 0 To NumTix
             TicLoc = i * TicInt + Xmin
             If TicLoc > Xmax Then TicLoc = Xmax
-            'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+
             gr.DrawLine(pen, TicLoc, Ymin, TicLoc, Ymax)
             TicLab = Format(TicLoc, "#####")
-            'UPGRADE_ISSUE: PictureBox method picGraph.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-            'UPGRADE_ISSUE: PictureBox property picGraph.CurrentX was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             CurrentX = TicLoc - gr.MeasureString(TicLab, f).Width / 2
-            'UPGRADE_ISSUE: PictureBox property picGraph.CurrentY was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             CurrentY = TicY
-            'UPGRADE_ISSUE: PictureBox method picGraph.Print was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             gr.DrawString(TicLab, f, pen.Brush, CurrentX, CurrentY)
         Next i
         ' Y-axis
-        'UPGRADE_ISSUE: PictureBox method picGraph.TextHeight was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         TicY = gr.MeasureString("0.123456789", f).Height / 2
         NumTix = Divisions(Ymin, Ymax)
         TicInt = deltaY / NumTix
@@ -287,55 +370,50 @@ Module modPlot
             '        TicLoc = (NumTix - i) * TicInt + Ymin
             TicLoc = i * TicInt + Ymin
             If TicLoc > Ymax Then TicLoc = Ymax
-            'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             gr.DrawLine(pen, Xmin, TicLoc, Xmax, TicLoc)
             If ReverseY Then
                 TicLab = Format(Ymax - TicLoc + Ymin, "####0")
             Else
                 TicLab = Format(TicLoc, "####0")
             End If
-            'UPGRADE_ISSUE: PictureBox method picGraph.TextWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
-            'UPGRADE_ISSUE: PictureBox property picGraph.CurrentX was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             CurrentX = Xmin - gr.MeasureString(TicLab, f).Width * 1.1
-            'UPGRADE_ISSUE: PictureBox property picGraph.CurrentY was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             CurrentY = TicLoc - TicY
-            'UPGRADE_ISSUE: PictureBox method picGraph.Print was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             gr.DrawString(TicLab, f, pen.Brush, CurrentX, CurrentY)
         Next i
-        'UPGRADE_ISSUE: PictureBox property picGraph.AutoRedraw was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 
-        pic.Image = bm
+        'pic.Image = bm
 
     End Sub
 
     ' line (like mooring lines)
-    Public Sub DrawLine(ByRef X() As Single, ByRef Y() As Single, ByRef NumPoints As Short, ByRef LineColor As Integer, ByRef pic As System.Windows.Forms.PictureBox)
+    Public Sub DrawLine(ByRef X() As Single, ByRef Y() As Single, ByRef NumPoints As Short, ByRef LineColor As Integer, ByRef gr As Graphics)
 
         Dim i As Short
-        Dim BoxWidth, BoxHeight As Integer
+        Dim pen As Pen
+        pen = New Pen(Color.Black, 2)
+        Select Case LineColor
+            Case 1
+                pen = New Pen(Color.Blue, 2)
+            Case 2
+                pen = New Pen(Color.Red, 2)
+            Case 3
+                pen = New Pen(Color.Lime, 2)
+            Case 0
+                pen = New Pen(Color.Yellow, 2)
+        End Select
 
-        BoxWidth = pic.ClientSize.Width
-        BoxHeight = pic.ClientSize.Height
 
-
-        Dim bm As Bitmap = New Bitmap(BoxWidth, BoxHeight)
-        Dim gr As Graphics = Graphics.FromImage(bm)
-        Dim pen As New System.Drawing.Pen(Color.Black, 2)
-
-
+        'Dim pen As New System.Drawing.Pen(Color.Black, 2)
+        'Dim As New System.Drawing.Pen(Color.LineColor, 2)
         If NumPoints = 1 Then
             '       If there's only one point, plot it
-            'UPGRADE_ISSUE: PictureBox method picGraph.PSet was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             ' bm.PixSet(X(1), Y(1))
         Else
             '       More than one point is a line
-            'UPGRADE_ISSUE: PictureBox property picGraph.DrawWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
 
             For i = 1 To NumPoints - 1
-                'UPGRADE_ISSUE: PictureBox method picGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
                 gr.DrawLine(pen, X(i), Y(i), X(i + 1), Y(i + 1))
             Next i
-            'UPGRADE_ISSUE: PictureBox property picGraph.DrawWidth was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
             pen = New System.Drawing.Pen(Color.Black, 1)
         End If
 
