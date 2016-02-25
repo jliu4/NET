@@ -1,0 +1,2235 @@
+
+  Public Const xlNone As Long = -4142
+  Public Const xlAutomatic As Long = -4105
+  Public Const xlContinuous As Long = 1
+  Public Const xlThin As Long = 2
+  Public Const xlDiagonalDown As Long = 5
+  Public Const xlDiagonalUp As Long = 6
+  Public Const xlEdgeLeft As Long = 7
+  Public Const xlEdgeTop As Long = 8
+  Public Const xlEdgeBottom As Long = 9
+  Public Const xlEdgeRight As Long = 10
+  Public Const xlInsideHorizontal As Long = 12
+  Public Const xlInsideVertical As Long = 11
+
+
+
+Sub CopyStrenghDetail()
+  Dim fp, fn(20), rg, ft(20), ft1(20), ft2(20), model(20), sn(3) As String
+  Dim picases(25), ncopy As Integer
+  Dim xEx, ws, c1, c2
+  Dim hiddenrow, endrow_screen, endrow_intact_dmg, si, fi, cases, endrow, pi, ci, a, b, extra, j, tensionrow, i As Integer
+  fp = "D:\Work\Chevron\14-634 Sanha FPSO Mooring\Strengh\"
+  fp = "D:\Work\Chevron\14-646 Sanha FPSO Mooring Replacement\Strength\87mm Chain\"
+  fp = "D:\Work\Chevron\14-646 Sanha FPSO Mooring Replacement\Strength\76.2mm Chain\"
+  Set xEx = CreateObject("Excel.Application")
+  On Error GoTo ErrMsg
+  fn(1) = "FPSO\Strength_Full.xlsx"
+  fn(2) = "FPSO\Strength_Ballast.xlsx"
+  fn(3) = "FPSO+LPG\reduced3.4\Strength_FPSOfull_LPGball.xlsx"
+  fn(4) = "FPSO+LPG\reduced3.4\Strength_FPSOball_LPGfull.xlsx"
+  fn(5) = "FPSO + Butane\Strength_FPSOfull_Butane.xlsx"
+  fn(6) = "FPSO + Butane\Strength_FPSOball_Butane.xlsx"
+  fn(7) = "FPSO + LPG-Tandem\Strength_FPSOfull_LPGball_tandem.xlsx"
+  fn(8) = "FPSO + LPG-Tandem\Strength_FPSOball_LPGfull_tandem.xlsx"
+  fn(9) = "FPSO\Strength_Full.xlsx"
+  fn(10) = "FPSO\Strength_Ballast.xlsx"
+  fn(11) = "FPSO+LPG+TUG\Strength_FPSOfull_LPGball+tug.xlsx"
+  fn(12) = "FPSO+LPG+TUG\Strength_FPSOball_LPGfull+tug.xlsx"
+  fn(13) = "FPSO+LPG+TUG\reduced3\Strength_FPSOfull_LPGball+tug.xlsx"
+  fn(14) = "FPSO+LPG+TUG\reduced3\Strength_FPSOball_LPGfull+tug.xlsx"
+  ft1(1) = "FPSO Full, "
+  ft1(2) = "FPSO Ballast, "
+  ft1(3) = "FPSO Full + LPG Ballast, side-by-side, Reduced, "
+  ft1(4) = "FPSO Ballast + LPG Full, side-by-side, Reduced, "
+  ft1(5) = "FPSO Full + Butane Tanker, "
+  ft1(6) = "FPSO Ballast + Butane Tanker, "
+  ft1(7) = "FPSO Full + LPG Ballast -Tandem, "
+  ft1(8) = "FPSO Ballast + LPG Full -Tandem, "
+  ft1(9) = "FPSO Full, "
+  ft1(10) = "FPSO Ballast, "
+  ft1(11) = "FPSO Full + LPG Ballast + TUG, "
+  ft1(12) = "FPSO Ballast + LPG Full + TUG, "
+  ft1(13) = "FPSO Full + LPG Ballast, side-by-side + TUG, Reduced, "
+  ft1(14) = "FPSO Ballast + LPG Full, side-by-side + TUG, Reduced, "
+ 'need to yellow highlight the intact cases.
+  sn(1) = "Results2"
+  sn(2) = sn(1) & "_Intact"
+  sn(3) = sn(1) & "_Dmg"
+  cases = 38
+  model(1) = "Screening"
+  model(2) = "Intact"
+  model(3) = "Damaged"
+  hiddenrow = 24
+  endrow_screen = 29
+  endrow_intact_dmg = 32
+  For fi = 3 To 4
+    If fi > 6 And fi < 9 Then
+        hiddenrow = 30
+    End If
+    If fi > 8 And fi < 11 Then
+      hiddenrow = 27
+    End If
+    Set ws = xEx.WorkBooks.Open(fp & fn(fi))
+    For si = 1 To 3
+        If fi > 6 And fi < 9 Then
+            If si = 1 Then
+                endrow = 35
+            Else
+                endrow = 39
+            End If
+        ElseIf fi > 8 And fi < 11 Then
+            If si = 1 Then
+                endrow = 32
+            Else
+                endrow = 35
+            End If
+        Else
+            If si = 1 Then
+                endrow = 29
+            Else
+                endrow = 32
+            End If
+        End If
+        Selection.InsertBreak Type:=wdPageBreak
+        Selection.TypeText Text:=ft1(fi) & model(si)
+        Selection.Style = ActiveDocument.Styles("Heading 1")
+        Selection.TypeParagraph
+        Selection.Style = ActiveDocument.Styles("Normal")
+        ws.sheets(sn(si)).Select
+        If si = 1 Then
+            pi = 0
+            For ci = 1 To cases
+               a = ws.ActiveSheet.Cells(1, ci + 2).Interior.ColorIndex
+               b = ws.ActiveSheet.Cells(1, ci + 2)
+               If a = 6 Then
+                    pi = pi + 1
+                    picases(pi) = ws.ActiveSheet.Cells(1, ci + 2)
+             
+               End If
+            Next ci
+       End If
+       extra = pi Mod 4
+       If si = 2 Then
+         For ci = 1 To pi
+            ws.ActiveSheet.Cells(1, (ci - 1) * 5 + 3).Select
+            xEx.ActiveCell.FormulaR1C1 = picases(ci)
+            For j = 1 To 5
+             xEx.ActiveSheet.Cells(2, (ci - 1) * 5 + 2 + j).Select
+             xEx.ActiveCell.FormulaR1C1 = j
+             Next j
+            Next ci
+        End If
+        If si = 3 Then
+           For ci = 1 To pi
+             ws.ActiveSheet.Cells(1, (ci - 1) * 10 + 3).Select
+             xEx.ActiveCell.FormulaR1C1 = picases(ci) & "-d1"
+             ws.ActiveSheet.Cells(1, (ci - 1) * 10 + 3 + 5).Select
+             xEx.ActiveCell.FormulaR1C1 = picases(ci) & "-d2"
+           For j = 1 To 5
+             c1 = (ci - 1) * 10 + 2 + j
+             xEx.ActiveSheet.Cells(2, (ci - 1) * 10 + 2 + j).Select
+             xEx.ActiveCell.FormulaR1C1 = j
+             c2 = (ci - 1) * 10 + 7 + j
+             xEx.ActiveSheet.Cells(2, (ci - 1) * 10 + 7 + j).Select
+             xEx.ActiveCell.FormulaR1C1 = j
+           Next j
+           Next ci
+        End If
+        ws.ActiveSheet.Columns(2).Select
+        xEx.Selection.ColumnWidth = 20
+        If fi > 6 And fi < 9 Then
+         xEx.Selection.ColumnWidth = 25
+        End If
+        ws.ActiveSheet.Columns("C:EL").Select
+        xEx.Selection.ColumnWidth = 5
+        ws.ActiveSheet.Range("B1").Select
+        xEx.ActiveCell.FormulaR1C1 = "Case"
+        xEx.Selection.Font.Bold = True
+        ws.ActiveSheet.Range("B2").Select
+        xEx.ActiveCell.FormulaR1C1 = "Seeds"
+        xEx.Selection.Font.Bold = True
+        ws.ActiveSheet.Rows("3:14").Select
+        xEx.Selection.NumberFormat = "0.0"
+        ws.ActiveSheet.Rows("5").Select
+        xEx.Selection.NumberFormat = "0"
+        ws.ActiveSheet.Rows("15:29").Select
+        xEx.Selection.NumberFormat = "0"
+        ws.ActiveSheet.Rows(endrow_screen).Select
+        xEx.Selection.NumberFormat = "0.0"
+        ws.ActiveSheet.Rows(endrow).Select
+        xEx.Selection.NumberFormat = "0.0"
+        ws.ActiveSheet.Range("B3").Select
+        xEx.ActiveCell.FormulaR1C1 = "Mean X (m)"
+        xEx.Selection.Font.Bold = False
+        ws.ActiveSheet.Range("B4").Select
+        xEx.ActiveCell.FormulaR1C1 = "Mean Y (m)"
+        xEx.Selection.Font.Bold = False
+        ws.ActiveSheet.Range("B5").Select
+        xEx.ActiveCell.FormulaR1C1 = "Mean Heading (deg)"
+        xEx.Selection.Font.Bold = False
+        ws.ActiveSheet.Range("B6").Select
+        xEx.ActiveCell.FormulaR1C1 = "Min X (m)"
+        xEx.Selection.Font.Bold = False
+        ws.ActiveSheet.Range("B7").Select
+        xEx.ActiveCell.FormulaR1C1 = "Min Y (m)"
+        xEx.Selection.Font.Bold = False
+        ws.ActiveSheet.Range("B9").Select
+        xEx.ActiveCell.FormulaR1C1 = "Max X (m)"
+        xEx.Selection.Font.Bold = False
+        ws.ActiveSheet.Range("B10").Select
+        xEx.ActiveCell.FormulaR1C1 = "Max Y (m)"
+        xEx.Selection.Font.Bold = False
+        ws.ActiveSheet.Range("B14").Select
+        xEx.ActiveCell.FormulaR1C1 = "Heading Std Dev.(deg)"
+        xEx.Selection.Font.Bold = False
+        If fi < 7 Or fi > 10 Then
+          tensionrow = 14
+        ElseIf fi > 6 And fi < 9 Then
+         tensionrow = 18
+         ws.ActiveSheet.Range("B15").Select
+         xEx.ActiveCell.FormulaR1C1 = "Mean Heading of Tanker (deg)"
+         xEx.Selection.Font.Bold = False
+         ws.ActiveSheet.Rows("16:17").Select
+         xEx.Selection.EntireRow.Hidden = True
+         ws.ActiveSheet.Range("B18").Select
+         xEx.ActiveCell.FormulaR1C1 = "Heading Std Dev. of Tanker (deg)"
+         xEx.Selection.Font.Bold = False
+         ws.ActiveSheet.Range("B28").Select
+         xEx.ActiveCell.FormulaR1C1 = "Hawser Tension @ FPSO (kN)"
+         xEx.Selection.Font.Bold = False
+         ws.ActiveSheet.Range("B29").Select
+         xEx.ActiveCell.FormulaR1C1 = "Hawser Tension @ Tanker (kN)"
+         xEx.Selection.Font.Bold = False
+         ws.ActiveSheet.Rows("28:29").Select
+         xEx.Selection.NumberFormat = "0"
+       ElseIf fi > 8 And fi < 11 Then
+         tensionrow = 14
+         ws.ActiveSheet.Range("B24").Select
+         xEx.ActiveCell.FormulaR1C1 = "Mean Turret Tension(kN)"
+         xEx.Selection.Font.Bold = False
+         ws.ActiveSheet.Range("B25").Select
+         xEx.ActiveCell.FormulaR1C1 = "Max Turret Tension (kN)"
+         xEx.Selection.Font.Bold = False
+         ws.ActiveSheet.Range("B26").Select
+         xEx.ActiveCell.FormulaR1C1 = "Turret Ten. Std Dev.(kN)"
+         xEx.Selection.Font.Bold = False
+         ws.ActiveSheet.Rows("24:26").Select
+         xEx.Selection.NumberFormat = "0"
+       End If
+       For i = 1 To 9
+         ws.ActiveSheet.Range("B" & tensionrow + i).Select
+         xEx.ActiveCell.FormulaR1C1 = "Max Tension Line " & i & " (kN)"
+         xEx.Selection.Font.Bold = False
+         If si = 3 Then
+           For j = 1 To pi * 10
+             If InStr(ws.ActiveSheet.Cells(tensionrow + i, 2 + j), "E") Then
+               ws.ActiveSheet.Cells(tensionrow + i, 2 + j).Select
+               xEx.ActiveCell.FormulaR1C1 = ""
+             End If
+           Next j
+         End If
+       Next i
+       rg = hiddenrow & ":" & endrow - 1
+       ws.ActiveSheet.Rows(rg).Select
+       xEx.Selection.EntireRow.Hidden = True
+       rg = "B" & endrow
+       ws.ActiveSheet.Range(rg).Select
+       xEx.ActiveCell.FormulaR1C1 = "Max Offset (m)"
+       xEx.Selection.Font.Bold = False
+       ws.ActiveSheet.Rows(8).Select
+       xEx.Selection.EntireRow.Hidden = True
+       ws.ActiveSheet.Rows("11:13").Select
+       xEx.Selection.EntireRow.Hidden = True
+       If (si = 1) Then
+         ws.ActiveSheet.Rows(2).Select
+         xEx.Selection.EntireRow.Hidden = True
+         rg = "B1:EL" & endrow
+         ws.ActiveSheet.Range(rg).Select
+         xEx.Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+         xEx.Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+       With xEx.Selection.Borders(xlEdgeLeft)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeRight)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlInsideVertical)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+      End With
+      If cases > 6 Then
+      xEx.Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+      rg = "B1:U" & endrow
+       ws.ActiveSheet.Range(rg).Select
+       xEx.Selection.Copy
+       Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+       ws.ActiveSheet.Range(ws.ActiveSheet.Columns(3), ws.ActiveSheet.Columns(19 + 2)).Select
+       xEx.Selection.EntireColumn.Hidden = True
+       rg = "B1:AN" & endrow
+       ws.ActiveSheet.Range(rg).Select
+       xEx.Selection.Copy
+       Selection.TypeParagraph
+       Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+      ElseIf cases = 5 Then
+       xEx.Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+      rg = "B1:G" & endrow
+       ws.ActiveSheet.Range(rg).Select
+       xEx.Selection.Copy
+       Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+       ElseIf cases = 6 Then
+            xEx.Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+      rg = "B1:H" & endrow
+       ws.ActiveSheet.Range(rg).Select
+       xEx.Selection.Copy
+       Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+      End If
+     Else 'intact & damage
+       ws.ActiveSheet.Range(ws.ActiveSheet.Cells(1, 2), ws.ActiveSheet.Cells(endrow, 2)).Select
+       xEx.Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+       xEx.Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+       With xEx.Selection.Borders(xlEdgeLeft)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeRight)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlInsideVertical)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       xEx.Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+       For j = 1 To 0 'pi * (si - 1) 'no merge
+        ws.ActiveSheet.Range(ws.ActiveSheet.Cells(1, 5 * j + 3), ws.ActiveSheet.Cells(1, 5 * (j + 1) + 3)).Select
+        With xEx.Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+       End With
+       xEx.Selection.Merge
+       Next j
+        For j = 1 To pi * (si - 1) + 1
+        ws.ActiveSheet.Range(ws.ActiveSheet.Cells(1, 5 * (j - 1) + 3), ws.ActiveSheet.Cells(endrow, 5 * j + 3)).Select
+        xEx.Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+        xEx.Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+        With xEx.Selection.Borders(xlEdgeLeft)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+       With xEx.Selection.Borders(xlEdgeRight)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+       End With
+         xEx.Selection.Borders(xlInsideVertical).LineStyle = xlNone
+       xEx.Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+      Next j
+     ' If pi > 4 Then
+      ncopy = Int(pi * (si - 1) / 4)
+     ' Else
+    '  ncopy = Int(pi * (si - 1) / 2)
+     ' End If
+      If extra > 0 Then
+       ncopy = ncopy + 1
+      End If
+      For j = 1 To ncopy  '4 cases in one copy
+       If j > 1 Then
+         ws.ActiveSheet.Range(ws.ActiveSheet.Columns(3), ws.ActiveSheet.Columns(20 * (j - 1) + 2)).Select
+        xEx.Selection.EntireColumn.Hidden = True
+       End If
+        If si = 2 And extra > 0 And j = ncopy Then
+          tmp = 20 * (j - 1) + extra * 5
+        Else
+          If extra > 0 And j = ncopy Then
+          tmp = 20 * j - 10
+          Else
+          tmp = 20 * j
+          End If
+        End If
+        ws.ActiveSheet.Range(ws.ActiveSheet.Cells(1, 2), ws.ActiveSheet.Cells(endrow, tmp + 2)).Select
+        xEx.Selection.Copy
+        Selection.TypeParagraph
+        Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+       Next j
+     End If
+    Next si
+        ws.Close Savechanges:=False
+  Next fi
+  Exit Sub
+ErrMsg:
+      ws.Close Savechanges:=False
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+Sub copyFatigueDetail()
+Dim fp, fn0, fn(10), rg1, rg2, ft(10), ft1(10), ft2(10), model(10) As String
+  fp = ActiveDocument.Path & "\"
+  Set xEx = CreateObject("Excel.Application")
+  rowi = 58
+  cases = 173
+  np = 6
+  model(1) = " FPSO Alone "
+  model(2) = " FPSO + LPG Tanker "
+  model(3) = " FPSO + Butane Tanker "
+  'On Error GoTo ErrMsg
+  fn0 = "..\Fatigue\Fatigue Summary Details.xlsm"
+  Set ws = xEx.WorkBooks.Open(fp & fn0)
+  For linei = 1 To 9
+  For si = 1 To ws.sheets.Count
+    If InStr(ws.sheets(si).Name, "L" & linei) Then
+      ws.sheets(si).Select
+      For casei = 1 To 3
+      Selection.InsertBreak Type:=wdPageBreak
+      Selection.TypeText Text:="Line" & linei & model(casei) & "Fatigue Damage"
+      Selection.Style = ActiveDocument.Styles("Heading 1")
+      Selection.TypeParagraph
+      Selection.Style = ActiveDocument.Styles("Normal")
+      For j = 1 To 6
+       If j > 1 Or casei > 1 Then
+       rg1 = "3:" & 2 + rowi * (j - 1) + (casei - 1) * rowi * 6
+       ws.ActiveSheet.Rows(rg1).Select
+        xEx.Selection.EntireRow.Hidden = True
+       End If
+        rg2 = "A1:AB" & rowi * j + (casei - 1) * 6 * rowi + 2
+        ws.ActiveSheet.Range(rg2).Select
+        xEx.Selection.Copy
+        'Selection.InsertBreak Type:=wdPageBreak
+        'Selection.PageSetup.Orientation = wdOrientLandscape
+        Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+      Next j
+      Next casei
+    End If
+    Next si
+    Next linei
+     ws.Close Savechanges:=False
+End Sub
+Sub copyRao()
+Dim fp, fn0, fn(10), rg, model(10), rao(10), wd(10) As String
+  fp = ActiveDocument.Path & "\"
+  Set xEx = CreateObject("Excel.Application")
+  On Error GoTo ErrMsg
+  rao(1) = "MOTION RAOs, 100M WD"
+  rao(2) = "MOTION RAOs, 300M WD"
+  rao(3) = "MOTION RAOs, 500M WD"
+  rao(4) = "LPG TANKER MOTION RAOs, Ballast"
+  rao(5) = "Butane Tanker Motion RAOs, Full load"
+  
+  rao(6) = "Full Load FPSO + Ballast LPG Tanker Motion RAOS"
+  rao(7) = "Ballast FPSO + Full Load LPG Tanker Motion RAOS"
+  rao(8) = "Full Load FPSO + Full Load Butane Tanker Motion RAOS"
+  rao(9) = "Ballast FPSO + Full Load Butane Tanker Motion RAOS"
+  
+  wd(1) = "Wave Drift Force Coefficients, 100M WD"
+  wd(2) = "Wave Drift Force Coefficients, 300M WD"
+  wd(3) = "Wave Drift Force Coefficients, 500M WD "
+  wd(4) = "LPG TANKER Wave Drift Force Coefficients, Ballast"
+  wd(5) = "Butane Tanker Wave Drift Force Coefficients, Full load"
+  
+  wd(6) = "Full Load FPSO + Ballast LPG Tanker Wave Drift Force Coefficients"
+  wd(7) = "Ballast FPSO + Full Load LPG Tanker Wave Drift Force Coefficients"
+  wd(8) = "Full Load FPSO + Full Load Butane Tanker Wave Drift Force Coefficients"
+  wd(9) = "Ballast FPSO + Full Load Butane Tanker Wave Drift Force Coefficients"
+
+  fn(1) = "..\AQWA Models\RAO_100m.xlsm"
+  fn(2) = "..\AQWA Models\RAO_300m.xlsm"
+  fn(3) = "..\AQWA Models\RAO_500m.xlsm"
+  fn(5) = "..\Motion Models\LPG\RAO_small.xlsm"
+  
+  fn(6) = "..\Motion Models\2-Body\RAO_lpg793_fpso1300.xlsm"
+  fn(7) = "..\Motion Models\2-Body\RAO_lpg1150_fpso918.xlsm"
+  fn(8) = "..\Motion Models\2-Body\RAO_lpg674_fpso1300.xlsm"
+  fn(9) = "..\Motion Models\2-Body\RAO_lpg674_fpso918.xlsm"
+  
+  model(1) = "AQWA MODEL, Survival"
+  model(2) = "AQWA MODEL, Operating"
+  model(3) = "AQWA MODEL, Survival with Morison Members (Moss)"
+  model(3) = "AQWA MODEL, Survival with Morison Members (Genesis)"
+  model(4) = "AQWA MODEL, Operating with Morison Member (Genesis)"
+  
+  raoplot = 1
+  raoTable = 1
+  driftplots = 1
+  driftTable = 1
+  
+  oneVessel = 1
+  
+  raoplotc1 = "T"
+  raoplotc2 = "AC"
+  driftplotc1 = "T"
+  driftplotc2 = "AC"
+  raoTableRow = 100
+  driftTableRow = 50
+  raotablec2 = "N"
+  
+  If oneVessel = 1 Then
+    numDir = 90 / 15 + 1
+    driftTablec2 = "I"
+  Else
+    numDir = 360 / 22.5 + 1
+    driftTablec2 = "S"
+  End If
+  
+  For fi = 1 To 3
+    Set ws = xEx.WorkBooks.Open(fp & fn(fi))
+    For si = 1 To ws.sheets.Count
+        If (raoplot = 1) Then
+            If InStr(ws.sheets(si).Name, "RAO Plots") Then
+             ws.sheets(si).Select
+                ws.ActiveSheet.UsedRange
+             rg = raoplotc1 & "1:" & raoplotc2 & "72"
+            ws.ActiveSheet.Range(rg).Select
+            xEx.Selection.Copy
+            Selection.InsertBreak Type:=wdPageBreak
+            Selection.TypeText Text:=rao(fi)
+    Selection.Style = ActiveDocument.Styles("Heading 1")
+    Selection.TypeParagraph
+    Selection.Style = ActiveDocument.Styles("Normal")
+    Selection.PageSetup.Orientation = wdOrientPortrait
+    Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+    rg = raoplotc1 & "73:" & raoplotc2 & "144"
+    ws.ActiveSheet.Range(rg).Select
+    
+    xEx.Selection.Copy
+    Selection.InsertBreak Type:=wdPageBreak
+    Selection.PageSetup.Orientation = wdOrientPortrait
+    Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+    Selection.Style = ActiveDocument.Styles("Normal")
+   End If
+  End If
+  If (raoTable = 1) Then
+   If InStr(ws.sheets(si).Name, "RAO Tables") Then
+     ws.sheets(si).Select
+   numPg = Int(numDir / 2) + 1 '2 put one page
+  'numPg = numDir              ' 1 put one page
+  For i = 1 To numPg
+    If i < numPg + 1 Then
+    rg = "A" & (i - 1) * raoTableRow + 1 & ":" & raotablec2 & i * raoTableRow
+    Else
+    rg = "A" & (i - 1) * raoTableRow + 1 & ":" & raotablec2 & (i - 1) * raoTableRow + raoTableRow / 2
+    End If
+    ws.ActiveSheet.Range(rg).Select
+    xEx.Selection.Copy
+    Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+  
+  Next i
+  End If
+  End If
+  
+  Next si
+  If (driftplots = 1) Then
+  
+  ws.sheets("Drift Plots").Select
+  ws.ActiveSheet.UsedRange
+  rg = "T3:AC69"
+  ws.ActiveSheet.Range(rg).Select
+  xEx.Selection.Copy
+  Selection.InsertBreak Type:=wdPageBreak
+  Selection.TypeText Text:=wd(fi)
+  Selection.Style = ActiveDocument.Styles("Heading 1")
+  Selection.TypeParagraph
+  Selection.Style = ActiveDocument.Styles("Normal")
+  Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+ 
+  End If
+  
+  If (driftTable = 1) Then
+   
+   ws.sheets("Drift Tables").Select
+   
+   'Selection.InsertBreak Type:=wdSectionBreakNextPage
+   'Selection.PageSetup.Orientation = wdOrientLandscape
+    
+  For i = 1 To 3
+    rg = "A" & driftTableRow * (i - 1) + 1 & ":" & driftTablec2 & driftTableRow * i
+    ws.ActiveSheet.Range(rg).Select
+    xEx.Selection.Copy
+     Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+  
+ 
+  Next i
+  End If
+    Selection.InsertBreak Type:=wdSectionBreakNextPage
+    Selection.PageSetup.Orientation = wdOrientPortrait
+ 
+    ws.Close Savechanges:=False
+  Next fi
+  Exit Sub
+ErrMsg:
+      ws.Close Savechanges:=False
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+Sub headerfoot()
+Dim s As Section
+For Each s In ActiveDocument.Sections
+s.Footers(wdHeaderFooterFirstPage).LinkToPrevious = False
+s.Footers(wdHeaderFooterPrimary).LinkToPrevious = False
+s.Headers(wdHeaderFooterFirstPage).LinkToPrevious = False
+s.Headers(wdHeaderFooterPrimary).LinkToPrevious = False
+If s.PageSetup.Orientation = wdOrientLandscape Then
+    With s.Headers(wdHeaderFooterPrimary)
+        '.LinkToPrevious = False
+        .Range.ParagraphFormat.TabStops.ClearAll
+        .Range.ParagraphFormat.TabStops.Add _
+        Position:=InchesToPoints(9), _
+        Alignment:=wdAlignTabRight, Leader:=wdTabLeaderSpaces
+    End With
+    With s.Footers(wdHeaderFooterPrimary)
+       '.LinkToPrevious = False
+       .Range.ParagraphFormat.TabStops.ClearAll
+       .Range.ParagraphFormat.TabStops.Add _
+        Position:=InchesToPoints(4.5), _
+        Alignment:=wdAlignTabCenter, Leader:=wdTabLeaderSpaces
+        .Range.ParagraphFormat.TabStops.Add _
+        Position:=InchesToPoints(9), _
+        Alignment:=wdAlignTabRight, Leader:=wdTabLeaderSpaces
+    End With
+Else
+   With s.Headers(wdHeaderFooterPrimary)
+      '.LinkToPrevious = False
+         .Range.ParagraphFormat.TabStops.ClearAll
+         .Range.ParagraphFormat.TabStops.Add _
+         Position:=InchesToPoints(6.5), _
+        Alignment:=wdAlignTabRight, Leader:=wdTabLeaderSpaces
+           
+      End With
+      With s.Footers(wdHeaderFooterPrimary)
+         '.LinkToPrevious = False
+         .Range.ParagraphFormat.TabStops.ClearAll
+          .Range.ParagraphFormat.TabStops.Add _
+         Position:=InchesToPoints(3.25), _
+        Alignment:=wdAlignTabCenter, Leader:=wdTabLeaderSpaces
+         .Range.ParagraphFormat.TabStops.Add _
+         Position:=InchesToPoints(6.5), _
+        Alignment:=wdAlignTabRight, Leader:=wdTabLeaderSpaces
+           
+      End With
+End If
+Next s
+End Sub
+Sub resizeTable()
+Dim lTbl As Long
+For lTbl = 1 To ActiveDocument.Tables.Count
+    ActiveDocument.Tables(lTbl).AllowAutoFit = True
+    ActiveDocument.Tables(lTbl).AutoFitBehavior wdAutoFitContent
+    ActiveDocument.Tables(lTbl).AutoFitBehavior wdAutoFitWindow
+    With ActiveDocument.Tables(lTbl).Range
+        .Font.Size = 12
+        .Font.Name = "garamond"
+        .Paragraphs.DecreaseSpacing
+        '.ParagraphFormat.Alignment = wdAlignParagraphCenter
+    End With
+   With ActiveDocument.Tables(lTbl).Borders
+    .InsideLineStyle = wdLineStyleSingle
+    .InsideLineWidth = wdLineWidth025pt
+    .OutsideLineStyle = wdLineStyleSingle
+    .OutsideLineWidth = wdLineWidth150pt
+   End With
+Next lTbl
+End Sub
+Sub copyDriftOffTable()
+  Dim fp, fn, rg(3), sn(5), mud(3), mudt(3), ten(3), psi(4), drn(2), t1(4) As String
+  mud(1) = "SW"
+  mud(2) = "9ppg"
+  mud(3) = "12ppg"
+  mudt(1) = "Sea Water, "
+  mudt(2) = "9 ppg mud, "
+  mudt(3) = "12 ppg mud "
+  ten(1) = "944 kips SR Tension, "
+  ten(2) = "1,001 kips SR Tension, "
+  ten(3) = "1,378 kips SR Tension, "
+  psi(1) = "0"
+  psi(2) = "1500"
+  psi(3) = "1600"
+  psi(4) = "2000"
+  t1(3) = "1,227 kips-ft/deg LFJ Stiffness, "
+  t1(4) = "1,582 kips-ft/deg LFJ Stiffness, "
+  drn(1) = "90"
+  drn(2) = "180"
+  sn(1) = "redcircle_sum"
+  sn(2) = "redcircle"
+  rg(1) = "A1:G10"
+  rg(2) = "A1:I27"
+  report = 2
+  On Error GoTo ErrMsg
+  fp = "X:\Odebrecht\14-561 ODN 1\Riser 2141m\Drift-off\"
+  Set xEx = CreateObject("Excel.Application")
+  For mi = 1 To 2
+    For psii = 1 To 2
+      'For drni = 1 To 1
+        fn = "Drift-off 2141m_" & mud(mi) & "_" & psi(psii) & "*.xlsm"
+        fn1 = Dir(fp & fn)
+        If Len(fn1) <> 0 Then
+          Set ws = xEx.WorkBooks.Open(fp & fn1)
+          ws.sheets(sn(report)).Select
+          ws.ActiveSheet.Range(rg(report)).Select
+          xEx.Selection.Copy
+          Selection.InsertBreak Type:=wdPageBreak
+          Selection.TypeParagraph
+          Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+          Selection.Paste
+          tt = "  Red Watch Circles, " & mudt(mi) & ten(mi) & psi(psii) & " psi Pressure " ', " & drn(drni) & " deg"
+          'tt = "  Red Watch Circles, " & mudt(mi) & ten(mi) & t1(psii) & drn(drni) & " deg"
+          Selection.Tables(1).Range.InsertCaption Label:="Table", TitleAutoText:="", Title:=tt, Position:=wdCaptionPositionAbove
+          Selection.Tables(1).AllowAutoFit = True
+          Selection.Tables(1).AutoFitBehavior wdAutoFitContent
+          Selection.Tables(1).AutoFitBehavior wdAutoFitWindow
+          Selection.Tables(1).Range.Font.Size = 11
+          Selection.Tables(1).Range.Font.Name = "Arial"
+          Selection.Tables(1).Borders.InsideLineStyle = wdLineStyleSingle
+          Selection.Tables(1).Borders.InsideLineWidth = wdLineWidth025pt
+          Selection.Tables(1).Borders.OutsideLineStyle = wdLineStyleSingle
+          Selection.Tables(1).Borders.OutsideLineWidth = wdLineWidth150pt
+          Selection.Paragraphs.DecreaseSpacing
+          ws.Close Savechanges:=False
+       End If
+    'Next drni
+  Next psii
+Next mi
+Exit Sub
+ErrMsg:
+       ws.Close Savechanges:=False
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+Sub copyAirGapTables()
+  Dim fp, fn, rg(3), sn(5), t(5), t1, t2, tt As String
+  fp = ActiveDocument.Path & "\"
+  Set xEx = CreateObject("Excel.Application")
+  fn = "..\FrequencyTime.xlsm"
+  On Error GoTo ErrMsg
+  Set ws = xEx.WorkBooks.Open(fp & fn)
+  rg(0) = "AQ2:BA25"
+  rg(3) = "AS47:BC70"
+  rg(2) = "BD47:BN70"
+  rg(1) = "BO47:BY70"
+  sn(1) = "main"
+  sn(2) = "mpmd"
+  sn(3) = "mptd"
+  sn(4) = "fcsle"
+  sn(5) = "poop"
+  t(1) = "Main Deck at Edge"
+  t(2) = "Moonpool at Main Deck"
+  t(3) = "Moonpool at Uppder Tween Deck"
+  t(4) = "Forecastle Deck"
+  t(5) = "Poop Deck"
+  t1 = "  Uptime by Scatter Diagram of the "
+  t2 = "  Minimum Airgap(m) at "
+  j = 1
+  For i = 1 To ws.sheets.Count
+    If InStr(ws.sheets(i).Name, sn(j)) Then
+       ws.sheets(i).Select
+       ws.sheets(i).Activate
+       For k = 1 To 3
+        ws.ActiveSheet.Range(rg(k)).Select
+        xEx.Selection.Copy
+        Selection.InsertBreak Type:=wdPageBreak
+        Selection.TypeParagraph
+        Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+        Selection.Paste
+        tt = t1 & t(j) & ", Wave from " & k * 15 & " deg off Bow"
+        Selection.Tables(1).Range.InsertCaption Label:="Table", TitleAutoText:="", Title:=tt, Position:=wdCaptionPositionAbove
+       Next k
+       j = j + 1
+    End If
+  Next i
+  ws.Close Savechanges:=False
+  Exit Sub
+ErrMsg:
+       ws.Close Savechanges:=False
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+Public Sub ClearClipBoard()
+    Dim oData   As New DataObject 'object to use the clipboard
+     
+    oData.SetText Text:=Empty 'Clear
+    oData.PutInClipboard 'take in the clipboard to empty it
+End Sub
+Sub CopyTables()
+  Dim fp, fn, rg As String
+  fp = ActiveDocument.Path & "\"
+  Set xEx = CreateObject("Excel.Application")
+
+  fn = "Stat Motions Uptime oper.xlsm"
+  On Error GoTo ErrMsg
+
+  Set ws = xEx.WorkBooks.Open(fp & fn)
+  rg = "A2:K16"
+          
+  j = 1
+  For i = 1 To ws.sheets.Count
+
+     If InStr(ws.sheets(i).Name, "1400CP" & j & " (2)") And j < 11 Then
+      
+        ws.sheets(i).Select
+        ws.sheets(i).Activate
+        Selection.TypeParagraph
+        Selection.TypeText Text:="CP" & j
+        Selection.Style = ActiveDocument.Styles("Heading 2")
+        ws.ActiveSheet.Range(rg).Select
+        xEx.Selection.Copy
+        Selection.TypeParagraph
+        Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+        
+        Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+        Selection.InsertBreak Type:=wdPageBreak
+       
+        j = j + 1
+     End If
+  Next i
+  ws.Close Savechanges:=False
+  Exit Sub
+ErrMsg:
+       ws.Close Savechanges:=False
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+Sub CopyTables1()
+  Dim fp, fn, rg As String
+  fp = ActiveDocument.Path & "\"
+  Set xEx = CreateObject("Excel.Application")
+
+  fn = "Stat Motions Uptime oper.xlsm"
+  On Error GoTo ErrMsg
+  Set ws = xEx.WorkBooks.Open(fp & fn)
+  rg = "A2:K16"
+  For i = 1 To sheets.Count
+     If InStr(ws.sheets(i).Name, "500CP") Then
+        ws.ActiveSheet.Range(rg).Select
+                    Selection.TypeText Text:=env(k) '& psi(psii) & "psi"
+            End If
+            Selection.Style = ActiveDocument.Styles("Heading 1")
+        xEx.Selection.Copy
+        Selection.InsertBreak Type:=wdPageBreak
+        Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+  Next i
+  ws.Close
+  Exit Sub
+ErrMsg:
+       ws.Close
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+Sub copyRADHA()
+  Dim fp, fn, rg As String
+  fp = ActiveDocument.Path & "\" '..\Hang-off\"
+  'fp = "D:\Work\Odebrecht\14-566 Norbe VI\Riser 962m\Hang-off\"
+  Set xEx = CreateObject("Excel.Application")
+  'fn = "RADHA NGT2f 10m 7500' 10ySwell+.xlsm"
+  fn = "RADHA-PSO_1503m_Nigeria_1ySwell.xls"
+  fn = "RADHA NGT 10m 6590' 10y.xlsm"
+  On Error GoTo ErrMsg
+  Set ws = xEx.WorkBooks.Open(fp & fn)
+  rg = "A1:J74" 'connection
+  For i = 1 To ws.sheets.Count
+    If InStr(ws.sheets(i).Name, "Summary 3") Or InStr(ws.sheets(i).Name, "Summary 22") Or InStr(ws.sheets(i).Name, "Summary 32") Then
+        ws.sheets(i).Select
+        ws.sheets(i).Activate
+        ws.ActiveSheet.Range(rg).Select
+       
+        xEx.Selection.Copy
+        
+        Selection.InsertBreak Type:=wdPageBreak
+        Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+    End If
+  Next i
+  ws.Close
+  Exit Sub
+ErrMsg:
+       ws.Close
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+Sub copyPasteRiseOperatingPlt()
+  Dim fp, fn, rg(1 To 2) As String
+  Dim env(1 To 15), mud(1 To 3), sn(1 To 18), psi(8), ten(4) As String
+  'ODN2
+  env(1) = "1-YEAR NORTH WAVES + SOUTH SURFACE CURRENT, "
+  env(2) = "1-YEAR SOUTH WAVES + NORTH MID-WATER CURRENT, "
+  env(2) = "1-YEAR SW WAVES + NE SURFACE CURRENT, "
+  env(4) = "95% NORTH WAVES + 98% SOUTH SURFACE CURRENT, "
+  env(5) = "95% SOUTH WAVES + 99% NORTH MID-WATER CURRENT, "
+  env(6) = "95% SW WAVES + 99% NE SURFACE CURRENT, "
+
+  'Norbe IX
+  'env(1) = "1-Year North Waves + South Surface Current, "
+  'env(2) = "1-Year South Waves + North Mid-Water Current, "
+  'env(3) = "1-Year SW Waves + NE Surface Current, "
+  'env(4) = "95% North Waves + 98% South Surface Current, "
+  'env(5) = "95% South Waves + 99% North Mid-Water Current, "
+  'env(6) = "95% SW Waves + 99% NE Surface Current, "
+  'env(1) = "1-Year N Wind/Waves + SSE Current, "
+  'env(2) = "1-Year SW Wind/Waves + NE Current, "
+  'env(3) = "0.5-Year N Wind/Waves + SSE Current, "
+  'env(4) = "0.5-Year SW Wind/Waves + NE Current, "
+  'env(5) = "95% N Wind/Waves + SSE Current, "
+  'env(6) = "95% SW Wind/Waves + NE Current, "
+  env(9) = "5 ft Wave + 2.5 kts Current, "
+  env(10) = "5 ft Wave + 2 kts Current, "
+  'env(3) = "90% Storm, "
+  'env(4) = "75% Storm, "
+  'env(5) = "4 ft Wave + 75% Current, "
+  
+'env(1) = "1-Year S/SW Waves + N/NE Current, "
+'env(5) = "1-Year N/NE Waves + S/SW Current, "
+'env(2) = "0.5.Year S/SW Waves + N/NE Current, "
+'env(6) = "0.5.Year N/NE Waves + S/SW Current, "
+'env(3) = "95% S/SW Waves + N/NE Current, "
+'env(7) = "95% N/NE Waves + S/SW Current, "
+'env(4) = "90% S/SW Waves + N/NE Current, "
+'env(8) = "90% N/NE Waves + S/SW Current, "
+'env(5) = "80% S/SW Waves + N/NE Current, "
+'env(10) = "80% N/NE Waves + S/SW Current, "
+'env(11) = "1-Year S/SW Waves + S/SW Current, "
+'env(12) = "0.5-Year S/SW Waves + S/SW Current, "
+'env(13) = "95% S/SW Waves + S/SW Current, "
+'env(14) = "90% S/SW Waves + S/SW Current, "
+'
+  'Norbe VI
+  If 1 = 0 Then
+  env(1) = "1-Year Northeast Surface Current"
+env(2) = "1-Year Northeast Mid-Water Current"
+env(3) = "0.5-Year Northeast Surface Current"
+env(4) = "0.5-Year Northeast Mid-Water Current"
+env(5) = "95% Northeast Surface Current"
+env(6) = "95% Northeast Mid-Water Current"
+End If
+'Roncador
+'env(1) = "1-Year NE Surface Current"
+'env(2) = "1-Year North Mid-Water Current"
+'env(3) = "80% of 1-Year NE Surface Current"
+'env(4) = "80% of 1-Year North Mid-Water Current"
+'env(5) = "60% of 1-Year NE Surface Current"
+'env(6) = "60% of 1-Year North Mid-Water Current"
+If 1 = 0 Then
+env(1) = "95% local sea + 10-year Surface trapped shallow current"
+  env(2) = "95% local sea + 10-year Surface trapped deep current"
+ env(3) = "95% local sea + 10-year Deep reaching current"
+  env(4) = "95% local sea + 10-year Thermocline intensified current"
+ env(5) = "10-year local sea + 95% Surface trapped deep current"
+ env(6) = "95% swell + 10-year Surface trapped shallow current"
+  env(7) = "95% swell + 10-year Surface trapped deep current"
+ env(8) = "95% swell + 10-year Deep reaching current"
+  env(9) = "95% swell + 10-year Thermocline intensified current"
+ env(10) = "10-year swell + 95% Surface trapped deep current"
+ End If
+ If 1 = 0 Then
+ 'KC96 Gibson
+ env(1) = "10-Year Winter Storm, "
+ env(3) = "10-Year Loop Current, "
+ env(4) = "1-Year Loop Current, "
+ env(2) = "99.5% Non-Exceedent Winter Storm, "
+ env(5) = "1-Year Bottom Current, "
+ env(6) = "10-Year Bottom Current, "
+ End If
+ 'IN Campos Basin
+ If 1 = 0 Then
+  env(1) = "1-YEAR NORTH WAVES + SOUTH SURFACE CURRENT"
+  env(2) = "1-YEAR SW WAVES + NE SURFACE CURRENT"
+  env(3) = "0.5-YEAR NORTH WAVES + SOUTH SURFACE CURRENT"
+  env(4) = "0.5-YEAR SW WAVES + NE SURFACE CURRENT"
+  env(5) = "95% NORTH WAVES + SOUTH SURFACE CURRENT"
+  env(6) = "95% SW WAVES + NE SURFACE CURRENT"
+  env(7) = "90% NORTH WAVES + SOUTH SURFACE CURRENT"
+  env(8) = "90% SW WAVES + NE SURFACE CURRENT"
+  End If
+  'DC Campos Basin
+ If 1 = 1 Then
+  env(1) = "1-YEAR SW WAVES + NORTH SURFACE CURRENT"
+  env(2) = "1-YEAR E WAVES + WEST SURFACE CURRENT"
+  env(3) = "1-YEAR NE WAVES + SW BOTTOM CURRENT"
+  End If
+  psi(1) = "0"
+  psi(1) = "1200"
+  psi(2) = "1500"
+  psi(3) = "2000"
+  psi(5) = "K16"
+  psi(6) = "K20"
+  
+  psi(7) = "Empty Riser, 1600 PSI LFJ Stiffness"
+  psi(8) = "Empty Riser, 2000 PSI LFJ Stiffness"
+   
+  On Error GoTo ErrMsg
+ 
+  rg(1) = "AA54:AJ103" 'connection
+  rg(2) = "AU54:BF104" 'drilling
+  Caption = False
+  Heading = False
+  sn(1) = "A"
+  sn(2) = "B"
+  sn(3) = "C"
+  sn(4) = "D"
+  sn(5) = "E"
+  sn(6) = "F"
+  sn(7) = "G"
+  sn(8) = "H"
+  sn(9) = "I"
+  sn(10) = "J"
+  sn(11) = "K"
+  sn(12) = "L"
+  sn(13) = "M"
+  sn(14) = "N"
+  sn(15) = "O"
+  sn(16) = "P"
+  sn(17) = "Q"
+  sn(18) = "R"
+
+  'fp = "V:\Pacific Drilling\14-555 Pacific Khamsin\Riser 5930' (Ofigbo 1X Nigeria)\"
+  fp = ActiveDocument.Path & "\" '..\Connected\"
+  On Error GoTo ErrMsg
+  Set xEx = CreateObject("Excel.Application")
+  For psii = 1 To 1
+    'fn = "DerpSum ODN2 2023m +casing SantosBasin" & psi(psii) & "psi.xlsm"
+    fn = "DerpSum NorbeVI 1319m ES.xlsm"
+    'fn = "DerpSum NGT2 7500' Guyana_Swell.xlsm"
+    'fn = "DerpSum NGT2 6000' Guyana_localsea.xlsm"
+    'fn = "DerpSum ODN1 1600m +casing Roncador.xlsm"
+    fn = "DerpSum NTM 5467' MC127 r1.xlsm"
+    fn = "DerpSum NDA UDW Steel 45-53Ultralight 1957'.xlsm"
+    fn = "DerpSum NorbeVI 962m IN - Copy.xlsm"
+    fn = "DerpSum NDB Steel 3222' IN.xlsm"
+    fn = "DerpSum DPDS3 Alum 335m IN.xlsm"
+    fn = "DerpSum NDA UDW Steel 45-53Ultralight 2735' r1.xlsm"
+    fn = "DerpSum NBD 4202' GoM.xlsm"
+    fn = "DerpSumvm Sharav 4802.xlsm"
+    fn = "DerpSum NGT 6590' MC475.xlsm"
+   ' fn = "DerpSum NorbeVI 2400m DC.xlsm"
+    fn1 = Dir(fp & fn)
+    If Len(fn1) <> 0 Then
+      Set ws = xEx.WorkBooks.Open(fp & fn1)
+     
+      For k = 1 To 4 'To 8 '14 To 17
+        If Heading Then
+            Selection.InsertBreak Type:=wdPageBreak
+            If psii = 2 Then
+            Selection.TypeText Text:=env(k) & "BEAM-QUARTERING" '"HEAD-QUARTERING" '
+            Else
+            Selection.TypeText Text:=env(k) '& psi(psii) & "psi"
+            End If
+            Selection.Style = ActiveDocument.Styles("Heading 1")
+            'Selection.TypeParagraph
+            'Selection.Style = ActiveDocument.Styles("Normal")
+        End If
+
+        For i = 1 To ws.sheets.Count
+            If InStr(ws.sheets(i).Name, "65" & sn(k)) Then
+            'If InStr(ws.sheets(i).Name, "86") Or InStr(ws.sheets(i).Name, "160") Then 'Or InStr(ws.Sheets(i).Name, "120") _
+
+                ws.sheets(i).Select
+                'If psii > 0 Then
+                If InStr(ws.sheets(i).Name, "B") Or InStr(ws.sheets(i).Name, "D") Or InStr(ws.sheets(i).Name, "CC") _
+                Or InStr(ws.sheets(i).Name, "DD") Or InStr(ws.sheets(i).Name, "KK") Or InStr(ws.sheets(i).Name, "L") Then
+                    ws.ActiveSheet.Range(rg(1)).Select
+                Else
+                    ws.ActiveSheet.Range(rg(2)).Select
+                End If
+     
+                xEx.Selection.Copy
+                Selection.TypeParagraph
+                Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+                Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+                If Caption Then
+                    Selection.TypeParagraph
+                    Selection.Style = ActiveDocument.Styles("Caption")
+                    t = Mid(ws.sheets(i).Name, 4, Len(ws.sheets(i).Name))
+                    If t = 86 Then
+                      t = "Sea Water"
+                    Else
+                      t = Left(t, Len(t) - 1) & " ppg Mud"
+                    End If
+                    t = "  Tension-Offset Envelope, " & env(k) & t '& psi(psii) & " psi Pressure"
+                    Selection.InsertCaption Label:="Figure", TitleAutoText:="", Title:=t
+                    'Selection.TypeParagraph
+                    'Selection.Style = ActiveDocument.Styles("Normal")
+                End If
+            End If
+          'End If
+      Next i
+    Next k
+    ws.Close
+  End If
+  Next psii
+  'ws = Nothing
+  Exit Sub
+ErrMsg:
+       ws.Close
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+
+
+Sub copyDNVFrequencySummary()
+Dim fp, fn, dnvfn, rg1, rg2, rg3, id(3), id1(3), t(4), rgmean(4), rgextreme(4), lwLable(2, 0 To 3) As String
+Dim envCase, wd(3) As Integer
+Dim lwmotion(9, 2, 3) As Single
+lwLable(1, 0) = "Motion Sig LF"
+lwLable(2, 0) = "Motion Sig WF"
+lwLable(1, 1) = "Surge LF (ft)"
+lwLable(1, 2) = "Sway LF (ft)"
+lwLable(1, 3) = "Yaw LF (deg)"
+lwLable(2, 1) = "Surge WF (ft)"
+lwLable(2, 2) = "Sway WF (ft)"
+lwLable(2, 3) = "Yaw WF (deg)"
+envCase = 10
+wd(1) = 100
+wd(2) = 300
+wd(3) = 500
+id(1) = ", Intact Mooring"
+id(2) = ", Damaged Most Loaded Mooring Line"
+id(3) = ", Damaged Second Most Loaded Mooring Line"
+id1(1) = "i"
+id1(2) = "d1"
+id1(3) = "d2"
+rg2 = "B2:N89"
+t(1) = "TQS"
+t(2) = "TMean"
+t(3) = "TWF"
+t(4) = "UF"
+On Error GoTo ErrMsg
+rg1 = "B12:K23"
+For i = 1 To 4
+  If i = 1 Then
+    rgmean(4) = "B" & 12 + (i - 1) * 3 & ":k" & 12 + (i - 1) * 3 'somehow wrong value
+  Else
+    rgmean(i - 1) = "B" & 12 + (i - 1) * 3 & ":k" & 12 + (i - 1) * 3
+  End If
+  rgextreme(i) = "B" & 13 + (i - 1) * 3 & ":k" & 14 + (i - 1) * 3
+Next i
+fp = ActiveDocument.Path & "\..\Mooring\LineD\"
+fp = ActiveDocument.Path & "\..\Mooring\LineD-\"
+fp = ActiveDocument.Path & "\..\Mooring\LineD+\"
+Set xEx = CreateObject("Excel.Application")
+ xEx.Application.DisplayAlerts = False
+For wdi = 2 To 3
+  
+  fy = wd(wdi) & "M WD, 1112 kN Pretension"
+  fy = wd(wdi) & "M WD, 667 kN Pretension"
+ fy = wd(wdi) & "M WD, 1335 kN Pretension"
+  Selection.TypeParagraph
+  Selection.TypeText Text:=fy
+  Selection.Style = ActiveDocument.Styles("Heading 1")
+  For ci = 1 To 10
+   
+    For idi = 1 To 3
+       
+        fn = wd(wdi) & "_" & "*" & ci & "_" & id1(idi) & "*.xlsx"
+        dnvfn = "dnv_" & wd(wdi) & "_" & "*" & ci & "_" & id1(idi) & "*.xlsx"
+        fn2 = Dir(fp & dnvfn)
+        If Len(fn2) <> 0 Then
+        Set dnvws = xEx.WorkBooks.Open(fp & fn2)
+        dnvws.sheets("Summary").Select
+        fy = xEx.ActiveSheet.Range("B2")
+        s = InStr(fy, "_")
+        xEx.ActiveSheet.Range("B2") = Left(fy, s - 5) & "Case " & ci
+        
+        xEx.ActiveSheet.Range("B12") = "Motion Mean"
+        xEx.ActiveSheet.Range("B16") = "Mean Offset (ft)"
+        xEx.Range("C12:M12").Clear
+        xEx.Range("M10").Select
+        xEx.Selection.Cut
+        
+        xEx.Range("M15").Select
+        xEx.ActiveSheet.Paste
+        xEx.Range("M22").Select
+        xEx.Selection.Copy
+        xEx.Range("M16").Select
+        xEx.ActiveSheet.Paste
+        
+        xEx.ActiveSheet.Rows("25:72").Select
+        xEx.Selection.EntireRow.Insert
+        xEx.ActiveSheet.Range("B25") = "Motion Extreme"
+       
+        xEx.Range("M21:M23").Select
+        xEx.Selection.Copy
+        
+        xEx.Range("M31:M33").Select
+        xEx.ActiveSheet.Paste
+        xEx.Range("M21:M23").Clear
+        
+        fn1 = Dir(fp & fn)
+         
+        Set ws = xEx.WorkBooks.Open(fp & fn1)
+        For i = 1 To 3
+          ws.Activate
+          ws.sheets("Summary").Select
+        
+          ws.ActiveSheet.Range(rgmean(i)).Select
+          xEx.Selection.Copy
+          dnvws.Activate
+          
+          dnvws.sheets("Summary").Select
+          xEx.ActiveSheet.Range("B" & 12 + i & ":K" & 12 + i).Select
+          xEx.ActiveSheet.Paste
+        Next i
+        For i = 1 To 9
+          xEx.ActiveSheet.Cells(16, 2 + i).Select
+          xEx.ActiveCell.FormulaR1C1 = "=SQRT(R[-3]C^2+R[-2]C^2)"
+          xEx.Selection.NumberFormat = "0.00"
+        Next i
+        xEx.Range("C17:K17").Clear
+        xEx.Range("C21:K21").Clear
+        For i = 1 To 4
+        ws.Activate
+          ws.sheets("Summary").Select
+        
+          ws.ActiveSheet.Range(rgextreme(i)).Select
+          xEx.Selection.Copy
+          dnvws.Activate
+          
+          dnvws.sheets("Summary").Select
+          xEx.ActiveSheet.Range("B" & 26 + (i - 1) * 2 & ":M" & 27 + (i - 1) * 2).Select
+          xEx.ActiveSheet.Paste
+        Next i
+        
+        ws.Activate
+        For i = 1 To 9
+         
+           fy = "Case" & i & id1(idi)
+           If idi = 1 Then fy = "Case" & i
+           ws.sheets(fy).Select
+           lwmotion(i, 1, 1) = xEx.ActiveSheet.Cells(33, 16).Value
+           lwmotion(i, 1, 2) = xEx.ActiveSheet.Cells(33, 17).Value
+           lwmotion(i, 1, 3) = xEx.ActiveSheet.Cells(33, 21).Value
+           lwmotion(i, 2, 1) = xEx.ActiveSheet.Cells(34, 16).Value
+           lwmotion(i, 2, 2) = xEx.ActiveSheet.Cells(34, 17).Value
+           lwmotion(i, 2, 3) = xEx.ActiveSheet.Cells(34, 21).Value
+        Next i
+        dnvws.Activate
+        dnvws.sheets("Summary").Select
+        For j = 1 To 2
+        For k = 0 To 3
+          xEx.ActiveSheet.Cells(17 + (j - 1) * 4 + k, 2) = lwLable(j, k)
+        Next k
+        Next j
+        
+        For i = 1 To 9
+          For j = 1 To 2
+            For k = 1 To 3
+              xEx.ActiveSheet.Cells(17 + (j - 1) * 4 + k, 2 + i) = lwmotion(i, j, k)
+            Next k
+          Next j
+        Next i
+        
+        For i = 78 To 89
+         xEx.Range("N" & i & ":N" & i) = ""
+        Next i
+        
+       
+        For i = 1 To 4
+          j = 35 + (i - 1) * 14
+          
+          xEx.ActiveSheet.Range("B" & j).Select
+          xEx.ActiveCell.FormulaR1C1 = "Line" & t(i)
+          xEx.ActiveSheet.Range("M" & j).Select
+          xEx.ActiveCell.FormulaR1C1 = "Max Line" & t(i)
+          xEx.ActiveSheet.Range("N" & j).Select
+          xEx.ActiveCell.FormulaR1C1 = "Max" & t(i)
+          
+         
+  
+          xEx.Range("M" & j + 1).Select
+          xEx.Application.CutCopyMode = False
+          xEx.ActiveCell.FormulaR1C1 = "=MAX(RC[-10]:RC[-2])"
+          xEx.Selection.NumberFormat = "0.00"
+          
+          fy = "M" & j + 1 & ":M" & j + 12
+          
+          xEx.Selection.AutoFill Destination:=dnvws.ActiveSheet.Range(fy), Type:=xlFillDefault
+           fy = "N" & j + 1
+           xEx.Range(fy).Select
+        
+
+          xEx.ActiveCell.FormulaR1C1 = "=MAX(RC[-1]:R[12]C[-1])"
+          xEx.Selection.NumberFormat = "0.00"
+          dnvws.ActiveSheet.Range("B78:B89").Select
+          xEx.Selection.Copy
+       
+          
+          xEx.Range("B" & j + 1 & ":B" & j + 13).Select
+          xEx.ActiveSheet.Paste
+      
+        Next
+        
+        For i = 1 To 9
+         For j = 1 To 12
+        
+           fy = "Case" & i & id1(idi)
+           If idi = 1 Then fy = "Case" & i
+           xEx.sheets(fy).Select
+           qs = xEx.ActiveSheet.Cells(44 + j, 16).Value
+           mn = xEx.ActiveSheet.Cells(44 + j, 17).Value
+           WF = xEx.ActiveSheet.Cells(44 + j, 18).Value
+           
+           xEx.sheets("Summary").Select
+           xEx.ActiveSheet.Cells(35 + j, 2 + i) = qs
+           xEx.ActiveSheet.Cells(49 + j, 2 + i) = mn
+           xEx.ActiveSheet.Cells(63 + j, 2 + i) = WF
+           
+         Next j
+       Next i
+      xEx.ActiveSheet.Range(rg2).Select
+      xEx.Selection.Copy
+      Selection.TypeParagraph
+      
+      Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+      
+      Selection.Style = ActiveDocument.Styles("Normal")
+      Selection.TypeParagraph
+      Selection.InsertBreak Type:=wdPageBreak
+
+       ws.Close Savechanges:=False
+       dnvws.SaveAs FileName:=fp & "report\" & fn2
+       dnvws.Close Savechanges:=False
+     End If
+     
+    Next idi
+  Next ci
+Next wdi
+xEx.Application.DisplayAlerts = True
+Exit Sub
+ErrMsg:
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+          dnvws.Close Savechanges:=False
+           ws.Close Savechanges:=False
+xEx.Application.DisplayAlerts = True
+End Sub
+Sub copyFrequencySummary()
+
+Dim fp, fn(4, 3, 3), rg, ft(3), fy(4), fe(3), fi(3) As String
+fp = ActiveDocument.Path & "\..\Mooring\LineD\"
+fn(1, 1, 1) = "10y_ws5_wave_i_2.47_17.77%.xlsx"
+fn(1, 1, 2) = "10y_ws5_wave_d1_1.85_33.64%.xlsx"
+fn(1, 1, 3) = "10y_ws5_wave_d2_1.94_30.56%.xlsx"
+'10y_ws5_wave_i_2.47_17.77%.xlsx
+'10y_ws5_wave_d1_1.85_33.64%.xlsx
+'10y_ws5_wave_d2_1.94_30.56%.xlsx
+
+fn(1, 2, 1) = "10y_ws5_wind_i_3.14_17.20%.xlsx"
+fn(1, 2, 2) = "10y_ws5_wind_d1_1.91_32.41%.xlsx"
+fn(1, 2, 3) = "10y_ws5_wind_d2_1.79_32.30%.xlsx"
+'10y_ws5_wind_i_3.14_17.20%.xlsx
+'10y_ws5_wind_d1_1.91_32.41%.xlsx
+'10y_ws5_wind_d2_1.79_32.30%.xlsx
+
+fn(1, 3, 1) = "10y_ws5_cur_i_2.53_21.70%.xlsx"
+fn(1, 3, 2) = "10y_ws5_cur_d1_1.39_41.10%.xlsx"
+fn(1, 3, 3) = "10y_ws5_cur_d2_1.48_36.98%.xlsx"
+'10y_ws5_cur_i_2.53_21.70%.xlsx
+'10y_ws5_cur_d1_1.39_41.10%.xlsx
+'10y_ws5_cur_d2_1.48_36.98%.xlsx
+
+'1y_ws4_cur_i_2.74_21.83%.xlsx
+'1y_ws4_cur_d1_1.47_47.49%.xlsx
+'1y_ws4_cur_d2_1.37_52.97%.xlsx
+
+'1y_ws4_wave_i_3.36_17.71%.xlsx
+'1y_ws4_wave_d1_1.90_41.37%.xlsx
+'1y_ws4_wave_d2_2.28_28.79%.xlsx
+
+'1y_ws4_wind_i_3.54_16.93%.xlsx
+'1y_ws4_wind_d1_1.85_41.29%.xlsx
+'1y_ws4_wind_d2_1.81_40.91%.xlsx
+
+fn(2, 1, 1) = "1y_ws4_wave_i_3.36_17.71%.xlsx"
+fn(2, 1, 2) = "1y_ws4_wave_d1_1.90_41.37%.xlsx"
+fn(2, 1, 3) = "1y_ws4_wave_d2_2.28_28.79%.xlsx"
+
+fn(2, 2, 1) = "1y_ws4_wind_i_3.54_16.93%.xlsx"
+fn(2, 2, 2) = "1y_ws4_wind_d1_1.85_41.29%.xlsx"
+fn(2, 2, 3) = "1y_ws4_wind_d2_1.81_40.91%.xlsx"
+
+fn(2, 3, 1) = "1y_ws4_cur_i_2.74_21.83%.xlsx"
+fn(2, 3, 2) = "1y_ws4_cur_d1_1.47_47.49%.xlsx"
+fn(2, 3, 3) = "1y_ws4_cur_d2_1.37_52.97%.xlsx"
+'80_ws4_cur_i_6.51_8.10%.xlsx
+'80_ws4_cur_d1_3.73_19.85%.xlsx
+'80_ws4_cur_d2_3.66_25.97%.xlsx
+
+'80_ws4_wave_i_6.39_8.52%.xlsx
+'80_ws4_wave_d1_3.86_26.00%.xlsx
+'80_ws4_wave_d2_4.35_18.08%.xlsx
+
+fn(3, 1, 1) = "80_ws4_wave_i_6.39_8.52%.xlsx"
+fn(3, 1, 2) = "80_ws4_wave_d1_3.86_26.00%.xlsx"
+fn(3, 1, 3) = "80_ws4_wave_d2_4.35_18.08%.xlsx"
+'80_ws4_wind_i_5.77_10.03%.xlsx
+'80_ws4_wind_d1_3.14_28.49%.xlsx
+'80_ws4_wind_d2_3.09_28.53%.xlsx
+
+fn(3, 2, 1) = "80_ws4_wind_i_5.77_10.03%.xlsx"
+fn(3, 2, 2) = "80_ws4_wind_d1_3.14_28.49%.xlsx"
+fn(3, 2, 3) = "80_ws4_wind_d2_3.09_28.53%.xlsx"
+
+fn(3, 3, 1) = "80_ws4_cur_i_6.51_8.10%.xlsx"
+fn(3, 3, 2) = "80_ws4_cur_d1_3.73_19.85%.xlsx"
+fn(3, 3, 3) = "80_ws4_cur_d2_3.66_25.97%.xlsx"
+
+'60_ws4_cur_i_8.11_6.29%.xlsx
+'60_ws4_cur_d1_4.62_17.25%.xlsx
+'60_ws4_cur_d2_4.67_21.57%.xlsx
+'60_ws4_wave_i_7.77_6.66%.xlsx
+'60_ws4_wave_d1_4.79_22.09%.xlsx
+'60_ws4_wave_d2_5.19_17.97%.xlsx
+'60_ws4_wind_i_7.01_8.48%.xlsx
+'60_ws4_wind_d1_3.87_23.89%.xlsx
+'60_ws4_wind_d2_3.62_25.54%.xlsx
+
+fn(4, 1, 1) = "60_ws4_wave_i_7.77_6.66%.xlsx"
+fn(4, 1, 2) = "60_ws4_wave_d1_4.79_22.09%.xlsx"
+fn(4, 1, 3) = "60_ws4_wave_d2_5.19_17.97%.xlsx"
+
+fn(4, 2, 1) = "60_ws4_wind_i_7.01_8.48%.xlsx"
+fn(4, 2, 2) = "60_ws4_wind_d1_3.87_23.89%.xlsx"
+fn(4, 2, 3) = "60_ws4_wind_d2_3.62_25.54%.xlsx"
+
+fn(4, 3, 1) = "60_ws4_cur_i_8.11_6.29%.xlsx"
+fn(4, 3, 2) = "60_ws4_cur_d1_4.62_17.25%.xlsx"
+fn(4, 3, 3) = "60_ws4_cur_d2_4.67_21.57%.xlsx"
+
+fy(1) = "10-Year Standby at WS5 Location"
+fy(2) = "1-Year Operating at WSF Location"
+fy(3) = "80% Operating at WSF Location"
+fy(4) = "60% Operating at WSF Location"
+fe(1) = "Wave Conditions, "
+fe(2) = "Wind Conditions, "
+fe(3) = "Current Conditions, "
+fi(1) = "Intact Mooring"
+fi(2) = "Damaged Most Loaded Mooring Line"
+fi(3) = "Damaged Second Most Loaded Mooring Line"
+rg = "B4:t51"
+Set xEx = CreateObject("Excel.Application")
+For i = 1 To 4
+  Selection.TypeParagraph
+  Selection.TypeText Text:=fy(i)
+  Selection.Style = ActiveDocument.Styles("Heading 1")
+  For j = 1 To 3
+    For k = 1 To 3
+      Selection.TypeParagraph
+      Selection.TypeText Text:=fe(j) & fi(k)
+      Selection.Style = ActiveDocument.Styles("Heading 2")
+     
+      Set ws = xEx.WorkBooks.Open(fp & fn(i, j, k))
+      ws.sheets("Summary").Select
+      ws.ActiveSheet.Range("B41").Select
+       xEx.ActiveCell.FormulaR1C1 = "Line Max Tension (kips)"
+      ws.ActiveSheet.Range("B30:B37").Select
+      xEx.Selection.Copy
+      xEx.Range("B42:B49").Select
+      xEx.ActiveSheet.Paste
+      xEx.Range("B50") = ""
+      xEx.Range("T25") = ""
+      xEx.Range("T26") = ""
+      ws.ActiveSheet.Range("C42").Select
+      xEx.ActiveCell.FormulaR1C1 = "=IF(ISNUMBER(R[-12]C),360/R[-12]C,"""")"
+      xEx.Selection.Copy
+      xEx.Range("D42:R49").Select
+      xEx.ActiveSheet.Paste
+      ws.ActiveSheet.Range("C42").Select
+      xEx.Selection.Copy
+      xEx.Range("C43:C49").Select
+      xEx.ActiveSheet.Paste
+      xEx.Range("T42").Select
+      xEx.Application.CutCopyMode = False
+      xEx.ActiveCell.FormulaR1C1 = "=MAX(RC[-17]:RC[-2])"
+      xEx.Range("T42").Select
+      xEx.Selection.AutoFill Destination:=ws.ActiveSheet.Range("T42:T49"), Type:=xlFillDefault
+      xEx.Range("T42:T49").Select
+      xEx.Range("T50").Select
+    xEx.ActiveCell.FormulaR1C1 = "Max Tension"
+    xEx.Range("T51").Select
+    xEx.ActiveCell.FormulaR1C1 = "=MAX(R[-9]C:R[-2]C)"
+    xEx.Rows("27:40").Select
+    xEx.Selection.EntireRow.Hidden = True
+  
+      xEx.ActiveSheet.Range(rg).Select
+      xEx.Selection.Copy
+      Selection.TypeParagraph
+      
+      Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+      
+      Selection.PageSetup.Orientation = wdOrientLandscape
+      Selection.Style = ActiveDocument.Styles("Normal")
+      Selection.TypeParagraph
+      Selection.InsertBreak Type:=wdPageBreak
+      
+      ws.Close Savechanges:=True
+    Next k
+  Next j
+Next i
+End Sub
+Sub copyPasteMooringResultCases()
+  Dim fp, fn, fn1 As String
+  Dim env(1 To 10), kts(1 To 4), os(1 To 2), od(1 To 3) As String
+
+  env(1) = "20kts, Survival"
+  env(2) = "30kts, Survival"
+  env(3) = "40kts, Survival"
+  env(4) = "50kts, Survival"
+  env(5) = "20kts, Operating"
+  env(6) = "30kts, Operating"
+  env(7) = "40kts, Operating"
+  env(8) = "50kts, Operating"
+  kts(1) = "20"
+  kts(2) = "30"
+  kts(3) = "40"
+  kts(4) = "50"
+  os(1) = "surv"
+  os(2) = "oper"
+  od(1) = "_i"
+  od(2) = "_d1"
+  od(3) = "_d2"
+  
+  fp = ActiveDocument.Path & "\..\Mooring\LineD\"
+  Set xEx = CreateObject("Excel.Application")
+  For oi = 1 To 2
+  
+    For ki = 1 To 4
+        Selection.InsertBreak Type:=wdPageBreak
+        Selection.TypeText Text:=env((oi - 1) * 4 + ki)
+ 
+        Selection.Style = ActiveDocument.Styles("Heading 1")
+        Selection.TypeParagraph
+        Selection.Style = ActiveDocument.Styles("Normal")
+
+        For id = 1 To 3
+            fn = kts(ki) & "kt" & "_" & os(oi) & od(id) & "*.xlsx"
+            fn1 = Dir(fp & fn)
+           If Len(fn1) <> 0 Then
+         
+            Set ws = xEx.WorkBooks.Open(fp & fn1)
+            For i = 1 To ws.sheets.Count
+            If InStr(ws.sheets(i).Name, "Case") Then
+                ws.sheets(i).Select
+                 ws.sheets(i).Activate
+                 ws.ActiveSheet.Range("O1:U53").Select
+                xEx.Selection.Copy
+                Selection.TypeParagraph
+                Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+                Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+            End If
+            
+            Next i
+            ws.Close
+            End If
+        Next id
+        Next ki
+        Next oi
+      
+End Sub
+
+Sub copyPasteMooringResult()
+  Dim fp, fn, rg(1 To 2) As String
+  Dim env(1 To 10), mud(1 To 2) As String
+
+  env(1) = "20kts, Survival Tension"
+  env(2) = "30kts, Survival Tension"
+  env(3) = "40kts, Survival Tension"
+  env(4) = "50kts, Survival Tension"
+  env(5) = "20kts, Operating Tension"
+  env(6) = "30kts, Operating Tension"
+  env(7) = "40kts, Operating Tension"
+  env(8) = "50kts, Operating Tension"
+
+  fp = ActiveDocument.Path & "..\Mooring\LineD\"
+  Set xEx = CreateObject("Excel.Application")
+  'fn = "DerpSum NDA UDW Steel 45-53Ultralight 4469' r1.xlsm"
+  fn = "MooringResults.xls"
+  On Error GoTo ErrMsg
+  Set ws = xEx.WorkBooks.Open(fp & fn)
+  rg(1) = "A10:I35" 'connection
+  rg(2) = "AU54:BF104" 'drilling
+  Caption = True
+  Heading = False
+  If Heading Then
+  Selection.InsertBreak Type:=wdPageBreak
+  Selection.TypeText Text:=env(7)
+ 
+  Selection.Style = ActiveDocument.Styles("Heading 1")
+  Selection.TypeParagraph
+  Selection.Style = ActiveDocument.Styles("Normal")
+  End If
+  j = 0
+  For i = 1 To ws.sheets.Count
+    If InStr(ws.sheets(i).Name, "y") Then
+       j = j + 1
+       ws.sheets(i).Select
+       ws.sheets(i).Activate
+         ws.ActiveSheet.Range(rg(1)).Select
+      xEx.Selection.Copy
+        Selection.TypeParagraph
+        Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+      Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+
+      If Caption Then
+          Selection.TypeParagraph
+         Selection.Style = ActiveDocument.Styles("Caption")
+         t = "  Mooring Factor of Safety in " & env(j)
+         Selection.InsertCaption Label:="Figure", TitleAutoText:="", Title:=t
+      End If
+      
+    End If
+  Next i
+  ws.Close
+
+  'ws = Nothing
+  Exit Sub
+ErrMsg:
+       ws.Close
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+
+
+Sub copypastedriftoff()
+  Dim fp, fn, t2, t3, rg(5), dt(10), env(30) As String
+ 
+  Dim mud(4), ten(3), psi(4), drn(2), t1(4), mudt(3), drnt(2) As String
+  dt(0) = "  Predicted Drift in "
+  dt(1) = "  Flex Joint Angle and Stroke in "
+  dt(3) = "  Unity Plot in "
+  dt(2) = "  Riser Displacement "
+  dt(3) = "  Riser Stresses "
+  dt(4) = "  Riser Bending Moment, "
+  dt(5) = "Maximum Stress and Bending Moment "
+  
+  mud(1) = "sw"
+  mud(2) = "14"
+  mud(3) = "13.5 ppg"
+  mud(4) = "16 ppg"
+  mudt(1) = "8.7 ppg mud Filled to 5,560 ft, "
+  mudt(2) = "14 ppg mud Filled to 3,455 ft, "
+  'mudt(1) = "8.7 ppg Mud, "
+  'mudt(2) = "14 ppg Mud, "
+  mudt(1) = "Sea Water, "
+  mudt(2) = "14 ppg Mud, "
+  'mudt(3) = "Empty, "
+
+  'ten(1) = "1,021 kips SR Tension"
+  'ten(2) = "1,906 kips SR Tension"
+  ten(1) = "1,091 kips SR Tension"
+  ten(2) = "1,623 kips SR Tension"
+  'ten(1) = "1,309 kips SR Tension"
+  'ten(2) = "2,639 kips SR Tension"
+  'ten(1) = "674 kips SR Tension, "
+  'ten(2) = "674 kips SR Tension, "
+  '  ten(1) = "841 kips SR Tension, "
+  'ten(2) = "1,353 kips SR Tension, "
+
+  psi(1) = "1500"
+  psi(2) = "1500"
+  psi(3) = "K1600"
+  psi(4) = "K2000"
+  t1(3) = "1600 PSI LFJ STIFFNESS, "
+  t1(4) = "2000 PSI LFJ STIFFNESS, "
+  drn(1) = "90"
+  drn(2) = "180"
+  drnt(1) = "Beam Sea, "
+  drnt(2) = "Head Sea, "
+
+  rg(0) = "m19:v40"
+  rg(0) = "m16:v37"
+  rg(1) = "Av15:be38" 'joint
+  'rg(2) = "BF14:BO38" 'riser and well strength
+  rg(2) = "Av40:Be64" 'displacement
+  'rg(3) = "av65:be89" ' only top part of vonmises "av65:be114" 'vonmises
+  'rg(4) = "av140:be164" ' only bottoom part "av115:be164" 'bm
+  rg(3) = "av65:be114"
+  rg(4) = "av115:be164"
+  rg(5) = "BF14:BO38" 'riser and well strength
+  'GOM
+  If i = 0 Then
+  env(1) = "99% Winter Storm, "
+  env(3) = "99.7% Winter Storm, "
+  env(5) = "1-Year Winter Storm, "
+  env(7) = "1-Year Loop Current Low Shear, "
+  env(9) = "1-Year Loop Current Moderate Shear, "
+  env(11) = "10-Year Loop Current Moderate Shear, "
+  'env(1) = "90% Winter Storm "
+  'env(3) = "95% Winter Storm "
+  End If
+  
+  'intermediate central region campos basin
+  If 1 = 0 Then
+   'env(1) = "1-Year N Wind/Waves + SSE Current, "
+   'env(3) = "1-Year SW Wind/Waves + NE Current, "
+    env(1) = "0.5-Year N Wind/Waves + SSE Current, "
+    env(3) = "0.5-Year SW Wind/Waves + NE Current, "
+    env(5) = "95% N Wind/Waves + SSE Current, "
+    env(7) = "95% SW Wind/Waves + NE Current, "
+    env(9) = "85% N Wind/Waves + SSE Current, "
+    env(11) = "85% SW Wind/Waves + NE Current, "
+    env(13) = "70% N Wind/Waves + SSE Current, "
+    env(15) = "70% SW Wind/Waves + NE Current, "
+  End If
+   'intermediate north region campos basin
+  If 1 = 0 Then
+   'env(1) = "1-Year N Wind/Waves + SSE Current, "
+   'env(3) = "1-Year SW Wind/Waves + NE Current, "
+    env(1) = "0.5-Year N Wind/Waves + S Current, "
+    env(3) = "0.5-Year SW Wind/Waves + NE Current, "
+    env(5) = "95% N Wind/Waves + S Current, "
+    env(7) = "95% SW Wind/Waves + NE Current, "
+    env(9) = "90% N Wind/Waves + S Current, "
+    env(11) = "90% SW Wind/Waves + NE Current, "
+    env(13) = "80% N Wind/Waves + SSE Current, "
+    env(15) = "80% SW Wind/Waves + NE Current, "
+    env(17) = "70% N Wind/Waves + SSE Current, "
+    env(19) = "70% SW Wind/Waves + NE Current, "
+  End If
+  'env(1) = "98% Winter Storm, "
+  'env(3) = "1-Year Winter Storm, "
+  'env(5) = "1-Year Loop Current, "
+  'env(7) = "10-Year Loop Current, "
+  'env(9) = "1-Year TRW+WSW LCE, "
+  'env(11) = "10-Year TRW+WSW LCE, "
+  'env(13) = "1-Year LCE+ENE TRW, "
+  'env(15) = "10-Year LCE+ENE TRW, "
+  'env(1) = "1-Year Surface Current + 1-Year Waves, "
+  'env(3) = "1-Year Mid-Water Current + 1-Year Waves, "
+  'env(5) = "99% Surface Current + 99% Waves, "
+  'env(7) = "99% Mid-Water Current + 99% Waves, "
+  
+'env(1) = "1-Year S/SW Waves + N/NE Current, "
+'env(3) = "1-Year N/NE Waves + S/SW Current, "
+'env(5) = "0.5.Year S/SW Waves + N/NE Current, "
+'env(7) = "0.5.Year N/NE Waves + S/SW Current, "
+'env(9) = "95% S/SW Waves + N/NE Current, "
+'env(11) = "95% N/NE Waves + S/SW Current, "
+'env(13) = "90% S/SW Waves + N/NE Current, "
+'env(15) = "90% N/NE Waves + S/SW Current, "
+
+  'Roncador
+  If 1 = 0 Then
+  env(1) = "1-YEAR SW WAVES + NE SURFACE CURRENT, "
+  env(3) = "1-YEAR SW WAVES + NORTH MID-WATER CURRENT, "
+  env(5) = "95% SW WAVES + 80% NE SURFACE CURRENT, "
+  env(7) = "95% SW WAVES + 80% NORTH MID-WATER CURRENT, "
+  env(9) = "95% SW WAVES + 60% NE SURFACE CURRENT, "
+  env(11) = "95% SW WAVES + 60% NORTH MID-WATER CURRENT, "
+  End If
+  'Santos Basin
+  If 1 = 0 Then
+  env(1) = "1-Year North Wind/Waves + South Surface Current, "
+  env(3) = "1-Year South Wind/Waves + North Mid-Water Current, "
+  env(5) = "1-Year Southwest Wind/Waves + Northeast Surface Current, "
+  env(7) = "95% North Wind/Waves + 98% South Surface Current, "
+  env(9) = "95% South Wind/Waves + 99% North Mid-Water Current, "
+  env(11) = "95% Southwest Wind/Waves + 99% Northeast Surface Current, "
+  End If
+    'Norbe VI
+  If 1 = 0 Then
+  env(1) = "1-Year Northeast Surface Current, "
+  env(3) = "1-Year Northeast Mid-Water Current, "
+  env(5) = "0.5-Year Northeast Surface Current, "
+  env(7) = "0.5-Year Northeast Mid-Water Current, "
+  env(9) = "95% Northeast Surface Current, "
+  env(11) = "95% Northeast Mid-Water Current, "
+  End If
+'guyana
+If 1 = 0 Then
+  env(1) = "95% Local Sea + 10-Year Surface Trapped Shallow Current, "
+  env(3) = "95% Local Sea + 10-Year Surface Trapped Deep Current, "
+  env(5) = "95% Local Sea + 10-Year Deep reaching Current, "
+  env(7) = "95% Local Sea + 10-Year Thermocline Intensified Current, "
+  env(9) = "10-Year Local Sea + 95% Surface Trapped Deep Current, "
+  env(11) = "95% Local Sea + 1-Year Surface Trapped Deep Current, "
+  env(13) = "95% Local Sea + 1-Year Thermocline Intensified Current, "
+  env(15) = "1-Year Local Sea + 95% Surface Trapped Deep Current, "
+  env(17) = "95% Swell + 10-Year Surface Trapped Shallow Current, "
+  env(19) = "95% Swell + 10-Year Surface Trapped Deep Current, "
+  env(21) = "95% Swell + 10-Year Deep Reaching Current, "
+  env(23) = "95% Swell + 10-Year Thermocline intensified Current, "
+  env(25) = "10-Year Swell + 95% Surface Trapped Deep Current, "
+ End If
+ 'Gibson KC96
+ If 1 = 0 Then
+  'env(1) = "1-Year Winter Storm, "
+  env(1) = "10-Year Winter Storm, "
+  env(3) = "99.5% Non-Exceedent Winter Storm, "
+  env(5) = "10-Year Loop Current, "
+  env(7) = "1-Year Loop Current, "
+  End If
+  'Eapirito santo basin
+ If 1 = 0 Then
+ env(1) = "1-Year NE Wind/Waves + 1-Year SW Surface Current, "
+ env(3) = "1-Year North Wind/Waves + 1-Year S/SE Mid-Water Current, "
+ env(5) = "1-Year S/SW Wind/Waves + 1-Year N/NE Surface Current, "
+ env(7) = "99% NE Wind/Waves + 99% SW Surface Current, "
+ env(9) = "99% North Wind/Waves + 99% S/SE Mid-Water Current, "
+ env(11) = "99% S/SW Wind/Waves + 99% N/NE Surface Current, "
+ End If
+ 'DC Campos basin
+ If 1 = 1 Then
+   env(1) = "1-Year SW Wind/Waves + North Surface Current, "
+ env(3) = "1-Year East Wind/Waves + West Surface Current, "
+ env(5) = "1-Year NE Wind/Waves + SW Bottom Current, "
+ End If
+  env(2) = env(1)
+  env(4) = env(3)
+  env(6) = env(5)
+  env(8) = env(7)
+  env(10) = env(9)
+  env(12) = env(11)
+  env(14) = env(13)
+  env(16) = env(15)
+  
+  env(18) = env(17)
+  env(20) = env(19)
+  env(22) = env(21)
+  env(24) = env(23)
+  env(26) = env(25)
+
+
+  'env(1) = "10-Year Wind Sea, "
+  'env(2) = "10-Year Swell, "
+  'env(3) = "10-Year Surface Current, "
+  'env(4) = "10-Year Drag Current, "
+ ' env(2) = env(1)
+  'env(4) = env(3)
+  'env(6) = env(5)
+  'env(8) = env(7)
+
+ 
+  Caption = True
+  Heading = False
+  driftoff = True
+
+  limitedSea = False
+     If 1 = 0 And limitedSea Then
+  env(1) = "10-Year Wind Sea, "
+  env(2) = "10-Year Swell, "
+  env(3) = "10-Year Surface Current, "
+  env(4) = "10-Year Drag Current, "
+  env(5) = "Maximum Current (SINTEF 1996), "
+  env(6) = "Maximum Current w/ Canyon Measurements, "
+  End If
+  fp = ActiveDocument.Path & "\..\Drift-off\"
+ ' fp = "X:\Odebrecht\14-562 ODN 2\Riser 1880m\Drift-off\"
+  On Error GoTo ErrMsg
+  Set xEx = CreateObject("Excel.Application")
+  xEx.Application.DisplayAlerts = False
+  'fn = "Drift-off 2400m.xls"
+   'fn = "DerpSum PKN 5930'+casing Nigeria 2.xlsm"
+         'If driftoff Then
+         ' fn = "Drift-off 5177'r1a.xls"
+        'Else
+        '  fn = "DerpSum ODN1 2141m +casing_" & mud(mi) & "_" & psi(psii) & "*.xls"
+        'End If
+        'fn1 = Dir(fp & fn)
+        'If Len(fn1) <> 0 Then
+         ' Set ws = xEx.WorkBooks.Open(fp & fn1)
+  For mi = 2 To 2
+    For psii = 1 To 1
+    
+      For drni = 1 To 1
+         't = mudt(mi) & ten(mi) & psi(psii) & " psi pressure, "
+         't = dt(0) & env(j * 2 + 1) & mudt(mi) & ten(mi) & psi(psii) & " psi Pressure"
+         't = mudt(mi) & ten(mi) & psi(psii) & " psi Pressure, " & drn(drni) & " deg, "
+         t = mudt(mi) & ten(mi) '& drnt(drni)
+        If driftoff Then
+          fn = "Drift-off 4802" & mud(mi) & ".xls"
+          'fn = "Drift-off ODN2 2023m" & mud(mi) & "loss.xlsm"
+          fn = "Drift-off 2400m.xls"
+        Else
+          'fn = "DerpSum ODN1 1156m +casing_" & mud(mi) & "ppg_1500psi.xls"
+          fn = "DerpSum Sharav 4802 +casing" & mud(mi) & ".xls"
+          'fn = "DerpSum NorbeVI 1319m +casing_180.xlsm"
+          'fn = "DerpSum ODN2 2023m +casing" & mud(mi) & ".xlsm"
+         ' fn = "DerpSum NDB Steel 2900' IC+casing" & mud(mi) & " r1.xlsm"
+         ' fn = "DerpSum SantaAna 4845' +casing " & mud(mi) & ".xlsm"
+         ' fn = "DerpSum ODN2 1880m +casing " & mud(mi) & ".xlsm"
+        End If
+        fn1 = Dir(fp & fn)
+         j = 0
+        If Len(fn1) <> 0 Then
+          Set ws = xEx.WorkBooks.Open(fp & fn1)
+           
+           If InStr(fn, "TRW") Then j = 8
+           If driftoff And j < 5 Then
+          
+             For i = 1 To ws.sheets.Count
+               'If Len(ws.sheets(i).Name) < 3 Then ', "180") Or InStr(ws.Sheets(i).Name, "Swell") Then
+               If InStr(ws.sheets(i).Name, "1y") Then
+                 ws.sheets(i).Select
+                 ws.ActiveSheet.Range(rg(0)).Select
+                 xEx.Selection.Copy
+                 Selection.TypeParagraph
+                 Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+                 Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+                 Selection.TypeParagraph
+                 Selection.Style = ActiveDocument.Styles("Caption")
+                 t = dt(0) & env(j * 2 + 1) & mudt(mi) & ten(mi) & drnt(drni) ' & " 1500 psi Pressure"
+                 ' t = dt(0) & env(j * 2 + 1) & mud(mi) & ", " & ten(mi) & t1(psii) & drn(drni) & " deg"
+                 Selection.InsertCaption Label:="Figure", TitleAutoText:="InsertCaptionCaption1", Title:=t
+                 j = j + 1
+               End If
+            Next i
+         Else
+           For i = 1 To ws.sheets.Count
+             If InStr(ws.sheets(i).Name, "_") Then
+               j = j + 1
+               If limitedSea Then
+                  mii = j - 4 * Int(j / 4)
+                  If mii = 1 Then
+                    envi = envi + 1
+                  ElseIf mii = 0 Then
+                    mii = 4
+                  End If
+               End If
+               If Heading Then
+                 Selection.InsertBreak Type:=wdPageBreak
+                 If InStr(ws.sheets(i).Name, "St") Then
+                    Selection.TypeText Text:=t & env(j) & "Station"
+                 Else
+                   Selection.TypeText Text:=t & env(j) & "Drifting"
+                 End If
+                 Selection.Style = ActiveDocument.Styles("Heading 1")
+                 'Selection.TypeParagraph
+                 'Selection.Style = ActiveDocument.Styles("Normal")
+              End If
+              ws.sheets(i).Select
+             
+              For currentone = 1 To 4
+                 ws.ActiveSheet.Range(rg(currentone)).Select
+                 xEx.Selection.Copy
+                 Selection.TypeParagraph
+                 Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+                 Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+                 If Caption = True Then
+                   If limitedSea Then
+                   Selection.TypeParagraph
+                    t = dt(currentone) & env(envi) & mud(mii)
+                    Selection.TypeText Text:=t
+                    Selection.Style = ActiveDocument.Styles("Caption")
+                    'Selection.InsertCaption Label:="F", TitleAutoText:="", Title:=t
+                    
+                   Else
+                    Selection.TypeParagraph
+                    Selection.Style = ActiveDocument.Styles("Caption")
+                    If InStr(ws.sheets(i).Name, "St") Then
+                        t = dt(currentone) & env(12 * (drni - 1) + j) & "with Zero Drifting, " & mudt(mi) & ten(mi)
+                    Else
+                        t = dt(currentone) & env(12 * (drni - 1) + j) & "with Drifting, " & mudt(mi) & ten(mi)
+                        
+                    End If
+                    Selection.InsertCaption Label:="Figure", TitleAutoText:="", Title:=t
+                   End If
+                End If
+            Next currentone
+        End If
+        'newHour = Hour(Now())
+'newMinute = Minute(Now())
+'newSecond = Second(Now()) + 10
+'waitTime = TimeSerial(newHour, newMinute, newSecond)
+'xEx.Application.Wait waitTime
+    Next i
+   End If
+ 
+   ws.Close Savechanges:=False
+   End If
+   Next drni
+   Next psii
+   Next mi
+   'ws.Close Savechanges:=False
+  Exit Sub
+  xEx.Application.DisplayAlerts = False
+ErrMsg:
+       'ws.Close Savechanges:=False
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+        'Resume
+        xEx.Application.DisplayAlerts = False
+End Sub
+
+Sub ResizeAllPictures()
+
+On Error GoTo ErrorHandler
+Dim iShp As InlineShape
+For Each iShp In ActiveDocument.InlineShapes
+  With iShp
+   .LockAspectRatio = msoTrue
+   ' MsgBox .Width
+  If .Height >= InchesToPoints(8.3) And .Height < InchesToPoints(9.21) Then
+   'If .Height >= InchesToPoints(6.06) And .Height < InchesToPoints(6.43) Then
+ 'If .Height >= InchesToPoints(4.13) And .Height < InchesToPoints(4.34) Then
+     '.Height = InchesToPoints(6.09)
+    .Height = InchesToPoints(8.3)
+     '.Height = InchesToPoints(3.8)
+      '.Width = InchesToPoints(6.52)
+    'Else
+    '.Height = InchesToPoints(5.4)
+    '  .Width = InchesToPoints(9)
+    End If
+  End With
+Next
+    
+Exit Sub
+
+ErrorHandler:
+ MsgBox "Please select a picture with " & _
+ "wrapping style 'In line with text'. " & _
+ "Then retry."
+ End Sub
+
+Sub setMargin()
+
+   Dim s As Section
+   For Each s In ActiveDocument.Sections
+  
+    With s.PageSetup
+       ' .LineNumbering.Active = False
+        .TopMargin = InchesToPoints(1)
+        .BottomMargin = InchesToPoints(0.6)
+        .LeftMargin = InchesToPoints(1)
+        .RightMargin = InchesToPoints(1)
+       
+    End With
+    Next s
+End Sub
+
+Sub copydistanceC()
+  Dim fp, fn, fn1, rg, s As String
+  Dim env(1 To 5), envdesc(5), con(1 To 4), condesc(1 To 4), sn As String
+  
+
+  env(3) = "oper"
+  env(1) = "sb"
+  env(2) = "sb"
+  envdesc(1) = "Stand-off Position "
+  envdesc(2) = "Stand-off Position, Anchor S1 and S2 Moved 100m "
+  envdesc(3) = "Operating Position "
+  con(4) = "cur"
+  con(3) = "local"
+  con(1) = "squall"
+  con(2) = "swell"
+  condesc(4) = "Current"
+  condesc(3) = "Local Sea"
+  condesc(1) = "Squall"
+  condesc(2) = "Swell"
+  s = "  Minimum Clearance from Mooring Lines of "
+  's = "  Minimum FOS of "
+  s1 = "to Platform, "
+  'On Error GoTo ErrMsg
+  rg = "b20:x49"
+  Caption = True
+  fp = ActiveDocument.Path & "\"
+  Set xEx = CreateObject("Excel.Application")
+  fn = "distanceCalculation_patten2.xlsm"
+  'fn = "Mooring Results.xls"
+  fn1 = Dir(fp & fn)
+  If Len(fn1) <> 0 Then
+  Set ws = xEx.WorkBooks.Open(fp & fn1)
+  For i = 2 To 2
+    For j = 1 To 4
+      sn = env(i) & con(j)
+      ws.sheets(sn).Select
+      ws.ActiveSheet.Range(rg).Select
+      xEx.Selection.Copy
+      Selection.TypeParagraph
+      Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+      Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+      Selection.TypeParagraph
+      Selection.Style = ActiveDocument.Styles("Caption")
+      t = s & envdesc(i) & s1 & condesc(j)
+      Selection.InsertCaption Label:="Figure", TitleAutoText:="", Title:=t
+                 
+    Next j
+  Next i
+'  ws.Close saveChange:=False
+  End If
+End Sub
+
+Sub copyDeploy()
+
+  Dim fp, fn, rg1, rg2, t1(2), t2(2) As String
+  fp = ActiveDocument.Path & "\..\Disconnected\"
+  Set xEx = CreateObject("Excel.Application")
+  fn = "RiserDeployment Odebrecht ODN1 1156m 90%.xls"
+  On Error GoTo ErrMsg
+  Set ws = xEx.WorkBooks.Open(fp & fn)
+  rg1 = "H4:O35" 'connection
+  rg2 = "P4:W35"
+  t1(1) = "  Maximum Stress of Disconnected Riser, with BOP and LMRP, 90%"
+  t1(2) = "  Maximum Stress of Disconnected Riser, with LMRP only, 90%"
+  t2(1) = "  Maximum Contact Load of Disconnected Riser, with BOP and LMRP, 90%"
+  t2(2) = "  Maximum Contact Load of Disconnected Riser, with LMRP only, 90%"
+  j = 0
+  For i = 1 To ws.sheets.Count
+    If InStr(ws.sheets(i).Name, "Summary") Or InStr(ws.sheets(i).Name, "Summary 2") Or InStr(ws.sheets(i).Name, "Summary 3") Then
+        j = j + 1
+        ws.sheets(i).Select
+        ws.sheets(i).Activate
+        ws.ActiveSheet.Range(rg2).Select
+        xEx.Selection.Copy
+        Selection.TypeParagraph
+        Selection.InsertBreak Type:=wdPageBreak
+        Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+        Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+        
+      Selection.TypeParagraph
+      Selection.Style = ActiveDocument.Styles("Caption")
+      
+      Selection.InsertCaption Label:="Figure", TitleAutoText:="", Title:=t2(j)
+
+    End If
+  Next i
+  ws.Close
+  Exit Sub
+ErrMsg:
+       ws.Close
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+End Sub
+
+
+Sub copyWeakPoint()
+  Dim fp, fn, rg, t1(20), env(5), mud(2), psi(2), ten(2, 2) As String
+  fp = "V:\Noble\Globetrotter II\14-512 Riser Operability Drift-off Weakpoint 6000-9000' Guyana\Weakpoint\"
+  Set xEx = CreateObject("Excel.Application")
+  fn = "Weak Point 7500'.xlsm"
+  On Error GoTo ErrMsg
+  Set ws = xEx.WorkBooks.Open(fp & fn)
+  mud(1) = "Sea Water, "
+  mud(2) = "16 ppg mud, "
+  psi(1) = "1200"
+  psi(2) = "1500"
+  env(1) = "Zero"
+  env(2) = "Surface Trapped Shallow"
+  env(3) = "Surface Trapped Deep"
+  env(4) = "Deep Reaching"
+  env(5) = "Thermocline Intensified"
+  ten(1, 1) = "1,156"
+  ten(1, 2) = "3,004"
+  ten(2, 1) = "2,264"
+  ten(2, 2) = "3,086"
+  't3(1, 1) = 763
+  't3(1, 2) = t3(1, 1)
+  't3(2, 1) = 1173
+  't3(2, 2) = t3(2, 1)
+  
+  j = 1
+  For mi = 1 To 2
+    For teni = 1 To 2
+     
+      For envi = 1 To 5
+        
+        t1(j) = mud(mi) & ten(mi, teni) & " kips SR Tension, with " & env(envi) & " Current"
+        j = j + 1
+        
+      Next envi
+    Next teni
+  Next mi
+  j = 1
+  For i = 1 To ws.sheets.Count
+    If InStr(ws.sheets(i).Name, "SW") Or InStr(ws.sheets(i).Name, "16") Or InStr(ws.sheets(i).Name, "Summary 3") Then
+        Selection.InsertBreak Type:=wdPageBreak
+                
+        Selection.TypeText Text:=t1(j)
+           
+        Selection.Style = ActiveDocument.Styles("Heading 1")
+
+        j = j + 1
+        ws.sheets(i).Select
+        ws.sheets(i).Activate
+        For k = 1 To 5
+          If k <> 3 Then
+          rg = "A" & 25 * k & ":L" & 25 * k + 23
+          
+          ws.ActiveSheet.Range(rg).Select
+          xEx.Selection.Copy
+          Selection.TypeParagraph
+          'Selection.InsertBreak Type:=wdPageBreak
+          Selection.Paragraphs.Style = ActiveDocument.Styles("Normal")
+          Selection.PasteSpecial Placement:=wdInLine, DataType:=wdPasteEnhancedMetafile
+          End If
+          
+        Next k
+        
+    
+
+    End If
+  Next i
+  ws.Close
+  Exit Sub
+ErrMsg:
+       ws.Close
+        msg = "Error # " & Str(Err.Number) & " was generated by " _
+        & Err.Source & Chr(13) & Err.Description
+        MsgBox msg, , "Error", Err.HelpFile, Err.HelpContext
+
+End Sub
