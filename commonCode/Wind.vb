@@ -25,9 +25,8 @@ Friend Class Wind
     Private mblnUpdated As Boolean
 	
 	Private Const RefElev As Single = 32.80839295
-	
 
-	Public Sub New()
+    Public Sub New()
 		MyBase.New()
         msngElevation = RefElev
         mintDuration = 60
@@ -43,7 +42,6 @@ Friend Class Wind
         End Set
     End Property
 
-
     Public Property SpecDataString() As String
         Get
             SpecDataString = mstrSpecDataString
@@ -54,25 +52,21 @@ Friend Class Wind
     End Property
 
     Public Property Duration() As Short
+        Get
+            Duration = mintDuration
+        End Get
+        Set(ByVal Value As Short)
+
+            mintDuration = Value
+
+        End Set
+    End Property
+
+    Public Property Elevation() As Single
 		Get
-			
-			Duration = mintDuration
-			
-		End Get
-		Set(ByVal Value As Short)
-			
-			mintDuration = Value
-			
-		End Set
-	End Property
-	
-	
-	Public Property Elevation() As Single
-		Get
-			
-			Elevation = msngElevation
-			
-		End Get
+            Elevation = msngElevation
+
+        End Get
 		Set(ByVal Value As Single)
 			
 			msngElevation = Value
@@ -80,29 +74,25 @@ Friend Class Wind
 			
 		End Set
 	End Property
-	
-	
-	Public Property Heading() As Single
-		Get
-			
-			Heading = msngHeading
-			
-		End Get
-		Set(ByVal Value As Single)
+
+    Public Property Heading() As Single
+        Get
+            Heading = msngHeading
+
+        End Get
+        Set(ByVal Value As Single)
 			
 			msngHeading = Value
 			
 		End Set
 	End Property
-	
-	
-	Public Property Velocity() As Single
-		Get
-			
-			Velocity = msngVelocity
-			
-		End Get
-		Set(ByVal Value As Single)
+
+    Public Property Velocity() As Single
+        Get
+            Velocity = msngVelocity
+
+        End Get
+        Set(ByVal Value As Single)
 			
 			msngVelocity = Value
 			mblnUpdated = False
@@ -111,20 +101,18 @@ Friend Class Wind
 	End Property
 	
 	Public ReadOnly Property VelCorr() As Single
-		Get
-			
-			If Not mblnUpdated Then
-				msngVelCorr = msngVelocity * (msngElevation / RefElev) ^ 0.2 * DurCorr(mintDuration)
-				mblnUpdated = True
-			End If
-			VelCorr = msngVelCorr
-			
-		End Get
-	End Property
-	
-	' functions
-	
-	Private Function DurCorr(ByRef Duration As Short) As Single
+        Get
+            If Not mblnUpdated Then
+                msngVelCorr = msngVelocity * (msngElevation / RefElev) ^ 0.2 * DurCorr(mintDuration)
+                mblnUpdated = True
+            End If
+            VelCorr = msngVelCorr
+
+        End Get
+    End Property
+
+    ' functions	
+    Private Function DurCorr(ByRef Duration As Short) As Single
 		
 		' Input
 		'   Duration:   wind measurement duration

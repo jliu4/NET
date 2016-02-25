@@ -42,8 +42,6 @@ Friend Class threeDGrapher
     ' draw on
     Public Sub setDrawSurface(ByRef surface As System.Windows.Forms.PictureBox, ByRef X As Single, ByRef Y As Single, ByRef Incremental As Boolean)
 		theGraph = surface
-        'Dim x As Single
-        'Dim y As Single
         If X = 0# And Y = 0# Then
             X = theGraph.ClientSize.Width
             Y = theGraph.ClientSize.Height
@@ -153,9 +151,6 @@ Friend Class threeDGrapher
         Dim gr As Graphics = Graphics.FromImage(bm)
         Dim pen As New System.Drawing.Pen(Color.Black, 1)
 
-
-
-        'UPGRADE_ISSUE: PictureBox method theGraph.Line was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
         gr.DrawLine(pen, x1, y1, x2, y2)
 
         Dim dest_bounds As New RectangleF(0, 0, BoxWidth, BoxHeight)
@@ -169,7 +164,8 @@ Friend Class threeDGrapher
 
     End Sub
 
-    Private Sub Class_Initialize_Renamed()
+    Public Sub New()
+		MyBase.New()
         vertAngle = 0
         horAngle = 0
         myScale = 3
@@ -177,22 +173,18 @@ Friend Class threeDGrapher
         refY = 0
 
     End Sub
-    Public Sub New()
-		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
 	
 	Public Sub newAngles(ByVal H As Short, ByVal V As Short)
 		horAngle = H
 		vertAngle = V
 	End Sub
-	
-	Public Sub clearGraph()
-        'UPGRADE_ISSUE: PictureBox method theGraph.Cls was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="CC4C7EC0-C903-48FC-ACCC-81861D12DA4A"'
+
+    Public Sub clearGraph()
+        'TODO JLIU
         'theGraph.Cls()
     End Sub
-	
-	Public Function changeScale(ByVal changeInScale As Single) As Boolean
+
+    Public Function changeScale(ByVal changeInScale As Single) As Boolean
 		Dim newScale As Single
 		newScale = myScale * changeInScale
 		If (newScale <= 0) Or (newScale > 250) Then

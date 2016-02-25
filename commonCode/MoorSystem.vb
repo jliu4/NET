@@ -39,18 +39,6 @@ Friend Class MoorSystem
         mclsStiffLocl = New Force
     End Sub
 
-    Protected Overrides Sub Finalize()
-        mclsShipGlob = Nothing
-        mcolMoorLines = Nothing
-        mclsFMoorGlob = Nothing
-        mclsFMoorLocl = Nothing
-        mclsStiffGlob = Nothing
-        mclsStiffLocl = Nothing
-
-        MyBase.Finalize()
-    End Sub
-
-
     Public Property ShipDraft() As Single
         Get
 
@@ -77,7 +65,6 @@ Friend Class MoorSystem
 
         End Get
     End Property
-
 
     Public Property WinchCap() As Single
         Get
@@ -137,6 +124,7 @@ Friend Class MoorSystem
         End Get
     End Property
 
+    'TODO JLIU
     Public ReadOnly Property MoorLines(ByVal vntIndexKey As Object) As MoorLine
         Get
             If vntIndexKey > 0 Then
@@ -407,7 +395,6 @@ ErrorHandler:
                 .MYaw = FMLocl.MYaw
             End With
         End If
-
 
     End Sub
 

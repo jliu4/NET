@@ -64,13 +64,11 @@ Friend Class PltPyramid
 		Dim z2 As Single
 		Dim XTemp As Single
 		Dim YTemp As Single
-		
-		
-		
-		' let's get the base lines created.  The height is
-		' not important at this point
-		' do bLength1
-		XTemp = bLength / 2
+
+        ' let's get the base lines created.  The height is
+        ' not important at this point
+        ' do bLength1
+        XTemp = bLength / 2
 		YTemp = bWidth / 2
 		x1 = XTemp
 		y1 = YTemp
@@ -79,10 +77,9 @@ Friend Class PltPyramid
 		z1 = 0
 		z2 = 0
 		bLength1.setCoords(x1, y1, z1, x2, y2, z2)
-		
-		
-		'do blength2
-		y1 = -YTemp
+
+        'do blength2
+        y1 = -YTemp
 		y2 = -YTemp
 		bLength2.setCoords(x1, y1, z1, x2, y2, z2)
 		
@@ -124,33 +121,27 @@ Friend Class PltPyramid
 		L2W1.setCoords(x1, y1, z1, x2, y2, z2)
 		
 	End Sub
-	
-	' let's create the instances for the lines we will
-	' create
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		bLength1 = New threeDLine
-		bLength2 = New threeDLine
-		bWidth1 = New threeDLine
-		bWidth2 = New threeDLine
-		L1W1 = New threeDLine
-		L2W1 = New threeDLine
-		L1W2 = New threeDLine
-		L2W2 = New threeDLine
-		xyz = New PltAxes
-		testRect = New threeDRect
-		testRect2 = New threeDRect
-		testRect3 = New threeDRect
-		
-		testRect.createVerticalRect(50, 50, 200, 0, 100, 45, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red))
-		testRect2.createVerticalRect(50, 50, 200, 0, 100, -45, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Lime))
-		testRect3.createHorizontalRect(50, 50, 200, 0, 100, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        bLength1 = New threeDLine
+        bLength2 = New threeDLine
+        bWidth1 = New threeDLine
+        bWidth2 = New threeDLine
+        L1W1 = New threeDLine
+        L2W1 = New threeDLine
+        L1W2 = New threeDLine
+        L2W2 = New threeDLine
+        xyz = New PltAxes
+        testRect = New threeDRect
+        testRect2 = New threeDRect
+        testRect3 = New threeDRect
+
+        testRect.createVerticalRect(50, 50, 200, 0, 100, 45, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red))
+        testRect2.createVerticalRect(50, 50, 200, 0, 100, -45, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Lime))
+        testRect3.createHorizontalRect(50, 50, 200, 0, 100, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
+
+    End Sub
 	
 	Public Function ZoomGraph(ByVal aChange As Short) As Boolean
 		Dim zoomVar As Boolean

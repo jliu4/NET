@@ -5,7 +5,6 @@ Friend Class Project
     ' Version 1.0
     ' 2001, Copyright DTCEL, All Rights Reserved
 
-
     ' properties
     ' Title             project title
     ' Description       project description
@@ -50,9 +49,8 @@ Friend Class Project
 			
 		End Set
 	End Property
-	
-	
-	Public Property Description() As String
+
+    Public Property Description() As String
 		Get
 			
 			Description = mstrDescription
@@ -64,9 +62,8 @@ Friend Class Project
 			
 		End Set
 	End Property
-	
-	
-	Public Property Directory() As String
+
+    Public Property Directory() As String
 		Get
 			
 			Directory = mstrDirectory
@@ -80,9 +77,8 @@ Friend Class Project
 			
 		End Set
 	End Property
-	
-	
-	Public Property FileName() As String
+
+    Public Property FileName() As String
 		Get
 			
 			FileName = mstrFileName
@@ -95,9 +91,8 @@ Friend Class Project
 			
 		End Set
 	End Property
-	
-	
-	Public Property Saved() As Boolean
+
+    Public Property Saved() As Boolean
 		Get
 			
 			Saved = mblnSaved
@@ -117,19 +112,17 @@ Friend Class Project
 			
 		End Get
 	End Property
-	
-	
-	Public ReadOnly Property WellSites() As Wells
-		Get
-			
-			WellSites = mclsWellSites
-			
-		End Get
-	End Property
-	
-	' methods
-	
-	Public Sub GetDirNFileName(ByVal NewFullName As String)
+
+    Public ReadOnly Property WellSites() As Wells
+        Get
+
+            WellSites = mclsWellSites
+
+        End Get
+    End Property
+
+    ' methods
+    Public Sub GetDirNFileName(ByVal NewFullName As String)
 		
 		Dim DirChrPos, Pos, NameLen As Short
 		Dim Valid As Boolean
@@ -222,12 +215,9 @@ ErrorHandler:
 		PrintLine(FileNum, "[General]")
 		WriteLine(FileNum, mstrTitle)
 		WriteLine(FileNum, mstrDescription)
-		'    Write #FileNum, "Version " & App.Major & "." & App.Minor            '  This will break version compatibility
-		
-		PrintLine(FileNum, "[Vessel]") '  output currernt vessel station
+
+        PrintLine(FileNum, "[Vessel]") '  output currernt vessel station
 		If Not mclsVessel.OutputVsl(FileNum) Then Exit Function
-        '    Write #FileNum, mstrVesselDataPath     '  This will break version compatibility
-        '    Instead of saving the RAO path, make a copy of Vessel Data to MARSDir
 
         PrintLine(FileNum, "[Riser]") '  output currernt vessel station
         If Not mclsVessel.Riser.OutputRiser(FileNum) Then Exit Function

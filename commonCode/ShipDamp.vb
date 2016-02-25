@@ -15,37 +15,33 @@ Friend Class ShipDamp
 	Private msngDampSurge As Single
 	Private msngDampSway As Single
 	Private msngDampYaw As Single
-	
-	
-	Public Property Draft() As Single
-		Get
-			
-			Draft = msngDraft
-			
-		End Get
-		Set(ByVal Value As Single)
+
+    Public Property Draft() As Single
+        Get
+            Draft = msngDraft
+
+        End Get
+        Set(ByVal Value As Single)
 			
 			msngDraft = Value
 			
 		End Set
 	End Property
-	
-	
-	Public Property DampSurge() As Single
-		Get
-			
-			DampSurge = msngDampSurge
-			
-		End Get
-		Set(ByVal Value As Single)
-			
-			msngDampSurge = Value
-			
-		End Set
-	End Property
-	
-	
-	Public Property DampSway() As Single
+
+    Public Property DampSurge() As Single
+        Get
+
+            DampSurge = msngDampSurge
+
+        End Get
+        Set(ByVal Value As Single)
+
+            msngDampSurge = Value
+
+        End Set
+    End Property
+
+    Public Property DampSway() As Single
 		Get
 			
 			DampSway = msngDampSway
@@ -57,9 +53,8 @@ Friend Class ShipDamp
 			
 		End Set
 	End Property
-	
-	
-	Public Property DampYaw() As Single
+
+    Public Property DampYaw() As Single
 		Get
 			
 			DampYaw = msngDampYaw

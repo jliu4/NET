@@ -2,13 +2,10 @@ Option Strict Off
 Option Explicit On
 Friend Class frmWells
 	Inherits System.Windows.Forms.Form
-	' frmWells          form to input/edit well site information
-	' Version 1.0
-	' 2001, Copyright DTCEL, All Rights Reserved
-	
-	
-	' for grid operation
-	Private NumWells As Short
+    ' frmWells          form to input/edit well site information
+
+    ' for grid operation
+    Private NumWells As Short
 	
 	Private Changed As Boolean
 	Private ExistingTxt As String
@@ -282,7 +279,6 @@ ErrHandler:
                 .Rows(r).Cells(1).Value = Format(WSD.Xg * LFactor, "0.00")
                 .Rows(r).Cells(2).Value = Format(WSD.Yg * LFactor, "0.00")
                 .Rows(r).Cells(3).Value = Format(WSD.Depth * LFactor, "0.00")
-
 
             Next
 

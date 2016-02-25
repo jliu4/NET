@@ -15,10 +15,10 @@ Friend Class RAObyFreq
 	Private mclsRAOx As ForceCoef
 	Private mclsRAOy As ForceCoef
 	Private mclsRAOr As ForceCoef
-	
-	
-	Public Sub New()
-		MyBase.New()
+
+
+    Public Sub New()
+        MyBase.New()
         mclsRAOx = New ForceCoef
         mclsRAOy = New ForceCoef
         mclsRAOr = New ForceCoef
@@ -26,13 +26,10 @@ Friend Class RAObyFreq
         mclsRAOx.ClampedEnd = True
         mclsRAOy.ClampedEnd = False
         mclsRAOr.ClampedEnd = False
-	End Sub
+    End Sub
+    ' properties
 
-	
-	' properties
-	
-	
-	Public Property Freq() As Single
+    Public Property Freq() As Single
 		Get
 			
 			Freq = msngFreq

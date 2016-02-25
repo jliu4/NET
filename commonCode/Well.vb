@@ -14,13 +14,10 @@ Friend Class Well
     Private msngXg As Decimal
     Private msngYg As Decimal
     Private msngDepth As Decimal
-
     ' properties
-
 
     Public Property NameID() As String
         Get
-
             NameID = mstrNameID
 
         End Get
@@ -31,10 +28,8 @@ Friend Class Well
         End Set
     End Property
 
-
     Public Property Xg() As Decimal
         Get
-
             Xg = msngXg
 
         End Get
@@ -44,7 +39,6 @@ Friend Class Well
 
         End Set
     End Property
-
 
     Public Property Yg() As Decimal
         Get
@@ -58,7 +52,6 @@ Friend Class Well
 
         End Set
     End Property
-
 
     Public Property Depth() As Decimal
         Get

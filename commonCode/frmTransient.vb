@@ -122,18 +122,19 @@ ErrHandler:
 			Text = "DODO Console - " & .Title
 			.Saved = True
 		End With
-		
-			If Len(Dir(DODODir & IniFile)) > 0 Then
+
+        If Len(Dir(DODODir & IniFile)) > 0 Then
+            'JLIU TODO allow the unit switch
             FileOpen(10, DODODir & IniFile, OpenMode.Input, OpenAccess.Read)
 
             If Defaults IsNot Nothing Then
                 Defaults = New DODOIni
             End If
             If Defaults.InputData(10) Then
-                    UpdateFileMenu()
-                    CurProj.Directory = Defaults.WorkDir
-                End If
-                FileClose(10)
+                UpdateFileMenu()
+                CurProj.Directory = Defaults.WorkDir
+            End If
+            FileClose(10)
 
         End If
 
@@ -232,7 +233,6 @@ ErrHandler:
 	Private Sub btnTransient_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles btnTransient.Click
         On Error GoTo ErrHandler
 
-        'Dim LFactor, FrcFactor As Single
         Dim FileOpen1, FileOpen2, FileOpen3 As Boolean
         Dim FileNum1, FileNum2, FileNum3 As Integer
         Dim AppCur(MaxCurrentPair, 8) As Double
@@ -308,9 +308,8 @@ ErrHandler:
         End With
 		
 		SaveLC()
-        'TODO Should use riser length or waterdepth?
-        ZWD = CurVessel.Riser.LFJDepth
 
+        ZWD = CurVessel.Riser.LFJDepth
         ActualWD = CurVessel.WaterDepth
 
         TransX(0) = CurVessel.ShipCurGlob.Xg
@@ -462,7 +461,7 @@ ErrHandler:
         dy = TransY(NumTimeSteps) - TransY(0)
 		
 		Dist = System.Math.Sqrt(dx ^ 2 + dy ^ 2)
-        'PWD = Dist / CurVessel.WaterDepth
+
         PWD = Dist / CurVessel.Riser.LFJDepth
         txtOffset.Text = Format(Dist * LFactor, "##,##0") '  final offset
 		txtOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' final offset percent WD
@@ -476,7 +475,6 @@ ErrHandler:
 		
 		txtOffsetBearing.Text = Format(RadTo360(Bearing), "#0") '  Bearing is the angle of final position measured clockwise from TN ???
 
-        'PWD = MaxOffset / CurVessel.WaterDepth
         PWD = MaxOffset / CurVessel.Riser.LFJDepth
         txtMaxOffset.Text = Format(MaxOffset * LFactor, "##,##0") ' Max Transient Offset
 		txtMaxOffsetPWD.Text = Format(PWD * 100#, "#0.0") ' Max Transient Offset Percent WD

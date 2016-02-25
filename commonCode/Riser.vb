@@ -73,7 +73,6 @@ Friend Class Riser
         End Set
     End Property
 
-
     Public Property TopTen() As Single
 		Get
 			
@@ -86,9 +85,8 @@ Friend Class Riser
 			
 		End Set
 	End Property
-	
-	
-	Public Property Dia() As Single
+
+    Public Property Dia() As Single
 		Get
 			
 			Dia = msngDia
@@ -218,6 +216,7 @@ Friend Class Riser
 		
 	End Sub
 
+    'TODO JLIU
     Private Sub DragFnM(ByVal x1 As Single, ByVal x2 As Single, ByVal v1 As Single, ByVal v2 As Single, ByRef F As Single, ByRef M As Single)
 
         Dim b, a, x3 As Single
@@ -267,6 +266,7 @@ Friend Class Riser
         End If
 
     End Sub
+
     Public Function InputRiser(ByVal FileNum As Short) As Boolean
 
         Dim LFJDepth, mass, TopTen, Dia As Single

@@ -12,23 +12,18 @@ Friend Class PltOctagon3d
 	Public X As Single
 	Public Y As Single
 	Public z As Single
-	
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		Dim X As Short
-		X = 1
-		Do While X <= 8
-			Tlines(X) = New threeDLine
-			BLines(X) = New threeDLine
-			VLines(X) = New threeDLine
-			X = X + 1
-		Loop 
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        Dim X As Short
+        X = 1
+        Do While X <= 8
+            Tlines(X) = New threeDLine
+            BLines(X) = New threeDLine
+            VLines(X) = New threeDLine
+            X = X + 1
+        Loop
+    End Sub
 	
 	Public Sub createOctagon(ByRef Length As Single, ByRef Height As Single, ByRef xCenter As Single, ByRef ycenter As Single, ByRef zBase As Single)
 		Dim x1 As Single
@@ -132,11 +127,8 @@ Friend Class PltOctagon3d
 		y2 = ycenter + (System.Math.Tan(45 / 2) * Length / 2)
 		Tlines(8).setCoords(x1, y1, zUpper, x2, y2, zUpper)
 		BLines(8).setCoords(x1, y1, zLower, x2, y2, zLower)
-		
-		
-		
-		
-	End Sub
+
+    End Sub
 	
 	Public Sub getLines(ByRef TLine As threeDLine, ByRef BLine As threeDLine, ByRef VLine As threeDLine, ByRef Index As Short)
 		TLine = Tlines(Index)

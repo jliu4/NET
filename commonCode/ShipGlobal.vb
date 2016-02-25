@@ -12,14 +12,12 @@ Friend Class ShipGlobal
 	Private msngHead As Single
 	Private msngXg As Single
 	Private msngYg As Single
-	
-	
-	Public Property Heading() As Single
+
+    Public Property Heading() As Single
 		Get
-			
-			Heading = msngHead
-			
-		End Get
+
+            Heading = msngHead
+        End Get
 		Set(ByVal Value As Single)
 			
 			msngHead = Value
@@ -34,23 +32,20 @@ Friend Class ShipGlobal
 
         End Set
 	End Property
-	
-	
-	Public Property Xg() As Single
+
+    Public Property Xg() As Single
 		Get
-			
-			Xg = msngXg
-			
-		End Get
+            Xg = msngXg
+
+        End Get
 		Set(ByVal Value As Single)
 			
 			msngXg = Value
 			
 		End Set
 	End Property
-	
-	
-	Public Property Yg() As Single
+
+    Public Property Yg() As Single
 		Get
 			
 			Yg = msngYg

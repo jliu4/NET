@@ -310,6 +310,7 @@ Friend Class Vessel
 			End If
 		End Get
 	End Property
+
     Public ReadOnly Property ShipYawRateDrag(ByVal Draft As Single) As Single
         Get
 
@@ -322,44 +323,25 @@ Friend Class Vessel
 
 
             If N = 1 Then
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 YRD = mcolYawRateDrag.Item(1).YawRateDrag
             Else
-                'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 If Draft <= mcolYawRateDrag.Item(1).Draft Then
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     YRD1 = mcolYawRateDrag.Item(1).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     YRD2 = mcolYawRateDrag.Item(2).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(2).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Rd = (Draft - mcolYawRateDrag.Item(1).Draft) / (mcolYawRateDrag.Item(2).Draft - mcolYawRateDrag.Item(1).Draft)
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                 ElseIf Draft >= mcolYawRateDrag.Item(N).Draft Then
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     YRD1 = mcolYawRateDrag.Item(N - 1).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     YRD2 = mcolYawRateDrag.Item(N).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(N).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Rd = (Draft - mcolYawRateDrag.Item(N - 1).Draft) / (mcolYawRateDrag.Item(N).Draft - mcolYawRateDrag.Item(N - 1).Draft)
                 Else
                     For i = 2 To N
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(i).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         If Draft <= mcolYawRateDrag.Item(i).Draft Then
                             Ns = i
                             Exit For
                         End If
                     Next
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     YRD1 = mcolYawRateDrag.Item(Ns - 1).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().YawRateDrag. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     YRD2 = mcolYawRateDrag.Item(Ns).YawRateDrag
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(Ns - 1).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag(Ns).Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    'UPGRADE_WARNING: Couldn't resolve default property of object mcolYawRateDrag().Draft. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                     Rd = (Draft - mcolYawRateDrag.Item(Ns - 1).Draft) / (mcolYawRateDrag.Item(Ns).Draft - mcolYawRateDrag.Item(Ns - 1).Draft)
                 End If
                 YRD = YRD1 + (YRD2 - YRD1) * Rd
@@ -826,22 +808,10 @@ ErrorHandler:
 			
 			NewRAOs = New RAOs
 			NewRAOs.Draft = Draft
-			
-			' '  This is for limiting certain users
-			'        If i = 1 And Abs(Draft - 60) > 0.01 Then
-			'            msg = "This version is for EVA."
-			'            MsgBox msg
-			'            End
-			'        End If
-			'        If i = 2 And Abs(Draft - 80) > 0.01 Then
-			'            msg = "This version is for EVA."
-			'            MsgBox msg
-			'            End
-			'        End If
-			
-			' to verify input data read correctly, print out input as read
-			
-			For j = 1 To NumDir
+
+            ' to verify input data read correctly, print out input as read
+
+            For j = 1 To NumDir
 				Input(FileNum, Dummy)
 				Debug.Print("Heading = " & Dummy)
 				For k = 1 To NumFreq
@@ -1069,7 +1039,6 @@ ErrorHandler:
             For j = 1 To 3
                 Input(FileNum, IdStr)
 
-                'UPGRADE_ISSUE: Constant Default was not upgraded. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"'
                 Select Case IdStr
                     Case "MASS"
                         NewMass = New ShipMass

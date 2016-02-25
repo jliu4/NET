@@ -12,29 +12,23 @@ Friend Class ShipYawRate
 	Private msngDraft As Single
 	
 	Private msngYawRateDrag As Single
-	
-	
-	Public Property Draft() As Single
-		Get
-			
-			Draft = msngDraft
-			
-		End Get
-		Set(ByVal Value As Single)
+
+    Public Property Draft() As Single
+        Get
+            Draft = msngDraft
+        End Get
+        Set(ByVal Value As Single)
 			
 			msngDraft = Value
 			
 		End Set
 	End Property
-	
-	
-	Public Property YawRateDrag() As Single
-		Get
-			
-			YawRateDrag = msngYawRateDrag
-			
-		End Get
-		Set(ByVal Value As Single)
+
+    Public Property YawRateDrag() As Single
+        Get
+            YawRateDrag = msngYawRateDrag
+        End Get
+        Set(ByVal Value As Single)
 			
 			msngYawRateDrag = Value
 			

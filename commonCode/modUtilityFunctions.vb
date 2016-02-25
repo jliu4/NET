@@ -17,13 +17,10 @@ Module modUtilities
 		For i = 1 To UBound(a)
 			sum = 0#
 			For j = 1 To UBound(a)
-				'UPGRADE_WARNING: Couldn't resolve default property of object b(j). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				sum = a(i, j) * b(j) + sum
-			Next j
-			'UPGRADE_WARNING: Couldn't resolve default property of object c(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			c(i) = sum
-		Next i
+                sum = a(i, j) * b(j) + sum
+            Next j
+            c(i) = sum
+        Next i
 		
 	End Sub
 	
@@ -36,25 +33,18 @@ Module modUtilities
 		l = LBound(a)
 		U = UBound(a)
 		For k = l To U
-			'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Temp = a(k, k)
-			'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			a(k, k) = 1#
-			For j = l To U
-				'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				a(k, j) = a(j, k) / Temp
-			Next j
+            Temp = a(k, k)
+            a(k, k) = 1.0#
+            For j = l To U
+                a(k, j) = a(j, k) / Temp
+            Next j
 			For i = l To U
 				If i <> k Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Temp = a(i, k)
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a(i, k) = 0#
-					For j = l To U
-						'UPGRADE_WARNING: Couldn't resolve default property of object a(k, j). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						a(i, j) = a(i, j) - Temp * a(k, j)
-					Next j
+                    Temp = a(i, k)
+                    a(i, k) = 0#
+                    For j = l To U
+                        a(i, j) = a(i, j) - Temp * a(k, j)
+                    Next j
 				End If
 			Next i
 		Next k
@@ -71,13 +61,10 @@ Module modUtilities
 			For j = 1 To N
 				sum = 0#
 				For k = 1 To N
-					'UPGRADE_WARNING: Couldn't resolve default property of object b(k, j). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					sum = a(i, k) * b(k, j) + sum
-				Next k
-				'UPGRADE_WARNING: Couldn't resolve default property of object c(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				c(i, j) = sum
-			Next j
+                    sum = a(i, k) * b(k, j) + sum
+                Next k
+                c(i, j) = sum
+            Next j
 		Next i
 		
 	End Sub
@@ -86,122 +73,84 @@ Module modUtilities
 	Public Sub GaussJordan(ByRef a As Object, ByRef N As Object, ByRef b As Object, ByRef M As Object)
 		
 		Dim l, j, i, k, ll As Short
-		'UPGRADE_WARNING: Lower bound of array Rindex was changed from 1 to 0. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"'
-		Dim c, r As Short
-		Dim Rindex(50) As Short
-		'UPGRADE_WARNING: Lower bound of array Pivot was changed from 1 to 0. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"'
-		Dim Pivot(50) As Single
-		'UPGRADE_WARNING: Lower bound of array Cindex was changed from 1 to 0. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="0F1C9BE1-AF9D-476E-83B1-17D43BECFF20"'
-		Dim Cindex(50) As Short
-		Dim Dummy, Big, Pinverse As Single
-		
-		'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		For j = 1 To N
-			Pivot(j) = 0
-		Next j
-		'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		For i = 1 To N
-			Big = 0#
-			'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			For j = 1 To N
-				If Pivot(j) <> 1 Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					For k = 1 To N
-						If Pivot(k) = 0 Then
-							'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-							If System.Math.Abs(a(j, k)) >= Big Then
-								'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-								Big = System.Math.Abs(a(j, k))
-								r = j
-								c = k
-							End If
-						ElseIf Pivot(k) > 1 Then 
-							Call MsgBox("Singular matrix inversion attempted", MsgBoxStyle.OKOnly, "DODO - Calculation Failure")
-							Exit Sub
-						End If
-					Next k
-				End If
-			Next j
-			Pivot(c) = Pivot(c) + 1
-			If r <> c Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				For l = 1 To N
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Dummy = a(r, l)
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a(r, l) = a(c, l)
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a(c, l) = Dummy
-				Next l
-				'UPGRADE_WARNING: Couldn't resolve default property of object M. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				For l = 1 To M
-					'UPGRADE_WARNING: Couldn't resolve default property of object b(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Dummy = b(r, l)
-					'UPGRADE_WARNING: Couldn't resolve default property of object b(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					b(r, l) = b(c, l)
-					'UPGRADE_WARNING: Couldn't resolve default property of object b(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					b(c, l) = Dummy
-				Next l
-			End If
-			Rindex(i) = r
-			Cindex(i) = c
-			'UPGRADE_WARNING: Couldn't resolve default property of object a(c, c). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If a(c, c) = 0 Then
-				MsgBox("Singular matrix inversion attempted", MsgBoxStyle.OKOnly, "DODO - Calculation Failure")
-				Exit Sub
-			End If
-			'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Pinverse = 1# / a(c, c)
-			'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			a(c, c) = 1#
-			'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			For l = 1 To N
-				'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				a(c, l) = a(c, l) * Pinverse
-			Next l
-			'UPGRADE_WARNING: Couldn't resolve default property of object M. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			For l = 1 To M
-				'UPGRADE_WARNING: Couldn't resolve default property of object b(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				b(c, l) = b(c, l) * Pinverse
-			Next l
-			'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			For ll = 1 To N
-				If ll <> c Then
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Dummy = a(ll, c)
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a(ll, c) = 0#
-					'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					For l = 1 To N
-						'UPGRADE_WARNING: Couldn't resolve default property of object a(c, l). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						a(ll, l) = a(ll, l) - a(c, l) * Dummy
-					Next l
-					'UPGRADE_WARNING: Couldn't resolve default property of object M. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					For l = 1 To M
-						'UPGRADE_WARNING: Couldn't resolve default property of object b(c, l). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						'UPGRADE_WARNING: Couldn't resolve default property of object b(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-						b(ll, l) = b(ll, l) - b(c, l) * Dummy
-					Next l
-				End If
-			Next ll
-		Next i
-		'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		For l = N To 1 Step -1
-			If Rindex(l) <> Cindex(l) Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object N. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				For k = 1 To N
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Dummy = a(k, Rindex(l))
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a(k, Rindex(l)) = a(k, Cindex(l))
-					'UPGRADE_WARNING: Couldn't resolve default property of object a(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					a(k, Cindex(l)) = Dummy
-				Next k
-			End If
-		Next l
-		
-		Exit Sub
+        Dim c, r As Short
+        Dim Rindex(50) As Short
+        Dim Pivot(50) As Single
+        Dim Cindex(50) As Short
+        Dim Dummy, Big, Pinverse As Single
+
+        For j = 1 To N
+            Pivot(j) = 0
+        Next j
+        For i = 1 To N
+            Big = 0#
+            For j = 1 To N
+                If Pivot(j) <> 1 Then
+                    For k = 1 To N
+                        If Pivot(k) = 0 Then
+                            If System.Math.Abs(a(j, k)) >= Big Then
+                                Big = System.Math.Abs(a(j, k))
+                                r = j
+                                c = k
+                            End If
+                        ElseIf Pivot(k) > 1 Then
+                            Call MsgBox("Singular matrix inversion attempted", MsgBoxStyle.OkOnly, "DODO - Calculation Failure")
+                            Exit Sub
+                        End If
+                    Next k
+                End If
+            Next j
+            Pivot(c) = Pivot(c) + 1
+            If r <> c Then
+                For l = 1 To N
+                    Dummy = a(r, l)
+                    a(r, l) = a(c, l)
+                    a(c, l) = Dummy
+                Next l
+                For l = 1 To M
+                    Dummy = b(r, l)
+                    b(r, l) = b(c, l)
+                    b(c, l) = Dummy
+                Next l
+            End If
+            Rindex(i) = r
+            Cindex(i) = c
+            If a(c, c) = 0 Then
+                MsgBox("Singular matrix inversion attempted", MsgBoxStyle.OkOnly, "DODO - Calculation Failure")
+                Exit Sub
+            End If
+            Pinverse = 1.0# / a(c, c)
+            a(c, c) = 1.0#
+            For l = 1 To N
+                a(c, l) = a(c, l) * Pinverse
+            Next l
+            For l = 1 To M
+                b(c, l) = b(c, l) * Pinverse
+            Next l
+            For ll = 1 To N
+                If ll <> c Then
+                    Dummy = a(ll, c)
+                    a(ll, c) = 0#
+                    For l = 1 To N
+                        a(ll, l) = a(ll, l) - a(c, l) * Dummy
+                    Next l
+                    For l = 1 To M
+                        b(ll, l) = b(ll, l) - b(c, l) * Dummy
+                    Next l
+                End If
+            Next ll
+        Next i
+        For l = N To 1 Step -1
+            If Rindex(l) <> Cindex(l) Then
+                For k = 1 To N
+                    Dummy = a(k, Rindex(l))
+                    a(k, Rindex(l)) = a(k, Cindex(l))
+                    a(k, Cindex(l)) = Dummy
+                Next k
+            End If
+        Next l
+
+        Exit Sub
 		
 	End Sub
 	
@@ -551,47 +500,44 @@ Module modUtilities
 		GetSecondString = GetFirstString(RemSt)
 		
 	End Function
-	'UPGRADE_NOTE: Split was upgraded to Split_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Public Function Split_Renamed(ByVal InputText As String, Optional ByVal Delimiter As String = "") As Object
-		
-		' This function splits the sentence in InputText into
-		' words and returns a string array of the words. Each
-		' element of the array contains one word.
-		
-		' This constant contains punctuation and characters
-		' that should be filtered from the input string.
-		Const CHARS As String = "!?,;:""'()[]{}" ' removed period dot from this
-		Dim strReplacedText As String
-		Dim intIndex As Short
-		
-		' Replace tab characters with space characters.
-		strReplacedText = Trim(Replace(InputText, vbTab, " "))
-		
-		' Filter all specified characters from the string.
-		For intIndex = 1 To Len(CHARS)
-			strReplacedText = Trim(Replace(strReplacedText, Mid(CHARS, intIndex, 1), " "))
-		Next intIndex
-		
-		' Loop until all consecutive space characters are
-		' replaced by a single space character.
-		Do While InStr(strReplacedText, "  ")
-			strReplacedText = Replace(strReplacedText, "  ", " ")
-		Loop 
-		
-		' Split the sentence into an array of words and return
-		' the array. If a delimiter is specified, use it.
-		'MsgBox "String:" & strReplacedText
-		If Len(Delimiter) = 0 Then
-			'UPGRADE_WARNING: Couldn't resolve default property of object Split_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Split_Renamed = Split(strReplacedText)
-		Else
-			'UPGRADE_WARNING: Couldn't resolve default property of object Split_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Split_Renamed = Split(strReplacedText, Delimiter)
-		End If
-	End Function
-	
-	
-	Public Function ParseNumericString(ByRef St As String, ByRef OutArray() As Single) As Short
+    Public Function Split_Renamed(ByVal InputText As String, Optional ByVal Delimiter As String = "") As Object
+
+        ' This function splits the sentence in InputText into
+        ' words and returns a string array of the words. Each
+        ' element of the array contains one word.
+
+        ' This constant contains punctuation and characters
+        ' that should be filtered from the input string.
+        Const CHARS As String = "!?,;:""'()[]{}" ' removed period dot from this
+        Dim strReplacedText As String
+        Dim intIndex As Short
+
+        ' Replace tab characters with space characters.
+        strReplacedText = Trim(Replace(InputText, vbTab, " "))
+
+        ' Filter all specified characters from the string.
+        For intIndex = 1 To Len(CHARS)
+            strReplacedText = Trim(Replace(strReplacedText, Mid(CHARS, intIndex, 1), " "))
+        Next intIndex
+
+        ' Loop until all consecutive space characters are
+        ' replaced by a single space character.
+        Do While InStr(strReplacedText, "  ")
+            strReplacedText = Replace(strReplacedText, "  ", " ")
+        Loop
+
+        ' Split the sentence into an array of words and return
+        ' the array. If a delimiter is specified, use it.
+        'MsgBox "String:" & strReplacedText
+        If Len(Delimiter) = 0 Then
+            Split_Renamed = Split(strReplacedText)
+        Else
+            Split_Renamed = Split(strReplacedText, Delimiter)
+        End If
+    End Function
+
+
+    Public Function ParseNumericString(ByRef St As String, ByRef OutArray() As Single) As Short
 		Dim i, j As Integer
 		Dim num, StLen, DLen, StartCh As Short
         Dim TempSt As String
@@ -673,39 +619,30 @@ Module modUtilities
 	
 	' integer part with round-up
 	Public Function Round(ByRef X As Object) As Short
-		
-		'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Round = Fix(X + 0.5 * System.Math.Sign(X))
-		
-	End Function
+
+        Round = Fix(X + 0.5 * System.Math.Sign(X))
+
+    End Function
 	
 	' minimum of two number
 	Public Function Min(ByRef a As Object, ByRef b As Object) As Single
-		
-		'UPGRADE_WARNING: Couldn't resolve default property of object b. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		'UPGRADE_WARNING: Couldn't resolve default property of object a. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If (a < b) Then
-			'UPGRADE_WARNING: Couldn't resolve default property of object a. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Min = a
-		Else
-			'UPGRADE_WARNING: Couldn't resolve default property of object b. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Min = b
-		End If
+
+        If (a < b) Then
+            Min = a
+        Else
+            Min = b
+        End If
 		
 	End Function
 	
 	' maximum of two number
 	Public Function Max(ByRef a As Object, ByRef b As Object) As Single
-		
-		'UPGRADE_WARNING: Couldn't resolve default property of object b. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		'UPGRADE_WARNING: Couldn't resolve default property of object a. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If (a < b) Then
-			'UPGRADE_WARNING: Couldn't resolve default property of object b. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Max = b
-		Else
-			'UPGRADE_WARNING: Couldn't resolve default property of object a. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Max = a
-		End If
+
+        If (a < b) Then
+            Max = b
+        Else
+            Max = a
+        End If
 		
 	End Function
 	
@@ -717,9 +654,8 @@ Module modUtilities
 		ElseIf X = -1# Then 
 			Asin = -PI / 2#
 		Else
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Asin = System.Math.Atan(X / System.Math.Sqrt(-X * X + 1))
-		End If
+            Asin = System.Math.Atan(X / System.Math.Sqrt(-X * X + 1))
+        End If
 		
 	End Function
 	
@@ -731,9 +667,8 @@ Module modUtilities
 		ElseIf X = -1# Then 
 			Acos = PI
 		Else
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Acos = System.Math.Atan(-X / System.Math.Sqrt(-X * X + 1)) + PI / 2#
-		End If
+            Acos = System.Math.Atan(-X / System.Math.Sqrt(-X * X + 1)) + PI / 2.0#
+        End If
 		
 	End Function
 	
@@ -742,19 +677,13 @@ Module modUtilities
 		
 		If X > 0# Then
 			If Y >= 0# Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Atan = System.Math.Atan(Y / X)
-			Else
-				'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Atan = 2# * PI + System.Math.Atan(Y / X)
-			End If
-		ElseIf X < 0# Then 
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Atan = PI + System.Math.Atan(Y / X)
-		Else
+                Atan = System.Math.Atan(Y / X)
+            Else
+                Atan = 2.0# * PI + System.Math.Atan(Y / X)
+            End If
+		ElseIf X < 0# Then
+            Atan = PI + System.Math.Atan(Y / X)
+        Else
 			If Y > 0# Then
 				Atan = PI * 0.5
 			ElseIf Y < 0# Then 
@@ -870,11 +799,9 @@ Module modUtilities
 	
 	Public Function getNoExtFileName(ByVal fname As String) As Object
 		Dim Pos As Object
-		'UPGRADE_WARNING: Couldn't resolve default property of object Pos. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		Pos = InStr(1, fname, ".")
-		'UPGRADE_WARNING: Couldn't resolve default property of object Pos. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		getNoExtFileName = Left(fname, Pos - 1)
-	End Function
+        Pos = InStr(1, fname, ".")
+        getNoExtFileName = Left(fname, Pos - 1)
+    End Function
 	
 	Public Function ScopeByHD(ByVal HD As Single, ByVal SprdAng As Single, ByVal FLX As Single, ByVal FLY As Single) As Single
 		
@@ -972,46 +899,23 @@ Module modUtilities
 	'End Sub
 	
 	Public Function Atn2(ByRef X As Object, ByRef Y As Object) As Object
-		'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		If X = 0 Then ' On Y-axis
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If Y > 0 Then ' Positive Y-axis
-				'UPGRADE_WARNING: Couldn't resolve default property of object Atn2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Atn2 = PI / 2#
-				'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			ElseIf Y < 0 Then  ' Negative Y-axis
-				'UPGRADE_WARNING: Couldn't resolve default property of object Atn2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Atn2 = -PI / 2#
-			Else ' (0,0) Point
-				'UPGRADE_WARNING: Couldn't resolve default property of object Atn2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Atn2 = 0#
-			End If
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		ElseIf X > 0 And Y >= 0 Then  ' First quadrant
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Atn2 = System.Math.Atan(Y / X)
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		ElseIf X < 0 And Y >= 0 Then  ' Second quadrant
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Atn2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Atn2 = PI - System.Math.Atan(-Y / X)
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		ElseIf X < 0 And Y <= 0 Then  ' Third quadrant
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Atn2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Atn2 = System.Math.Atan(Y / X) + PI
-		Else ' Fourth quadrant
-			'UPGRADE_WARNING: Couldn't resolve default property of object X. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Y. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object Atn2. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			Atn2 = 2# * PI - System.Math.Atan(-Y / X)
-		End If
+        If X = 0 Then ' On Y-axis
+            If Y > 0 Then ' Positive Y-axis
+                Atn2 = PI / 2.0#
+            ElseIf Y < 0 Then  ' Negative Y-axis
+                Atn2 = -PI / 2.0#
+            Else ' (0,0) Point
+                Atn2 = 0#
+            End If
+        ElseIf X > 0 And Y >= 0 Then  ' First quadrant
+            Atn2 = System.Math.Atan(Y / X)
+        ElseIf X < 0 And Y >= 0 Then  ' Second quadrant
+            Atn2 = PI - System.Math.Atan(-Y / X)
+        ElseIf X < 0 And Y <= 0 Then  ' Third quadrant
+            Atn2 = System.Math.Atan(Y / X) + PI
+        Else ' Fourth quadrant
+            Atn2 = 2.0# * PI - System.Math.Atan(-Y / X)
+        End If
 	End Function
 	
 	Public Function RadTo360(ByVal X As Single) As Single

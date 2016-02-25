@@ -54,6 +54,7 @@ Module modGridUtilities
         CheckingGrid = False
 
     End Sub
+
     Public Sub copyToClipBoard(ByRef dataGridView1 As DataGridView)
 
         'dataGridView1.SelectAll()
@@ -117,12 +118,14 @@ Module modGridUtilities
         End While
         CheckingGrid = True
     End Sub
+
     Public Sub NumberAllRows(ByRef dataGridView1 As DataGridView)
         ' Add row headers.
         For i As Integer = 0 To dataGridView1.Rows.Count - 1
             dataGridView1.Rows(i).HeaderCell.Value = (i + 1).ToString()
         Next i
     End Sub
+
     Public Function CheckData(ByVal Entry As String, Optional ByVal Zero As String = "0", Optional ByVal NoWarning As Boolean = False) As String
 
         Dim msg As String

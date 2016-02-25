@@ -39,9 +39,8 @@ Friend Class Wave
 			
 		End Set
 	End Property
-	
-	
-	Public Property Height() As Single
+
+    Public Property Height() As Single
 		Get
 			
 			Height = msngHeight
@@ -53,9 +52,8 @@ Friend Class Wave
 			
 		End Set
 	End Property
-	
-	
-	Public Property Period() As Single
+
+    Public Property Period() As Single
 		Get
 			
 			Period = msngPeriod
@@ -227,11 +225,10 @@ Friend Class Wave
         End If
 
     End Function
+
     Private Function Gaus(ByVal w As Double) As Double
 
         Dim M, f, fp, pai As Double
-        Dim Hs As Single
-
         pai = 4 * System.Math.Atan(1)
 
 

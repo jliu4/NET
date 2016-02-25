@@ -14,9 +14,8 @@ Friend Class ShipLocal
 	Private msngSurge As Single
 	Private msngSway As Single
 	Private msngYaw As Single
-	
-	
-	Public Property Heading() As Single
+
+    Public Property Heading() As Single
 		Get
 			
 			Heading = msngHead
@@ -28,9 +27,8 @@ Friend Class ShipLocal
 			
 		End Set
 	End Property
-	
-	
-	Public Property Surge() As Single
+
+    Public Property Surge() As Single
 		Get
 			
 			Surge = msngSurge
@@ -42,9 +40,8 @@ Friend Class ShipLocal
 			
 		End Set
 	End Property
-	
-	
-	Public Property Sway() As Single
+
+    Public Property Sway() As Single
 		Get
 			
 			Sway = msngSway
@@ -56,15 +53,12 @@ Friend Class ShipLocal
 			
 		End Set
 	End Property
-	
-	
-	Public Property Yaw() As Single
-		Get
-			
-			Yaw = msngYaw
-			
-		End Get
-		Set(ByVal Value As Single)
+
+    Public Property Yaw() As Single
+        Get
+            Yaw = msngYaw
+        End Get
+        Set(ByVal Value As Single)
 			
 			msngYaw = Value
 			

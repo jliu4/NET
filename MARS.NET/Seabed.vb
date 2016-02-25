@@ -14,29 +14,21 @@ Friend Class PltSeabed
 	Private ylength As Single '...y direct total length
 	Private xgridpt As Short '...x direct total grid points
 	Private ygridpt As Short '...y direct total grid points
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		
-		Grid = New threeDLine
-		Grid.setColor(&H40C0) 'RGB(0, 60, 60)
-		seaGrapher = New threeDGrapher
-		
-		ReadFile()
-		
-	End Sub
-	Public Sub New()
-		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
-	
-	Public Sub ReadFile()
+
+    Public Sub New()
+        MyBase.New()
+        Grid = New threeDLine
+        Grid.setColor(&H40C0) 'RGB(0, 60, 60)
+        seaGrapher = New threeDGrapher
+        ReadFile()
+    End Sub
+
+    Public Sub ReadFile()
 		
 		Dim i, j As Short
-		'UPGRADE_NOTE: FileOpen was upgraded to FileOpen_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-		Dim FileOpen_Renamed As Boolean
-		
-		On Error GoTo ExitErr '...if not find data file then don't draw pipelines
+        Dim FileOpen_Renamed As Boolean
+
+        On Error GoTo ExitErr '...if not find data file then don't draw pipelines
 		FileOpen_Renamed = False
 		
 		FileOpen(FileNumRes, MarsDir & SeaBedFile, OpenMode.Input) ' Open file for input.
@@ -146,8 +138,7 @@ ExitErr:
 		If zoomVar = True Then
 			drawSeabed(ShipGlob, ShipDraft)
 		End If
-		'UPGRADE_WARNING: Couldn't resolve default property of object ZoomGraph. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		ZoomGraph = zoomVar
-		
-	End Function
+        ZoomGraph = zoomVar
+
+    End Function
 End Class

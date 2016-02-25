@@ -187,12 +187,6 @@
     <Compile Include="..\commonCode\modPlot.vb">
       <Link>modPlot.vb</Link>
     </Compile>
-    <Compile Include="..\commonCode\modRegConstants.vb">
-      <Link>modRegConstants.vb</Link>
-    </Compile>
-    <Compile Include="..\commonCode\modRegistry.vb">
-      <Link>modRegistry.vb</Link>
-    </Compile>
     <Compile Include="..\commonCode\modUtilityFunctions.vb">
       <Link>modUtilityFunctions.vb</Link>
     </Compile>
@@ -231,9 +225,6 @@
     </Compile>
     <Compile Include="..\commonCode\ShipYawRate.vb">
       <Link>ShipYawRate.vb</Link>
-    </Compile>
-    <Compile Include="..\commonCode\UpgradeSupport.vb">
-      <Link>UpgradeSupport.vb</Link>
     </Compile>
     <Compile Include="..\commonCode\Vessel.vb">
       <Link>Vessel.vb</Link>

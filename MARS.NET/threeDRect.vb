@@ -11,19 +11,15 @@ Friend Class threeDRect
 	Public yCoord As Single
 	Public zCoord As Single
 	Public fillColor As Integer
-	
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		Length1 = New threeDLine
-		Length2 = New threeDLine
-		Width1 = New threeDLine
-		Width2 = New threeDLine
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        Length1 = New threeDLine
+        Length2 = New threeDLine
+        Width1 = New threeDLine
+        Width2 = New threeDLine
+
+    End Sub
 	
 	' creates lines for a rectangle parallel to the xy plane
 	Public Sub createHorizontalRect(ByVal L As Single, ByVal w As Single, ByVal xCenter As Single, ByVal ycenter As Single, ByVal zCenter As Single, ByVal rcolor As Integer, Optional ByRef fillMe As Integer = 0)
@@ -41,13 +37,12 @@ Friend Class threeDRect
 		yCoord = ycenter
 		zCoord = zCenter
 		ycenter = -ycenter
-		
-		
-		'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
-		If IsNothing(fillMe) Then
-			fillColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
-		Else
-			fillColor = fillMe
+
+
+        If IsNothing(fillMe) Then
+            fillColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
+        Else
+            fillColor = fillMe
 		End If
 		
 		' length here is the line parallel to the xaxis, w is
@@ -98,21 +93,18 @@ Friend Class threeDRect
 	' with the xz plane.
 	
 	Public Sub createVerticalRect(ByVal L As Single, ByVal w As Single, ByVal xCenter As Single, ByVal ycenter As Single, ByVal zCenter As Single, ByVal xDeg As Object, ByVal rcolor As Integer, Optional ByRef fillMe As Integer = 0)
-		'UPGRADE_WARNING: Couldn't resolve default property of object xDeg. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		xDeg = -xDeg
-		Dim xRads As Single
-		
-		'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
-		If IsNothing(fillMe) Then
-			fillColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
-		Else
-			fillColor = fillMe
+        xDeg = -xDeg
+        Dim xRads As Single
+
+        If IsNothing(fillMe) Then
+            fillColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
+        Else
+            fillColor = fillMe
 		End If
-		
-		' convert degrees to radians
-		'UPGRADE_WARNING: Couldn't resolve default property of object xDeg. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-		xRads = xDeg * PI / 180
-		ycenter = -ycenter
+
+        ' convert degrees to radians
+        xRads = xDeg * PI / 180
+        ycenter = -ycenter
 		rotateRect(xCenter, ycenter, zCenter, xRads, L, w, Length1, Length2, Width1, Width2)
 		
 		Length1.setColor(rcolor)
@@ -175,11 +167,10 @@ Friend Class threeDRect
 	
 	Public Sub createTriangle(ByVal L As Single, ByVal w As Single, ByVal X As Single, ByVal Y As Single, ByVal Z As Single, ByVal angleOffset As Single, ByVal lColor As Integer, Optional ByRef fColor As Integer = 0)
 		Y = -Y
-		'UPGRADE_NOTE: IsMissing() was changed to IsNothing(). Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="8AE1CB93-37AB-439A-A4FF-BE3B6760BB23"'
-		If IsNothing(fColor) Then
-			fillColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
-		Else
-			fillColor = fColor
+        If IsNothing(fColor) Then
+            fillColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red)
+        Else
+            fillColor = fColor
 		End If
 		
 		' calculate the center of the triangle. Consider the center

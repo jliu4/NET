@@ -20,12 +20,10 @@ Friend Class RAOs
 		MyBase.New()
         mcolRAOs = New Collection
 	End Sub
-	
-	
-	' properties
-	
-	
-	Public Property Draft() As Single
+
+    ' properties	
+
+    Public Property Draft() As Single
 		Get
 			
 			Draft = msngDraft
@@ -52,69 +50,46 @@ Friend Class RAOs
 			Dim r As New Motion
 			
 			N = mcolRAOs.Count()
-			
-			If N = 1 Then
-				With r
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.Surge = mcolRAOs.Item(1).RAOx.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.Sway = mcolRAOs.Item(1).RAOy.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					.Yaw = mcolRAOs.Item(1).RAOr.ForceCoef(Direction)
-				End With
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs(1).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			ElseIf Frequency <= mcolRAOs.Item(1).Freq Then 
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Rf = Frequency / mcolRAOs.Item(1).Freq
-				With mcolRAOs.Item(1)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					r.Surge = .RAOx.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					r.Sway = .RAOy.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					r.Yaw = .RAOr.ForceCoef(Direction) * Rf
-				End With
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs(N).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			ElseIf Frequency >= mcolRAOs.Item(N).Freq Then 
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Rf = mcolRAOs.Item(N).Freq / Frequency
-				With mcolRAOs.Item(N)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					r.Surge = .RAOx.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					r.Sway = .RAOy.ForceCoef(Direction) * Rf
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					r.Yaw = .RAOr.ForceCoef(Direction) * Rf
-				End With
+
+            If N = 1 Then
+                With r
+                    .Surge = mcolRAOs.Item(1).RAOx.ForceCoef(Direction)
+                    .Sway = mcolRAOs.Item(1).RAOy.ForceCoef(Direction)
+                    .Yaw = mcolRAOs.Item(1).RAOr.ForceCoef(Direction)
+                End With
+            ElseIf Frequency <= mcolRAOs.Item(1).Freq Then
+                Rf = Frequency / mcolRAOs.Item(1).Freq
+                With mcolRAOs.Item(1)
+                    r.Surge = .RAOx.ForceCoef(Direction) * Rf
+                    r.Sway = .RAOy.ForceCoef(Direction) * Rf
+                    r.Yaw = .RAOr.ForceCoef(Direction) * Rf
+                End With
+            ElseIf Frequency >= mcolRAOs.Item(N).Freq Then
+                Rf = mcolRAOs.Item(N).Freq / Frequency
+                With mcolRAOs.Item(N)
+                    r.Surge = .RAOx.ForceCoef(Direction) * Rf
+                    r.Sway = .RAOy.ForceCoef(Direction) * Rf
+                    r.Yaw = .RAOr.ForceCoef(Direction) * Rf
+                End With
 			Else
 				For i = 2 To N
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs(i).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					If Frequency < mcolRAOs.Item(i).Freq Then
-						Ns = i
-						Exit For
-					End If
-				Next 
+                    If Frequency < mcolRAOs.Item(i).Freq Then
+                        Ns = i
+                        Exit For
+                    End If
+                Next 
 				With mcolRAOs.Item(Ns - 1)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Rx1 = .RAOx.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Ry1 = .RAOy.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Rr1 = .RAOr.ForceCoef(Direction)
-				End With
+                    Rx1 = .RAOx.ForceCoef(Direction)
+                    Ry1 = .RAOy.ForceCoef(Direction)
+                    Rr1 = .RAOr.ForceCoef(Direction)
+                End With
 				With mcolRAOs.Item(Ns)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOx. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Rx2 = .RAOx.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOy. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Ry2 = .RAOy.ForceCoef(Direction)
-					'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().RAOr. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-					Rr2 = .RAOr.ForceCoef(Direction)
-				End With
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs(Ns - 1).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs(Ns).Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				'UPGRADE_WARNING: Couldn't resolve default property of object mcolRAOs().Freq. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				Rf = (Frequency - mcolRAOs.Item(Ns - 1).Freq) / (mcolRAOs.Item(Ns).Freq - mcolRAOs.Item(Ns - 1).Freq)
-				With r
+                    Rx2 = .RAOx.ForceCoef(Direction)
+                    Ry2 = .RAOy.ForceCoef(Direction)
+                    Rr2 = .RAOr.ForceCoef(Direction)
+                End With
+                Rf = (Frequency - mcolRAOs.Item(Ns - 1).Freq) / (mcolRAOs.Item(Ns).Freq - mcolRAOs.Item(Ns - 1).Freq)
+                With r
 					.Surge = Rx1 + (Rx2 - Rx1) * Rf
 					.Sway = Ry1 + (Ry2 - Ry1) * Rf
 					.Yaw = Rr1 + (Rr2 - Rr1) * Rf

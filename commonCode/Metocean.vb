@@ -22,9 +22,8 @@ Friend Class Metocean
         mclsWave = New Wave
         mclsCurrent = New Current
 	End Sub
-	
 
-	Public Property Name() As String
+    Public Property Name() As String
 		Get
 			
 			Name = mstrName
@@ -49,24 +48,21 @@ Friend Class Metocean
 	End Property
 	
 	Public ReadOnly Property Current() As Current
-		Get
-			
-			Current = mclsCurrent
-			
-		End Get
-	End Property
+        Get
+            Current = mclsCurrent
+
+        End Get
+    End Property
 	
 	Public ReadOnly Property Wave() As Wave
-		Get
-			
-			Wave = mclsWave
-			
-		End Get
-	End Property
+        Get
+            Wave = mclsWave
+
+        End Get
+    End Property
 
     Public ReadOnly Property Wind() As Wind
         Get
-
             Wind = mclsWind
 
         End Get
@@ -94,7 +90,6 @@ Friend Class Metocean
             Next i
         End If
 
-
     End Function
 
     Public Function ReadData(ByVal fnum As Integer, ByVal UDEF As Boolean) As Object
@@ -113,7 +108,7 @@ Friend Class Metocean
         mclsWave.SpectrumName = Fields(3)
         mclsWave.Height = Fields(4)
         mclsWave.Period = Fields(5)
-        ' If InStr(mclsWave.SpectrumName, "JONH") > 0 Then
+
         mclsWave.gamma = Fields(6)
             mclsWave.Heading = Fields(7)
             mclsCurrent.Heading = Fields(8)
@@ -126,23 +121,6 @@ Friend Class Metocean
                 mclsWave.SwellGamma = Fields(14)
                 mclsWave.SwellHeading = Fields(15)
             End If
-        '  Else
-        'mclsWave.gamma = 0
-        'mclsWave.Heading = Fields(6)
-        'mclsCurrent.Heading = Fields(7)
-        'mclsCurrent.SurfaceVel = CDbl(Fields(8))
-        'TmpCount = CShort(Fields(9))
-
-        'If UDEF Then
-        'mclsWave.SwellHeight = Fields(10)
-        'mclsWave.SwellPeriod = Fields(11)
-        'mclsWave.SwellSpectrumName = Fields(12)
-        'mclsWave.SwellGamma = Fields(13)
-        'mclsWave.SwellHeading = Fields(14)
-
-        'End If
-        'End If
-
         If TmpCount > 1 Then
             aline = LineInput(fnum) ' discard header WD Vel
             numPairs = mclsCurrent.ProfileCount

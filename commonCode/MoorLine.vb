@@ -327,7 +327,6 @@ Friend Class MoorLine
         End Get
     End Property
 
-
     Public Property PayoutSur() As Single
         Get
 
@@ -340,7 +339,6 @@ Friend Class MoorLine
 
         End Set
     End Property
-
 
     Public Property PayoutOpr() As Single
         Get
@@ -355,7 +353,6 @@ Friend Class MoorLine
         End Set
     End Property
 
-
     Public Property PretensionSur() As Single
         Get
 
@@ -368,7 +365,6 @@ Friend Class MoorLine
 
         End Set
     End Property
-
 
     Public Property PretensionOpr() As Single
         Get
@@ -429,7 +425,6 @@ Friend Class MoorLine
 
         End Get
     End Property
-
 
     Public Property DesScope() As Single
         Get
@@ -495,7 +490,6 @@ Friend Class MoorLine
         End Get
     End Property
 
-
     Public Property Draft() As Single
         Get
 
@@ -509,7 +503,6 @@ Friend Class MoorLine
 
         End Set
     End Property
-
 
     Public Property WaterDepth() As Single
         Get
@@ -525,7 +518,6 @@ Friend Class MoorLine
         End Set
     End Property
 
-
     Public Property BottomSlope() As Single
         Get
 
@@ -540,7 +532,6 @@ Friend Class MoorLine
         End Set
     End Property
 
-
     Public Property Connected() As Boolean
         Get
 
@@ -554,7 +545,6 @@ Friend Class MoorLine
         End Set
     End Property
 
-
     Public Property Winched() As Boolean
         Get
 
@@ -567,7 +557,6 @@ Friend Class MoorLine
 
         End Set
     End Property
-
 
     Public Property WinchCap() As Single
         Get
@@ -1544,7 +1533,6 @@ Friend Class MoorLine
                         SegLen0 = POL
                         If LineLen = 0# Then SegLen0 = 0.01
                     Else
-                        'UPGRADE_WARNING: Couldn't resolve default property of object mcolSegments.Item().Length. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
                         SegLen0 = .Length
                     End If
 

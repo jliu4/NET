@@ -1,50 +1,32 @@
 Option Strict Off
 Option Explicit On
 Friend Class ShipMass
-	
-	' ship mass and added mass
-	
-	' properties
-	' Draft:        ship draft (ft)
-	
-	' MassSurge:    mass in surge direction (slug)
-	' MassSway:     mass in sway direction (slug)
-	'Invalid_string_refer_to_original_code
-	
-	' AddMassSurge: added mass in surge direction (slug)
-	' AddMassSway:  added mass in sway direction (slug)
-	'Invalid_string_refer_to_original_code
-	
-	' VirMassSurge: virtual mass in surge direction (slug)
-	' VirMassSway:  virtual mass in sway direction (slug)
-	'Invalid_string_refer_to_original_code
-	
-	Private msngDraft As Single
-	
-	Private msngMassSurge As Single
+
+    ' ship mass and added mass
+
+    Private msngDraft As Single
+
+    Private msngMassSurge As Single
 	Private msngMassSway As Single
 	Private msngMassYaw As Single
 	
 	Private msngAddMassSurge As Single
 	Private msngAddMassSway As Single
 	Private msngAddMassYaw As Single
-	
-	
-	Public Property Draft() As Single
-		Get
-			
-			Draft = msngDraft
-			
-		End Get
-		Set(ByVal Value As Single)
+
+    Public Property Draft() As Single
+        Get
+            Draft = msngDraft
+
+        End Get
+        Set(ByVal Value As Single)
 			
 			msngDraft = Value
 			
 		End Set
 	End Property
-	
-	
-	Public Property MassSurge() As Single
+
+    Public Property MassSurge() As Single
 		Get
 			
 			MassSurge = msngMassSurge
@@ -56,9 +38,8 @@ Friend Class ShipMass
 			
 		End Set
 	End Property
-	
-	
-	Public Property MassSway() As Single
+
+    Public Property MassSway() As Single
 		Get
 			
 			MassSway = msngMassSway
@@ -70,9 +51,8 @@ Friend Class ShipMass
 			
 		End Set
 	End Property
-	
-	
-	Public Property MassYaw() As Single
+
+    Public Property MassYaw() As Single
 		Get
 			
 			MassYaw = msngMassYaw
@@ -84,10 +64,8 @@ Friend Class ShipMass
 			
 		End Set
 	End Property
-	
-	
-	
-	Public Property AddMassSurge() As Single
+
+    Public Property AddMassSurge() As Single
 		Get
 			
 			AddMassSurge = msngAddMassSurge
@@ -99,9 +77,8 @@ Friend Class ShipMass
 			
 		End Set
 	End Property
-	
-	
-	Public Property AddMassSway() As Single
+
+    Public Property AddMassSway() As Single
 		Get
 			
 			AddMassSway = msngAddMassSway
@@ -113,9 +90,8 @@ Friend Class ShipMass
 			
 		End Set
 	End Property
-	
-	
-	Public Property AddMassYaw() As Single
+
+    Public Property AddMassYaw() As Single
 		Get
 			
 			AddMassYaw = msngAddMassYaw

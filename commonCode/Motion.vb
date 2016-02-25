@@ -21,9 +21,8 @@ Friend Class Motion
 			
 		End Get
 	End Property
-	
-	
-	Public Property Surge() As Single
+
+    Public Property Surge() As Single
 		Get
 			
 			Surge = msngSurge
@@ -35,9 +34,8 @@ Friend Class Motion
 			
 		End Set
 	End Property
-	
-	
-	Public Property Sway() As Single
+
+    Public Property Sway() As Single
 		Get
 			
 			Sway = msngSway
@@ -49,9 +47,8 @@ Friend Class Motion
 			
 		End Set
 	End Property
-	
-	
-	Public Property Yaw() As Single
+
+    Public Property Yaw() As Single
 		Get
 			
 			Yaw = msngYaw

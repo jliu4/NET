@@ -40,41 +40,32 @@ Friend Class PltOutboard3d
 	Private longOne As outboardData
 	Private lPontoon As aPontoon
 	Private rPontoon As aPontoon
-	
-	
-	
-	
-	' enters the data from blueprint and creates the
-	' structures
-	
-	'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-	Private Sub Class_Initialize_Renamed()
-		outBack.Depth = 2.16 * 3.28
-		outBack.Height = 5 * 3.28
-		outBack.Length = 9 * 3.28
-		outBack.sideProtusion = 0.4 * 16.9
-		
-		outFront.Depth = 2.16 * 3.28
-		outFront.Height = 5 * 3.28
-		outFront.Length = 9 * 3.28
-		outFront.sideProtusion = 0.4 * 16.9
-		
-		middle.Depth = 2.16 * 3.28
-		middle.Height = 5 * 3.28
-		middle.Length = 52 * 3.28
-		middle.sideProtusion = 0.4 * 16.9
-		
-		longOne.Depth = 2.16 * 3.28
-		longOne.Height = 5 * 3.28
-		longOne.Length = 96 * 3.28
-		longOne.sideProtusion = 5 * 3.25
-		initpontoons()
-		createOutboards()
-	End Sub
-	Public Sub New()
+
+    Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
+        outBack.Depth = 2.16 * 3.28
+        outBack.Height = 5 * 3.28
+        outBack.Length = 9 * 3.28
+        outBack.sideProtusion = 0.4 * 16.9
+
+        outFront.Depth = 2.16 * 3.28
+        outFront.Height = 5 * 3.28
+        outFront.Length = 9 * 3.28
+        outFront.sideProtusion = 0.4 * 16.9
+
+        middle.Depth = 2.16 * 3.28
+        middle.Height = 5 * 3.28
+        middle.Length = 52 * 3.28
+        middle.sideProtusion = 0.4 * 16.9
+
+        longOne.Depth = 2.16 * 3.28
+        longOne.Height = 5 * 3.28
+        longOne.Length = 96 * 3.28
+        longOne.sideProtusion = 5 * 3.25
+        initpontoons()
+        createOutboards()
+
+    End Sub
 	
 	Private Sub initpontoons()
 		lPontoon.OBack.side1 = New threeDRect
@@ -159,18 +150,16 @@ Friend Class PltOutboard3d
 	End Sub
 	
 	Private Sub createOutboards()
-		
-		
-		Dim xCenter1 As Single
+
+        Dim xCenter1 As Single
 		Dim xCenter2 As Single
 		Dim ycenter As Single
 		Dim zCenter As Single
 		Dim angle1 As Single
 		Dim angle2 As Single
 		Dim radAngle As Single
-		Dim outboardTemp As anOutBoard
-		Dim tangle As Single
-		Dim tX As Single
+        Dim tangle As Single
+        Dim tX As Single
 		Dim tY As Single
 		Dim tZ As Single
 		Dim tL As Single
@@ -524,13 +513,8 @@ Friend Class PltOutboard3d
 		lPontoon.OFront.tSide1.createTriangle(tL, tW, tX, tY, tZ, tangle, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 		
 		rPontoon.OFront.tSide1.createTriangle(tW, tL, -tX, tY, tZ, tangle - 90, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
-		
-		
-		
-		
-		
-		' now let's do the middle panel of the front outboard
-		xCenter1 = -PDistance / 2
+        ' now let's do the middle panel of the front outboard
+        xCenter1 = -PDistance / 2
 		xCenter1 = xCenter1 - PontWidth
 		xCenter1 = xCenter1 - outFront.Depth
 		xCenter2 = -xCenter1
@@ -573,10 +557,8 @@ Friend Class PltOutboard3d
 		lPontoon.OFront.Top.createHorizontalRect(tL, tW, tX, tY, tZ, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 		
 		rPontoon.OFront.Top.createHorizontalRect(tL, tW, -tX, tY, tZ, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
-		
-		
-		' now let's do the front panel of the front outboard
-		xCenter1 = -PDistance / 2
+        ' now let's do the front panel of the front outboard
+        xCenter1 = -PDistance / 2
 		xCenter1 = xCenter1 - PontWidth
 		xCenter1 = xCenter1 - outFront.Depth / 2
 		xCenter2 = -xCenter1
@@ -764,10 +746,8 @@ Friend Class PltOutboard3d
 		lPontoon.OLong.tside2.createTriangle(tL, tW, tX, tY, tZ, tangle, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
 		
 		rPontoon.OLong.tside2.createTriangle(tW, tL, -tX, tY, tZ, tangle - 90, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black))
-		
-		
-		
-	End Sub
+
+    End Sub
 	
 	Public Sub DrawOutboards(ByRef gIn As threeDGrapher)
 		gIn.drawRect(lPontoon.OBack.side1)

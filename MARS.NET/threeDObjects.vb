@@ -1,8 +1,9 @@
 Option Strict Off
 Option Explicit On
 Friend Class threeDObjects
-	Implements System.Collections.IEnumerable
-	Private mcolthreeDObjects As New Collection
+    Implements System.Collections.IEnumerable
+
+    Private mcolthreeDObjects As New Collection
 	Private mintIndex As Short
 	
 	Public Function Add(ByVal New3DObj As threeDObject, Optional ByVal OName As String = "") As threeDObject
@@ -25,16 +26,11 @@ Friend Class threeDObjects
 	Public Function Item(ByVal Index As Object) As threeDObject
 		Item = mcolthreeDObjects.Item(Index)
 	End Function
-	
-	'UPGRADE_NOTE: NewEnum property was commented out. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="B3FC1610-34F3-43F5-86B7-16C984F0E88E"'
-	'Public Function NewEnum() As stdole.IUnknown
-		'NewEnum = mcolthreeDObjects.GetEnumerator
-	'End Function
-	
-	Function GetEnumerator() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
-		'UPGRADE_TODO: Uncomment and change the following line to return the collection enumerator. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="95F9AAD0-1319-4921-95F0-B9D3C4FF7F1C"'
-		'GetEnumerator = mcolthreeDObjects.GetEnumerator
-	End Function
+
+
+    Function GetEnumerator() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
+        GetEnumerator = mcolthreeDObjects.GetEnumerator
+    End Function
 	
 	Public Function Copy(ByRef Obj3D As threeDObject, Optional ByVal NewName As String = "") As threeDObject
 		Dim New3DObj As New threeDObject
